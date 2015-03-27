@@ -26,6 +26,36 @@ Nmap的输出贯穿了本书演示特点。输出常常
    本书作为nmap的重要参考资料，但不是仅有的参考资料。nmap在http://nmap.org上的web页面不只为了下载。它也同样为nmap的开发和第三方提供丰富的资料。
    本书的官网地址为http://nmap.org/book/。在这里可以看到勘误、更新和很多样章。
    任何认真的nmap用户
+Any serious Nmap user should subscribe to the nmap-hackers mailing list for announcements about Nmap and Insecure.Org.
+如何认真的Nmap用户会在nmap-hackers上订阅关于Nmap和insecure.org声明的邮件清单，
+
+Traffic is very light (about six posts per year) because it is reserved for only the most important announcements.
+由于只保留最重要的声明，所以流量很小（每年大概6个的样子）
+
+Developers and particularly devoted users can also subscribe to the nmap-dev mailing list.
+开发者和特定的贡献用户也可以订阅nmap-dev的邮件列表。
+
+Traffic is much higher (hundreds of posts per month), but it is a great place to learn about and try new features before they are released and to pick up tips from advanced users.
+这个的流量就大的多了（每个月有上百的），但这是一个在学习关于和尝试新特性的地方。
+
+Subscription information and archives for both lists are available at http://seclists.org.
+在http://seclists.org上提供了上面两个预定信息列表和。
+
+While Nmap can be useful, it won't solve all of your security problems.
+nmap很有用，但它并不能解决你所有的安全问题。
+
+Every few years I do a survey of thousands of Nmap users to determine what other tools they like.
+每隔一些年，我会对成千的nmap用户做一个调查，以便确定其他工具的样子。
+
+The list is posted at http://sectools.org, which has become one of my most popular web sites.
+在http://sectools.org上列出的清单，成为我最流行的网站之一。
+
+Read through the list and you are sure to find many gems you had never even heard of.
+通读这个清单，你会发现很多你从未见过（甚至听过）的珍宝。
+
+Most of the tools are free and open source.
+它们中的大部分是免费开源软件。
+
    
 评论请求
 
