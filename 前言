@@ -6,13 +6,13 @@ Introduction
 介绍
 
 On September 1, 1997, I released a security scanner named Nmap in the fifty-first issue of Phrack magazine. 
-1997年9月1日，我在杂志《Phrack》的第五十五期上发布了一个名为nmap的安全扫描工具。
+1997年9月1日，我在杂志《菲里克》（Phrack）的第五十一期上发布了一个名为nmap的安全扫描工具。
 My goal was to consolidate the fragmented field of special-purpose port scanners into one powerful and flexible free tool, providing a consistent interface and efficient implementation of all practical port scanning techniques. 
 我的目标是为了加强分散的各种特殊端口扫描器为一个功能强大且灵活的免费工具，提供一个一致的接口，高效的实现各种实用端口扫描技术。
 Nmap then consisted of three files (barely 2,000 lines of code) and supported only the Linux operating system. 
-Nmap后来包含3个文件（仅仅包含约2000行代码）并只支持Linux操作系统。
+Nmap后来包含3个文件（仅仅包含约2000行代码），并只支持Linux操作系统。
 It was written for my own purposes, and released in the hope that others would find it useful.
-写这个软件完全出于个人的目的，抱着别人能够发现它有用。
+这个软件完全出于个人抱着别人能够发现它有用的目的而写。
 
 From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide. 
 从简陋开始，通过开源开发的力量，nmap成为了世界上最流行的网络安全扫描器，在世界范围内，有数以万计的用户。
@@ -67,7 +67,7 @@ nmap在http://nmap.org上的web页面不只为了下载。
 It also provides substantial documentation from Nmap developers and third parties. 
 它也同样为nmap的开发和第三方提供丰富的资料。
 For example, you can find the Nmap Reference Guide translated into a dozen languages there. 
-比如，你可以找到nmap翻译为多种预研的参考指南。
+比如，你会发现，nmap的参考指南已经翻译成多种语言。
 Other books, videos, and articles covering Nmap are also available.
 其他覆盖nmap的书籍、视频和文章都可以得到。
 
@@ -189,8 +189,9 @@ I hope to switch back to FOP after the footnote bug is fixed.
 Cover layout was done with Scribus and (due to printing company format requirements) Adobe InDesign. 
 Raster graphics for the cover and internal illustrations were created with The Gimp, while Inkscape was used for vector graphics.
 
-Subversion was used for revision control and the free web chapters are serviced by Apache httpd.
 
+Subversion was used for revision control and the free web chapters are serviced by Apache httpd.
+我们用Subversion来控制版本，免费的章节由apache httd给大家提供服务。
 
 TCP/IP参考
 TCP/IP Reference
