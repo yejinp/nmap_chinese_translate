@@ -101,11 +101,16 @@ Most of the tools are free and open source.
 Request for Comments 
 评论请求
 While I tried my best to make this book comprehensive, accurate, and up-to-date, we all make mistakes. 
+我尽量使得本书容易理解、准确并并与时俱进，但错误在所难免。
 If you find any problems or just have suggestions for making this book better, please let me know by email at <fyodor@nmap.org>. 
+如果你发现任何问题或者有使得本书更好的建议，请通过邮件<fyodor@nmap.org>让我知道。
 The open source principle of many readers and contributors is just as viable for documentation as for software. 
+开源的原则是读者和贡献者都能够与或者软件一样获得相应的文档。
 As the next section attests, dozens of people have already generously contributed their time and skills to make this book a success.
-
+正如下一节所述，很多人在让本书成功方面变得成功时作出了时间和技术上的贡献。
 If you have a question or comment about Nmap (rather than this book itself), it is best sent to the Nmap development list as described at the section called “Bugs”.
+如果你有关于Nmap（不只限于本书）的问题或者评论，最好能够根据bugs一节中所述给nmap的开发列表。
+
 
 Acknowledgements
 致谢
@@ -188,6 +193,7 @@ XEP is proprietary, but at least it runs on Linux.
 I hope to switch back to FOP after the footnote bug is fixed.
 
 Cover layout was done with Scribus and (due to printing company format requirements) Adobe InDesign. 
+封面布局用Scribus和Adobe InDesign（需要打印公司格式）完成。
 Raster graphics for the cover and internal illustrations were created with The Gimp, while Inkscape was used for vector graphics.
 
 
