@@ -10,7 +10,7 @@ On September 1, 1997, I released a security scanner named Nmap in the fifty-firs
 My goal was to consolidate the fragmented field of special-purpose port scanners into one powerful and flexible free tool, providing a consistent interface and efficient implementation of all practical port scanning techniques. 
 我的目标是为了加强分散的各种特殊端口扫描器为一个功能强大且灵活的免费工具，提供一个一致的接口，高效的实现各种实用端口扫描技术。
 Nmap then consisted of three files (barely 2,000 lines of code) and supported only the Linux operating system. 
-Nmap后来包含3个文件（仅仅包含约2000行代码），并只支持Linux操作系统。
+后来Nmap包含3个文件（仅仅包含约2000行代码），并只支持Linux操作系统。
 It was written for my own purposes, and released in the hope that others would find it useful.
 这个软件完全出于个人抱着别人能够发现它有用的目的而写。
 
@@ -44,13 +44,56 @@ This book is dedicated to the Nmap community of users and developers.
 这本书奉献给nmap社区用户和开发者。
 Your passion, ideas, patches, feature requests, flame wars, bug reports, and midnight rants have shaped Nmap into what it is today.
 你的激情、想法、补丁、特性请求、战火、报告bug和午夜牢骚让它成为今天的样子。
-                              —Gordon “Fyodor” Lyon <fyodor@nmap.org>
+                                    —Gordon “Fyodor” Lyon <fyodor@nmap.org>
 
+Intended Audience and Organization
 目标读者和组织
 
-这本书描述了免费的安全扫描软件nmap，从给新手的基本端口扫描到为高级黑客使用的各种包的精巧加工。它可以给Nmap各层次的用户（或者说潜在用户）带来益处。
-从基本的开始，本书在第一章通过例子来展示nmap的概貌。然后在第二章描述了获取、编译和安装nmap。第三章到第五章用你在渗透测试用可能用到的顺序特性。首先是主机发现（ping扫描），确定一个网络上的可用主机。然后是纵深描述端口扫描。在第五章中，所有的nmap扫描技术都有详细描述，包括建议和例子。扫描一个大的网络会耗费一些时间，因此第六章都是性能优化建议。在第七章详细描述了服务和应用版本探测功能，这些功能让nmap查询端口以基于端口正确地识别而不是简单猜测运行着什么服务。第八章描述了Nmap最喜欢的特性：操作系统探测。在第九章中，详细描述了nmap的脚本引擎（nse），它允许用户写（分享）一些简单脚本来自动化完成不同的网络任务。我最喜欢的是第十章：探测和推翻防火墙和入侵检测系统。为了达到平衡，紧接着的一章就是如何防御nmap扫描。第十二章完整描述了zenmap的多平台nmap gui和结果视图。下面的两章描述了输出格式和数据文件。最后的四章分别为Nmap、Ndiff、Ncat和Nping的用户指南。这些章节提供了一种快速查询特定命令行选项或者特征简述。
-分布在书中完成通常任务，如扫描一个网络中的特定一个开放端口或者通过有线来探测无线接入点的详细指令。首先描述了每个问题，然后提供了高效的解决问题方法。最后更深层次讨论描述了解决方法并提供了可选解决方法和类似问题的深刻见解。
+This book documents the free Nmap Security Scanner, from port scanning basics for novices to the types of packet crafting used by advanced hackers. 
+这本书描述了免费的安全扫描软件nmap，从给新手的基本端口扫描到为高级黑客使用的各种包的精巧加工。
+It should benefit Nmap users (or potential users) of all experience levels.
+它可以给Nmap各层次的用户（或者说潜在用户）带来益处。
+
+Starting with the basics, this book gives an overview of Nmap by example in Chapter 1. 
+从基本的开始，本书在第一章通过例子来展示nmap的概貌。
+Then Chapter 2 covers obtaining, compiling and installing Nmap.
+然后在第二章描述了获取、编译和安装nmap。
+Chapters 3 through 5 cover features in the order you might use them when conducting a penetration test. 
+第三章到第五章用你在渗透测试用可能用到的顺序特性。
+First comes host discovery (“ping scanning”), which determines the available hosts on a network. 
+首先是主机发现（ping扫描），确定一个网络上的可用主机。
+Next, port scanning is covered in depth. 
+然后是纵深描述端口扫描。
+In Chapter 5, all the Nmap scanning techniques are detailed, with advice and examples. 
+在第五章中，所有的nmap扫描技术都有详细描述，包括建议和例子。
+Scanning a large network can take a long time, so Chapter 6 is full of performance optimization advice. 
+扫描一个大的网络会耗费一些时间，因此第六章都是性能优化建议。
+Chapter 7 details service and application version detection, in which Nmap queries ports to determine exactly what is running rather than simply guessing based on the port number. 
+在第七章详细描述了服务和应用版本探测功能，这些功能让nmap查询端口以基于端口正确地识别而不是简单猜测运行着什么服务。
+Chapter 8 covers one of Nmap's most loved features: remote OS detection. 
+第八章描述了Nmap最喜欢的特性：操作系统探测。
+Chapter 9 details the Nmap Scripting Engine (NSE), which allows users to write (and share) simple scripts to automate a wide variety of networking tasks. 
+在第九章中，详细描述了nmap的脚本引擎（nse），它允许用户写（分享）一些简单脚本来自动化完成不同的网络任务。
+My favorite chapter is number 10: Detecting and Subverting Firewalls and Intrusion Detection Systems. 
+我最喜欢的是第十章：探测和推翻防火墙和入侵检测系统。
+For balance, that is followed by a chapter on defending against Nmap scans. 
+为了达到平衡，紧接着的一章就是如何防御nmap扫描。
+Chapter 12 then fully documents the Zenmap multi-platform Nmap GUI and results viewer. 
+第十二章完整描述了zenmap的多平台nmap gui和结果视图。
+The next two chapters cover output formats and data files. 
+下面的两章描述了输出格式和数据文件。
+The final four chapters are reference guides for the whole family of tools: Nmap, Ndiff, Ncat, and Nping. 
+最后的四章分别为Nmap、Ndiff、Ncat和Nping的用户指南。
+These are quick resources for looking up specific command-line options or brief feature summaries.
+这些章节提供了一种快速查询特定命令行选项或者特征简述。
+
+Scattered throughout the book are detailed instructions for performing common tasks such as scanning a network for a certain single open TCP port or detecting wireless access points by scanning from the wired side. 
+分布在书中完成通常任务，如扫描一个网络中的特定一个开放端口或者通过有线来探测无线接入点的详细指令。
+First each problem is described, then an effective solution is provided. 
+首先描述了每个问题，然后提供了高效的解决问题方法。
+A final discussion section describes the solution in more depth and may provide alternative solutions and insights into similar problems.
+最后更深层次讨论描述了解决方法并提供了可选解决方法和类似问题的深刻见解。
+
 
 惯例
 Nmap的输出贯穿了本书演示特点。输出常常
@@ -60,7 +103,7 @@ Nmap的输出贯穿了本书演示特点。输出常常
 表1 格式风格惯例
 
 其他资源
-   
+ 
 While this book is an important reference for Nmap, it isn't the only one. 
 本书作为nmap的重要参考资料，但不是仅有的参考资料。
 The Nmap web page at http://nmap.org is not just for downloads. 
@@ -111,15 +154,19 @@ As the next section attests, dozens of people have already generously contribute
 If you have a question or comment about Nmap (rather than this book itself), it is best sent to the Nmap development list as described at the section called “Bugs”.
 如果你有关于Nmap（不只限于本书）的问题或者评论，最好能够根据bugs一节中所述给nmap的开发列表。
 
-
 Acknowledgements
 致谢
 When I first floated the idea of writing an Nmap book to the nmap-hackers mailing list, I was inundated with suggestions and offers to help. 
 This outpouring of enthusiasm convinced me to proceed. 
+
 My complete naivety about how much work was involved also contributed to my decision. 
+
 It has been quite an undertaking, but what kept me going chapter by chapter was a private review group called the nmap-writers. 
+
 They provided invaluable feedback, advice, and detailed review notes throughout the process. 
+他们在整个过程中提供了无价的反馈、建议和在复查笔记。
 In particular, I would like to thank the following people:
+我要特别感谢以下人员：
 
 David Fifield is listed first (everyone else is alphabetical) because he was a tremendous help during the book writing process. 
 He solved a number of technical DocBook problems, created many of the final illustrations from my terrible drafts, dramatically improved the index, helped with proofreading, and even wrote Chapter 12, Zenmap GUI Users' Guide.
