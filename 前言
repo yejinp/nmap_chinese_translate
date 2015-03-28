@@ -94,8 +94,22 @@ First each problem is described, then an effective solution is provided.
 A final discussion section describes the solution in more depth and may provide alternative solutions and insights into similar problems.
 最后更深层次讨论描述了解决方法并提供了可选解决方法和类似问题的深刻见解。
 
-
+Conventions
 惯例
+Nmap output is used throughout this book to demonstrate principles and features. 
+nmap的输出贯穿在本书的展示和特性。
+The output is often edited to cut out lines which are irrelevant to the point being made. 
+为了展示重点，输出中常常会剪掉不相关的行。
+The dates/times and version numbers printed by Nmap are generally removed as well, since some readers find them distracting. 
+由于日期/时间和版本号会分散读者的注意力，因此通常也会被移除。
+Sensitive information such as hostnames, IP addresses, and MAC addresses may be changed or removed. 
+比如主机名、IP地址和mac地址等敏感信息会被改变或者移除。
+Other information may be cut or lines wrapped so that they fit on a printed page. 
+为了合适的打印版面，其他信息也可能会剪掉或者打包。
+Similar editing is done for the output of other applications. 
+Example 1 gives a glimpse at Nmap's capabilities while also demonstrating output formatting.
+
+Example 1. A typical Nmap scan
 Nmap的输出贯穿了本书演示特点。输出常常
 
 例子1 一个典型的nmap扫描
