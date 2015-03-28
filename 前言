@@ -39,7 +39,6 @@ It has taken nearly four years to write, with constant updating as Nmap has evol
 
 很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。Nmap 用一种新的方法利用原始IP数据包来判断网络上那些主机可用，在使用那些包过滤器和防火墙，以及其他特征。它被设计为快速扫描大型网络，但对单个主机工作得也很好。
 
-
 This book is dedicated to the Nmap community of users and developers. 
 这本书奉献给nmap社区用户和开发者。
 Your passion, ideas, patches, feature requests, flame wars, bug reports, and midnight rants have shaped Nmap into what it is today.
@@ -60,11 +59,25 @@ Nmap的输出贯穿了本书演示特点。输出常常
 表1 格式风格惯例
 
 其他资源
-   本书作为nmap的重要参考资料，但不是仅有的参考资料。nmap在http://nmap.org上的web页面不只为了下载。它也同样为nmap的开发和第三方提供丰富的资料。
-   本书的官网地址为http://nmap.org/book/。在这里可以看到勘误、更新和很多样章。
-   任何认真的nmap用户
+   
+While this book is an important reference for Nmap, it isn't the only one. 
+本书作为nmap的重要参考资料，但不是仅有的参考资料。
+The Nmap web page at http://nmap.org is not just for downloads. 
+nmap在http://nmap.org上的web页面不只为了下载。
+It also provides substantial documentation from Nmap developers and third parties. 
+它也同样为nmap的开发和第三方提供丰富的资料。
+For example, you can find the Nmap Reference Guide translated into a dozen languages there. 
+比如，你可以找到nmap翻译为多种预研的参考指南。
+Other books, videos, and articles covering Nmap are also available.
+其他覆盖nmap的书籍、视频和文章都可以得到。
+
+The official web site for this book is http://nmap.org/book/. 
+本书的官网地址为http://nmap.org/book/。
+Go there for errata, updates, and many sample chapters.
+在这里可以看到勘误、更新和很多样章。
+
 Any serious Nmap user should subscribe to the nmap-hackers mailing list for announcements about Nmap and Insecure.Org.
-如何认真的Nmap用户会在nmap-hackers上订阅关于Nmap和insecure.org声明的邮件清单，
+任何认真的Nmap用户会在nmap-hackers上订阅关于Nmap和insecure.org声明的邮件清单，
 Traffic is very light (about six posts per year) because it is reserved for only the most important announcements.
 由于只保留最重要的声明，所以流量很小（每年大概6个的样子）
 Developers and particularly devoted users can also subscribe to the nmap-dev mailing list.
@@ -84,11 +97,99 @@ Read through the list and you are sure to find many gems you had never even hear
 Most of the tools are free and open source.
 它们中的大部分是免费开源工具。
 
-   
+Request for Comments 
 评论请求
+While I tried my best to make this book comprehensive, accurate, and up-to-date, we all make mistakes. 
+If you find any problems or just have suggestions for making this book better, please let me know by email at <fyodor@nmap.org>. 
+The open source principle of many readers and contributors is just as viable for documentation as for software. 
+As the next section attests, dozens of people have already generously contributed their time and skills to make this book a success.
 
+If you have a question or comment about Nmap (rather than this book itself), it is best sent to the Nmap development list as described at the section called “Bugs”.
 
+Acknowledgements
 致谢
+When I first floated the idea of writing an Nmap book to the nmap-hackers mailing list, I was inundated with suggestions and offers to help. 
+This outpouring of enthusiasm convinced me to proceed. 
+My complete naivety about how much work was involved also contributed to my decision. 
+It has been quite an undertaking, but what kept me going chapter by chapter was a private review group called the nmap-writers. 
+They provided invaluable feedback, advice, and detailed review notes throughout the process. 
+In particular, I would like to thank the following people:
+
+David Fifield is listed first (everyone else is alphabetical) because he was a tremendous help during the book writing process. 
+He solved a number of technical DocBook problems, created many of the final illustrations from my terrible drafts, dramatically improved the index, helped with proofreading, and even wrote Chapter 12, Zenmap GUI Users' Guide.
+
+Matt Baxter allowed the use of his beautiful TCP/IP header diagrams (in the section called “TCP/IP Reference”). 
+Several other diagrams in this book were done in that style to match.
+
+Saurabh Bhasin contributed detailed feedback on a regular basis.
+
+Mark Brewis could always be counted on for good advice.
+
+Ellen Colombo was a big help from the beginning.
+
+Patrick Donnelly helped improve Chapter 9, Nmap Scripting Engine.
+
+Brandon Enright printed out the whole book and reviewed it chapter by chapter.
+
+Brian Hatch has always been a big help.
+
+Loren Heal was a continual source of ideas.
+
+Lee “MadHat” Heath wrote the section called “MadHat in Wonderland” and also an early version of the section called “Grepable Output (-oG)”.
+
+Dan Henage provided advice and proofread numerous chapters.
+
+Tor Houghton reviewed every chapter, probably giving me more feedback than anyone else.
+
+Doug Hoyte documented the many Nmap features he added, and also handled most of the book indexing.
+
+Marius Huse Jacobsen reviewed many chapters, providing detailed feedback.
+
+Kris Katterjohn performed thorough reviews of several chapters.
+
+Eric Krosnes sent useful technical review feedback and also regularly nagged me about book progress. 
+This was helpful since I didn't have a traditional editor to do so.
+
+Vlad Alexa Mancini created the Nmap eye logo for the cover (and the Nmap web site).
+
+Michael Naef kindly reviewed many chapters.
+
+Bill Pollock of No Starch Press was always happy to provide advice and answer book publishing questions based on his decades of experience.
+
+David Pybus was one of the most frequent contributors of ideas and proofreading.
+
+Tyler Reguly helped by reviewing multiple chapters just when it was most needed.
+
+Chuck Sterling provided both high level advice and detailed proofreading of several chapters.
+
+Anders Thulin provided detailed reviews of many chapters.
+
+Bennett Todd sent dozens of suggestions.
+
+Diman Todorov wrote an initial draft of Chapter 9, Nmap Scripting Engine.
+
+Catherine Tornabene read many chapters and sent extremely detailed feedback.
+
+Technology Used to Create This Book
+
+As an author of open source tools myself, I'm a big believer in their power and capability. 
+So I made an effort to use them wherever possible in creating this book. 
+I wasn't about to write it in Microsoft Word and then handle layout with Adobe FrameMaker!
+
+Nmap Network Scanning was written with the GNU Emacs text editor in the DocBook XML format.
+
+The free online chapters are created from the XML using Norman Walsh's XSL Stylesheets and the xsltproc XSL processor.
+
+The print version also uses Norman's stylesheets and xsltproc, but output to the XSL-FO format. 
+An XSL-FO processor is then used to build a PDF. 
+I would like to use Apache FOP for this, but a footnote-related bug prevents this, so I switched to the RenderX XEP Engine. 
+XEP is proprietary, but at least it runs on Linux. 
+I hope to switch back to FOP after the footnote bug is fixed.
+
+Cover layout was done with Scribus and (due to printing company format requirements) Adobe InDesign. 
+Raster graphics for the cover and internal illustrations were created with The Gimp, while Inkscape was used for vector graphics.
+
+Subversion was used for revision control and the free web chapters are serviced by Apache httpd.
 
 
 TCP/IP参考
