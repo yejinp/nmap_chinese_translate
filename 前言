@@ -5,42 +5,42 @@
 Introduction
 介绍
 
-On September 1, 1997, I released a security scanner named Nmap in the fifty-first issue of Phrack magazine. 
+On September 1, 1997, I released a security scanner named Nmap in the fifty-first issue of Phrack magazine.
 1997年9月1日，我在杂志《菲里克》（Phrack）的第五十一期上发布了一个名为nmap的安全扫描工具。
-My goal was to consolidate the fragmented field of special-purpose port scanners into one powerful and flexible free tool, providing a consistent interface and efficient implementation of all practical port scanning techniques. 
+My goal was to consolidate the fragmented field of special-purpose port scanners into one powerful and flexible free tool, providing a consistent interface and efficient implementation of all practical port scanning techniques.
 我的目标是为了加强分散的各种特殊端口扫描器为一个功能强大且灵活的免费工具，提供一个一致的接口，高效的实现各种实用端口扫描技术。
-Nmap then consisted of three files (barely 2,000 lines of code) and supported only the Linux operating system. 
+Nmap then consisted of three files (barely 2,000 lines of code) and supported only the Linux operating system.
 后来Nmap包含3个文件（仅仅包含约2000行代码），并只支持Linux操作系统。
 It was written for my own purposes, and released in the hope that others would find it useful.
 这个软件完全出于个人抱着别人能够发现它有用的目的而写。
 
-From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide. 
+From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide.
 从简陋开始，通过开源开发的力量，nmap成长为（在世界范围内，）有数以万计的用户的世界上最流行的网络安全扫描器。
-Over the years, Nmap has continued to add advanced functionality such as remote OS detection, version/service detection, and the Nmap Scripting Engine. 
-过去几年，nmap添加了诸如远程操作系统检测，版本/服务检测，以及nmap脚本引擎等这些高级功能。 
-It now supports all major Unix, Windows, and Mac OS platforms with both console and graphical interfaces. 
+Over the years, Nmap has continued to add advanced functionality such as remote OS detection, version/service detection, and the Nmap Scripting Engine.
+过去几年，nmap添加了诸如远程操作系统检测，版本/服务检测，以及nmap脚本引擎等这些高级功能。
+It now supports all major Unix, Windows, and Mac OS platforms with both console and graphical interfaces.
 现在，它支持所有的主要的UNIX、Windows和Mac 操作系统平台的控制台和视图接口，
-Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Codetalker Digest have recognized Nmap as “security tool of the year”. 
+Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Codetalker Digest have recognized Nmap as “security tool of the year”.
 发表在《Linux Journal》、《Info World》、LinuxQuestions.Org和《 Codetalker Digest》等上的文献，让nmap成为了“安全工具年”。
 It was even featured in nine movies, including The Matrix Reloaded, The Girl with the Dragon Tattoo, The Bourne Ultimatum, and Die Hard 4.
 它甚至出现在包括《重装上阵》、《龙纹身的女孩》、《谍影重重》和《虎胆龙威4》等9部电影中。
- 
+
 Nmap（）是一个为网络探究和安全审计的免费开源工具。
 
-While Nmap is extremely powerful, it is also complex. 
+While Nmap is extremely powerful, it is also complex.
 Nmap功能非常强大，同时也很复杂。
-More than 100 command-line options add expressiveness for networking gurus, but can confound novices. 
+More than 100 command-line options add expressiveness for networking gurus, but can confound novices.
 有超过100多个命令行选项网络专家得心应手，但困惑新手。
-Some of its options have never even been documented. 
+Some of its options have never even been documented.
 一些选项甚至都没有描述文档。
-This book documents all Nmap features and, more importantly, teaches the most effective ways of using them. 
+This book documents all Nmap features and, more importantly, teaches the most effective ways of using them.
 本书描述了所有的Nmap特性，更重要的是，教你最高效的使用方法。
 It has taken nearly four years to write, with constant updating as Nmap has evolved.
 随着nmap持续的更新，差不多用了4年来写这本书。
 
 很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。Nmap 用一种新的方法利用原始IP数据包来判断网络上那些主机可用，在使用那些包过滤器和防火墙，以及其他特征。它被设计为快速扫描大型网络，但对单个主机工作得也很好。
 
-This book is dedicated to the Nmap community of users and developers. 
+This book is dedicated to the Nmap community of users and developers.
 这本书奉献给nmap社区用户和开发者。
 Your passion, ideas, patches, feature requests, flame wars, bug reports, and midnight rants have shaped Nmap into what it is today.
 你的激情、想法、补丁、特性请求、战火、报告bug和午夜牢骚让它成为今天的样子。
@@ -49,64 +49,64 @@ Your passion, ideas, patches, feature requests, flame wars, bug reports, and mid
 Intended Audience and Organization
 目标读者和组织
 
-This book documents the free Nmap Security Scanner, from port scanning basics for novices to the types of packet crafting used by advanced hackers. 
+This book documents the free Nmap Security Scanner, from port scanning basics for novices to the types of packet crafting used by advanced hackers.
 这本书描述了免费的安全扫描软件nmap，从给新手的基本端口扫描到为高级黑客使用的各种包的精巧加工。
 It should benefit Nmap users (or potential users) of all experience levels.
 它可以给Nmap各层次的用户（或者说潜在用户）带来益处。
 
-Starting with the basics, this book gives an overview of Nmap by example in Chapter 1. 
+Starting with the basics, this book gives an overview of Nmap by example in Chapter 1.
 从基本的开始，本书在第一章通过例子来展示nmap的概貌。
 Then Chapter 2 covers obtaining, compiling and installing Nmap.
 然后在第二章描述了获取、编译和安装nmap。
-Chapters 3 through 5 cover features in the order you might use them when conducting a penetration test. 
+Chapters 3 through 5 cover features in the order you might use them when conducting a penetration test.
 第三章到第五章用你在渗透测试用可能用到的顺序特性。
-First comes host discovery (“ping scanning”), which determines the available hosts on a network. 
+First comes host discovery (“ping scanning”), which determines the available hosts on a network.
 首先是主机发现（ping扫描），确定一个网络上的可用主机。
-Next, port scanning is covered in depth. 
+Next, port scanning is covered in depth.
 然后是纵深描述端口扫描。
-In Chapter 5, all the Nmap scanning techniques are detailed, with advice and examples. 
+In Chapter 5, all the Nmap scanning techniques are detailed, with advice and examples.
 在第五章中，所有的nmap扫描技术都有详细描述，包括建议和例子。
-Scanning a large network can take a long time, so Chapter 6 is full of performance optimization advice. 
+Scanning a large network can take a long time, so Chapter 6 is full of performance optimization advice.
 扫描一个大的网络会耗费一些时间，因此第六章都是性能优化建议。
-Chapter 7 details service and application version detection, in which Nmap queries ports to determine exactly what is running rather than simply guessing based on the port number. 
+Chapter 7 details service and application version detection, in which Nmap queries ports to determine exactly what is running rather than simply guessing based on the port number.
 在第七章详细描述了服务和应用版本探测功能，这些功能让nmap查询端口以基于端口正确地识别而不是简单猜测运行着什么服务。
-Chapter 8 covers one of Nmap's most loved features: remote OS detection. 
+Chapter 8 covers one of Nmap's most loved features: remote OS detection.
 第八章描述了Nmap最喜欢的特性：操作系统探测。
-Chapter 9 details the Nmap Scripting Engine (NSE), which allows users to write (and share) simple scripts to automate a wide variety of networking tasks. 
+Chapter 9 details the Nmap Scripting Engine (NSE), which allows users to write (and share) simple scripts to automate a wide variety of networking tasks.
 在第九章中，详细描述了nmap的脚本引擎（nse），它允许用户写（分享）一些简单脚本来自动化完成不同的网络任务。
-My favorite chapter is number 10: Detecting and Subverting Firewalls and Intrusion Detection Systems. 
+My favorite chapter is number 10: Detecting and Subverting Firewalls and Intrusion Detection Systems.
 我最喜欢的是第十章：探测和推翻防火墙和入侵检测系统。
-For balance, that is followed by a chapter on defending against Nmap scans. 
+For balance, that is followed by a chapter on defending against Nmap scans.
 为了达到平衡，紧接着的一章就是如何防御nmap扫描。
-Chapter 12 then fully documents the Zenmap multi-platform Nmap GUI and results viewer. 
+Chapter 12 then fully documents the Zenmap multi-platform Nmap GUI and results viewer.
 第十二章完整描述了zenmap的多平台nmap gui和结果视图。
-The next two chapters cover output formats and data files. 
+The next two chapters cover output formats and data files.
 下面的两章描述了输出格式和数据文件。
-The final four chapters are reference guides for the whole family of tools: Nmap, Ndiff, Ncat, and Nping. 
+The final four chapters are reference guides for the whole family of tools: Nmap, Ndiff, Ncat, and Nping.
 最后的四章分别为Nmap、Ndiff、Ncat和Nping的用户指南。
 These are quick resources for looking up specific command-line options or brief feature summaries.
 这些章节提供了一种快速查询特定命令行选项或者特征简述。
 
-Scattered throughout the book are detailed instructions for performing common tasks such as scanning a network for a certain single open TCP port or detecting wireless access points by scanning from the wired side. 
+Scattered throughout the book are detailed instructions for performing common tasks such as scanning a network for a certain single open TCP port or detecting wireless access points by scanning from the wired side.
 分布在书中完成通常任务，如扫描一个网络中的特定一个开放端口或者通过有线来探测无线接入点的详细指令。
-First each problem is described, then an effective solution is provided. 
+First each problem is described, then an effective solution is provided.
 首先描述了每个问题，然后提供了高效的解决问题方法。
 A final discussion section describes the solution in more depth and may provide alternative solutions and insights into similar problems.
 最后更深层次讨论描述了解决方法并提供了可选解决方法和类似问题的深刻见解。
 
 Conventions
 惯例
-Nmap output is used throughout this book to demonstrate principles and features. 
+Nmap output is used throughout this book to demonstrate principles and features.
 nmap的输出贯穿在本书的展示和特性。
-The output is often edited to cut out lines which are irrelevant to the point being made. 
+The output is often edited to cut out lines which are irrelevant to the point being made.
 为了展示重点，输出中常常会剪掉不相关的行。
-The dates/times and version numbers printed by Nmap are generally removed as well, since some readers find them distracting. 
+The dates/times and version numbers printed by Nmap are generally removed as well, since some readers find them distracting.
 由于日期/时间和版本号会分散读者的注意力，因此通常也会被移除。
-Sensitive information such as hostnames, IP addresses, and MAC addresses may be changed or removed. 
+Sensitive information such as hostnames, IP addresses, and MAC addresses may be changed or removed.
 比如主机名、IP地址和mac地址等敏感信息会被改变或者移除。
-Other information may be cut or lines wrapped so that they fit on a printed page. 
+Other information may be cut or lines wrapped so that they fit on a printed page.
 为了合适的打印版面，其他信息也可能会剪掉或者打包。
-Similar editing is done for the output of other applications. 
+Similar editing is done for the output of other applications.
 类似的编辑也会用在其他应用的输出中。
 Example 1 gives a glimpse at Nmap's capabilities while also demonstrating output formatting.
 例子1给出了nmap能力并展示了输出格式的概览。
@@ -118,19 +118,19 @@ Example 1. A typical Nmap scan
 表1 格式风格惯例
 
 其他资源
- 
-While this book is an important reference for Nmap, it isn't the only one. 
+
+While this book is an important reference for Nmap, it isn't the only one.
 本书作为nmap的重要参考资料，但不是仅有的参考资料。
-The Nmap web page at http://nmap.org is not just for downloads. 
+The Nmap web page at http://nmap.org is not just for downloads.
 nmap在http://nmap.org上的web页面不只为了下载。
-It also provides substantial documentation from Nmap developers and third parties. 
+It also provides substantial documentation from Nmap developers and third parties.
 它也同样为nmap的开发和第三方提供丰富的资料。
-For example, you can find the Nmap Reference Guide translated into a dozen languages there. 
+For example, you can find the Nmap Reference Guide translated into a dozen languages there.
 比如，你会发现，nmap的参考指南已经翻译成多种语言。
 Other books, videos, and articles covering Nmap are also available.
 其他覆盖nmap的书籍、视频和文章都可以得到。
 
-The official web site for this book is http://nmap.org/book/. 
+The official web site for this book is http://nmap.org/book/.
 本书的官网地址为http://nmap.org/book/。
 Go there for errata, updates, and many sample chapters.
 在这里可以看到勘误、更新和很多样章。
@@ -156,13 +156,13 @@ Read through the list and you are sure to find many gems you had never even hear
 Most of the tools are free and open source.
 它们中的大部分是免费开源工具。
 
-Request for Comments 
+Request for Comments
 评论请求
-While I tried my best to make this book comprehensive, accurate, and up-to-date, we all make mistakes. 
+While I tried my best to make this book comprehensive, accurate, and up-to-date, we all make mistakes.
 我尽量使得本书容易理解、准确并并与时俱进，但错误在所难免。
-If you find any problems or just have suggestions for making this book better, please let me know by email at <fyodor@nmap.org>. 
+If you find any problems or just have suggestions for making this book better, please let me know by email at <fyodor@nmap.org>.
 如果你发现任何问题或者有使得本书更好的建议，请通过邮件<fyodor@nmap.org>让我知道。
-The open source principle of many readers and contributors is just as viable for documentation as for software. 
+The open source principle of many readers and contributors is just as viable for documentation as for software.
 开源的原则是读者和贡献者都能够与或者软件一样获得相应的文档。
 As the next section attests, dozens of people have already generously contributed their time and skills to make this book a success.
 正如下一节所述，很多人在让本书成功方面变得成功时作出了时间和技术上的贡献。
@@ -171,90 +171,130 @@ If you have a question or comment about Nmap (rather than this book itself), it 
 
 Acknowledgements
 致谢
-When I first floated the idea of writing an Nmap book to the nmap-hackers mailing list, I was inundated with suggestions and offers to help. 
-This outpouring of enthusiasm convinced me to proceed. 
+When I first floated the idea of writing an Nmap book to the nmap-hackers mailing list, I was inundated with suggestions and offers to help.
+This outpouring of enthusiasm convinced me to proceed.
 
-My complete naivety about how much work was involved also contributed to my decision. 
+My complete naivety about how much work was involved also contributed to my decision.
 
-It has been quite an undertaking, but what kept me going chapter by chapter was a private review group called the nmap-writers. 
-
-They provided invaluable feedback, advice, and detailed review notes throughout the process. 
+It has been quite an undertaking, but what kept me going chapter by chapter was a private review group called the nmap-writers.
+这的确是一个任务，但让我保持逐章前进动力就是我名为Nmap作者私人评审团。
+They provided invaluable feedback, advice, and detailed review notes throughout the process.
 他们在整个过程中提供了无价的反馈、建议和在复查笔记。
 In particular, I would like to thank the following people:
 我要特别感谢以下人员：
 
-David Fifield is listed first (everyone else is alphabetical) because he was a tremendous help during the book writing process. 
-He solved a number of technical DocBook problems, created many of the final illustrations from my terrible drafts, dramatically improved the index, helped with proofreading, and even wrote Chapter 12, Zenmap GUI Users' Guide.
+David Fifield is listed first (everyone else is alphabetical) because he was a tremendous help during the book writing process.
+首先要说到David Fifield（其他人顺序以名字字母排序），以为在写本书的过程中他提供了非常大的帮助。
 
-Matt Baxter allowed the use of his beautiful TCP/IP header diagrams (in the section called “TCP/IP Reference”). 
+He solved a number of technical DocBook problems, created many of the final illustrations from my terrible drafts, dramatically improved the index, helped with proofreading, and even wrote Chapter 12, Zenmap GUI Users' Guide.
+他解决了很多技术问题，为很多糟糕的草图最终定稿，
+
+Matt Baxter allowed the use of his beautiful TCP/IP header diagrams (in the section called “TCP/IP Reference”).
+Matt Baxter允许使用漂亮的TCP/IP头的图（在“TCP/IP参考”一节）。
+
 Several other diagrams in this book were done in that style to match.
+书中其他的图都是用这种风格来完成的。
 
 Saurabh Bhasin contributed detailed feedback on a regular basis.
+Saurabh Bhasin定期贡献反馈的细节。
 
 Mark Brewis could always be counted on for good advice.
+总能指望Mark Brewis提供好的建议。
 
 Ellen Colombo was a big help from the beginning.
+Ellen Colombo从一开始就提供了很大的帮助。
 
 Patrick Donnelly helped improve Chapter 9, Nmap Scripting Engine.
+Patrick Donnelly帮忙改进了第九章，nmap脚本引擎。
 
 Brandon Enright printed out the whole book and reviewed it chapter by chapter.
+Brandon Enright打印了整本书，并逐章复审。
 
 Brian Hatch has always been a big help.
+Brian Hatch总是提供很大的帮助。
 
 Loren Heal was a continual source of ideas.
+Loren Heal提供源源不断的主意。
 
 Lee “MadHat” Heath wrote the section called “MadHat in Wonderland” and also an early version of the section called “Grepable Output (-oG)”.
+Lee “MadHat” Heath写了名为“MadHat in Wonderland”的一节，并给出了名为“Grepable Output (-oG)”的早期版本。
 
 Dan Henage provided advice and proofread numerous chapters.
+Dan Henage对多章都提供了建议和校对工作。
 
 Tor Houghton reviewed every chapter, probably giving me more feedback than anyone else.
+Tor Houghton复审了每一章，并给我提供了多于任何其他人的反馈。
 
 Doug Hoyte documented the many Nmap features he added, and also handled most of the book indexing.
+Doug Hoyte描述了很多他加的特性，同时也处理了书中索引的大多数。
 
 Marius Huse Jacobsen reviewed many chapters, providing detailed feedback.
+Marius Huse Jacobsen复审了多章，同时还提供了反馈的细节。
 
 Kris Katterjohn performed thorough reviews of several chapters.
+Kris Katterjohn对几章都做了通篇的复审工作。
 
-Eric Krosnes sent useful technical review feedback and also regularly nagged me about book progress. 
+Eric Krosnes sent useful technical review feedback and also regularly nagged me about book progress.
+Eric Krosnes在发给我有用技术复审的的同时，也定期对书的进展发发牢骚。
 This was helpful since I didn't have a traditional editor to do so.
+这对于我没有传统的编辑来说很有帮助。
 
 Vlad Alexa Mancini created the Nmap eye logo for the cover (and the Nmap web site).
+Vlad Alexa Mancini创建了封图的nmap之眼logo(也是nmap网站上的).
 
 Michael Naef kindly reviewed many chapters.
+Michael Naef很友好的复审了多个章节。
 
 Bill Pollock of No Starch Press was always happy to provide advice and answer book publishing questions based on his decades of experience.
+No Starch Press出版社的Bill Pollock总是乐于提供建议并基于他们几个世代的经验回答关于出版的问题。
 
 David Pybus was one of the most frequent contributors of ideas and proofreading.
+David Pybus是最频繁贡献主意和校验的人之一。
 
 Tyler Reguly helped by reviewing multiple chapters just when it was most needed.
+Tyler Reguly在最需要的时候复审多章。
 
 Chuck Sterling provided both high level advice and detailed proofreading of several chapters.
+Chuck Sterling对多章提供了高水平的建议和详细的校验工作。
 
 Anders Thulin provided detailed reviews of many chapters.
+Anders Thulin提供了多章的详细复审。
 
 Bennett Todd sent dozens of suggestions.
+Bennett Todd发给我很多的建议。
 
 Diman Todorov wrote an initial draft of Chapter 9, Nmap Scripting Engine.
+Diman Todorov为第九章写出了初稿，nmap脚本引擎。
 
 Catherine Tornabene read many chapters and sent extremely detailed feedback.
+Catherine Tornabene读了很多章节，并提供了非常详细的反馈。
+
 
 Technology Used to Create This Book
+创建本书中用到的技术
 
-As an author of open source tools myself, I'm a big believer in their power and capability. 
-So I made an effort to use them wherever possible in creating this book. 
+As an author of open source tools myself, I'm a big believer in their power and capability.
+我自己作为作为开源工具作者，我对他们的能力坚信不疑。
+
+So I made an effort to use them wherever possible in creating this book.
+所以我尝试让任何地方的创建本书。
+
 I wasn't about to write it in Microsoft Word and then handle layout with Adobe FrameMaker!
+我可不会用先编辑然后再用Adobe framemaker来处理布局。
 
 Nmap Network Scanning was written with the GNU Emacs text editor in the DocBook XML format.
-
+nmap网络扫描用gnu emacs编辑器用docbookxml格式编写。
 The free online chapters are created from the XML using Norman Walsh's XSL Stylesheets and the xsltproc XSL processor.
+在线免费章有xml
 
-The print version also uses Norman's stylesheets and xsltproc, but output to the XSL-FO format. 
-An XSL-FO processor is then used to build a PDF. 
-I would like to use Apache FOP for this, but a footnote-related bug prevents this, so I switched to the RenderX XEP Engine. 
-XEP is proprietary, but at least it runs on Linux. 
+The print version also uses Norman's stylesheets and xsltproc, but output to the XSL-FO format.
+
+An XSL-FO processor is then used to build a PDF.
+I would like to use Apache FOP for this, but a footnote-related bug prevents this, so I switched to the RenderX XEP Engine.
+XEP is proprietary, but at least it runs on Linux.
 I hope to switch back to FOP after the footnote bug is fixed.
 
-Cover layout was done with Scribus and (due to printing company format requirements) Adobe InDesign. 
+Cover layout was done with Scribus and (due to printing company format requirements) Adobe InDesign.
 封面布局用Scribus和Adobe InDesign（需要打印公司格式）完成。
 Raster graphics for the cover and internal illustrations were created with The Gimp, while Inkscape was used for vector graphics.
 
@@ -265,20 +305,20 @@ Subversion was used for revision control and the free web chapters are serviced 
 TCP/IP参考
 TCP/IP Reference
 
-This book assumes basic familiarity with TCP/IP and networking concepts. 
+This book assumes basic familiarity with TCP/IP and networking concepts.
 本书加上你对TCP/IP 和网络概念有基本的了解。
 
-You won't find a primer on the OSI seven-layer model or a rundown of the Berkeley Socket API within these pages. 
+You won't find a primer on the OSI seven-layer model or a rundown of the Berkeley Socket API within these pages.
 
 For a comprehensive guide to TCP/IP, I recommend “The TCP/IP Guide” by Charles Kozierok or the old classic “TCP/IP Illustrated, Volume I” by W. Richard Stevens.
 如果要对TCP/IP进行深入了解，建议参考Charles Kozierok的《The TCP/IP Guide》或者W. Richard Stevens写的经典的《TCP/IP Illustrated》（卷1）。
 While TCP/IP familiarity is expected, even the best of us occasionally forget byte offsets for packet header fields and flags.
 
-This section provides quick reference diagrams and field descriptions for the IPv4, TCP, UDP, and ICMP protocols. 
+This section provides quick reference diagrams and field descriptions for the IPv4, TCP, UDP, and ICMP protocols.
 本节提供了IPv4、TCP、UDP和ICMP协议各域的快速参考图。
 
 These beautiful diagrams from http://www.visi.com/~mjb/Drawings are used by permission of author Matt Baxter.
-这些漂亮的图来自 http://www.visi.com/~mjb/Drawings，得到其作者Matt Baxter的允许。
+那些漂亮的图来自 http://www.visi.com/~mjb/Drawings，得到其作者Matt Baxter的允许。
 
 Figure 1. IPv4 header
 图1 IPv4头
