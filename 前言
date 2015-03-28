@@ -107,10 +107,11 @@ Sensitive information such as hostnames, IP addresses, and MAC addresses may be 
 Other information may be cut or lines wrapped so that they fit on a printed page. 
 为了合适的打印版面，其他信息也可能会剪掉或者打包。
 Similar editing is done for the output of other applications. 
+类似的编辑也会用在其他应用的输出中。
 Example 1 gives a glimpse at Nmap's capabilities while also demonstrating output formatting.
+例子1给出了nmap能力并展示了输出格式的概览。
 
 Example 1. A typical Nmap scan
-Nmap的输出贯穿了本书演示特点。输出常常
 
 例子1 一个典型的nmap扫描
 
