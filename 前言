@@ -2,15 +2,48 @@
 一周完成前言的翻译
 从2015.03.27-----2015.04.03
 
+Introduction
 介绍
 
-1997年9月1日，我在杂志《Phrack》的第五十五期上发布了一个名为nmap的安全扫描工具。我的目标是为了加强分散的各种特殊端口扫描器为一个功能强大且灵活的免费工具，提供一个一致的接口，高效的实现各种实用端口扫描技术。Nmap后来包含3个文件（仅仅包含约2000行代码）并只支持Linux操作系统。写这个软件完全出于个人的目的，抱着别人能够发现它有用。
+On September 1, 1997, I released a security scanner named Nmap in the fifty-first issue of Phrack magazine. 
+1997年9月1日，我在杂志《Phrack》的第五十五期上发布了一个名为nmap的安全扫描工具。
+My goal was to consolidate the fragmented field of special-purpose port scanners into one powerful and flexible free tool, providing a consistent interface and efficient implementation of all practical port scanning techniques. 
+我的目标是为了加强分散的各种特殊端口扫描器为一个功能强大且灵活的免费工具，提供一个一致的接口，高效的实现各种实用端口扫描技术。
+Nmap then consisted of three files (barely 2,000 lines of code) and supported only the Linux operating system. 
+Nmap后来包含3个文件（仅仅包含约2000行代码）并只支持Linux操作系统。
+It was written for my own purposes, and released in the hope that others would find it useful.
+写这个软件完全出于个人的目的，抱着别人能够发现它有用。
 
-从简陋开始，通过开源开发的力量，nmap成为了世界上最流行的网络安全扫描器，在世界范围内，有数以万计的用户。过去几年，nmap添加了远程操作系统检测和版本/服务检测，以及nmap脚本引擎这些高级功能。 发表在《Linux Journal》、《Info World》、LinuxQuestions.Org和《 Codetalker Digest》等上的文献，让nmap成为了“安全工具年”。 它甚至在9部电影中出现，包括《》、《》、《》、《》。
+From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide. 
+从简陋开始，通过开源开发的力量，nmap成为了世界上最流行的网络安全扫描器，在世界范围内，有数以万计的用户。
+Over the years, Nmap has continued to add advanced functionality such as remote OS detection, version/service detection, and the Nmap Scripting Engine. 
+过去几年，nmap添加了远程操作系统检测和版本/服务检测，以及nmap脚本引擎这些高级功能。 
+It now supports all major Unix, Windows, and Mac OS platforms with both console and graphical interfaces. 
+Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Codetalker Digest have recognized Nmap as “security tool of the year”. 
+发表在《Linux Journal》、《Info World》、LinuxQuestions.Org和《 Codetalker Digest》等上的文献，让nmap成为了“安全工具年”。
+It was even featured in nine movies, including The Matrix Reloaded, The Girl with the Dragon Tattoo, The Bourne Ultimatum, and Die Hard 4.
+ 它甚至在9部电影中出现，包括《》、《》、《》、《》。
+ 
+ Nmap（）是一个为网络探究和安全审计的免费开源工具。
 
-Nmap（）是一个为网络探究和安全审计的免费开源工具。很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。Nmap 用一种新的方法利用原始IP数据包来判断网络上那些主机可用，在使用那些包过滤器和防火墙，以及其他特征。它被设计为快速扫描大型网络，但对单个主机工作得也很好。
-Nmap功能非常强大，同时也很复杂。有超过100多个命令行选项网络专家得心应手，但困惑新手。一些选项甚至都没有描述文档。这本数描述了所有的Nmap特性，更重要的是，教你最高效的使用方法。随着nmap持续的更新，差不多用了4年来写这本书。
-这本书奉献给nmap社区用户和开发者。你的激情、想法、补丁、特性请求、战火、报告bug和午夜牢骚让它成为今天的样子。
+While Nmap is extremely powerful, it is also complex. 
+Nmap功能非常强大，同时也很复杂。
+More than 100 command-line options add expressiveness for networking gurus, but can confound novices. 
+有超过100多个命令行选项网络专家得心应手，但困惑新手。
+Some of its options have never even been documented. 
+一些选项甚至都没有描述文档。
+This book documents all Nmap features and, more importantly, teaches the most effective ways of using them. 
+本书描述了所有的Nmap特性，更重要的是，教你最高效的使用方法。
+It has taken nearly four years to write, with constant updating as Nmap has evolved.
+随着nmap持续的更新，差不多用了4年来写这本书。
+
+很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。Nmap 用一种新的方法利用原始IP数据包来判断网络上那些主机可用，在使用那些包过滤器和防火墙，以及其他特征。它被设计为快速扫描大型网络，但对单个主机工作得也很好。
+
+
+This book is dedicated to the Nmap community of users and developers. 
+这本书奉献给nmap社区用户和开发者。
+Your passion, ideas, patches, feature requests, flame wars, bug reports, and midnight rants have shaped Nmap into what it is today.
+你的激情、想法、补丁、特性请求、战火、报告bug和午夜牢骚让它成为今天的样子。
                               —Gordon “Fyodor” Lyon <fyodor@nmap.org>
 
 目标读者和组织
