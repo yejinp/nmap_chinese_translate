@@ -15,17 +15,17 @@ It was written for my own purposes, and released in the hope that others would f
 这个软件完全出于个人抱着别人能够发现它有用的目的而写。
 
 From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide. 
-从简陋开始，通过开源开发的力量，nmap成为了世界上最流行的网络安全扫描器，在世界范围内，有数以万计的用户。
+从简陋开始，通过开源开发的力量，nmap成长为（在世界范围内，）有数以万计的用户的世界上最流行的网络安全扫描器。
 Over the years, Nmap has continued to add advanced functionality such as remote OS detection, version/service detection, and the Nmap Scripting Engine. 
-过去几年，nmap添加了远程操作系统检测和版本/服务检测，以及nmap脚本引擎这些高级功能。 
+过去几年，nmap添加了诸如远程操作系统检测，版本/服务检测，以及nmap脚本引擎等这些高级功能。 
 It now supports all major Unix, Windows, and Mac OS platforms with both console and graphical interfaces. 
-现在，它支持所有的主流操作系统，
+现在，它支持所有的主要的UNIX、Windows和Mac 操作系统平台的控制台和视图接口，
 Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Codetalker Digest have recognized Nmap as “security tool of the year”. 
 发表在《Linux Journal》、《Info World》、LinuxQuestions.Org和《 Codetalker Digest》等上的文献，让nmap成为了“安全工具年”。
 It was even featured in nine movies, including The Matrix Reloaded, The Girl with the Dragon Tattoo, The Bourne Ultimatum, and Die Hard 4.
 它甚至出现在包括《重装上阵》、《龙纹身的女孩》、《谍影重重》和《虎胆龙威4》等9部电影中。
  
- Nmap（）是一个为网络探究和安全审计的免费开源工具。
+Nmap（）是一个为网络探究和安全审计的免费开源工具。
 
 While Nmap is extremely powerful, it is also complex. 
 Nmap功能非常强大，同时也很复杂。
