@@ -25,20 +25,25 @@ Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Co
 It was even featured in nine movies, including The Matrix Reloaded, The Girl with the Dragon Tattoo, The Bourne Ultimatum, and Die Hard 4.
 它甚至出现在包括《重装上阵》、《龙纹身的女孩》、《谍影重重》和《虎胆龙威4》等9部电影中。
 
-Nmap（）是一个为网络探究和安全审计的免费开源工具。
+Nmap (“Network Mapper”) is a free and open source utility for network exploration and security auditing.
+Nmap（网络制图者）是一个为网络探究和安全审计的免费开源工具。
+Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. 
+很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。
+Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. 
+Nmap 用一种新的方法利用原始IP数据包来判断网络上那些主机可用，在使用那些包过滤器和防火墙，以及其他特征。
+It was designed to rapidly scan large networks, but works fine against single hosts.
+它被设计为快速扫描大型网络，但对单个主机工作得也很好。
 
 While Nmap is extremely powerful, it is also complex.
 Nmap功能非常强大，同时也很复杂。
 More than 100 command-line options add expressiveness for networking gurus, but can confound novices.
-有超过100多个命令行选项网络专家得心应手，但困惑新手。
+有超过100多个命令行选项让网络专家得心应手（如虎添翼），但困惑新手。
 Some of its options have never even been documented.
 一些选项甚至都没有描述文档。
 This book documents all Nmap features and, more importantly, teaches the most effective ways of using them.
 本书描述了所有的Nmap特性，更重要的是，教你最高效的使用方法。
 It has taken nearly four years to write, with constant updating as Nmap has evolved.
 随着nmap持续的更新，差不多用了4年来写这本书。
-
-很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。Nmap 用一种新的方法利用原始IP数据包来判断网络上那些主机可用，在使用那些包过滤器和防火墙，以及其他特征。它被设计为快速扫描大型网络，但对单个主机工作得也很好。
 
 This book is dedicated to the Nmap community of users and developers.
 这本书奉献给nmap社区用户和开发者。
@@ -177,7 +182,7 @@ This outpouring of enthusiasm convinced me to proceed.
 My complete naivety about how much work was involved also contributed to my decision.
 
 It has been quite an undertaking, but what kept me going chapter by chapter was a private review group called the nmap-writers.
-这的确是一个任务，但让我保持逐章前进动力就是我名为Nmap作者私人评审团。
+这的确是一个任务，让我保持逐章前进动力就是我名为Nmap作者私人评审团。
 They provided invaluable feedback, advice, and detailed review notes throughout the process.
 他们在整个过程中提供了无价的反馈、建议和在复查笔记。
 In particular, I would like to thank the following people:
