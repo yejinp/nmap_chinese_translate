@@ -59,3 +59,42 @@ Most of the tools are free and open source.
 
 
 TCP/IP参考
+TCP/IP Reference
+
+This book assumes basic familiarity with TCP/IP and networking concepts. 
+本书加上你对TCP/IP 和网络概念有基本的了解。
+
+You won't find a primer on the OSI seven-layer model or a rundown of the Berkeley Socket API within these pages. 
+
+For a comprehensive guide to TCP/IP, I recommend “The TCP/IP Guide” by Charles Kozierok or the old classic “TCP/IP Illustrated, Volume I” by W. Richard Stevens.
+如果要对TCP/IP进行深入了解，建议参考Charles Kozierok的《The TCP/IP Guide》或者W. Richard Stevens写的经典的《TCP/IP Illustrated》（卷1）。
+While TCP/IP familiarity is expected, even the best of us occasionally forget byte offsets for packet header fields and flags.
+
+This section provides quick reference diagrams and field descriptions for the IPv4, TCP, UDP, and ICMP protocols. 
+本节提供了IPv4、TCP、UDP和ICMP协议各域的快速参考图。
+
+These beautiful diagrams from http://www.visi.com/~mjb/Drawings are used by permission of author Matt Baxter.
+这些漂亮的图来自 http://www.visi.com/~mjb/Drawings，得到其作者Matt Baxter的允许。
+
+Figure 1. IPv4 header
+图1 IPv4头
+
+IPv4 header
+IPv4头
+
+Figure 2. TCP header
+图2 TCP头
+
+TCP header
+
+Figure 3. UDP header
+图3 UDP头
+
+UDP header
+UDP头
+
+Figure 4. ICMP header
+图2 ICMP头
+
+ICMP header
+图2 ICMP头
