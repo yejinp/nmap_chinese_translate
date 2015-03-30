@@ -316,9 +316,10 @@ TCP/IP参考
 TCP/IP Reference
 
 This book assumes basic familiarity with TCP/IP and networking concepts.
-本书加上你对TCP/IP 和网络概念有基本的了解。
+本书假设你对TCP/IP和网络概念基本熟悉。
 
 You won't find a primer on the OSI seven-layer model or a rundown of the Berkeley Socket API within these pages.
+本书不会给出OSI七层模型或者Berkeley Socket API纲要。
 
 For a comprehensive guide to TCP/IP, I recommend “The TCP/IP Guide” by Charles Kozierok or the old classic “TCP/IP Illustrated, Volume I” by W. Richard Stevens.
 如果要对TCP/IP进行深入了解，建议参考Charles Kozierok的《The TCP/IP Guide》或者W. Richard Stevens写的经典的《TCP/IP Illustrated》（卷1）。
