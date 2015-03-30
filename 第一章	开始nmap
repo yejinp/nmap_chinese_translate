@@ -1,26 +1,19 @@
-
-
 介绍
-
-Nmap (“Network Mapper”) is a free and open source utility for network exploration and security auditing.
-nmap (网络映射程序)是一个为探索网络和安全审计的免费开源软件。
-
+Nmap (“Network Mapper”) is a free and open source utility for network exploration and security auditing. 
+Nmap（网络制图者）是一个为网络探究和安全审计的免费开源工具。
 Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. 
-很多系统和网络管理员也发现它对处理网络、管理服务更新和监控主机和服务运行时间等任务也很有用。
-
-Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics.
-nmap利用来确定网络上哪些主机可用，哪些服务（应用名字和版本）
-
-It was designed to rapidly scan large networks, but works fine against single hosts.
-
+很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。
+Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. 
+Nmap 利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和以及其他很多特征。
+It was designed to rapidly scan large networks, but works fine against single hosts. 
+它被设计为快速扫描大型网络，但对单个主机工作得也很好。
 Nmap runs on all major computer operating systems, and both console and graphical versions are available.
-nmap运行在所有主要的计算机操作系统上，包括命令行和图形版本都有。
+Nmap运行在大部分的操作系统上，同时包含控制台和图形界面版本。
 
-This chapter uses fictional stories to provide a broad overview of Nmap and how it is typically used.
-本章我们用一些细碎的故事来提供一个Nmap宽大的视图及典型的使用方法。
-
-An important legal section helps users avoid (or at least be aware of) controversial usage that could lead to ISP account cancellation or even civil and criminal charges.
-一个重要的法律帮助用户避免（至少说意识到）
-
+This chapter uses fictional stories to provide a broad overview of Nmap and how it is typically used. 
+本章用来几个故事来鸟瞰nmap和其典型使用方法
+An important legal section helps users avoid (or at least be aware of) controversial usage that could lead to ISP account cancellation or even civil and criminal charges. 
+重要的法律一节能够帮助用户避免（或者至少意识到）争议的使用会导致ISP帐号被取消或者民事和刑事指控。
 It also discusses the risks of crashing remote machines as well as miscellaneous issues such as the open source Nmap license (based on the GNU GPL), and copyright.
-本节也讨论了让远程主机宕机的风险，同时
+在讨论其他主题如，nmap开源许可证（基于GNU GPL）和版权的同时，也讨论了使得远程主机崩溃的风险。
+
