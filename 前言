@@ -276,33 +276,38 @@ Catherine Tornabene读了很多章节，并提供了非常详细的反馈。
 
 
 Technology Used to Create This Book
-创建本书中用到的技术
+创作本书用到的技术
 
 As an author of open source tools myself, I'm a big believer in their power and capability.
-我自己作为作为开源工具作者，我对他们的能力坚信不疑。
+身为开源工具作者，我对他们的能力坚信不疑。
 
 So I made an effort to use them wherever possible in creating this book.
-所以我尝试让任何地方的创建本书。
+所以我尝试让任何地方利用他们来创作本书。
 
 I wasn't about to write it in Microsoft Word and then handle layout with Adobe FrameMaker!
-我可不会用先编辑然后再用Adobe framemaker来处理布局。
+我可不会用先用Microsoft Word编辑然后再用Adobe framemaker来处理布局。
 
 Nmap Network Scanning was written with the GNU Emacs text editor in the DocBook XML format.
-nmap网络扫描用gnu emacs编辑器用docbookxml格式编写。
+nmap网络扫描用gnu emacs文本编辑器用docbookxml格式编写。
 The free online chapters are created from the XML using Norman Walsh's XSL Stylesheets and the xsltproc XSL processor.
 在线免费章有xml
 
 The print version also uses Norman's stylesheets and xsltproc, but output to the XSL-FO format.
+打印版同样使用和，但输出为XSL-FO格式。
 
 An XSL-FO processor is then used to build a PDF.
+XSL-FO后来用于创建PDF文档。
+
 I would like to use Apache FOP for this, but a footnote-related bug prevents this, so I switched to the RenderX XEP Engine.
 XEP is proprietary, but at least it runs on Linux.
+我想用Apache FOP来完成这些，但脚注相关的问题让这行不通，所以我调整用RenderX XEP引擎。
 I hope to switch back to FOP after the footnote bug is fixed.
+我希望在脚注问题解决后能换换回到FOP。
 
 Cover layout was done with Scribus and (due to printing company format requirements) Adobe InDesign.
 封面布局用Scribus和Adobe InDesign（需要打印公司格式）完成。
 Raster graphics for the cover and internal illustrations were created with The Gimp, while Inkscape was used for vector graphics.
-
+封面位图和书中插图用Gimp完成，而向量图用Inkscape完成。
 
 Subversion was used for revision control and the free web chapters are serviced by Apache httpd.
 我们用Subversion来控制版本，免费的章节由apache httd给大家提供服务。
