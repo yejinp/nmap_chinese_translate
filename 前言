@@ -30,7 +30,7 @@ Nmap（网络制图者）是一个为网络探究和安全审计的免费开源�
 Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. 
 很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。
 Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. 
-Nmap 用一种新的方法利用原始IP数据包来判断网络上那些主机可用，在使用那些包过滤器和防火墙，以及其他特征。
+Nmap 利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和以及其他很多特征。
 It was designed to rapidly scan large networks, but works fine against single hosts.
 它被设计为快速扫描大型网络，但对单个主机工作得也很好。
 
