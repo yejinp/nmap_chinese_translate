@@ -64,11 +64,11 @@ Starting with the basics, this book gives an overview of Nmap by example in Chap
 Then Chapter 2 covers obtaining, compiling and installing Nmap.
 然后在第二章描述了如何获取、编译和安装nmap。
 Chapters 3 through 5 cover features in the order you might use them when conducting a penetration test.
-第三章到第五章根据你在渗透测试中可能用到的顺序进行介绍。
+第三章到第五章根据你在渗透测试中可能用到的特性顺序进行介绍。
 First comes host discovery (“ping scanning”), which determines the available hosts on a network.
 首先是确定一个网络上的可用主机的主机发现（ping扫描）功能。
 Next, port scanning is covered in depth.
-然后全名描述了端口扫描功能。
+然后全面描述了端口扫描功能。
 In Chapter 5, all the Nmap scanning techniques are detailed, with advice and examples.
 在第五章中，所有的nmap扫描技术都有详细描述，同时给出了建议和例子。
 Scanning a large network can take a long time, so Chapter 6 is full of performance optimization advice.
@@ -78,17 +78,17 @@ Chapter 7 details service and application version detection, in which Nmap queri
 Chapter 8 covers one of Nmap's most loved features: remote OS detection.
 第八章描述了Nmap最喜欢的特性：操作系统探测。
 Chapter 9 details the Nmap Scripting Engine (NSE), which allows users to write (and share) simple scripts to automate a wide variety of networking tasks.
-在第九章中，详细描述了nmap的脚本引擎（nse），它允许用户写（分享）一些简单脚本来自动化完成不同的网络任务。
+在第九章中，详细描述了nmap的脚本引擎（NSE），它允许用户写（也可分享）一些简单脚本来自动化完成多种多样的网络任务。
 My favorite chapter is number 10: Detecting and Subverting Firewalls and Intrusion Detection Systems.
-我最喜欢的是第十章：探测和推翻防火墙和入侵检测系统。
+我最喜欢的是第十章：探测并推翻防火墙和入侵检测系统。
 For balance, that is followed by a chapter on defending against Nmap scans.
 为了达到平衡，紧接着的一章就是如何防御nmap扫描。
 Chapter 12 then fully documents the Zenmap multi-platform Nmap GUI and results viewer.
-第十二章完整描述了zenmap的多平台nmap gui和结果视图。
+第十二章完整描述了zenmap多平台nmap图形用户界面和结果视图。
 The next two chapters cover output formats and data files.
 下面的两章描述了输出格式和数据文件。
 The final four chapters are reference guides for the whole family of tools: Nmap, Ndiff, Ncat, and Nping.
-最后的四章分别为Nmap、Ndiff、Ncat和Nping的用户指南。
+最后四章分别为Nmap、Ndiff、Ncat和Nping的用户指南。
 These are quick resources for looking up specific command-line options or brief feature summaries.
 这些章节提供了一种快速查询特定命令行选项或者特征简述。
 
