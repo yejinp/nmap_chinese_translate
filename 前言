@@ -23,7 +23,7 @@ It now supports all major Unix, Windows, and Mac OS platforms with both console 
 Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Codetalker Digest have recognized Nmap as “security tool of the year”.
 发表在《Linux Journal》、《Info World》、LinuxQuestions.Org和《 Codetalker Digest》等上的文献，让nmap成为了“安全工具年”。
 It was even featured in nine movies, including The Matrix Reloaded, The Girl with the Dragon Tattoo, The Bourne Ultimatum, and Die Hard 4.
-它甚至出现在包括《重装上阵》、《龙纹身的女孩》、《谍影重重》和《虎胆龙威4》等9部电影中。
+甚至包括《重装上阵》、《龙纹身的女孩》、《谍影重重》和《虎胆龙威4》等9部电影有nmap的特写镜头。
 
 Nmap (“Network Mapper”) is a free and open source utility for network exploration and security auditing.
 Nmap（网络制图者）是一个为网络探究和安全审计的免费开源工具。
@@ -37,7 +37,7 @@ It was designed to rapidly scan large networks, but works fine against single ho
 While Nmap is extremely powerful, it is also complex.
 Nmap功能非常强大，同时也很复杂。
 More than 100 command-line options add expressiveness for networking gurus, but can confound novices.
-有超过100多个命令行选项让网络专家得心应手（如虎添翼），但困惑新手。
+超过100多个命令行选项让网络专家得心应手（如虎添翼），但困惑新手。
 Some of its options have never even been documented.
 一些选项甚至都没有描述文档。
 This book documents all Nmap features and, more importantly, teaches the most effective ways of using them.
@@ -62,17 +62,17 @@ It should benefit Nmap users (or potential users) of all experience levels.
 Starting with the basics, this book gives an overview of Nmap by example in Chapter 1.
 从基本的开始，本书在第一章通过例子来展示nmap的概貌。
 Then Chapter 2 covers obtaining, compiling and installing Nmap.
-然后在第二章描述了获取、编译和安装nmap。
+然后在第二章描述了如何获取、编译和安装nmap。
 Chapters 3 through 5 cover features in the order you might use them when conducting a penetration test.
-第三章到第五章用你在渗透测试用可能用到的顺序特性。
+第三章到第五章根据你在渗透测试中可能用到的顺序进行介绍。
 First comes host discovery (“ping scanning”), which determines the available hosts on a network.
-首先是主机发现（ping扫描），确定一个网络上的可用主机。
+首先是确定一个网络上的可用主机的主机发现（ping扫描）功能。
 Next, port scanning is covered in depth.
-然后是纵深描述端口扫描。
+然后全名描述了端口扫描功能。
 In Chapter 5, all the Nmap scanning techniques are detailed, with advice and examples.
-在第五章中，所有的nmap扫描技术都有详细描述，包括建议和例子。
+在第五章中，所有的nmap扫描技术都有详细描述，同时给出了建议和例子。
 Scanning a large network can take a long time, so Chapter 6 is full of performance optimization advice.
-扫描一个大的网络会耗费一些时间，因此第六章都是性能优化建议。
+扫描一个大的网络会耗费很长一段时间，因此第六章都是性能优化建议。
 Chapter 7 details service and application version detection, in which Nmap queries ports to determine exactly what is running rather than simply guessing based on the port number.
 在第七章详细描述了服务和应用版本探测功能，这些功能让nmap查询端口以基于端口正确地识别而不是简单猜测运行着什么服务。
 Chapter 8 covers one of Nmap's most loved features: remote OS detection.
