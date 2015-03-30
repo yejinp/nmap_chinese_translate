@@ -129,9 +129,9 @@ While this book is an important reference for Nmap, it isn't the only one.
 The Nmap web page at http://nmap.org is not just for downloads.
 nmap在http://nmap.org上的web页面不只为了下载。
 It also provides substantial documentation from Nmap developers and third parties.
-它也同样为nmap的开发和第三方提供丰富的资料。
+它也同样提供了来自nmap的开发和第三方提供丰富文档。
 For example, you can find the Nmap Reference Guide translated into a dozen languages there.
-比如，你会发现，nmap的参考指南已经翻译成多种语言。
+比如，在那里你会发现nmap的参考指南已经翻译成多种语言。
 Other books, videos, and articles covering Nmap are also available.
 其他覆盖nmap的书籍、视频和文章都可以得到。
 
