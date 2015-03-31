@@ -192,15 +192,23 @@ This section provides a timeline of the most important milestones over 16 years 
 •	December 12, 1998 — Nmap version 2.00 is publicly released, introducing Nmap OS detection for the first time after several months of private development. An paper describing the techniques was released in Phrack 54, Article 9. By this point Nmap is broken up into many files, consists of about 8,000 lines of code, is kept in a private CVS revision control system, and the tarball size is 275KB. The nmap-hackers mailing list is started, and later grows to more than 80,000 members.
 1998年十月12日---nmap的2.20版本对大众发布了，在几月的私人开发后，首次介绍了nmap系统检测功能。描述技术文章在。此时，nmap已经分开为几个文件了，包含了约8000行的代码。
 •	April 11, 1999 — Nmap 2.11BETA1 is released. This is the first version to contain a graphical user interface as an alternative to the traditional command-line usage. The bundled Unix-only NmapFE GUI was originally written by Zach Smith. Some people like it, but most prefer command-line execution.
-
+1999年四月11日，nmap 2.11BETA1发布。这是首次包含图形用户界面作为传统命令行的替换物。起始的只支持UNIX的NmapFE 用户图形界面由Zach Smith编写。有些人喜欢它，但大部分人还是更喜欢命令行操作。
 •	April 28, 2000 — Nmap 2.50 is released. By this point the tarball has grown to 461KB. This release includes timing modes such as-T aggressive, direct SunRPC scanning, and the Window and ACK scan methods.
+2000年四月28日--nmap 2.50版本发布。这时原始码增长到461kb。 这次发布包含定时器模块，比如 、 直接SunRPC扫描以及窗口和ACK扫描方法。
 •	May 28, 2000 — Gerhard Rieger sends a message to the nmap-dev list describing a new “protocol scan” he has developed for Nmap, and he even includes a patch. This is so cool that I release Nmap 2.54BETA1 with his patch less than 12 hours later.
+2000年五月28日，Gerhard Rieger给我发消息说 nmap-dev列表描述了一个新的“协议扫描”已经开发完成，他甚至包含一个补丁。
 •	December 7, 2000 — Nmap 2.54BETA16 is released as the first official version to compile and run on Microsoft Windows. The Windows porting work was done by Ryan Permeh and Andy Lutomirski.
+2000年十一月七日，nmap2.54BETA16作为官方编译和运行在微软Windows版本。这个Windows移植工作由Ryan Permeh和Andy Lutomirski完成。
 •	July 9, 2001 — The Nmap IP ID idle scan is introduced with Nmap 2.54BETA26. A paper describing the technique is released concurrently. This extremely cool (though not always practical) scan technique is described in the section called “TCP Idle Scan (-sI)”.
+2001年六月9日---nmap IP ID空闲扫描引入到Nmap 2.54BETA26。介绍这个技术的文章也同时发表。这个非常酷（尽管不是非常实用）的扫描技术在“TCP空闲扫描（-sI）”一节中有描述。
 •	July 25, 2002 — I quit my job at Netscape/AOL and start my dream job working on Nmap full time.
+2002年六月25日--我辞退了在 Netscape/AOL的工作，开始了我全职工作在nmap的梦想。
 •	July 31, 2002 — Nmap 3.00 is released. The tarball is 922K. This release includes Mac OS X support, XML output, and uptime detection.
+2002年六月31日--- Nmap 3.00 发布。原始包922k。这个发布包含支持Mac os x、xml输出和运行时间探测功能。
 •	August 28, 2002 — Nmap is converted from C to C++ and IPv6 supported is added as part of the Nmap 3.10ALPHA1 release.
+2002年八月28日  nmap从C转换为C++，同时支持IPv6作为一部分添加到Nmap 3.10ALPHA1发布版。
 •	May 15, 2003 — Nmap is featured in the movie The Matrix Reloaded, where Trinity uses it (followed by a real SSH exploit) to hack a power station and save the world. This leads to more publicity for Nmap than it had ever seen before. Hollywood takes notice, and Nmap becomes a standard prop for hacking scenes in movies. Nmap is later seen in The Bourne Ultimatum, Die Hard 4, The Girl with the Dragon Tattoo, Dredd, and many others. Details and screen shots from all these movies are available at http://nmap.org/movies/.
+2003年五月15日 电影《》给nmap一个特写镜头，
 •	July 21, 2003 — I finish a first implementation of Nmap service/version detection (Chapter 7, Service and Application Version Detection) and release it to a couple dozen top Nmap developers and users as Nmap 3.40PVT1. That is followed up by 16 more private releases over the next couple months as we improve the system and add signatures.
 •	September 16, 2003 — Nmap service detection is publicly released as part of Nmap 3.45.
 •	February 20, 2004 — Nmap 3.50 is released. The tarball is now 1,571KB. SCO Corporation is banned from redistributing Nmap because they refuse to comply with the GPL. They have to rebuild their Caldera release ISOs to remove Nmap. This release includes the packet tracing and UDP ping options, as well as an OS classification system.
