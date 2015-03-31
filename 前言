@@ -249,21 +249,18 @@ Doug Hoyte documented the many Nmap features he added, and also handled most of 
 Doug Hoyte描述了很多他填加的nmap特性，同时也处理了书中大部分的索引。
 Marius Huse Jacobsen reviewed many chapters, providing detailed feedback.
 Marius Huse Jacobsen审查许多章节，并提供详细的反馈意见。。
-
 Kris Katterjohn performed thorough reviews of several chapters.
-Kris Katterjohn对几章都做了通篇的复审工作。
-
+Kris Katterjohn对几个章节都做了彻底的复审工作。
 Eric Krosnes sent useful technical review feedback and also regularly nagged me about book progress.
-Eric Krosnes在发给我有用技术复审的的同时，也定期对书的进展发发牢骚。
+Eric Krosnes在发给我有用技术复审的的同时，还经常唠叨我关于书的进展。
+Eric Krosnes 发送有用的技术审查反馈，并且还经常唠叨我关于书的进展。
 This was helpful since I didn't have a traditional editor to do so.
-这对于我没有传统的编辑来说很有帮助。
-
+这对于我没有传统的编辑器来说很有帮助。
 Vlad Alexa Mancini created the Nmap eye logo for the cover (and the Nmap web site).
-Vlad Alexa Mancini创建了封图的nmap之眼logo(也是nmap网站上的).
-
+Vlad Alexa Mancini创建了封图(也是nmap网站上)的nmap之眼标志。
 Michael Naef kindly reviewed many chapters.
-Michael Naef很友好的复审了多个章节。
-
+Michael Naef友好的复审了许多章节。
+Michael Naef请审查了许多章节。
 Bill Pollock of No Starch Press was always happy to provide advice and answer book publishing questions based on his decades of experience.
 No Starch Press出版社的Bill Pollock总是乐于提供建议并基于他们几个世代的经验回答关于出版的问题。
 
