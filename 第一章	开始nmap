@@ -28,14 +28,17 @@ nmap -sS -p- -PE -PP -PS80,443 -PA3389 -PU40125 -A -T4 -oA avatartcpscan-%D 6.20
 These options are described in later chapters, but here is a quick summary of them.
 -sS
 Enables the efficient TCP port scanning technique known as SYN scan. Felix would have added a U at the end if he also wanted to do a UDP scan, but he is saving that for later. SYN scan is the default scan type, but stating it explicitly does not hurt.
+启用被称为SYN扫描的高效TCP端口扫描技术。
 -p-
 Requests that Nmap scan every port from 1-65535. This is more comprehensive than the default, which is to scan only the 1,000 ports which we've found to be most commonly accessible in large-scale Internet testing. This option format is simply a short cut for -p1-65535. Felix could have specified -p0-65535 if he wanted to scan the rather illegitimate port zero as well. The -p option has a very flexible syntax, even allowing the specification of a differing set of UDP and TCP ports.
 -PE -PP -PS80,443 -PA3389 -PU40125
 These are all host discovery techniques (ping types) used in combination to determine which targets on a network really available and avoid wasting a lot of time scanning IP addresses that are not in use. This particular incantation sends ICMP echo request and timestamp request packets; TCP SYN packet to ports 80 and 443; TCP ACK packets to port 3389; and a UDP packet to port 40,125. If Nmap receives a response from a target host to any of these probes, it considers the host to be up and available for scanning. This is the most effective six-probe combination that we've found in large-scale empirical testing for host discovery against targets over the Internet. It is more extensive than the Nmap default, which is -PE -PS443 -PA80 -PP. In a pen-testing situation, you often want to scan every host even if they do not seem to be up. After all, they could just be heavily filtered in such a way that the probes you selected are ignored but some other obscure port may be available. To scan every IP whether it shows an available host or not, specify the -Pn option instead of all of the above. Felix starts such a scan in the background, though it may take many hours to complete.
 -A
 This shortcut option turns on Advanced and Aggressive features such as OS and service detection. At the time of this writing it is equivalent to -sV -sC -O --traceroute (version detection, Nmap Scripting Engine with the default set of scripts, remote OS detection, and traceroute). More features may be added to -A later.
+这个短选项开启高级的和侵略性的特性，比如操作系统和服务探测功能。在本书写作是，它与选项-sV -sC -O --traceroute（版本探测、默认的nmap脚本引擎、远程主机操作系统探测和路由追踪功能）等同。
 -T4
 Adjusts timing to the aggressive level (#4 of 5). This is the same as specifying -T aggressive, but is easier to type and spell. In general, the -T4 option is recommended if the connection between you and the target networks id reasonably fast and reliable.
+调整
 -oA avatartcpscan-%D
 Outputs results in every format (normal, XML, grepable) to files named avatartcpscan-<date>.<extension> where the extensions are .nmap, .xml, and .gnmap respectively. The <date> gives the month, day, and year in a format like 073010. All of the output formats include the start date and time, but Felix likes to note the date explicitly in the filename. Normal output and errors are still sent to stdout[4] as well.
 6.209.24.0/24 6.207.0.0/22
