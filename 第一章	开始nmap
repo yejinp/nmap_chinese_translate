@@ -339,7 +339,9 @@ This section provides a timeline of the most important milestones over 16 years 
 •	January 28, 2011 — Released Nmap 5.50. We added support for the ancient Gopher protocol for just fun, but serious improvements included tripling the NSE scripts to 177 and adding a new Zenmap script selection interface. We also added a novel echo mode feature to Nping which can ease network analysis and debugging (see the section called “Echo Mode”). Performance was a high priority too, with certain scan times reduced from hours to minutes and memory consumption reduced 90% in our benchmark scan.
 •	June 8, 2011 — We made a commermorative World IPv6 day release with numerous new IPv6 features, plus we ensured that all of our websites were IPv6-enabled. While Nmap has supported basic IPv6 scanning since 2002, we added advanced host discovery and raw port scanning. We also soon added a new machine language based IPv6 OS detection system (see the section called “IPv6 fingerprinting”).
 •	November 4, 2011 — After surveying more than 3,000 Nmap users for their favorite security tools, we releaunched our SecTools.orgweb site with the new data. Our previous sites were just static HTML files, but this new release includes interactive rating and review features to better share information. 49 of the the top 125 tools profiled on the site are new to the list. Of course the Nmap family of tools are excluded from the site due to potential conflicts of interest.
+2011年十一月4日--在对超过3000个nmap用户喜爱的安全工具调查后，我们重新发起了我们的SecTools.org web站点。我们之前的站点只是静态的HTML文件，但这个新发布的包含交互评价和评审特性
 •	May 21, 2012 — Nmap 6 was released! The tarball is more than 54MB and contains 3,572 OS fingerprints, 8,165 version detection signatures, and 348 NSE scripts.
+2012年五月21日，发布了nmap 6！原始码已经超过54MB，并包含超过3572个操作系统指纹、8165个版本探测签名和348个NSE脚本。
 
 The Future of Nmap
 nmap的未来
@@ -356,8 +358,11 @@ nmap脚本引擎-NSE
 •	Online scanning web service — We're working on a service which allows users to scan their own machines and networks “from the cloud” to see what is exposed from an outside perspective. Repeat scans can be scheduled with changes sent in email alerts or browsed online.
 在线扫描web服务--我们正工作在一种用户能够通过云扫描他们自己主机和网络来从外面暴露的服务。
 In addition to those high-level priorities, we have some concrete tasks in mind:
+在这些高优先级之外，我们脑子中还有一些固定的任务：
 •	Internationalize Nmap to support many different languages rather than just English. The Zenmap front-end already does this, supporting five languages, as described in the section called “Zenmap in Your Language”.
+国际化nmap来支持英语外的多种不同语言。 zenmap终端字体已经做了这些工作，正如在“Zenmap in Your Language”一节描述的一样，支持五种语言，
 •	Add a testing harness system to more easily catch regressions (bugs). Ncat has already implemented such a system and it has proven extremely useful.
+ncat已经实施了这样一个系统并证明非常有用。
 •	The OS and Version detection systems may be augmented to support the NIST Common Platform Enumeration (CPE) standard for better compatibility with other tools.
 操作系统和版本探测
 •	Zenmap will soon offer an advanced script selection interface, making it easy to browse and choose scripts and script-arguments supported by the version of Nmap installed on a machine.
