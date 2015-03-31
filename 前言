@@ -141,27 +141,27 @@ Replaceable variables	Let <source> be the machine running Nmap and <target> be m
 While this book is an important reference for Nmap, it isn't the only one.
 本书作为nmap的重要参考资料，但不是仅有的参考资料。
 The Nmap web page at http://nmap.org is not just for downloads.
-nmap在http://nmap.org上的web页面不只为了下载。
+nmap在http://nmap.org上的网站不只为了下载。
 It also provides substantial documentation from Nmap developers and third parties.
-它也同样提供了来自nmap的开发和第三方提供丰富文档。
+它也同样提供了来自nmap的开发人员和第三方提供丰富文档。
 For example, you can find the Nmap Reference Guide translated into a dozen languages there.
 比如，在那里你会发现nmap的参考指南已经翻译成多种语言。
 Other books, videos, and articles covering Nmap are also available.
-其他覆盖nmap的书籍、视频和文章都可以得到。
+还提供了其他覆盖nmap的书籍、视频和文章。
 
 The official web site for this book is http://nmap.org/book/.
 本书的官网地址为http://nmap.org/book/。
 Go there for errata, updates, and many sample chapters.
-在这里可以看到勘误、更新和很多样章。
+这里有勘误、更新和很多示例章节。
 
 Any serious Nmap user should subscribe to the nmap-hackers mailing list for announcements about Nmap and Insecure.Org.
-任何认真的Nmap用户都会在nmap-hackers上订阅关于Nmap和insecure.org公告的邮件清单，
+任何认真的Nmap用户都应该在nmap-hackers上订阅关于Nmap和insecure.org公告的邮寄清单，
 Traffic is very light (about six posts per year) because it is reserved for only the most important announcements.
 由于只保留最重要的公告，所以流量很小（每年大概6封邮件的样子）
 Developers and particularly devoted users can also subscribe to the nmap-dev mailing list.
-开发者和特定的贡献用户也可以订阅nmap-dev的邮件列表。
+开发人员和特别忠实的用户也可以订阅nmap-dev的邮寄清单。
 Traffic is much higher (hundreds of posts per month), but it is a great place to learn about and try new features before they are released and to pick up tips from advanced users.
-这个的流量就大的多了（每月有上百封的邮件），但这是一个在了解和尝试发布前的新特性和从高级用户那里获得小窍门地方。
+这个的流量就大的多了（每个月有上百封的邮件），但这是一个了解和尝试发布前的新特性和从高级用户那里获得小窍门的地方。
 Subscription information and archives for both lists are available at http://seclists.org.
 在http://seclists.org上提供了上面两个预定信息列表和档案。
 While Nmap can be useful, it won't solve all of your security problems.
@@ -176,7 +176,8 @@ Most of the tools are free and open source.
 它们中的大部分是免费开源工具。
 
 Request for Comments
-评论请求
+征求意见
+
 While I tried my best to make this book comprehensive, accurate, and up-to-date, we all make mistakes.
 我尽量使得本书容易理解、准确并与时俱进，但错误在所难免。
 If you find any problems or just have suggestions for making this book better, please let me know by email at <fyodor@nmap.org>.
@@ -184,9 +185,9 @@ If you find any problems or just have suggestions for making this book better, p
 The open source principle of many readers and contributors is just as viable for documentation as for software.
 开源的原则是读者和贡献者都能够与软件一样获得相应的文档。
 As the next section attests, dozens of people have already generously contributed their time and skills to make this book a success.
-正如下一节可以证明，很多人在让本书变得成功时作出了时间和技术上的慷慨贡献。
+正如下一节证明的那样，很多人在使得本书变得成功时作出了时间和技术上的慷慨贡献。
 If you have a question or comment about Nmap (rather than this book itself), it is best sent to the Nmap development list as described at the section called “Bugs”.
-如果你有关于Nmap（不只限于本书本身）的问题或者评论，最好能够根据bugs一节中所述给nmap的开发清单发送邮件。
+如果你有关于Nmap（而不是这本书本身）的问题或者评论，最好能够根据bugs一节中所述给nmap的开发清单发送邮件。
 
 Acknowledgements
 致谢
