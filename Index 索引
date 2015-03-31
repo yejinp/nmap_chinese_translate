@@ -1,0 +1,1488 @@
+Options
+
+summary of options, Options Summary-Options Summary
+summary of options (Nping), Options Summary-Options Summary
+--adler32, Firewall/IDS Evasion and Spoofing
+--allow (Ncat option), Access Control Options
+--allowfile (Ncat option), Access Control Options
+--allports, Exclude Directive, Service and Version Detection
+--append-output, Controlling Output Type, Output
+--append-output (Ncat option), Output Options
+--arp (Nping option), Probe Modes
+--arp-sender-ip (Nping option), ARP Mode
+--arp-sender-mac (Nping option), ARP Mode
+--arp-target-ip (Nping option), ARP Mode
+--arp-target-mac (Nping option), ARP Mode
+--arp-type (Nping option), ARP Mode, ARP Types, Ethernet Types
+--badsum, Firewall/IDS Evasion and Spoofing
+--badsum (Nping option), TCP Mode
+--badsum-ip (Nping option), IPv4 Options
+--bpf-filter (Nping option), Miscellaneous Options
+--broker (Ncat option), Listen Mode Options
+--chat (Ncat option), Listen Mode Options
+--confdir (Zenmap option>, Options Summary
+--count (Nping option), Miscellaneous Options
+--crlf (Ncat option), Misc Options
+--data, Firewall/IDS Evasion and Spoofing
+--data (Nping option), Payload Options
+--data-length, Firewall/IDS Evasion and Spoofing
+no effect in OS detection, Sequence generation (SEQ, OPS, WIN, and T1), Firewall/IDS Evasion and Spoofing
+--data-length (Nping option), Payload Options
+--data-string, Firewall/IDS Evasion and Spoofing
+--data-string (Nping option), Payload Options
+--datadir, Well Known Port List: nmap-services, SunRPC Numbers: nmap-rpc, Using Customized Data Files, Miscellaneous Options
+--defeat-rst-ratelimit, Timing and Performance
+--delay (Ncat option), Timing Options
+--delay (Nping option), Timing and Performance Options
+--deny (Ncat option), Access Control Options
+--denyfile (Ncat option), Access Control Options
+--dest-ip (Nping option), IPv4 Options, IPv6 Options
+--dest-mac (Nping option), Ethernet Options
+--dest-port (Nping option), TCP Connect Mode, UDP Mode
+--df (Nping option), IPv4 Options
+--disable-arp-ping, Host Discovery
+--dns-servers, Host Discovery
+--ec (Nping option) (see --echo-client)
+--echo-client (Nping option), Echo Mode
+example of, Echo Mode
+--echo-port (Nping option), Echo Mode
+--echo-server (Nping option), Echo Mode
+--ep (Nping option) (see --echo-port)
+--es (Nping option) (see --echo-server)
+--ether-type (Nping option), Ethernet Options
+--exclude, Target Specification
+--exclude-ports, Port Specification and Scan Order
+--excludefile, Target Specification
+--exec (Ncat option), Command Execution Options
+--file (Zenmap option>, Options Summary
+--filter (Nping option) (see --bpf-filter)
+--flags (Nping option), TCP Mode
+--flow (Nping option), IPv6 Options
+--fuzzy (see --osscan-guess)
+--h (Nping option) (see --help)
+--help, Miscellaneous Options
+--help (Ncat option), Misc Options
+--help (Nping option), Miscellaneous Options
+--help (Zenmap option>, Options Summary
+--hex-dump (Ncat option), Output Options
+--hide-sent (Nping option), Miscellaneous Options
+--hop-limit (Nping option), IPv6 Options
+--host-timeout, Timing and Performance
+--icmp (Nping option), Probe Modes
+--icmp-advert-entry (Nping option), ICMP Mode
+--icmp-advert-lifetime (Nping option), ICMP Mode
+--icmp-code (Nping option), ICMP Mode, ICMP Codes
+--icmp-id (Nping option), ICMP Mode
+--icmp-orig-time (Nping option), ICMP Mode
+--icmp-param-pointer (Nping option), ICMP Mode
+--icmp-recv-time (Nping option), ICMP Mode
+--icmp-redirect-addr (Nping option), ICMP Mode
+--icmp-seq (Nping option), ICMP Mode
+--icmp-trans-time (Nping option), ICMP Mode
+--icmp-type (Nping option), ICMP Mode, ICMP Types
+--id (Nping option), IPv4 Options
+--idle-timeout (Ncat option), Timing Options
+--iflist, Output
+--initial-rtt-timeout, Timing and Performance
+--interface (Nping option), Miscellaneous Options
+--ip-options, Firewall/IDS Evasion and Spoofing
+--ip-options (Nping option), IPv4 Options
+--ipv6 (Nping option), IPv6 Options
+--keep-open (Ncat option), Listen Mode Options
+--listen (Ncat option), Listen Mode Options
+--log-errors, Handling Error and Warning Messages
+--lua-exec (Ncat option), Command Execution Options
+--max-conns (Ncat option), Listen Mode Options
+--max-hostgroup, Timing and Performance
+--max-os-tries, Usage and Examples, OS Detection
+--max-parallelism, Timing and Performance
+--max-rate, Timing and Performance
+--max-retries, Timing and Performance
+--max-rtt-timeout, Timing and Performance
+example of, Manipulating XML Output with Perl
+--max-scan-delay, Timing and Performance
+--mf (Nping option), IPv4 Options
+--min-hostgroup, Timing and Performance
+--min-parallelism, Timing and Performance
+--min-rate, Timing and Performance
+--min-rtt-timeout, Timing and Performance
+--mtu, Firewall/IDS Evasion and Spoofing
+--mtu (Nping option), IPv4 Options
+--nc (Nping option) (see --no-crypto)
+--nmap (Zenmap option>, Options Summary
+--no-capture (Nping option), Miscellaneous Options
+--no-crypto (Nping option), Echo Mode
+--no-stylesheet, Creating HTML Reports, Output
+--nsock-engine, Timing and Performance
+--once (Nping option), Echo Mode
+--open, Output
+example of, Target Specification
+--osscan-guess, Usage and Examples, IPv4 matching, Dealing with Misidentified and Unidentified Hosts, OS Detection
+--osscan-limit, Usage and Examples, OS Detection
+--output (Ncat option), Output Options
+--packet-trace, Enabling Packet Tracing, Output
+example of, Idle Scan Implementation Algorithms, Enabling Packet Tracing
+--port-ratio, Port Specification and Scan Order
+--privileged, Miscellaneous Options
+--privileged (Nping option), Miscellaneous Options
+--profile (Zenmap option>, Options Summary
+--proxies, Firewall/IDS Evasion and Spoofing
+--proxy (Ncat option), Proxy Options
+--proxy-auth (Ncat option), Proxy Options
+--proxy-type (Ncat option), Proxy Options
+--randomize-hosts, Firewall/IDS Evasion and Spoofing
+--rate (Nping option), Timing and Performance Options
+--reason, Output
+implied by -d, Output
+--recv-only (Ncat option), Misc Options
+--reduce-verbosity (Nping option), Output Options
+--release-memory, Miscellaneous Options
+--resume, Resuming Aborted Scans, Output
+--safe-payloads (Nping option), Echo Mode
+--scan-delay, Timing and Performance
+--scanflags, Port Scanning Techniques
+--script, Usage and Examples, Command-line Arguments, Script Selection, Nmap Scripting Engine (NSE)
+--script-args, Usage and Examples, Command-line Arguments, Nmap Scripting Engine (NSE)
+example of, Arguments to Scripts, Complete Examples
+--script-args-file, Usage and Examples, Command-line Arguments, Nmap Scripting Engine (NSE)
+--script-help, Usage and Examples, Command-line Arguments, Nmap Scripting Engine (NSE)
+example of, Command-line Arguments
+--script-trace, Usage and Examples, Command-line Arguments, Nmap Scripting Engine (NSE)
+example of, Complete Examples
+--script-updatedb, Usage and Examples, Command-line Arguments, Files Related to Scripting, Nmap Scripting Engine (NSE)
+--sctp (Ncat option), Protocol Options
+--send-eth, Firewall/IDS Evasion and Spoofing, Miscellaneous Options
+implied by --spoof-mac, Firewall/IDS Evasion and Spoofing
+--send-eth (Nping option), Miscellaneous Options
+--send-ip, Miscellaneous Options
+--send-ip (Nping option), Miscellaneous Options
+--send-only (Ncat option), Misc Options
+--seq (Nping option), TCP Mode
+--servicedb, Well Known Port List: nmap-services, Miscellaneous Options
+--sh-exec (Ncat option), Command Execution Options
+--source (Ncat option), Connect Mode Options
+--source-ip (Nping option), IPv4 Options, IPv6 Options
+--source-mac (Nping option), Ethernet Options
+--source-port, Firewall/IDS Evasion and Spoofing
+--source-port (Ncat option), Connect Mode Options
+--source-port (Nping option), TCP Connect Mode, UDP Mode
+--spoof-mac, Information Passed to a Script, Firewall/IDS Evasion and Spoofing
+--ssl (Ncat option), SSL Options
+--ssl-cert (Ncat option), SSL Options
+--ssl-key (Ncat option), SSL Options
+--ssl-trustfile (Ncat option), SSL Options
+--ssl-verify (Ncat option), SSL Options
+--stats-every, Output
+--stylesheet, Creating HTML Reports, Output
+--system-dns, Host Discovery
+--target (Zenmap option>, Options Summary
+--tcp (Nping option), Probe Modes
+example of, Description
+--tcp-connect (Nping option), Probe Modes
+--top-ports, Port Specification and Scan Order
+--tos (Nping option), IPv4 Options
+--traceroute, An Overview of the “Topology” Tab, Searching Saved Results, Host Discovery
+--traffic-class (Nping option), IPv6 Options
+--ttl, Firewall/IDS Evasion and Spoofing
+--ttl (Nping option), IPv4 Options
+--udp (Ncat option), Protocol Options
+--udp (Nping option), Probe Modes
+--unixsock (Ncat option) (see -U)
+--unprivileged, Miscellaneous Options
+--unprivileged (Nping option), Miscellaneous Options
+--verbose, Controlling Verbosity of Output
+--verbose (Ncat option), Output Options
+--verbose (Nping option), Output Options
+--verbose (Zenmap option>, Options Summary
+--version, Miscellaneous Options
+example of, Testing Whether Nmap is Already Installed
+--version (Ncat option), Misc Options
+--version (Nping option), Miscellaneous Options
+--version-all, Technique Described, Probe Selection and Rarity, Service and Version Detection
+--version-intensity, Technique Described, Probe Selection and Rarity, Service and Version Detection
+--version-light, Technique Described, Probe Selection and Rarity, Service and Version Detection
+--version-trace, Technique Demonstrated, Service and Version Detection
+example of, Technique Demonstrated
+--versiondb, Miscellaneous Options
+--wait (Ncat option), Timing Options
+--webxml, Creating HTML Reports, Output
+--win (Nping option), TCP Mode
+-4 (Ncat option), Protocol Options
+-6, Miscellaneous Options
+-6 (Ncat option), Protocol Options
+-6 (Nping option) (see --ipv6)
+-A, Version Scanning DB: nmap-service-probes, Miscellaneous Options
+example of, Avatar Online, Usage and Examples, RPC Grinding, Description
+features enabled by, Usage and Examples, Command-line Arguments, Miscellaneous Options
+-b, Port Scanning Techniques
+-c (Ncat option) (see --sh-exec)
+-C (Ncat option) (see --crlf)
+-c (Nping option) (see --count)
+example of, Description
+-D, TCP Idle Scan (-sI), Firewall/IDS Evasion and Spoofing
+-d, Enabling Debugging Output, Output
+example of, Technique Demonstrated, Enabling Debugging Output
+giving more than once, Enabling Debugging Output, Enabling Packet Tracing, Output
+-d (Ncat option) (see --delay)
+-d (Nping option), Output Options
+-e, Firewall/IDS Evasion and Spoofing
+-e (Ncat option) (see --exec)
+-e (Nping option) (see --interface)
+-F, Port Specification and Scan Order
+-f, Firewall/IDS Evasion and Spoofing
+giving twice, Firewall/IDS Evasion and Spoofing
+-f (Zenmap option> (see --file)
+-g, Firewall/IDS Evasion and Spoofing
+-g (GCC option), IBM AIX
+-g (Ncat option), Connect Mode Options
+-G (Ncat option), Connect Mode Options
+-g (Nping option) (see --source-port)
+-h, Miscellaneous Options
+-h (Ncat option) (see --help)
+-H (Nping option) (see --hide-sent)
+-h (Zenmap option> (see --help)
+-i (Ncat option) (see --idle-timeout)
+-iL, Target Specification
+randomizing hosts with, Firewall/IDS Evasion and Spoofing
+-iR, Finding a Working Idle Scan Zombie Host, Target Specification
+example of, Status field, Target Specification, Examples
+-k (Ncat option) (see --keep-open)
+-l (Ncat option) (see --listen)
+-m (Ncat option) (see --max-conns)
+-n, Host Discovery
+-N (Nping option) (see --no-capture)
+-n (Zenmap option> (see --nmap)
+-O, Usage and Examples, Seq Index field, Nmap OS Detection DB: nmap-os-db, OS Detection
+example of, Usage and Examples, Examples
+to identify idle scan zombie candidates, Finding a Working Idle Scan Zombie Host
+-o (Ncat option) (see --output)
+-oA, Controlling Output Type, Output
+example of, Avatar Online
+in Zenmap, Output Files
+-oG, MadHat in Wonderland, Grepable Output (-oG), Output
+example of, Grepable Output (-oG), Status field, Examples
+in Zenmap, Output Files
+-oN, Handling Error and Warning Messages, Normal Output (-oN), Output
+example of, Normal Output (-oN)
+in Zenmap, Output Files
+-oS, $crIpT kIddI3 0uTPut (-oS), Output
+example of, $crIpT kIddI3 0uTPut (-oS)
+in Zenmap, Output Files
+-oX, Command-line Arguments, XML Output (-oX), Output
+example of, XML Output (-oX), Examples
+in Zenmap, Output Files
+-p, Port Specification and Scan Order
+example of, Idle Scan Implementation Algorithms, Examples
+-p (Ncat option) (see --source-port)
+-p (Nping option) (see --dest-port)
+example of, Description
+-p (Zenmap option> (see --profile)
+-P0, Host Discovery
+(see also -Pn)
+-PA, Host Discovery
+example of, Avatar Online
+-PE, Host Discovery
+example of, Avatar Online
+-PM, Host Discovery
+-Pn, Host Discovery
+example of, Idle Scan Implementation Algorithms, Examples
+with idle scan, Executing an Idle Scan, Idle Scan Implementation Algorithms
+-PN, Host Discovery
+(see also -Pn)
+-PO, Host Discovery
+-PP, Host Discovery
+example of, Avatar Online
+-PR, Host Discovery
+-PS, Host Discovery
+example of, Avatar Online, Target Specification
+-PU, Host Discovery
+example of, Avatar Online
+-PY, Host Discovery
+-q (Nping option) (see --reduce-verbosity)
+-r, Port Specification and Scan Order
+example of, Idle Scan Implementation Algorithms
+-R, Host Discovery
+-S, Firewall/IDS Evasion and Spoofing
+-s (Ncat option) (see --source)
+-S (Nping option) (see --source-ip)
+-sA, Port Scanning Techniques
+-sC, Usage and Examples, Command-line Arguments, Nmap Scripting Engine (NSE)
+example of, Introduction
+-sF, Port Scanning Techniques
+-sI, TCP Idle Scan (-sI), Port Scanning Techniques
+example of, Executing an Idle Scan, Idle Scan Implementation Algorithms
+-sL, Host Discovery
+example of, Avatar Online, Status field
+-sM, Port Scanning Techniques
+-sn, Host Discovery
+example of, Enabling Packet Tracing
+-sN, Port Scanning Techniques
+-sO, Grepable Output Fields, Protocols field, Port Scanning Techniques
+example of, Protocols field
+-sP, Host Discovery
+(see also -sn)
+-sR, Service and Version Detection
+-sS, Is Unauthorized Port Scanning a Crime?, Port Scanning Techniques
+example of, Avatar Online, Target Specification, Examples
+-sT, Is Unauthorized Port Scanning a Crime?, Port Scanning Techniques
+example of, Manipulating XML Output with Perl
+-sU, Port Scanning Techniques
+-sV, Usage and Examples, Command-line Arguments, Version Scanning DB: nmap-service-probes, Service and Version Detection
+example of, Introduction, Technique Demonstrated, SSL Post-processor Notes
+-sW, Port Scanning Techniques
+-sX, Port Scanning Techniques
+-sY, Port Scanning Techniques
+-sZ, Port Scanning Techniques
+-T, Timing and Performance
+-t (Ncat option), Misc Options
+-t (Zenmap option> (see --target)
+-T0 (see paranoid timing template)
+-T1 (see sneaky timing template)
+-T2 (see polite timing template)
+-T3 (see normal timing template)
+-T4 (see aggressive timing template)
+-T5 (see insane timing template)
+-U (Ncat option), Protocol Options
+-u (Ncat option) (see --udp)
+-v, Finding a Working Idle Scan Zombie Host, Controlling Verbosity of Output, Output
+example of, Usage and Examples, Controlling Verbosity of Output, Examples
+extra output enabled by, Controlling Verbosity of Output-Controlling Verbosity of Output
+giving more than once, Controlling Verbosity of Output, Output
+implied by -d, Enabling Debugging Output
+-V, Miscellaneous Options
+-v (Ncat option) (see --verbose)
+-V (Nping option) (see --version)
+-v (Nping option) (see --verbose)
+-v (Zenmap option> (see --verbose)
+-w (Ncat option) (see --wait)
+-x (Ncat option) (see --hex-dump)
+31337 (see default port of Ncat)
+A
+
+A (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP (T2–T7), TCP acknowledgment number (A)
+A scan, Comparing Results
+a: (Zenmap search criterion, short for after:), Searching Saved Results
+acceptable use policy, Is Unauthorized Port Scanning a Crime?
+ACK (TCP flag), TCP Mode
+ACK ping, Host Discovery
+ACK scan, Port Scanning Techniques
+“action” script variable, Action, Information Passed to a Script, The Action
+adaptive retransmission (see retransmission)
+address ranges, Avatar Online, Target Specification, Target Specification
+Adler32 checksum, Firewall/IDS Evasion and Spoofing
+afp NSE library, List of All Libraries
+after: (Zenmap search criterion), Searching Saved Results
+aggregated results (Zenmap), Scan Aggregation, The “Scans” tab, An Overview of the “Topology” Tab
+aggressive (-T4) timing template, Avatar Online, Timing and Performance
+“Aggressive OS guesses:”, Usage and Examples
+AIX, installing on, IBM AIX
+ajp NSE library, List of All Libraries
+AmigaOS, installing on, AmigaOS
+amqp NSE library, List of All Libraries
+announce mailing list, Port Scanning Techniques
+Antirez, TCP Idle Scan (-sI)
+Apple Gatekeeper, Executable Installer
+Apple Mac OS X (see Mac OS X)
+apt-get, Debian Linux and Derivatives such as Ubuntu
+argv, XML Output (-oX)
+ARIN (American Registry for Internet Numbers), Avatar Online
+ARP ping, Host Discovery
+ARP types
+mnemonics of, in Nping, ARP Types-ARP Types
+as (assembler), IBM AIX
+asn-query script, Mutexes
+asn1 NSE library, List of All Libraries
+“auth” script category, Script Categories
+auth service, Dealing with Misidentified and Unidentified Hosts, Script Writing Tutorial
+auth-owners script, The Head, Ports field
+“author” script variable, author Field , Version Detection Using NSE, Example Script: finger
+authorized users (see privileged users)
+auto (nmap-os-db), CPE name (CPE lines)
+B
+
+B scan, Comparing Results
+b: (Zenmap search criterion, short for before:), Searching Saved Results
+base32 NSE library, List of All Libraries
+base64 NSE library, List of All Libraries
+before: (Zenmap search criterion), Searching Saved Results
+Bell, Eddie, Example Script: finger
+bin NSE library, List of All Libraries
+binary packages, If You Encounter Compilation Problems
+binutils, IBM AIX
+bit NSE library, List of All Libraries, Adding C Modules to Nselib
+bitcoin NSE library, List of All Libraries
+bittorrent NSE library, List of All Libraries
+bjnp NSE library, List of All Libraries
+black hat, Is Unauthorized Port Scanning a Crime?
+blind TCP spoofing, Usage and Examples, Decoding the Subject Fingerprint Format, Seq Index field
+Boolean expressions in script selection, Script Selection, Nmap Scripting Engine (NSE)
+“broadcast” script category, Script Categories
+broken IP ID increment, IP ID sequence generation algorithm (TI, CI, II)
+brute NSE library, List of All Libraries
+“brute” script category, Script Categories
+BSDs, FreeBSD / OpenBSD / NetBSD
+bugs, reporting, Bugs, Bugs
+C
+
+ca-bundle.crt, SSL Options
+Cain and Abel, The History and Future of Nmap
+Casorran, Diego, AmigaOS
+cassandra NSE library, List of All Libraries
+“categories” script variable, categories Field, The Head, Example Script: finger
+CC (OS detection response test), TCP explicit congestion notification (ECN), Explicit congestion notification (CC)
+CD (OS detection response test), ICMP echo (IE), ICMP response code (CD)
+certification revocation, SSL Options
+CFLAGS, Environment Variables, IBM AIX
+cfp: (Zenmap search criterion, short for closed|filtered:), Host Filtering, Searching Saved Results
+changelog, The History of Nmap, Testing Whether Nmap is Already Installed, Author
+cheats (version detection), Cheats and Fallbacks
+checksums, Firewall/IDS Evasion and Spoofing
+and OS detection, Integrity of returned probe IP checksum value (RIPCK)
+of RST data, TCP RST data checksum (RD)
+CI (OS detection response test), IP ID sequence generation algorithm (TI, CI, II)
+CIDR (Classless Inter-Domain Routing), Avatar Online, Is Unauthorized Port Scanning a Crime?, Target Specification, Target Specification
+citrixxml NSE library, List of All Libraries
+Class (nmap-os-db), Device and OS classification (Class lines)
+Classless Inter-Domain Routing (see CIDR)
+client mode (Ncat) (see connect mode)
+closed port state, Avatar Online, Host Filtering, Searching Saved Results, Description, Port Scanning Basics
+closed: (Zenmap search criterion), Host Filtering, Searching Saved Results
+closed|filtered port state, Idle Scan Step by Step, Idle Scan Implementation Algorithms, Host Filtering, Searching Saved Results, Description, Port Scanning Basics
+closed|filtered: (Zenmap search criterion), Host Filtering, Searching Saved Results
+cmd.exe, Handling Error and Warning Messages
+comm NSE library, List of All Libraries
+command-line options
+of Nmap, Options Summary-Options Summary
+of Nping, Options Summary-Options Summary
+of Zenmap, Command-line Options
+Common Platform Enumeration, Common Platform Enumeration (CPE)-Common Platform Enumeration (CPE)
+hardware, Structure of a CPE Name
+operating system, Introduction, Usage and Examples, CPE name (CPE lines), Structure of a CPE Name, OS Detection
+service, Structure of a CPE Name, Service and Version Detection
+comparing results (Zenmap), Comparing Results-Comparing Results
+compilation, Linux/Unix Compilation and Installation from Source Code
+problems with, If You Encounter Compilation Problems
+Computer Fraud and Abuse Act, Is Unauthorized Port Scanning a Crime?
+Computer Misuse Act, Is Unauthorized Port Scanning a Crime?
+configure directives, Configure Directives
+connect mode (Ncat), Connect Mode and Listen Mode
+connect scan, Port Scanning Techniques, Firewall/IDS Evasion and Spoofing
+copyright, Introduction, Nmap Copyright, Nmap Copyright and Licensing, Ncat Copyright and Licensing
+of scripts, license Field
+country code, Zenmap in Your Language
+cp: (Zenmap search criterion, short for closed:), Host Filtering, Searching Saved Results
+CPE, Information Passed to a Script (see Common Platform Enumeration)
+CPE (nmap-os-db), CPE name (CPE lines)
+cpe:// (CPE) version detection field, match Directive
+crashing targets, Can Port Scanning Crash the Target Computer/Networks?, No Warranty
+CRC32C checksum, Firewall/IDS Evasion and Spoofing
+creds NSE library, List of All Libraries
+CRLF line ending, Misc Options
+CT (SCAN line test), Decoding the SCAN line of a subject fingerprint
+CU (SCAN line test), Decoding the SCAN line of a subject fingerprint
+cvs NSE library, List of All Libraries
+CWR (TCP flag), TCP Mode
+CXXFLAGS, Environment Variables
+Cygwin, Command-line Zip Binaries, Compile from Source Code
+D
+
+D (SCAN line test), Decoding the SCAN line of a subject fingerprint
+d// (device type) version detection field, match Directive, Device Types
+d: (Zenmap search criterion, short for date:), Searching Saved Results
+data files, Understanding and Customizing Nmap Data Files-Understanding and Customizing Nmap Data Files
+customizing, Using Customized Data Files-Using Customized Data Files
+directory search order, Command-line Arguments, Using Customized Data Files, Nmap Scripting Engine (NSE)
+used by Zenmap, Files Used by Zenmap-Files Used by Zenmap
+database, output to a, Output to a Database
+datafiles NSE library, List of All Libraries
+date: (Zenmap search criterion), Searching Saved Results
+DC (SCAN line test), Decoding the SCAN line of a subject fingerprint
+Debian, Configure Directives
+Debian, installing on, Debian Linux and Derivatives such as Ubuntu
+debug levels of Nping, Output Options
+debugging, Enabling Debugging Output, Output
+(see also -d)
+Zenmap, Error Output
+decoys, TCP Idle Scan (-sI), Firewall/IDS Evasion and Spoofing
+which scans use, Service and Version Detection
+default port of Ncat, Connect Mode and Listen Mode
+default ports, Port Specification and Scan Order
+default script category, The Head
+“default” script category, Script Categories
+DEFAULT_PROTO_PROBE_PORT_SPEC, Host Discovery
+DEFAULT_SCTP_PROBE_PORT_SPEC, Host Discovery
+DEFAULT_TCP_PROBE_PORT_SPEC, Host Discovery
+DEFAULT_UDP_PROBE_PORT_SPEC, Host Discovery
+defending against Nmap, Defenses Against Nmap
+denial of service, Exploit Chronology
+deny by default, Avatar Online
+(see also filtered port state)
+“dependencies” script variable, dependencies Field
+“description” script variable, description Field, The Head, Version Detection Using NSE, Example Script: finger
+device type (OS detection), Device and OS classification (Class lines), Device Types
+“Device type:”, Usage and Examples
+DF (OS detection response test), IP don't fragment bit (DF)
+DFI (OS detection response test), ICMP echo (IE), Don't fragment (ICMP) (DFI)
+dhcp NSE library, List of All Libraries
+dhcp6 NSE library, List of All Libraries
+diff (see comparing results)
+digests, cryptographic, Verifying the Integrity of Nmap Downloads
+dir: (Zenmap search modifier), Searching Saved Results
+“discovery” script category, Script Categories
+disk image (Mac OS X), Executable Installer
+DLI (retired OS detection response test), Retired Tests
+.dmg (Mac OS X disk image), Executable Installer
+DNS
+records as source of information, Host Discovery
+dns NSE library, List of All Libraries
+dnsbl NSE library, List of All Libraries
+dnssd NSE library, List of All Libraries
+document type definition (DTD), XML Output (-oX), Purpose
+“dos” script category, Script Categories
+downloading, Testing Whether Nmap is Already Installed, Downloading Nmap
+drda NSE library, List of All Libraries
+DS (SCAN line test), Decoding the SCAN line of a subject fingerprint
+DTD (see document type definition)
+E
+
+eap NSE library, List of All Libraries
+“Easy” TCP sequence generation class, Usage and Examples
+ECN (see explicit congestion notification)
+ECN (OS fingerprint category line), TCP explicit congestion notification (ECN)
+ECN (TCP flag), TCP Mode
+egress filtering, TCP Idle Scan (-sI)
+eigrp NSE library, List of All Libraries
+Enright, Brandon, Version Detection Using NSE
+“environment” script variable, Environment Variables
+environment variables
+in configuration, Environment Variables
+environment.plist, Zenmap in Your Language
+Ereet, Executing an Idle Scan
+escaping
+in XML output, XML Output (-oX)
+estimating scan time, Controlling Verbosity of Output
+Ethernet types
+mnemonics of, in Nping, Ethernet Types
+exceptions in NSE, Exception Handling, The Action
+Exclude directive (nmap-service-probes), Technique Described, Exclude Directive, Putting It All Together, Service and Version Detection
+excluding targets, Target Specification
+explicit congestion notification (ECN), TCP explicit congestion notification (ECN), Explicit congestion notification (CC), Enabling Packet Tracing
+“exploit” script category, Script Categories
+export control, United States Export Control
+“external” script category, Script Categories
+F
+
+F (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP (T2–T7), TCP flags (F)
+fallback directive (nmap-service-probes), fallback Directive
+fallbacks (version detection), Technique Described, Cheats and Fallbacks
+family (OS detection), Device and OS classification (Class lines)
+fast scan (see -F)
+Fedora (Linux distribution)
+installing on, with RPM, RPM-based Distributions (Red Hat, Mandrake, SUSE, Fedora)
+installing on, with Yum, Updating Red Hat, Fedora, Mandrake, and Yellow Dog Linux with Yum
+Felix (penetration tester), Avatar Online
+filtered port state, Avatar Online, Host Filtering, Searching Saved Results, Description, Port Scanning Basics
+filtered: (Zenmap search criterion), Host Filtering, Searching Saved Results
+filtering, Host Filtering
+(see also host filtering in Zenmap)
+FIN (TCP flag), TCP Mode
+FIN scan, Port Scanning Techniques
+finger script, Example Script: finger
+fingerprint (see OS fingerprint and service fingerprint)
+Fingerprint (nmap-os-db), Free-form OS description (Fingerprint line)
+fingerprinting (see version detection, OS detection)
+Fink, Third-party Packages
+firewalls
+bypassing, TCP Idle Scan (-sI), Detecting and Subverting Firewalls and Intrusion Detection Systems, Firewall/IDS Evasion and Spoofing-Firewall/IDS Evasion and Spoofing
+fisheye, Fisheye controls
+foreign languages (see translations)
+“Formidable” TCP sequence generation class, Usage and Examples
+four-way handshake, Host Discovery
+fp: (Zenmap search criterion, short for filtered:), Host Filtering, Searching Saved Results
+fragmentation
+DF bit, IP don't fragment bit (DF)
+not used in OS detection, IP Fragmentation
+FreeBSD, installing on, FreeBSD / OpenBSD / NetBSD, FreeBSD Binary Package and Source Ports Instructions
+FTP bounce scan, Port Scanning Techniques
+ftp NSE library, List of All Libraries
+“fuzzer” script category, Script Categories
+G
+
+G (SCAN line test), Decoding the SCAN line of a subject fingerprint
+Gatekeeper (see Apple Gatekeeper)
+GCC, IBM AIX
+GCD (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP ISN greatest common divisor (GCD)
+general operation, General Operation
+General Public License (see GNU General Public License)
+generation (OS detection), Device and OS classification (Class lines)
+gettext, Creating a new translation
+Gibson, Chris, The History of Nmap
+giop NSE library, List of All Libraries
+.gnmap filename extension, Controlling Output Type
+GNU General Public License, Introduction, The History of Nmap, Nmap Copyright and Licensing, Ncat Copyright and Licensing
+GomoR, Passive Fingerprinting
+“Good luck!” TCP sequence generation class, Usage and Examples
+Google Summer of Code, The History of Nmap, History
+GPL (see GNU General Public License)
+gps NSE library, List of All Libraries
+graphical user interface (see Zenmap)
+grepable output, MadHat in Wonderland, Grepable Output (-oG)-Grepable Output (-oG), Output
+comments in, Grepable Output (-oG), Output
+deprecation of, XML Output (-oX), Grepable Output (-oG)
+fields of, Grepable Output Fields
+parsing, Parsing Grepable Output on the Command Line
+resuming from, Resuming Aborted Scans
+GUI (see Zenmap)
+H
+
+h// (hostname) version detection field, match Directive
+hashes, cryptographic, Verifying the Integrity of Nmap Downloads
+Hazel, Philip, Third-Party Software and Funding Notices
+hop limit (IPv6), IPv6 Options
+(see also TTL)
+“Host Details” scan results tab, The “Host Details” tab
+host discovery, The Phases of an Nmap Scan, Host Discovery (“Ping Scanning”)-Host Discovery (“Ping Scanning”), Host Discovery-Host Discovery
+(see also -sn)
+disabling, Host Discovery
+with idle scan, Executing an Idle Scan, Idle Scan Implementation Algorithms
+host groups
+persistence of NSE through, Initialization Phase
+“hostrule” script variable, Rules
+HP-UX, installing on, Other proprietary UNIX (HP-UX, IRIX, etc.)
+hping2, TCP Idle Scan (-sI)
+HTML from XML output, Creating HTML Reports, Output
+http NSE library, List of All Libraries
+httpspider NSE library, List of All Libraries
+I
+
+i// (info) version detection field, match Directive
+iax2 NSE library, List of All Libraries
+IBM AIX (see AIX, installing on)
+ICMP codes
+mnemonics of, in Nping, ICMP Codes
+ICMP destination unreachable, TCP/IP Fingerprinting Methods Supported by Nmap, Unused port unreachable field nonzero (UN)
+ICMP echo, TCP/IP Fingerprinting Methods Supported by Nmap, ICMP echo (IE), Host Discovery
+ICMP ping, Host Discovery
+ICMP types
+mnemonics of, in Nping, ICMP Types-ICMP Codes
+idle scan, TCP Idle Scan (-sI)-TCP Idle Scan (-sI), Port Scanning Techniques
+advantages of, TCP Idle Scan (-sI)
+disadvantages of, TCP Idle Scan (-sI)
+example, Executing an Idle Scan
+finding zombies, TCP Idle Scan (-sI)
+implementation, Idle Scan Implementation Algorithms
+IE (OS fingerprint category line), ICMP echo (IE), Retired Tests
+II (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), IP ID sequence generation algorithm (TI, CI, II)
+imap NSE library, List of All Libraries
+informix NSE library, List of All Libraries
+inroute: (Zenmap search criterion), Host Filtering, Searching Saved Results
+insane (-T5) timing template, Timing and Performance
+installation, Obtaining, Compiling, Installing, and Removing Nmap-Obtaining, Compiling, Installing, and Removing Nmap
+from source code, Linux/Unix Compilation and Installation from Source Code
+Institute of Electrical and Electronics Engineers (IEEE)
+OUI list, MAC Address Vendor Prefixes: nmap-mac-prefixes
+interactive output, Handling Error and Warning Messages, Interactive Output, Output
+interface, Firewall/IDS Evasion and Spoofing
+(see also -e)
+internationalization (see localization)
+Internet Assigned Number Authority (IANA)
+assigned protocols list, IP Protocol Number List: nmap-protocols
+Internet Assigned Numbers Authority (IANA)
+assigned ports list, Well Known Port List: nmap-services
+Internet service providers (ISPs)
+acceptable use policy, Is Unauthorized Port Scanning a Crime?
+and port scanning, Legal Issues, Is Unauthorized Port Scanning a Crime?
+filtering, TCP Idle Scan (-sI)
+intrusion detection systems
+evading, Port Scanning Techniques, Timing and Performance, Firewall/IDS Evasion and Spoofing-Firewall/IDS Evasion and Spoofing
+intrusion prevention systems, Firewall/IDS Evasion and Spoofing
+(see also intrusion detection systems)
+“intrusive” script category, Script Categories
+IP ID, TCP Idle Scan (-sI), Returned probe IP ID value (RID)
+IP ID sequence generation, Usage and Examples, IP ID sequence generation algorithm (TI, CI, II)
+classes, Finding a Working Idle Scan Zombie Host
+IP options, Firewall/IDS Evasion and Spoofing
+IP protocol ping, Host Discovery
+IP protocol scan, Port Scanning Techniques
+ipidseq script, Raw packet network I/O
+IPL (OS detection response test), UDP (U1), IP total length (IPL)
+ipOps NSE library, List of All Libraries
+ipp NSE library, List of All Libraries
+iptables, Host Discovery, Firewall/IDS Evasion and Spoofing
+IPv6, Target Specification, Miscellaneous Options
+limitations of, Host Discovery
+OS detection, IPv6 fingerprinting
+IPv6 address
+link-local, Target Specification
+IPv6 tunnel broker, Miscellaneous Options
+ir: (Zenmap search criterion, short for inroute:), Host Filtering, Searching Saved Results
+IRIX, installing on, Other proprietary UNIX (HP-UX, IRIX, etc.)
+iscsi NSE library, List of All Libraries
+isns NSE library, List of All Libraries
+ISO 3166, Zenmap in Your Language
+ISO 639, Zenmap in Your Language
+ISPs (see Internet service providers)
+ISR (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP ISN counter rate (ISR)
+J
+
+jdwp NSE library, List of All Libraries
+John the Ripper, The History and Future of Nmap
+Jones, LaMont, Debian Linux and Derivatives such as Ubuntu
+json NSE library, List of All Libraries
+“(JUST GUESSING)”, Usage and Examples, When Nmap Guesses Wrong
+K
+
+Kaminsky, Dan, Introduction
+keys, cryptographic, Verifying the Integrity of Nmap Downloads
+keyword search in Zenmap, Host Filtering, Searching Saved Results
+L
+
+LANG environment variable, Zenmap in Your Language
+language code, Zenmap in Your Language
+ldap NSE library, List of All Libraries
+LDFLAGS, Environment Variables
+legal advice, Is Unauthorized Port Scanning a Crime?
+legal issues, Legal Issues-Can Port Scanning Crash the Target Computer/Networks?
+Lei, Zhao, The History of Nmap
+LF line ending, Misc Options
+lfs NSE library, List of All Libraries
+libdnet, Information Passed to a Script, Third-Party Software and Funding Notices, Third-Party Software
+libpcap, Raw packet network I/O, Third-Party Software and Funding Notices, Third-Party Software
+libssl-dev package, Configure Directives
+license (see copyright)
+“license” script variable, license Field , Version Detection Using NSE, Example Script: finger
+LINGUAS environment variable, Environment Variables
+link-local IPv6 address (see IPv6 address, link-local)
+Linux
+compiling on, Linux/Unix Compilation and Installation from Source Code
+installing on, with apt-get, Debian Linux and Derivatives such as Ubuntu
+installing on, with RPM, RPM-based Distributions (Red Hat, Mandrake, SUSE, Fedora)
+installing on, with Yum, Updating Red Hat, Fedora, Mandrake, and Yellow Dog Linux with Yum
+list scan, Avatar Online, The Phases of an Nmap Scan, Host Discovery
+listen mode (Ncat), Connect Mode and Listen Mode
+listop NSE library, List of All Libraries
+loading scan results, Saving and Loading Scan Results
+locale, Zenmap in Your Language
+localization, Zenmap in Your Language-Zenmap in Your Language
+loopback interface, Windows
+.lua filename extension, Files Related to Scripting
+Lua programming language, Introduction, Lua Base Language, Nmap Scripting Engine (NSE), Third-Party Software and Funding Notices
+(see also Nmap Scripting Engine)
+LuaDoc, Writing Script Documentation (NSEDoc)
+.luadoc filename extension, Writing Script Documentation (NSEDoc)
+luaL_newlib, Adding C Modules to Nselib
+Lutomirski, Andy, The History of Nmap, Windows
+M
+
+M (SCAN line test), Decoding the SCAN line of a subject fingerprint
+MAC address, Information Passed to a Script, MAC Address Vendor Prefixes: nmap-mac-prefixes, Firewall/IDS Evasion and Spoofing
+Mac OS X, Apple Mac OS X-Apple Mac OS X
+compiling on, Compile from Source Code
+executable installer, Executable Installer
+installing from third-party packages, Third-party Packages
+running Nmap on, Executing Nmap on Mac OS X
+machine output (see grepable output)
+MacPorts, Third-party Packages
+MadHat, MadHat in Wonderland, Grepable Output (-oG)
+Maimon scan, Port Scanning Techniques
+Maimon, Uriel, Port Scanning Techniques
+“malware” script category, Script Categories
+man page (see reference guide)
+Mandrake (Linux distribution)
+installing on, with RPM, RPM-based Distributions (Red Hat, Mandrake, SUSE, Fedora)
+installing on, with Yum, Updating Red Hat, Fedora, Mandrake, and Yellow Dog Linux with Yum
+Marques, Adriano Monteiro, The History of Nmap, History
+match directive (nmap-service-probes), match Directive, Putting It All Together
+match NSE library, List of All Libraries
+MatchPoints (nmap-os-db), IPv4 matching
+Matrix, the, Saving the Human Race, The History of Nmap
+ME (decoy address), Firewall/IDS Evasion and Spoofing
+Medeiros, João Paulo S., An Overview of the “Topology” Tab
+“Medium” TCP sequence generation class, Usage and Examples
+membase NSE library, List of All Libraries
+Metasploit, Introduction
+Metasploit Framework, The History and Future of Nmap
+Microsoft Windows (see Windows)
+Mitnick, Kevin, Usage and Examples
+Mizrahi, Avi, Is Unauthorized Port Scanning a Crime?
+mobileme NSE library, List of All Libraries
+mongodb NSE library, List of All Libraries
+Moran, Jay, Introduction
+Moulton, Scott, Is Unauthorized Port Scanning a Crime?
+msrpc NSE library, List of All Libraries
+msrpcperformance NSE library, List of All Libraries
+msrpctypes NSE library, List of All Libraries
+mssql NSE library, List of All Libraries
+mutexes in NSE, Mutexes
+MySQL, Output to a Database
+mysql NSE library, List of All Libraries
+N
+
+natpmp NSE library, List of All Libraries
+Ncat, Submit New Probes
+man page, Ncat Reference Guide-Ncat Reference Guide
+NCAT_LOCAL_ADDR> environment variable, Command Execution Options
+NCAT_LOCAL_PORT> environment variable, Command Execution Options
+NCAT_PROTO> environment variable, Command Execution Options
+NCAT_REMOTE_ADDR> environment variable, Command Execution Options
+NCAT_REMOTE_PORT> environment variable, Command Execution Options
+ncp NSE library, List of All Libraries
+Ndiff, Comparing Results
+man page, Ndiff Reference Guide-Ndiff Reference Guide
+ndiff_command_path, Sections of zenmap.conf
+ndmp NSE library, List of All Libraries
+Neighbor Discovery
+for host discovery, Host Discovery
+Nessus, The History of Nmap
+netbios NSE library, List of All Libraries
+NetBSD, installing on, FreeBSD / OpenBSD / NetBSD, NetBSD Binary Package Instructions
+Netcat, The History and Future of Nmap
+network distance, Usage and Examples, IP initial time-to-live (T), Decoding the SCAN line of a subject fingerprint
+network inventory, Network inventory and support
+network inventory (Zenmap), Scan Aggregation
+Network Mapper (see Nmap)
+newtargets script argument, Script Categories
+Nmap
+birthday of, Controlling Verbosity of Output
+checking if installed, Testing Whether Nmap is Already Installed
+description of, Description
+future of, The Future of Nmap-The Future of Nmap
+history of, The History of Nmap-The History of Nmap
+uses of, Introduction
+.nmap directory, Command-line Arguments, Using Customized Data Files, Nmap Scripting Engine (NSE), Miscellaneous Options
+.nmap filename extension, Controlling Output Type
+nmap NSE library, Lua Base Language, List of All Libraries, Nmap API-Nmap API, Script Parallelism in NSE
+“Nmap Output” scan results tab, The “Nmap Output” tab
+Nmap Project Signing Key, Verifying the Integrity of Nmap Downloads
+Nmap Scripting Engine (NSE), The Phases of an Nmap Scan, Nmap Scripting Engine-Nmap Scripting Engine, Nmap Scripting Engine (NSE)-Nmap Scripting Engine (NSE)
+API, Nmap API
+C modules, Adding C Modules to Nselib
+documentation in, Writing Script Documentation (NSEDoc)-Writing Script Documentation (NSEDoc)
+for version detection, Nmap Scripting Engine Integration
+implementation, Implementation Details
+library, Script Language
+list of modules, NSE Libraries
+list of scripts, NSE Scripts
+modules, Files Related to Scripting
+parts of, Script Language
+sample scripts, Version Detection Using NSE-Example Script: finger
+tutorial, Script Writing Tutorial-Script Writing Tutorial
+nmap-dev mailing list, The History of Nmap, If You Encounter Compilation Problems, Oracle/Sun Solaris, Other proprietary UNIX (HP-UX, IRIX, etc.), Fingerprinting Methods Avoided by Nmap, Creating a new translation, Enabling Debugging Output, Timing and Performance, Output, Bugs, Bugs, Bugs
+nmap-diff, MadHat in Wonderland
+nmap-hackers mailing list, Is Unauthorized Port Scanning a Crime?, The History of Nmap (see announce mailing list)
+nmap-mac-prefixes, MAC Address Vendor Prefixes: nmap-mac-prefixes-MAC Address Vendor Prefixes: nmap-mac-prefixes
+excerpt, MAC Address Vendor Prefixes: nmap-mac-prefixes
+nmap-os-db, Response Tests, Understanding an Nmap Fingerprint, Information Passed to a Script, Nmap OS Detection DB: nmap-os-db-Nmap OS Detection DB: nmap-os-db, OS Detection
+custom modifications, Modifying the nmap-os-db Database Yourself
+excerpts, Decoding the Reference Fingerprint Format, Device and OS classification (Class lines), CPE name (CPE lines), IPv4 matching, Nmap OS Detection DB: nmap-os-db
+nmap-payloads, UDP payloads: nmap-payloads
+excerpts, UDP payloads: nmap-payloads
+nmap-protocols, IP Protocol Number List: nmap-protocols
+excerpt, IP Protocol Number List: nmap-protocols
+nmap-report, MadHat in Wonderland
+nmap-rpc, RPC Grinding, SunRPC Numbers: nmap-rpc
+comments in, SunRPC Numbers: nmap-rpc
+excerpt, SunRPC Numbers: nmap-rpc
+nmap-service-probes, nmap-service-probes File Format-nmap-service-probes File Format, Version Scanning DB: nmap-service-probes-Version Scanning DB: nmap-service-probes, Service and Version Detection
+comments in, nmap-service-probes File Format
+complete example, Putting It All Together
+excerpt, Version Scanning DB: nmap-service-probes
+nmap-services, Introduction, Usage and Examples, Well Known Port List: nmap-services-Well Known Port List: nmap-services, Service and Version Detection
+comments in, Well Known Port List: nmap-services
+excerpt, Well Known Port List: nmap-services
+nmap.h, Host Discovery, Firewall/IDS Evasion and Spoofing
+nmap.xsl, Creating HTML Reports, Output
+Nmap::Parser, Manipulating XML Output with Perl-Manipulating XML Output with Perl, Output
+Nmap::Scanner, Manipulating XML Output with Perl-Manipulating XML Output with Perl, Output
+NMAPDATADIR, Command-line Arguments, Using Customized Data Files, Nmap Scripting Engine (NSE)
+NMAPDIR environment variable, Command-line Arguments, Using Customized Data Files, Nmap Scripting Engine (NSE), Miscellaneous Options
+NmapFE, The History of Nmap, Command-line and Graphical Interfaces
+nmap_command_path, Comparing Results, The nmap Executable, Sections of zenmap.conf
+NMAP_PRIVILEGED environment variable, Miscellaneous Options
+NMAP_UNPRIVILEGED environment variable, Miscellaneous Options
+“No exact OS matches for host”, Usage and Examples
+non-controversial scanning, Is Unauthorized Port Scanning a Crime?, Can Port Scanning Crash the Target Computer/Networks?
+non-standard ports, Service and Version Detection
+normal (-T3) timing template, Timing and Performance
+normal output, Introduction, Normal Output (-oN)-Normal Output (-oN), Output
+and Zenmap comparison, Comparing Results
+differences from interactive output, Controlling Verbosity of Output, Handling Error and Warning Messages, Normal Output (-oN)
+resuming from, Resuming Aborted Scans
+novelty detection, IPv6 matching
+Nping, Timing and Performance
+description of, Description
+man page, Nping Reference Guide-Nping Reference Guide
+NPING_PRIVILEGED environment variable, Miscellaneous Options
+NPING_UNPRIVILEGED environment variable, Miscellaneous Options
+nrpc NSE library, List of All Libraries
+NSE (see Nmap Scripting Engine)
+.nse filename extension, Files Related to Scripting
+nsedebug NSE library, List of All Libraries
+NSEDoc, Writing Script Documentation (NSEDoc)-Writing Script Documentation (NSEDoc)
+for C modules, Writing Script Documentation (NSEDoc)
+Nsock, Raw packet network I/O, Output Options
+debug output of, Output Options
+in NSE, Nmap API
+Nsock IO engine, Timing and Performance
+NULL probe (version detection), Technique Described, Probe Directive
+cheat, Cheats and Fallbacks
+implicit fallback to, fallback Directive
+NULL scan, Port Scanning Techniques
+O
+
+O (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP explicit congestion notification (ECN), TCP options (O, O1–O6)
+o// (OS) version detection field, match Directive
+O1–O6 (OS detection response tests), Sequence generation (SEQ, OPS, WIN, and T1), TCP options (O, O1–O6)
+o: (Zenmap search criterion, short for option:), Searching Saved Results
+ofp: (Zenmap search criterion, short for open|filtered:), Host Filtering, Searching Saved Results
+old releases, The History of Nmap
+omp2 NSE library, List of All Libraries
+op: (Zenmap search criterion, short for open:), Host Filtering, Searching Saved Results
+open port state, Avatar Online, Technique Described, Rules, Host Filtering, Searching Saved Results, Description, Port Scanning Basics
+open source, Community Contributions, Source Code Availability and Community Contributions, Source Code Availability and Community Contributions
+Open Source Security Testing Methodology Manual (OSSTMM), Is Unauthorized Port Scanning a Crime?
+open: (Zenmap search criterion), Host Filtering, Searching Saved Results
+OpenBSD, installing on, FreeBSD / OpenBSD / NetBSD, OpenBSD Binary Packages and Source Ports Instructions
+OpenSSL, SSL Post-processor Notes, Third-Party Software and Funding Notices, Third-Party Software
+disabling, Configure Directives
+linking exception, Nmap Copyright and Licensing
+packages required for, Configure Directives
+openssl NSE library, List of All Libraries, Adding C Modules to Nselib
+openssl-devel, Configure Directives
+open|filtered port state, Technique Described, Rules, Host Filtering, Searching Saved Results, Description, Port Scanning Basics
+open|filtered: (Zenmap search criterion), Host Filtering, Searching Saved Results
+operating system detection (see OS detection)
+OPS (OS fingerprint category line), Sequence generation (SEQ, OPS, WIN, and T1)
+option: (Zenmap search criterion), Searching Saved Results
+Oracle Solaris (see Solaris)
+organizationally unique identifier (OUI), MAC Address Vendor Prefixes: nmap-mac-prefixes, Firewall/IDS Evasion and Spoofing
+(see also nmap-mac-prefixes)
+“OS CPE:”, Usage and Examples
+“OS details:”, Usage and Examples
+OS detection, The Phases of an Nmap Scan, Remote OS Detection-Remote OS Detection, OS Detection-OS Detection
+2nd generation, Introduction
+category lines, Probes Sent-Probes Sent
+classifications, Device and OS classification (Class lines)
+effects of packet filters, Dealing with Misidentified and Unidentified Hosts
+IPv6 probes sent, Probes Sent
+matching algorithms, IPv4 matching
+probes sent, Probes Sent-Probes Sent
+reasons for, Reasons for OS Detection
+response tests, Response Tests-Response Tests
+using version detection, match Directive, Usage and Examples
+OS fingerprint
+displaying with -d, Usage and Examples
+explained, Understanding an Nmap Fingerprint
+reference fingerprint, Decoding the Reference Fingerprint Format, Nmap OS Detection DB: nmap-os-db
+test expressions in, Test expressions
+subject fingerprint, Usage and Examples, Decoding the Subject Fingerprint Format
+submission of, When Nmap Fails to Find a Match and Prints a Fingerprint
+os: (Zenmap search criterion), Host Filtering, Searching Saved Results
+ospf NSE library, List of All Libraries
+OSSTMM (see Open Source Security Testing Methodology Manual)
+OT (SCAN line test), Decoding the SCAN line of a subject fingerprint
+OUI (see organizationally unique identifier)
+output
+redirecting, Handling Error and Warning Messages
+to stdout with -, Controlling Output Type, Normal Output (-oN), $crIpT kIddI3 0uTPut (-oS), XML Output (-oX), Grepable Output (-oG), Output
+output formats, Nmap Output Formats-Nmap Output Formats, Output-Output
+grepable (see grepable output)
+interactive (see interactive output)
+normal (see normal output)
+scR1pT kIddI3 (see scR1pT kIddI3 output)
+summary of, Controlling Output Type
+the importance of clear output, Introduction
+XML (see XML output)
+P
+
+P (SCAN line test), Decoding the SCAN line of a subject fingerprint
+$P() version detection helper function, match Directive
+p// (product name) version detection field, match Directive
+p0f, Passive Fingerprinting
+packet NSE library, List of All Libraries
+packet tracing (see --packet-trace)
+parallelism
+in idle scan, Idle Scan Implementation Algorithms
+paranoid (-T0) timing template, Can Port Scanning Crash the Target Computer/Networks?, Timing and Performance
+passive OS fingerprinting, Passive Fingerprinting
+PATH environment variable, Testing Whether Nmap is Already Installed, IBM AIX, The nmap Executable, Using Customized Data Files
+additional directories searched by Zenmap, The nmap Executable
+Path on Windows, Executing Nmap on Windows
+payloads, protocol-specific (see protocol-specific payloads)
+PCRE (see Perl Compatible Regular Expressions)
+pcre NSE library, List of All Libraries
+PEM (Privacy Enhanced Mail), SSL Options
+penetration testing, Introduction, Output to a Database
+Avatar Online example, Avatar Online-Avatar Online
+permission for, Is Unauthorized Port Scanning a Crime?
+performance, Optimizing Nmap Performance, Timing and Performance-Timing and Performance
+Perl Compatible Regular Expressions (PCRE), match Directive, Third-Party Software and Funding Notices
+Permeh, Ryan, The History of Nmap, Windows
+Persaud, Anthony, Manipulating XML Output with Perl
+PGP signatures, Verifying the Integrity of Nmap Downloads
+pgsql NSE library, List of All Libraries
+Phrack, The History of Nmap, Port Scanning Techniques
+ping scan, Host Discovery
+PING_GROUP_SZ, Firewall/IDS Evasion and Spoofing
+polite (-T2) timing template, Can Port Scanning Crash the Target Computer/Networks?, Timing and Performance
+pop3 NSE library, List of All Libraries
+PORT column, Well Known Port List: nmap-services
+port frequency, Well Known Port List: nmap-services
+port knocking, Probe Modes
+port scan
+disabling with -sn, Host Discovery
+port scanning, The Phases of an Nmap Scan
+algorithms, Port Scanning Techniques and Algorithms
+port specification, Port Specification and Scan Order
+wildcards in, Port Specification and Scan Order
+port states
+closed (see closed port state)
+closed|filtered (see closed|filtered port state)
+filtered (see filtered port state)
+ignored (not shown), Sorting by Service, Ignored State field
+open (see open port state)
+open|filtered (see open|filtered port state)
+unfiltered (see unfiltered port state)
+port zero, Port Specification and Scan Order
+portmapper, RPC Grinding
+“portrule” script variable, Rules, The Rule, Example Script: finger
+ports
+“interesting”, Description
+“Ports / Hosts” scan results tab, The “Ports / Hosts” tab
+ports directive (nmap-service-probes), ports and sslports Directives, Putting It All Together
+“postrule” script variable, Rules
+postscan scripts, The Future of Nmap
+pppoe NSE library, List of All Libraries
+pr: (Zenmap search criterion, short for profile:), Searching Saved Results
+“prerule” script variable, Rules
+prescan scripts, The Future of Nmap
+printers, version detection exclusion of, Exclude Directive
+private addresses, Decoding the SCAN line of a subject fingerprint
+privileged users, Executing Nmap on Windows, Executing Nmap on Mac OS X, Host Discovery, Port Scanning Techniques, Miscellaneous Options
+proactive scanning, The Profile Editor
+probable ports in version detection, Technique Described
+Probe directive (nmap-service-probes), Probe Directive, Putting It All Together
+probe modes, Probe Modes-Probe Modes
+probe string (version detection), Technique Described, Probe Directive
+profile editor (Zenmap), The Profile Editor
+profile: (Zenmap search criterion), Searching Saved Results
+profiles (see Zenmap: scan profiles)
+protocol-specific payloads, UDP payloads: nmap-payloads
+(see also nmap-payloads)
+disabling with --data-length, Firewall/IDS Evasion and Spoofing
+IP, Host Discovery, Firewall/IDS Evasion and Spoofing
+UDP, Host Discovery, Firewall/IDS Evasion and Spoofing
+proxies, Firewall/IDS Evasion and Spoofing
+effect on OS detection, Usage and Examples
+HTTP, Avatar Online
+proxy, Firewall/IDS Evasion and Spoofing
+proxy NSE library, List of All Libraries
+PSH (TCP flag), TCP Mode
+Q
+
+Q (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP explicit congestion notification (ECN), TCP miscellaneous quirks (Q)
+quoted string
+in XML output, XML Output (-oX)
+R
+
+R (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP (T2–T7), Responsiveness (R)
+RadialNet, An Overview of the “Topology” Tab
+random targets, Target Specification
+randomization of hosts, Firewall/IDS Evasion and Spoofing
+randomization of ports, Port Specification and Scan Order
+rarity directive (nmap-service-probes), rarity Directive, Putting It All Together
+rarity of version detection probes, Technique Described, Probe Selection and Rarity
+rate limiting, Port Scanning Techniques, Timing and Performance
+raw packets, Host Discovery, Port Scanning Techniques
+in NSE, Raw packet network I/O
+raw sockets, Miscellaneous Options
+RD (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP (T2–T7), TCP RST data checksum (RD)
+rdp NSE library, List of All Libraries
+reason reporting (see --reason)
+recent scans database, The Recent Scans Database
+recent_scans.txt, Per-user Configuration Files
+record route IP option, Firewall/IDS Evasion and Spoofing
+record timestamp IP option, Firewall/IDS Evasion and Spoofing
+Red Hat, Configure Directives
+Red Hat (Linux distribution)
+installing on, with RPM, RPM-based Distributions (Red Hat, Mandrake, SUSE, Fedora)
+installing on, with Yum, Updating Red Hat, Fedora, Mandrake, and Yellow Dog Linux with Yum
+redis NSE library, List of All Libraries
+reference guide (man page), Nmap Reference Guide-Nmap Reference Guide
+registry (NSE), The Registry
+regular expressions, Technique Described, match Directive
+(see also Perl Compatible Regular Expressions)
+for syntax highlighting in Zenmap, Sections of zenmap.conf
+removal, Removing Nmap
+resuming scans, Resuming Aborted Scans, Output
+retired OS detection tests, Retired Tests
+retransmission, Timing and Performance
+reverse DNS, Avatar Online, The Phases of an Nmap Scan, Introduction, Searching Saved Results
+disabling with -n, Host Discovery
+revoked certificates (see certificate revocation)
+RFC 1122, Host Discovery
+RFC 1393, ICMP Types
+RFC 1577, ARP Types
+RFC 1812, Redirect
+RFC 1931, ARP Types
+RFC 2390, ARP Types
+RFC 2474, IPv4 Options, IPv6 Options
+RFC 2560, IPv6 Options
+RFC 3168, Enabling Packet Tracing, TCP Mode
+RFC 3339,
+RFC 792, Host Discovery
+RFC 903, ARP Types
+RFC 950, Host Discovery
+RID (OS detection response test), UDP (U1), Returned probe IP ID value (RID)
+omission of, Returned probe IP ID value (RID), Decoding the Subject Fingerprint Format
+Rieger, Gerhard, The History of Nmap, Port Scanning Techniques
+RIPCK (OS detection response test), UDP (U1), Integrity of returned probe IP checksum value (RIPCK)
+RIPL (OS detection response test), UDP (U1), Returned probe IP total length value (RIPL)
+rmi NSE library, List of All Libraries
+RND (decoy address), Firewall/IDS Evasion and Spoofing
+RPC, Technique Described
+bypassing filtered portmapper port (see RPC grinder)
+RPC grinder, Introduction, Usage and Examples, RPC Grinding-RPC Grinding, SunRPC Numbers: nmap-rpc, Service and Version Detection
+rpc NSE library, List of All Libraries
+rpcap NSE library, List of All Libraries
+rpcbind, Usage and Examples, RPC Grinding
+rpcinfo, RPC Grinding
+RPM, RPM-based Distributions (Red Hat, Mandrake, SUSE, Fedora), Removing Nmap
+installing from, RPM-based Distributions (Red Hat, Mandrake, SUSE, Fedora)
+RST (TCP flag), TCP Mode
+rsync NSE library, List of All Libraries
+rtsp NSE library, List of All Libraries
+RUCK (OS detection response test), UDP (U1), Integrity of returned probe UDP checksum (RUCK)
+RUD (OS detection response test), UDP (U1), Integrity of returned UDP data (RUD)
+RUL (retired OS detection response test), Retired Tests
+rules in NSE (see “prerule”, “portrule”, “hostrule” and “postrule”)
+runlevel, dependencies Field
+“Running:”, Usage and Examples
+runtime interaction, Runtime Interaction
+S
+
+S (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP (T2–T7), TCP sequence number (S)
+safe script category, The Head
+“safe” script category, Script Categories
+same-origin restriction, Saving a Permanent HTML Report
+sasl NSE library, List of All Libraries
+saving scan results, Saving and Loading Scan Results
+Saxon, Saving a Permanent HTML Report
+SCAN (subject OS fingerprint line), Decoding the Subject Fingerprint Format, Decoding the SCAN line of a subject fingerprint
+scan profiles (see Zenmap: scan profiles)
+Scanlogd, Firewall/IDS Evasion and Spoofing
+scanme.nmap.org, Is Unauthorized Port Scanning a Crime?, Target Specification, Examples, Target Specification
+Scanrand, Introduction
+“Scans” scan results tab, The “Scans” tab
+scan_profile.usp, Per-user Configuration Files
+Schubert, Max, Manipulating XML Output with Perl
+SCO Corporation, The History of Nmap
+script arguments, Arguments to Scripts, Nmap Scripting Engine (NSE)
+(see also --script-args)
+script arguments from file, Nmap Scripting Engine (NSE)
+(see also --script-args-file)
+script categories, Script Categories
+script database (see script.db)
+script dependencies, dependencies Field
+scR1pT kIddI3 output, $crIpT kIddI3 0uTPut (-oS), Output
+script kiddies, Saving the Human Race, Controlling Output Type, Port Scanning Techniques
+script names, examples of, Introduction
+script post-scanning phase, Rules
+script pre-scanning, Rules
+script selection, Script Selection
+script.db, Command-line Arguments, Initialization Phase, Script selection, Files Related to Scripting, Nmap Scripting Engine (NSE)
+scripting (see Nmap Scripting Engine)
+scripts, location of, Command-line Arguments, Files Related to Scripting, Nmap Scripting Engine (NSE)
+SCTP checksum, Firewall/IDS Evasion and Spoofing
+SCTP COOKIE ECHO scan, Port Scanning Techniques
+SCTP INIT ping, Host Discovery
+SCTP INIT scan, Port Scanning Techniques
+SEQ (OS fingerprint category line), Sequence generation (SEQ, OPS, WIN, and T1)
+server mode (Ncat) (see listen mode)
+SERVICE column, Well Known Port List: nmap-services
+service detection (see version detection)
+service fingerprint, Introduction, Technique Described
+example of, Submit Service Fingerprints
+submission of, Introduction, Community Contributions
+“Service Info:”, Introduction, Usage and Examples
+service: (Zenmap search criterion), Host Filtering, Searching Saved Results
+setuid, why Nmap shouldn't be, Inappropriate Usage
+Shimomura, Tsutomu, Usage and Examples
+shortport NSE library, List of All Libraries
+SI (retired OS detection response test), Retired Tests
+SinFP, Passive Fingerprinting
+sip NSE library, List of All Libraries
+Skype, Version Detection Using NSE
+skypev2-version script, Version Detection Using NSE
+smb NSE library, List of All Libraries
+smb-brute script, dependencies Field
+smb-os-discovery script, dependencies Field
+smbauth NSE library, List of All Libraries
+Smith, Zach, The History of Nmap
+smtp NSE library, List of All Libraries
+sneaky (-T1) timing template, Can Port Scanning Crash the Target Computer/Networks?, Timing and Performance
+sniffer-detect script, Raw packet network I/O
+snmp NSE library, List of All Libraries
+Snort, The History and Future of Nmap
+social engineering, Social engineering
+sockets in NSE, Connect-style network I/O
+socks NSE library, List of All Libraries
+soft match (version detection), Technique Described
+softmatch directive (nmap-service-probes), softmatch Directive, Putting It All Together
+Solar Designer, Firewall/IDS Evasion and Spoofing
+Solaris, installing on, Oracle/Sun Solaris
+Song, Dug, Third-Party Software and Funding Notices, Third-Party Software
+source address filtering, TCP Idle Scan (-sI)
+source code, Linux/Unix Compilation and Installation from Source Code
+advantages of, Linux/Unix Compilation and Installation from Source Code
+source port number, Firewall/IDS Evasion and Spoofing
+source routing, Firewall/IDS Evasion and Spoofing
+SP (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP ISN sequence predictability index (SP)
+spoofed packets, Idle Scan Step by Step, Idle Scan Implementation Algorithms, Dealing with Misidentified and Unidentified Hosts
+spoofing MAC address, Firewall/IDS Evasion and Spoofing
+spoofing source address, Firewall/IDS Evasion and Spoofing
+srvloc NSE library, List of All Libraries
+SS (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), Shared IP ID sequence Boolean (SS)
+ssh1 NSE library, List of All Libraries
+ssh2 NSE library, List of All Libraries
+sshv1 script, Avatar Online
+SSL, ports and sslports Directives
+(see also sslports directive)
+in version detection, Usage and Examples, Technique Described, SSL Post-processor Notes, Service and Version Detection
+tunneling, Technique Described
+sslcert NSE library, List of All Libraries
+sslports directive (nmap-service-probes), ports and sslports Directives
+standard error, Controlling Output Type, Output
+standard input, Misc Options
+standard output, Avatar Online, Controlling Output Type, Controlling Verbosity of Output, Interactive Output, XML Output (-oX), Output
+stderr (see standard error)
+stdnse NSE library, List of All Libraries
+stdout (see standard output)
+strbuf NSE library, List of All Libraries
+strftime conversions in filenames, Output Files, Controlling Output Type, Output
+strict NSE library, List of All Libraries, Hacking NSE Libraries
+stun NSE library, List of All Libraries
+stylesheet, Output
+submission of OS corrections, When Nmap Guesses Wrong
+submission of OS fingerprints, When Nmap Fails to Find a Match and Prints a Fingerprint
+submission of service corrections, Submit Database Corrections
+submission of service fingerprints, Introduction, Community Contributions, Service and Version Detection
+$SUBST() version detection helper function, match Directive
+Subversion, Obtaining Nmap from the Subversion (SVN) Repository
+sudo, Executing Nmap on Mac OS X
+suid (see setuid)
+Summer of Code (see Google Summer of Code)
+Sun Solaris (see Solaris)
+SunRPC (see RPC)
+SUSE (Linux distribution)
+installing on, with RPM, RPM-based Distributions (Red Hat, Mandrake, SUSE, Fedora)
+sv: (Zenmap search criterion, short for service:), Host Filtering, Searching Saved Results
+SVN (see Subversion)
+SYN (TCP flag), TCP Mode
+SYN ping, Host Discovery
+SYN scan, Port Scanning Techniques
+syntax highlighting, The “Nmap Output” tab
+T
+
+T (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP (T2–T7), IP initial time-to-live (T)
+T1 (OS fingerprint category line), Sequence generation (SEQ, OPS, WIN, and T1)
+T2–T7 (OS fingerprint category lines), TCP (T2–T7)
+t: (Zenmap search criterion, short for target:), Host Filtering, Searching Saved Results
+tab NSE library, List of All Libraries
+target NSE library, List of All Libraries
+target specification, Target Specification
+at random, Target Specification
+from list, Target Specification
+in Nping, Target Specification
+in Zenmap, Scanning
+target: (Zenmap search criterion), Host Filtering, Searching Saved Results
+target_list.txt, Per-user Configuration Files
+TCP checksum, Firewall/IDS Evasion and Spoofing
+TCP connect, Probe Modes
+(see also connect scan)
+in Nping, Probe Modes
+TCP flags, TCP flags (F), Port Scanning Techniques
+TCP Flags, Enabling Packet Tracing
+TCP options, TCP options (O, O1–O6)
+and OS detection, Sequence generation (SEQ, OPS, WIN, and T1), TCP timestamp option algorithm (TS)
+TCP sequence generation, Usage and Examples, TCP sequence number (S), Seq Index field
+TCP sequence prediction, Usage and Examples, TCP ISN sequence predictability index (SP)
+TCP timestamp, TCP timestamp option algorithm (TS)
+TCP window size, TCP initial window size (W, W1–W6), Test expressions
+TCP/IP fingerprinting (see OS detection)
+tcpdump, The History and Future of Nmap, Submit New Probes, Miscellaneous Options
+tftp NSE library, List of All Libraries
+TG (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP (T2–T7), IP initial time-to-live guess (TG)
+threads in NSE, Mutexes
+three-way handshake, Host Discovery
+TI (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), IP ID sequence generation algorithm (TI, CI, II)
+time to live (TTL), Usage and Examples, IP initial time-to-live (T), Firewall/IDS Evasion and Spoofing
+timing, Timing and Performance-Timing and Performance
+slow, Is Unauthorized Port Scanning a Crime?, Can Port Scanning Crash the Target Computer/Networks?
+timing templates, Timing and Performance
+(see also paranoid, sneaky, polite, normal, aggressive, and insane)
+TM (SCAN line test), Decoding the SCAN line of a subject fingerprint
+tns NSE library, List of All Libraries
+“Topology” scan results tab, The “Topology” tab, Surfing the Network Topology
+TOS (see type of service)
+TOS (retired OS detection response test), Retired Tests
+TOSI (retired OS detection response test), Retired Tests
+totalwaitms directive (nmap-service-probes), totalwaitms Directive, Putting It All Together
+traceroute, The Phases of an Nmap Scan, Decoding the SCAN line of a subject fingerprint, Host Discovery
+translation (see localization)
+translations
+of manual pages, Environment Variables
+Trinity, Saving the Human Race
+“Trivial joke” TCP sequence generation class, Usage and Examples
+trust relationships, TCP Idle Scan (-sI), Port Scanning Techniques
+TS (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP timestamp option algorithm (TS)
+TTL (see time to live)
+type of service (TOS), ICMP echo (IE), Retired Tests
+U
+
+U1 (OS fingerprint category line), UDP (U1), Retired Tests, Decoding the SCAN line of a subject fingerprint
+Ubuntu, installing on, Debian Linux and Derivatives such as Ubuntu
+UDP ping, Host Discovery
+UDP scan, Port Scanning Techniques
+default port of, Host Discovery
+ufp: (Zenmap search criterion, short for unfiltered:), Host Filtering, Searching Saved Results
+ultra_scan, The History of Nmap
+Umit, History
+UN (OS detection response test), UDP (U1), Unused port unreachable field nonzero (UN)
+unfiltered port state, Rules, Host Filtering, Searching Saved Results, Description, Port Scanning Basics
+unfiltered: (Zenmap search criterion), Host Filtering, Searching Saved Results
+uninstallation, Removing Nmap
+Unix time, XML Output (-oX)
+Unix, installing on, Linux/Unix Compilation and Installation from Source Code
+unprivileged users, Miscellaneous Options
+limitations of, Host Discovery
+unpwdb NSE library, List of All Libraries
+upnp NSE library, List of All Libraries
+uptime guess, Usage and Examples, OS Detection
+URG (TCP flag), TCP Mode
+url NSE library, List of All Libraries
+V
+
+V (SCAN line test), Decoding the SCAN line of a subject fingerprint
+v// (version) version detection field, match Directive
+vendor (OS detection), Device and OS classification (Class lines)
+verbosity, Controlling Verbosity of Output, Output
+(see also -v)
+verbosity levels of Nping, Output Options
+verifying the integrity of downloads, Verifying the Integrity of Nmap Downloads
+versant NSE library, List of All Libraries
+version detection, The Phases of an Nmap Scan, Service and Application Version Detection-Service and Application Version Detection, Script Categories, Service and Version Detection-Service and Version Detection
+(see also “version” script category)
+confidence of, XML Output (-oX)
+creating new probes, Submit New Probes
+default intensity, Probe Selection and Rarity, Service and Version Detection
+examples, Usage and Examples-Usage and Examples
+features of, Introduction
+helper functions, match Directive
+information provided by, Usage and Examples, match Directive
+intensity, Probe Selection and Rarity, Service and Version Detection
+performance, Technique Described, Probe Selection and Rarity
+post-processors, Post-processors
+technique, Technique Described
+to improve UDP scan, Introduction, Technique Described
+using NSE, Introduction, Version Detection Using NSE
+version number of Nmap (see --version)
+version script category, Version Detection Using NSE
+“version” script category, Script Categories, Command-line Arguments
+virtual hosts, Cheats and Fallbacks
+vnc NSE library, List of All Libraries
+Vogt, Jens, Windows
+“vuln” script category, Script Categories
+vulnerability detection, Introduction
+vulns NSE library, List of All Libraries
+vuzedht NSE library, List of All Libraries
+W
+
+W (OS detection response test), Sequence generation (SEQ, OPS, WIN, and T1), TCP explicit congestion notification (ECN), TCP initial window size (W, W1–W6)
+W1–W6 (OS detection response tests), Sequence generation (SEQ, OPS, WIN, and T1), TCP initial window size (W, W1–W6)
+WAP (see wireless access points)
+warranty (lack of), No Warranty, No Warranty
+web scanning, The Future of Nmap
+welcome banner, Technique Described
+well-known ports, Well Known Port List: nmap-services, Service and Version Detection
+white hat, Is Unauthorized Port Scanning a Crime?
+whois, Script Categories, Mutexes
+whois script, Usage and Examples, Mutexes
+wildcards (see port selection, wildcards in)
+in script selection, Script Selection, Nmap Scripting Engine (NSE)
+WIN (OS fingerprint category line), Sequence generation (SEQ, OPS, WIN, and T1)
+window scan, Port Scanning Techniques
+Windows, Windows-Windows
+compiling on, Compile from Source Code
+limitations of, Windows
+performance of, Windows
+running Nmap on, Executing Nmap on Windows
+self-installer, Windows Self-installer
+zip binaries, Command-line Zip Binaries
+Windows Vista, Miscellaneous Options
+WinPcap, Third-Party Software and Funding Notices, Third-Party Software
+wireless access points (WAPs), Detecting unauthorized and dangerous devices
+Wireshark, The History and Future of Nmap, Submit New Probes, Firewall/IDS Evasion and Spoofing
+“Worthy challenge” TCP sequence generation class, Usage and Examples
+wsdd NSE library, List of All Libraries
+X
+
+x86 architecture, RPM-based Distributions (Red Hat, Mandrake, SUSE, Fedora)
+x86_64 architecture, RPM-based Distributions (Red Hat, Mandrake, SUSE, Fedora)
+Xalan, Saving a Permanent HTML Report
+Xcode, Compile Nmap from source code
+xdmcp NSE library, List of All Libraries
+Xmas scan, Port Scanning Techniques
+.xml filename extension, Controlling Output Type
+XML output, Introduction, XML Output (-oX)-Creating HTML Reports, Output
+converting to HTML, Creating HTML Reports
+document type definition, XML Output (-oX), Purpose
+example, XML Output (-oX)
+parsing with Perl, Manipulating XML Output with Perl-Manipulating XML Output with Perl
+uses of, Using XML Output-Using XML Output
+xmpp NSE library, List of All Libraries
+XSL, Creating HTML Reports, Output
+XSLT processors, Saving a Permanent HTML Report
+xsltproc, Saving a Permanent HTML Report, Output
+Y
+
+Yellow Dog (Linux distribution)
+installing on, with Yum, Updating Red Hat, Fedora, Mandrake, and Yellow Dog Linux with Yum
+Yum, Updating Red Hat, Fedora, Mandrake, and Yellow Dog Linux with Yum
+Z
+
+Zalewski, Michal, Passive Fingerprinting
+Zenmap, The History of Nmap, Zenmap GUI Users' Guide-Zenmap GUI Users' Guide
+command-line options, Command-line Options
+comparing results, Comparing Results-Comparing Results
+configuration file (see zenmap.conf)
+dependencies of, Compile Zenmap from source code
+disabling, Configure Directives
+history of, History
+keyword search, Host Filtering, Searching Saved Results
+keyword search in, Searching Saved Results
+loading scan results, Saving and Loading Scan Results
+network inventory, Scan Aggregation
+profile editor, The Profile Editor
+purpose of, The Purpose of a Graphical Frontend for Nmap
+recent scans database, Searching Saved Results, Per-user Configuration Files
+disabling, Sections of zenmap.conf
+saving scan results, Saving and Loading Scan Results
+scan profiles, Profiles, The Profile Editor
+creating, The Profile Editor
+deleting, Editing or Deleting a Profile
+searching, Searching Saved Results-Searching Saved Results
+sorting by host, Sorting by Host
+sorting by service, Sorting by Service
+zenmap.db, Per-user Configuration Files
+(see also recent scans database)
+.zenmap directory, Per-user Configuration Files, Options Summary
+Zenmap search criteria, Searching Saved Results
+dates in, Searching Saved Results
+fuzzy date matching, Searching Saved Results
+zenmap.conf, The “Nmap Output” tab, Comparing Results, The nmap Executable, Per-user Configuration Files, Description of zenmap.conf-Description of zenmap.conf
+zenmap.db, Per-user Configuration Files (see recent scans database)
+ZENMAP_DEVELOPMENT environment variable, Error Output
+zenmap_version, Per-user Configuration Files
+zombie host (idle scan), TCP Idle Scan (-sI), Finding a Working Idle Scan Zombie Host, Decoding the Subject Fingerprint Format
+zone ID (IPv6 address), Target Specification
