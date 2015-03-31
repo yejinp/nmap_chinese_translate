@@ -348,16 +348,23 @@ While it is easy to catalogue the history of Nmap, the future is uncertain. Nmap
 While the 10-year plan is up in the air, we do have plans and guiding priorities for the next several years:
 10年计划，我们有接下来几年的计划和指导优先级。
 •	Nmap Scripting Engine — NSE has exploded in capabilities and popularity. As of mid-2010, it contains 131 scripts—68% higher than the year before. NSE scripts are also growing more powerful thanks to the ever-increasing library and infrastructure feature support. I would like to see NSE grow to 500+ scripts in the next few years. Nmap will soon support prescan and postscan scripts which are not tied to an individual host or open port like the existing hostrule and portrule scripts are.
+nmap脚本引擎-NSE
 •	Scanning web sites — Nmap will also grow in its ability to handle web scanning. When Nmap was first developed, different services were often provided as separate daemons identified by the port number they listen on. Now, many new services simply run over HTTP and are identified by a URL path name rather than port number. Scanning for known URL paths is similar in many ways to port scanning (and to the SunRPC scanning which Nmap has also done for many years). The Nmap Scripting Engine already supports many web scanning features, but I'd like to see http brute force password cracking, better spidering support, an HTML/XML parser, better web application fingerprinting, and the ability to proxy certain requests through HTTP and SOCKS proxies. Nmap should be able to port scan through those proxies too.
+扫描web网站--nmap将会成长为处理web扫描。在nmap发展的时候，不同的服务
 •	Web infrastructure improvements — Nmap is a cooperative project developed by many individuals. As the number of people involved increases, we also need to scale the tools and infrastructure resources to facilitate that cooperation. We're planning an Nmap wiki, an improved Subversion source control server, and possibly a web discussion forum. We are also moving the infrastructure to virtual machines for security isolation and to better share administration tasks. The web sites desperately need a redesign as well, unless 1990's table-based layouts come back in favor.
+改进web基础设施---Nmap是一个有很多个人开发的作项目。随着相关人数的增长，我们也需要工具和基础设施来
 •	Online scanning web service — We're working on a service which allows users to scan their own machines and networks “from the cloud” to see what is exposed from an outside perspective. Repeat scans can be scheduled with changes sent in email alerts or browsed online.
+在线扫描web服务--我们正工作在一种用户能够通过云扫描他们自己主机和网络来从外面暴露的服务。
 In addition to those high-level priorities, we have some concrete tasks in mind:
 •	Internationalize Nmap to support many different languages rather than just English. The Zenmap front-end already does this, supporting five languages, as described in the section called “Zenmap in Your Language”.
 •	Add a testing harness system to more easily catch regressions (bugs). Ncat has already implemented such a system and it has proven extremely useful.
 •	The OS and Version detection systems may be augmented to support the NIST Common Platform Enumeration (CPE) standard for better compatibility with other tools.
+操作系统和版本探测
 •	Zenmap will soon offer an advanced script selection interface, making it easy to browse and choose scripts and script-arguments supported by the version of Nmap installed on a machine.
+为了使得安装了nmap上的主机浏览和选择脚本和相关参数更加容易，zenmap不久就提供脚本选择接口的高级功能。
 •	We plan to produce, encourage the production of, and distribute more Nmap-related videos to introduce people to Nmap and teach them tricks and techniques for using it effectively.
+我们计划生产、鼓励和发布nmap相关视频来介绍给人们并教会他们高效使用的技术。
 For a rougher and lower-level list of what we're working on right now and planned for the near future, you can always read the Nmap todo list at http://nmap.org/svn/todo/nmap.txt.
-
+在http://nmap.org/svn/todo/nmap.txt上可以了解到nmap要做的事情列表。
 Some of the coolest Nmap features in the past, such as OS and version detection, were developed in secret and given a surprise release. You can expect more of these in coming years because they are so much fun!
 过去Nmap中最酷的特性，比如操作系统和版本检测，在秘密开发中，会给一个惊喜发布。你可以期望在将来的几年他们会变得很有趣。
