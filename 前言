@@ -165,7 +165,6 @@ The official web site for this book is http://nmap.org/book/.
 本书的官网地址为http://nmap.org/book/。
 Go there for errata, updates, and many sample chapters.
 这里有勘误、更新和很多示例章节。
-
 Any serious Nmap user should subscribe to the nmap-hackers mailing list for announcements about Nmap and Insecure.Org.
 任何认真的Nmap用户都应该在nmap-hackers上订阅关于Nmap和insecure.org公告的邮寄列表，
 Traffic is very light (about six posts per year) because it is reserved for only the most important announcements.
@@ -216,7 +215,6 @@ They provided invaluable feedback, advice, and detailed review notes throughout 
 在整个过程中他们提供了宝贵的反馈、建议和详细的复审笔记。
 In particular, I would like to thank the following people:
 我要特别感谢以下人员：
-
 David Fifield is listed first (everyone else is alphabetical) because he was a tremendous help during the book writing process.
 首先要说到David Fifield（其他人都是按字母顺序排列），因为他在本书在写作过程中提供了极大的帮助
 He solved a number of technical DocBook problems, created many of the final illustrations from my terrible drafts, dramatically improved the index, helped with proofreading, and even wrote Chapter 12, Zenmap GUI Users' Guide.
@@ -316,19 +314,17 @@ TCP/IP Reference
 
 This book assumes basic familiarity with TCP/IP and networking concepts.
 本书假设你对TCP/IP和网络概念基本熟悉。
-
+本书假定您基本熟悉 TCP/IP 和网络概念。
 You won't find a primer on the OSI seven-layer model or a rundown of the Berkeley Socket API within these pages.
-本书不会给出OSI七层模型或者Berkeley Socket API纲要。
-
+本书不会给出OSI七层模型或者Berkeley套接字接口。
 For a comprehensive guide to TCP/IP, I recommend “The TCP/IP Guide” by Charles Kozierok or the old classic “TCP/IP Illustrated, Volume I” by W. Richard Stevens.
-如果要对TCP/IP进行深入了解，建议参考Charles Kozierok的《The TCP/IP Guide》或者W. Richard Stevens写的经典的《TCP/IP Illustrated》（卷1）。
+对于 TCP/IP 的综合指南，建议参考Charles Kozierok的《The TCP/IP Guide》或者W. Richard Stevens写的老经典的《TCP/IP Illustrated》（卷1）。
 While TCP/IP familiarity is expected, even the best of us occasionally forget byte offsets for packet header fields and flags.
-
+虽然预计TCP/IP熟悉，即使是最好的我们偶尔也忘了字节偏移量为数据包标头字段和标志。
 This section provides quick reference diagrams and field descriptions for the IPv4, TCP, UDP, and ICMP protocols.
 本节提供了IPv4、TCP、UDP和ICMP等协议的快速参考图和各域的描述。
-
 These beautiful diagrams from http://www.visi.com/~mjb/Drawings are used by permission of author Matt Baxter.
-那些漂亮的图来自 http://www.visi.com/~mjb/Drawings，得到其作者Matt Baxter的允许。
+那些漂亮的图得到其作者Matt Baxter的允许，来自 http://www.visi.com/~mjb/Drawings。
 
 Figure 1. IPv4 header
 图1 IPv4头
