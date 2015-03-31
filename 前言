@@ -34,7 +34,7 @@ Many systems and network administrators also find it useful for tasks such as ne
 Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. 
 Nmap利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和其他许多特征。
 It was designed to rapidly scan large networks, but works fine against single hosts.
-它旨在快速扫描大型网络，但对单个主机工作得也很好。
+它旨在快速扫描大型网络，但对单个主机也工作得也很好。
 
 While Nmap is extremely powerful, it is also complex.
 虽然Nmap功能非常强大，它也是很复杂的。
@@ -43,7 +43,7 @@ More than 100 command-line options add expressiveness for networking gurus, but 
 Some of its options have never even been documented.
 其中一些选项甚至都没有被记录在案。
 This book documents all Nmap features and, more importantly, teaches the most effective ways of using them.
-本书描述了所有的Nmap特性，更重要的是，教你最高效的使用方法。
+本书描述了所有的Nmap特性，更重要的是，教你最高效使用它们的方法。
 It has taken nearly four years to write, with constant updating as Nmap has evolved.
 紧随nmap持续的更新与进化，前后用了差不多4年来写这本书。
 
@@ -102,11 +102,14 @@ These are quick resources for looking up specific command-line options or brief 
 这些是快速资源用于查找特定的命令行选项或简要功能摘要。
 
 Scattered throughout the book are detailed instructions for performing common tasks such as scanning a network for a certain single open TCP port or detecting wireless access points by scanning from the wired side.
-书中随处可见完成常见任务的详细指令，如扫描一个网络中一个特定开放端口或者通过有线来探测无线接入点。
+书中随处可见完成常见任务的详细指令，如通过扫描一个网络中特定开放端口或者通过有线来探测无线接入点。
 First each problem is described, then an effective solution is provided.
 首先描述了每个问题，然后提供了高效的解决方法。
+首先描述了每个问题，然后提供了一个有效的解决方案。
+
 A final discussion section describes the solution in more depth and may provide alternative solutions and insights into similar problems.
 最后更深层次讨论描述了解决方法并提供了可选解决方法和类似问题的深刻见解。
+最后讨论部分描述了更深入的解决方案，并可能提供的备选解决方案和类似问题的见解。
 
 Conventions
 惯例
@@ -114,20 +117,22 @@ Nmap output is used throughout this book to demonstrate principles and features.
 nmap的输出贯穿在本书的展示和特性。
 The output is often edited to cut out lines which are irrelevant to the point being made.
 为了展示重点，输出中常常会剪掉不相关的行。
+输出通常编辑裁剪与重点无关的行。
 The dates/times and version numbers printed by Nmap are generally removed as well, since some readers find them distracting.
 由于日期/时间和版本号会分散读者的注意力，因此通常也会被移除。
 Sensitive information such as hostnames, IP addresses, and MAC addresses may be changed or removed.
-比如主机名、IP地址和mac地址等敏感信息会被改变或者移除。
+敏感信息，如主机名、 IP地址和MAC地址可能会更改或删除。
 Other information may be cut or lines wrapped so that they fit on a printed page.
-为了合适的打印版面，其他信息也可能会剪掉或者打包。
+为了合适的打印版面，其他的信息可能会被剪切或折行。
 Similar editing is done for the output of other applications.
 类似的编辑也会用在其他应用的输出中。
+
 Example 1 gives a glimpse at Nmap's capabilities while also demonstrating output formatting.
-例子1给出了nmap能力并展示了输出格式的概览。
+示例 1 一瞥Nmap功能的同时也显示出输出格式。
 
 Example 1. A typical Nmap scan
 
-例子1 一个典型的nmap扫描
+示例1  一个典型的nmap扫描
 
 表1 格式风格惯例
 Token type	Example
@@ -219,41 +224,29 @@ He solved a number of technical DocBook problems, created many of the final illu
 Matt Baxter allowed the use of his beautiful TCP/IP header diagrams (in the section called “TCP/IP Reference”).
 Matt Baxter允许使用他漂亮的TCP/IP报头的图表（在“TCP/IP参考”一节）。
 Several other diagrams in this book were done in that style to match.
-书中其他的图都是用这种风格来完成的。
-
+书中其他的图都是匹配这种风格来完成的。
 Saurabh Bhasin contributed detailed feedback on a regular basis.
-Saurabh Bhasin定期贡献反馈的细节。
-
+Saurabh Bhasin 定期贡献反馈的细节。
 Mark Brewis could always be counted on for good advice.
 总能指望Mark Brewis提供好的建议。
-
 Ellen Colombo was a big help from the beginning.
 Ellen Colombo从一开始就提供了很大的帮助。
-
 Patrick Donnelly helped improve Chapter 9, Nmap Scripting Engine.
-Patrick Donnelly帮忙改进了第九章，nmap脚本引擎。
-
+Patrick Donnelly帮忙改善第九章，nmap脚本引擎。
 Brandon Enright printed out the whole book and reviewed it chapter by chapter.
-Brandon Enright打印了整本书，并逐章复审。
-
+Brandon Enright打印出整本书，并逐章复审。
 Brian Hatch has always been a big help.
 Brian Hatch一直提供很大的帮助。
-
 Loren Heal was a continual source of ideas.
 Loren Heal提供源源不断的主意。
-
 Lee “MadHat” Heath wrote the section called “MadHat in Wonderland” and also an early version of the section called “Grepable Output (-oG)”.
-Lee “MadHat” Heath写了名为“MadHat in Wonderland”的一节，并给出了名为“Grepable Output (-oG)”的早期版本。
-
+Lee “MadHat” Heath写了名为“MadHat 梦游仙境”的一节，并写作了名为“Grepable Output (-oG)”一节的早期版本。
 Dan Henage provided advice and proofread numerous chapters.
-Dan Henage对多章都提供了建议和校对工作。
-
+Dan Henage 提供咨询，对许多章节都做了校对工作。
 Tor Houghton reviewed every chapter, probably giving me more feedback than anyone else.
-Tor Houghton复审了每一章，并给我提供了多于任何其他人的反馈。
-
+Tor Houghton复审了每一章，并给我提供了比别人更多的反馈。
 Doug Hoyte documented the many Nmap features he added, and also handled most of the book indexing.
-Doug Hoyte描述了很多他填加的特性，同时也处理了书中大部分的索引。
-
+Doug Hoyte描述了很多他填加的nmap特性，同时也处理了书中大部分的索引。
 Marius Huse Jacobsen reviewed many chapters, providing detailed feedback.
 Marius Huse Jacobsen审查许多章节，并提供详细的反馈意见。。
 
