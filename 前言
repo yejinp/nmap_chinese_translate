@@ -82,7 +82,7 @@ Chapter 9 details the Nmap Scripting Engine (NSE), which allows users to write (
 My favorite chapter is number 10: Detecting and Subverting Firewalls and Intrusion Detection Systems.
 我最喜欢的是第十章：探测并推翻防火墙和入侵检测系统。
 For balance, that is followed by a chapter on defending against Nmap scans.
-为了达到平衡，紧接着的一章就是如何防御nmap扫描。
+为了平衡，紧接着的一章就是如何防御nmap扫描。
 Chapter 12 then fully documents the Zenmap multi-platform Nmap GUI and results viewer.
 第十二章完整描述了zenmap多平台nmap图形用户界面和结果视图。
 The next two chapters cover output formats and data files.
