@@ -2,6 +2,8 @@
 一周完成前言的翻译
 从2015.03.27-----2015.04.03
 
+Document source:http://nmap.org/book/preface.html
+
 Introduction
 介绍
 
@@ -339,7 +341,7 @@ For a comprehensive guide to TCP/IP, I recommend “The TCP/IP Guide” by Charl
 While TCP/IP familiarity is expected, even the best of us occasionally forget byte offsets for packet header fields and flags.
 
 This section provides quick reference diagrams and field descriptions for the IPv4, TCP, UDP, and ICMP protocols.
-本节提供了IPv4、TCP、UDP和ICMP协议各域的快速参考图。
+本节提供了IPv4、TCP、UDP和ICMP等协议的快速参考图和各域的描述。
 
 These beautiful diagrams from http://www.visi.com/~mjb/Drawings are used by permission of author Matt Baxter.
 那些漂亮的图来自 http://www.visi.com/~mjb/Drawings，得到其作者Matt Baxter的允许。
