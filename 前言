@@ -14,12 +14,12 @@ My goal was to consolidate the fragmented field of special-purpose port scanners
 Nmap then consisted of three files (barely 2,000 lines of code) and supported only the Linux operating system.
 后来Nmap包含3个文件（仅仅包含约2000行代码），并只支持Linux操作系统。
 It was written for my own purposes, and released in the hope that others would find it useful.
-编写这个软件完全出于个人目的，抱着别人能够发现它有用的目的而发表。
+它编写并发表这个软件的目的，希望其他人会发现它很有用。
 
 From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide.
-从卑微开始，通过开源开发的力量，nmap成长为世界上最流行的、有数以万计用户的网络安全扫描器。
+从这些简陋的初级阶段，通过开放代码开发的力量，Nmap一天天长大，成长为世界上最受欢迎的，拥有数以百万计用户的网络安全扫描器。
 Over the years, Nmap has continued to add advanced functionality such as remote OS detection, version/service detection, and the Nmap Scripting Engine.
-过去几年，nmap添加了诸如远程操作系统检测，版本/服务检测，以及nmap脚本引擎等这些高级功能。
+多年来，nmap添加了诸如远程操作系统检测，版本/服务检测，以及nmap脚本引擎等这些高级功能。
 It now supports all major Unix, Windows, and Mac OS platforms with both console and graphical interfaces.
 现在，它的控制台和图形界面都支持所有主要UNIX、Windows和Mac操作系统平台，
 Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Codetalker Digest have recognized Nmap as “security tool of the year”.
