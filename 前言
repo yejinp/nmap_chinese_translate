@@ -14,7 +14,7 @@ My goal was to consolidate the fragmented field of special-purpose port scanners
 Nmap then consisted of three files (barely 2,000 lines of code) and supported only the Linux operating system.
 后来Nmap包含3个文件（仅仅包含约2000行代码），并只支持Linux操作系统。
 It was written for my own purposes, and released in the hope that others would find it useful.
-它编写并发表这个软件的目的，希望其他人会发现它很有用。
+它编写并发表这个软件的目的是希望其他人会发现它很有用。
 
 From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide.
 从这些简陋的初级阶段，通过开放代码开发的力量，Nmap一天天长大，成长为世界上最受欢迎的，拥有数以百万计用户的网络安全扫描器。
@@ -59,8 +59,7 @@ Intended Audience and Organization
 This book documents the free Nmap Security Scanner, from port scanning basics for novices to the types of packet crafting used by advanced hackers.
 本书从给新手的基本端口扫描到为高级黑客使用的各种包加工技巧描述了免费的安全扫描器nmap。
 It should benefit Nmap users (or potential users) of all experience levels.
-它可以给Nmap各经验层次的用户（或者说潜在用户）带来益处。
-
+它应让所有经验层次的 Nmap 用户 （或潜在的用户）受益。
 Starting with the basics, this book gives an overview of Nmap by example in Chapter 1.
 从基本的开始，本书在第一章通过例子来展示nmap的概貌。
 Then Chapter 2 covers obtaining, compiling and installing Nmap.
@@ -69,30 +68,38 @@ Chapters 3 through 5 cover features in the order you might use them when conduct
 第三章到第五章根据你在渗透测试中可能用到特性的顺序进行介绍。
 First comes host discovery (“ping scanning”), which determines the available hosts on a network.
 首先是确定一个网络上可用主机的主机发现（ping扫描）功能。
+首先是主机发现 （"ping 扫描"），确定网络上可用的主机。
 Next, port scanning is covered in depth.
 然后全面描述了端口扫描功能。
 In Chapter 5, all the Nmap scanning techniques are detailed, with advice and examples.
 在第五章中，在对所有的nmap扫描技术都有详细描述的同时给出建议和例子。
+第五章中详细 描述了Nmap的所有扫描技术，提供咨询意见和例子。
 Scanning a large network can take a long time, so Chapter 6 is full of performance optimization advice.
 扫描一个大的网络会耗费很长一段时间，因此第六章全都是性能优化建议。
+扫描一个大型网络可以耗费很长时间，所以第六章是完整的性能优化建议。
 Chapter 7 details service and application version detection, in which Nmap queries ports to determine exactly what is running rather than simply guessing based on the port number.
 在第七章详细描述了服务和应用版本探测功能，这些功能让nmap查询端口以正确地识别而不是基于端口号简单猜测运行着什么服务。
+第七章详细介绍了服务和应用程序版本检测功能，其中 Nmap 查询端口以确定到底是什么正在运行，而不只猜测的基础的端口号。
 Chapter 8 covers one of Nmap's most loved features: remote OS detection.
-第八章描述了大部分Nmap用户最喜欢的特性：操作系统探测。
+第八章描述了大部分Nmap用户最喜欢的特性：远程操作系统探测。
+第八章涵盖 Nmap 用户最爱的特征之一： 远程操作系统识别。
 Chapter 9 details the Nmap Scripting Engine (NSE), which allows users to write (and share) simple scripts to automate a wide variety of networking tasks.
-在第九章中，详细描述了nmap的脚本引擎（NSE），它允许用户编写（也可分享）一些简单脚本来自动化完成多种多样的网络任务。
+第九章详细描述了nmap的脚本引擎（NSE），从而允许用户编写（也可分享）一些简单脚本来自动化完成多种多样的网络任务。
+第九章详细介绍 Nmap 脚本引擎 （NSE），从而允许用户写入（和共享）简单的脚本来自动执行各种各样的网络任务。
 My favorite chapter is number 10: Detecting and Subverting Firewalls and Intrusion Detection Systems.
-我最喜欢的是第十章：探测并推翻防火墙和入侵检测系统。
+我最喜欢的是第十章：防火墙和入侵检测系统的探测并推翻。
 For balance, that is followed by a chapter on defending against Nmap scans.
 为了平衡，紧接着的一章就是如何防御nmap扫描。
 Chapter 12 then fully documents the Zenmap multi-platform Nmap GUI and results viewer.
-第十二章完整描述了zenmap多平台nmap图形用户界面和结果视图。
+然后，第十二章完整描述了zenmap多平台nmap图形用户界面和结果查看器。
 The next two chapters cover output formats and data files.
 下面的两章描述了输出格式和数据文件。
+接下来的两章涵盖输出格式和数据文件。
 The final four chapters are reference guides for the whole family of tools: Nmap, Ndiff, Ncat, and Nping.
-最后四章分别为Nmap、Ndiff、Ncat和Nping的用户指南。
+最后的四章是介绍工具大家庭：Nmap、Ndiff、Ncat和Nping的参考指南。
 These are quick resources for looking up specific command-line options or brief feature summaries.
 这些章节提供了一种快速查询特定命令行选项或者特征简述。
+这些是快速资源用于查找特定的命令行选项或简要功能摘要。
 
 Scattered throughout the book are detailed instructions for performing common tasks such as scanning a network for a certain single open TCP port or detecting wireless access points by scanning from the wired side.
 书中随处可见完成常见任务的详细指令，如扫描一个网络中一个特定开放端口或者通过有线来探测无线接入点。
