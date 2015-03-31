@@ -8,36 +8,36 @@ Introduction
 On September 1, 1997, I released a security scanner named Nmap in the fifty-first issue of Phrack magazine.
 1997年9月1日，我在杂志《菲里克》（Phrack）的第五十一期上发表了一个名为nmap的安全扫描器。
 My goal was to consolidate the fragmented field of special-purpose port scanners into one powerful and flexible free tool, providing a consistent interface and efficient implementation of all practical port scanning techniques.
-我的目标是为了整合各种分散的特殊端口扫描器为一个功能强大且灵活的免费工具，在高效的实现各种实用端口扫描技术的同时提供一个一致的接口。
+我的目标是为了整合各种分散的特殊端口扫描器为一个功能强大且灵活的免费工具，在高效的实现所有实用端口扫描技术的同时提供一个统一的接口。
 Nmap then consisted of three files (barely 2,000 lines of code) and supported only the Linux operating system.
 后来Nmap包含3个文件（仅仅包含约2000行代码），并只支持Linux操作系统。
 It was written for my own purposes, and released in the hope that others would find it useful.
-这个软件完全出于个人抱着别人能够发现它有用的目的而写。
+编写这个软件完全出于个人目的，抱着别人能够发现它有用的目的而发表。
 
 From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide.
-从简陋开始，通过开源开发的力量，nmap成长为（在世界范围内，）有数以万计的用户的世界上最流行的网络安全扫描器。
+从卑微开始，通过开源开发的力量，nmap成长为世界上最流行的、有数以万计用户的网络安全扫描器。
 Over the years, Nmap has continued to add advanced functionality such as remote OS detection, version/service detection, and the Nmap Scripting Engine.
 过去几年，nmap添加了诸如远程操作系统检测，版本/服务检测，以及nmap脚本引擎等这些高级功能。
 It now supports all major Unix, Windows, and Mac OS platforms with both console and graphical interfaces.
-现在，它支持所有的主要的UNIX、Windows和Mac 操作系统平台的控制台和视图接口，
+现在，它的控制台和图形界面都支持所有主要UNIX、Windows和Mac操作系统平台，
 Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Codetalker Digest have recognized Nmap as “security tool of the year”.
-发表在《Linux Journal》、《Info World》、LinuxQuestions.Org和《 Codetalker Digest》等上的文献，让nmap成为了“安全工具年”。
+发表在《Linux Journal》、《Info World》、LinuxQuestions.Org和《 Codetalker Digest》等上的文献，让nmap成为了“年度安全工具”。
 It was even featured in nine movies, including The Matrix Reloaded, The Girl with the Dragon Tattoo, The Bourne Ultimatum, and Die Hard 4.
-甚至包括《重装上阵》、《龙纹身的女孩》、《谍影重重》和《虎胆龙威4》等9部电影有nmap的特写镜头。
+包括《重装上阵》、《龙纹身的女孩》、《谍影重重》和《虎胆龙威4》等9部电影甚至有nmap的特写镜头。
 
 Nmap (“Network Mapper”) is a free and open source utility for network exploration and security auditing.
-Nmap（网络制图者）是一个为网络探究和安全审计的免费开源工具。
+Nmap（网络制图者）是一个为网络探索和安全审计的免费开源工具。
 Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. 
-很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。
+很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务也很有用。
 Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. 
-Nmap 利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和以及其他很多特征。
+Nmap利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和以及其他很多特征。
 It was designed to rapidly scan large networks, but works fine against single hosts.
 它被设计为快速扫描大型网络，但对单个主机工作得也很好。
 
 While Nmap is extremely powerful, it is also complex.
 Nmap功能非常强大，同时也很复杂。
 More than 100 command-line options add expressiveness for networking gurus, but can confound novices.
-超过100多个命令行选项让网络专家得心应手（如虎添翼），但困惑新手。
+超过100多个命令行选项让网络专家如虎添翼，但困惑新手。
 Some of its options have never even been documented.
 一些选项甚至都没有描述文档。
 This book documents all Nmap features and, more importantly, teaches the most effective ways of using them.
