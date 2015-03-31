@@ -19,37 +19,9 @@ Avatar Online (AO) is a small company working to create the next generation of m
 The first step in a vulnerability assessment is network discovery. This reconnaissance stage determines what IP address ranges the target is using, what hosts are available, what services those hosts are offering, general network topology details, and what firewall/filtering policies are in effect.
 Determining the IP ranges to scan would normally be an elaborate process involving ARIN (or another geographical registry) lookups, DNS queries and zone transfer attempts, various web sleuthing techniques, and more. But in this case, Avatar Online explicitly specified what networks they want tested: the corporate network on 6.209.24.0/24 and their production/DMZ systems residing on 6.207.0.0/22. Felix checks the IP whois records anyway and confirms that these IP ranges are allocated to AO[1]. Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. No problem.
 Being the careful type, Felix first starts out with what is known as an Nmap list scan (-sL option). This feature simply enumerates every IP address in the given target netblock(s) and does a reverse-DNS lookup (unless -n was specified) on each. One reason to do this first is stealth. The names of the hosts can hint at potential vulnerabilities and allow for a better understanding of the target network, all without raising alarm bells[3]. Felix is doing this for another reason—to double-check that the IP ranges are correct. The systems administrator who provided the IPs might have made a mistake, and scanning the wrong company would be a disaster. The contract signed with Avatar Online may act as a get-out-of-jail-free card for penetrating their networks, but will not help if Felix accidentally compromises another company's server! The command he uses and an excerpt of the results are shown in Example 1.1.
-Example 1.1. Nmap list scan against Avatar Online IP addresses
-felix> nmap -sL 6.209.24.0/24 6.207.0.0/22
 
-Starting Nmap ( http://nmap.org )
-Nmap scan report for 6.209.24.0
-Nmap scan report for fw.corp.avataronline.com (6.209.24.1)
-Nmap scan report for dev2.corp.avataronline.com (6.209.24.2)
-Nmap scan report for 6.209.24.3
-Nmap scan report for 6.209.24.4
-...
-Nmap scan report for dhcp-21.corp.avataronline.com (6.209.24.21)
-Nmap scan report for dhcp-22.corp.avataronline.com (6.209.24.22)
-Nmap scan report for dhcp-23.corp.avataronline.com (6.209.24.23)
-...
-Nmap scan report for 6.207.0.0
-Nmap scan report for gw.avataronline.com (6.207.0.1)
-Nmap scan report for ns1.avataronline.com (6.207.0.2)
-Nmap scan report for ns2.avataronline.com (6.207.0.3)
-Nmap scan report for ftp.avataronline.com (6.207.0.4)
-Nmap scan report for 6.207.0.5
-Nmap scan report for 6.207.0.6
-Nmap scan report for www.avataronline.com (6.207.0.7)
-Nmap scan report for 6.207.0.8
-...
-Nmap scan report for cluster-c120.avataronline.com (6.207.2.120)
-Nmap scan report for cluster-c121.avataronline.com (6.207.2.121)
-Nmap scan report for cluster-c122.avataronline.com (6.207.2.122)
-...
-Nmap scan report for 6.207.3.255
-Nmap done: 1280 IP addresses (0 hosts up) scanned in 331.49 seconds
-felix>
+Example 1.1. Nmap list scan against Avatar Online IP addresses
+例子1.1 nmap例举对IP 地址进行扫描
 
 Reading over the results, Felix finds that all of the machines with reverse-DNS entries resolve to Avatar Online. No other businesses seem to share the IP space. Moreover, these results give Felix a rough idea of how many machines are in use and a good idea of what many are used for. He is now ready to get a bit more intrusive and try a port scan. He uses Nmap features that try to determine the application and version number of each service listening on the network. He also requests that Nmap try to guess the remote operating system via a series of low-level TCP/IP probes known as OS fingerprinting. This sort of scan is not at all stealthy, but that does not concern Felix. He is interested in whether the administrators of AO even notice these blatant scans. After a bit of consideration, Felix settles on the following command:
 nmap -sS -p- -PE -PP -PS80,443 -PA3389 -PU40125 -A -T4 -oA avatartcpscan-%D 6.209.24.0/24 6.207.0.0/22
@@ -70,22 +42,7 @@ Outputs results in every format (normal, XML, grepable) to files named avatartcp
 These are the Avatar Online netblocks discussed above. They are given in CIDR notation, but Nmap allows them to be specified in many other formats. For example, 6.209.24.0/24 could instead be specified as 6.209.24.0-255.
 Since such a comprehensive scan against more than a thousand IP addresses could take a while, Felix simply starts it executing and resumes work on his Yagi antenna. An couple hours later he notices that it has finished and takes a peek at the results. Example 1.2shows one of the machines discovered.
 Example 1.2. Nmap results against an AO firewall
-Nmap scan report for fw.corp.avataronline.com (6.209.24.1)
-(The 65530 ports scanned but not shown below are in state: filtered)
-PORT     STATE  SERVICE    VERSION
-22/tcp   open   ssh        OpenSSH 3.7.1p2 (protocol 1.99)
-| ssh-hostkey: 1024 7c:14:2f:92:ca:61:90:a4:11:3c:47:82:d5:8e:a9:6b (DSA)
-|_2048 41:cf7d:839d:7f66:0ae1:8331:7fd4:5a97:5a (RSA)
-|_sshv1: Server supports SSHv1
-53/tcp   open   domain     ISC BIND 9.2.1
-110/tcp  open   pop3       Courier pop3d
-113/tcp  closed auth
-143/tcp  open   imap       Courier Imap 1.6.X - 1.7.X
-3128/tcp open   http-proxy Squid webproxy 2.2.STABLE5
-Device type: general purpose
-Running: Linux 2.4.X|2.5.X
-OS details: Linux Kernel 2.4.0 - 2.5.20
-Uptime 3.134 days
+例子2.2 nmap扫描一个AO防火墙的结果
 
 To the trained eye, this conveys substantial information about AO's security posture. Felix first notes the reverse DNS name—this machine is apparently meant to be a firewall for their corporate network. The next line is important, but all too often ignored. It states that the vast majority of the ports on this machine are in the filtered state. This means that Nmap is unable to reach the port because it is blocked by firewall rules. The fact that all ports except for a few chosen ones are in this state is a sign of security competence. Deny-by-default is a security mantra for good reasons—it means that even if someone accidentally left SunRPC (port 111) open on this machine, the firewall rules would prevent attackers from communicating with it.
 Felix then looks at every port line in turn. The first port is Secure Shell (OpenSSH). Version 3.7.1p2 is common, as many administrators upgraded to this version due to potentially exploitable buffer management bugs affecting previous versions. Nmap also notes that thesshv1 NSE script reports that the less secure SSHv1 protocol is supported. A truly paranoid sysadmin would only allow SSH connections from certain trusted IP addresses, but one can argue for open access in case the administrator needs emergency access while far from home. Security often involves trade-offs, and this one may be justifiable. Felix makes a note to try the Ncrack brute force network authentication cracker and especially his private timing-based SSH user enumeration tool against the server.
@@ -95,28 +52,7 @@ The final open port is a Squid proxy. This is another service that may have been
 The following lines disclose that this is a Linux box, which is valuable information when attempting exploitation. The low three-day uptime was detected during OS fingerprinting by sending several probes for the TCP timestamp option value and extrapolating the line back to zero.
 Felix then examines the Nmap output for another machine, as shown in Example 1.3.
 Example 1.3. Another interesting AO machine
-Nmap scan report for dhcp-23.corp.avataronline.com (6.209.24.23)
-(The 65526 ports scanned but not shown below are in state: closed)
-PORT      STATE    SERVICE       VERSION
-135/tcp   filtered msrpc
-136/tcp   filtered profile
-137/tcp   filtered netbios-ns
-138/tcp   filtered netbios-dgm
-139/tcp   filtered netbios-ssn
-445/tcp   open     microsoft-ds  Microsoft Windows XP microsoft-ds
-1002/tcp  open     windows-icfw?
-1025/tcp  open     msrpc         Microsoft Windows msrpc
-16552/tcp open     unknown
-Device type: general purpose
-Running: Microsoft Windows NT/2K/XP
-OS details: Microsoft Windows XP Professional RC1+ through final release
-
-Host script results:
-|_nbstat: NetBIOS name: TRACYD, NetBIOS user: <unknown>,  NetBIOS MAC: 00:20:35:00:29:a2:7f (IBM)
-|_smbv2-enabled: Server doesn't support SMBv2 protocol
-| smb-os-discovery:  
-|   OS: Windows XP (Windows 2000 LAN Manager)
-|_  Name: WORKGROUP\JOHND
+例子1.3 另外一个有趣的AO机器
 
 Felix smiles when he spies this Windows XP box on the Network. Thanks to a spate of MS RPC vulnerabilities, those machines are trivial to compromise if the OS patches aren't up-to-date. The second line shows that the default state is closed, meaning the firewall does not have the same deny-by-default policy for this machine as for itself. Instead they tried to specifically block the Windows ports they consider dangerous on 135-139. This filter is woefully inadequate, as MS exports MS RPC functionality on many other ports in Windows XP. TCP ports 445 and 1025 are two examples from this scan. While Nmap failed to recognize 16552, Felix has seen this pattern enough to know that it is probably the MS Messenger Service. If AO had been using deny-by-default filtering, port 16552 would not be accessible in the first place. Looking through the results page, Felix sees several other Windows machines on this DHCP network. Felix cannot wait to try his favorite DCOM RPC exploit against them. It was written by HD Moore and is available at http://www.metasploit.com/tools/dcom.c. If that fails, there are a couple newer MS RPC vulnerabilities he will try.
 Felix continues poring over the results for vulnerabilities he can leverage to compromise the network. On the production network, he sees that gw.avataronline.com is a Cisco router that also acts as a rudimentary firewall for the systems. They fall into the trap of only blocking privileged ports (those under 1024), which leaves a bunch of vulnerable SunRPC and other services accessible on that network. The machines with names like clust-* each have dozens of ports open that Nmap does not recognize. They are probably custom daemons running the AO game engine. www.avataronline.com is a Linux box with an open Apache server on the HTTP and HTTPS ports. Unfortunately, it is linked with an exploitable version of the OpenSSL library. Oops! Before the sun sets, Felix has gained privileged access to hosts on both the corporate and production networks.
@@ -139,58 +75,12 @@ The first issue to come up was speed. Our networks are located worldwide, yet I 
 The next problem was dealing with so much data. A SQL database seemed like the best approach for scalability and data-mining reasons, but I had to abandon that idea due to time pressures. A future version may add this support. Instead, I used a flat file to store the results of each class C address range for each day. The most powerful and extensible way to parse and store this information was the Nmap XML format, but I chose the “grepable” (-oG option) format because it is so easy to parse from simple scripts. Per-host timestamps are also stored for reporting purposes. These have proven quite helpful when administrators try to blame machine or service crashes on the scanner. They cannot credibly claim a service crash at 7:12AM when I have proof that the scan ran at 9:45AM.
 The scan produces copious data, with no convenient access method. The standard Unix diff tool is not smart enough to report only the changes I care about, so I wrote a Perl script named nmap-diff to provide daily change reports. A typical output report is shown inExample 1.4.
 Example 1.4. nmap-diff typical output
-> nmap-diff.pl -c3
-  5 IPs showed changes
-
-  10.12.4.8 (ftp-box.foocompany.biz)
-         21/tcp   open   ftp
-         80/tcp   open   http
-        443/tcp   open   https
-       1027/tcp   open   IIS
-     + 1029/tcp   open   ms-lsa
-      38292/tcp   open   landesk-cba 
-  OS: Microsoft Windows Millennium Edition (Me)
-      Windows 2000 Professional or Advanced Server
-      or Windows XP
-
-  10.16.234.3 (media.foocompany.biz)
-         80/tcp   open   http
-     +  554/tcp   open   rtsp
-     + 7070/tcp   open   realserver
-
-  192.168.10.186 (testbox.foocompany.biz)
-    + 8082/tcp   open   blackice-alerts
-  OS: Linux Kernel 2.4.0 - 2.5.20
-
-  172.24.12.58 (mtafoocompany.biz)
-    +   25/tcp   open   smtp 
-  OS: FreeBSD 4.3 - 4.4PRERELEASE
-
-  172.23.76.22 (media2.foocorp.biz)
-         80/tcp   open   http
-       1027/tcp   open   IIS
-     + 1040/tcp   open   netsaint
-       1755/tcp   open   wms 
-       3372/tcp   open   msdtc
-       6666/tcp   open   irc-serv
-       7007/tcp   open   afs3-bos
-  OS: Microsoft Windows Millennium Edition (Me)
-      Windows 2000 Professional or Advanced Server
-      or Windows XP
+例子1.4 nmap-diff的典型输出
 
 Management and staff were impressed when I demonstrated this new system at an internal company security symposium. But instead of allowing me to rest on my laurels, they began asking for new features. They wanted counts of mail and web servers, growth estimates, and more. This data was all available from the scans, but was difficult to access. So I created yet another Perl script, nmap-report, which made querying the data much easier. It takes specifications such as open ports or operating systems and finds all the systems that matched on a given day.
 One problem with this approach to security monitoring is that employees do not always place services on their IANA-registered official ports. For example, they might put a web server on port 22 (SSH) or vice versa. Just as I was debating how to address this problem, Nmap came out with an advanced service and version detection system (see Chapter 7, Service and Application Version Detection). nmap-reportnow has a rescan feature that uses version scanning to report the true services rather than guessing based on port number. I hope to further integrate version detection in future versions. Example 1.5 shows nmap-report listing FTP servers.
 Example 1.5. nmap-report execution
-> nmap-report -p21 -rV
-[...]
-172.21.199.76 (ftp1.foocorp.biz)
-   21/tcp   open   ssl|ftp Serv-U ftpd 4.0
-
-192.168.12.56 (ftp2.foocorp.biz)
-   21/tcp   open   ftp     NcFTPd
-
- 192.168.13.130 (dropbox.foocorp.biz)
-   21/tcp   open   ftp     WU-FTPD 6.00LS
+例子1.5 nmap执行报告
 
 While being far from perfect, these scripts have proven themselves quite valuable at monitoring large networks for security-impacting changes. Since Nmap itself is open source, it only seemed fair to release my scripts to the public as well. I have made them freely available at http://www.unspecific.com/nmap.
 
