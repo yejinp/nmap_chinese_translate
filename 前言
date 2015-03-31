@@ -121,7 +121,19 @@ Example 1. A typical Nmap scan
 例子1 一个典型的nmap扫描
 
 表1 格式风格惯例
+Token type	Example
+Literal string	I get much more excited by ports in the open state than those reported as closed or filtered.
 
+Command-line options	One of the coolest, yet least understood Nmap options is --packet-trace.
+命令行选项
+Filenames	Follow the -iL option with the input filename such as C:\net\dhcp-leases.txt or /home/h4x/hosts-to-pwn.lst.
+文件名
+Emphasis	Using Nmap from your work or school computer to attack banks and military targets is a bad idea.
+
+Application commands	Trinity scanned the Matrix with the command nmap -v -sS -O 10.2.2.2.
+应用命令
+Replaceable variables	Let <source> be the machine running Nmap and <target> be microsoft.com.
+可替换变量 
 其他资源
 
 While this book is an important reference for Nmap, it isn't the only one.
