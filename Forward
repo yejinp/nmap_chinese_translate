@@ -43,14 +43,14 @@ More than 100 command-line options add expressiveness for networking gurus, but 
 Some of its options have never even been documented.
 其中的一些选项甚至都没有被记录在案。
 This book documents all Nmap features and, more importantly, teaches the most effective ways of using them.
-本书描述了所有的Nmap特性，更重要的是，教你最高效使用它们的方法。
+本书描述了所有的Nmap特性，更重要的是，教你更有效使用它们的方法。
 It has taken nearly four years to write, with constant updating as Nmap has evolved.
 为了保持与Nmap进化过程中的不断更新，用了差不多4年来编写本书。    （ ?? ）
 
 This book is dedicated to the Nmap community of users and developers.
 谨以本书奉献给Nmap社区的用户和开发人员。
 Your passion, ideas, patches, feature requests, flame wars, bug reports, and midnight rants have shaped Nmap into what it is today.
-正是你们的激情、观点、patches、功能请求、激烈争论、Bug报告和午夜的牢骚让Nmap成为今天的样子。
+正是你们的激情、观点、Patches、功能请求、激烈争论、Bug报告和午夜的牢骚让Nmap成为今天的样子。
                                     —Gordon “Fyodor” Lyon <fyodor@nmap.org>
 
 Intended Audience and Organization
@@ -99,7 +99,7 @@ Scattered throughout the book are detailed instructions for performing common ta
 First each problem is described, then an effective solution is provided.
 首先描述了每个问题，然后提供了一个有效的解决方案。
 A final discussion section describes the solution in more depth and may provide alternative solutions and insights into similar problems.
-最后更深入的讨论了解决方法并提供了可选解决方法和类似问题的深刻见解。
+最后更深入的讨论了解决方法并提供了可选解决方法和类似问题的见解。
 最后的讨论部分描述了更深入的解决方案，并可能提供备选解决方案和类似问题的见解。
 
 Conventions
@@ -138,7 +138,7 @@ Filenames                 Follow the -iL option with the input filename such as 
 Emphasis                  Using Nmap from your work or school computer to attack banks and military targets is a bad idea.
 强调                      从你的工作或者学校电脑攻击银行或者军事目标是一个不好的注意
 Application commands      Trinity scanned the Matrix with the command nmap -v -sS -O 10.2.2.2.
-应用命令                  用命令nmap -v -sS -O 10.2.2.2 对矩阵进行三位一体
+应用命令                  用命令nmap -v -sS -O 10.2.2.2 对矩阵进行三位一体的扫描
 Replaceable variables     Let <source> be the machine running Nmap and <target> be microsoft.com.
 可替换变量                假设源为运行Nmap的主机，目标为microsoft.com
 
@@ -170,11 +170,11 @@ Traffic is much higher (hundreds of posts per month), but it is a great place to
 Subscription information and archives for both lists are available at http://seclists.org.
 在http://seclists.org上提供了上面两个预定信息列表和档案。
 While Nmap can be useful, it won't solve all of your security problems.
-虽然nmap很有用，但它并不能解决你所有的安全问题。
+虽然Nmap很有用，但它并不能解决你所有的安全问题。
 Every few years I do a survey of thousands of Nmap users to determine what other tools they like.
-每隔一些年，为了了解他们喜欢什么工具，我都会对成千的nmap用户做调查。
+每隔一些年，为了确定他们喜欢什么工具，我会对成千的Nmap用户做调查。
 The list is posted at http://sectools.org, which has become one of my most popular web sites.
-在http://sectools.org上列出的清单，成为最受我欢迎我的网站之一。
+清单贴在http://sectools.org上，这个站点已成为最受我欢迎我的Web网站之一。
 Read through the list and you are sure to find many gems you had never even heard of.
 通读这个清单，你会发现很多你甚至从未听过的珍宝。
 Most of the tools are free and open source.
@@ -190,21 +190,21 @@ If you find any problems or just have suggestions for making this book better, p
 The open source principle of many readers and contributors is just as viable for documentation as for software.
 开放源代码的原则是读者和贡献者都能够与获得软件一样获得相应的文档。
 As the next section attests, dozens of people have already generously contributed their time and skills to make this book a success.
-正如下一节证明的那样，很多人在使得本书成功时作出了时间和技术上的慷慨贡献。
+正如下一节证明的那样，很多人在使得本书成功时在时间和技术上作出了慷慨贡献。
 If you have a question or comment about Nmap (rather than this book itself), it is best sent to the Nmap development list as described at the section called “Bugs”.
-如果你有关于Nmap（而不是这本书本身）的问题或者评论，最好能够根据“Bugs”一节中所述给nmap的开发清单发送邮件。
+如果你有关于Nmap（而不是这本书本身）的问题或者评论，最好能够根据“Bugs”一节中所述给Nmap的开发列表发送邮件。
 
 Acknowledgements
 致谢
 When I first floated the idea of writing an Nmap book to the nmap-hackers mailing list, I was inundated with suggestions and offers to help.
-在我首次浮现给nmap-hackers邮件清单写一本Nmap的书时，我得到了应接不暇的建议和帮助
+在我首次浮现给nmap-hackers邮件清单写一本Nmap的书时，我得到了应接不暇的建议和帮助。
 This outpouring of enthusiasm convinced me to proceed.
-倾泻而至的热情说服我我继续。
-
+这种流露的热情让我继续。
+这种流露的热情促使我继续。
 My complete naivety about how much work was involved also contributed to my decision.
-!!!  幼稚的评估所涉及的工作量也促成了我的决定。
+对所涉及工作量的幼稚评估也促成了我的决定。
 It has been quite an undertaking, but what kept me going chapter by chapter was a private review group called the nmap-writers.
-!!!  这已经是一个承诺，让我保持一章接一章前进的动力就是被称为Nmap作者私人评审小组。
+这是一个承诺，但保持我一章接一章前进的动力是名为“Nmap作者”的私人评审小组。
 They provided invaluable feedback, advice, and detailed review notes throughout the process.
 在整个过程中他们提供了宝贵的反馈、建议和详细的复审笔记。
 In particular, I would like to thank the following people:
