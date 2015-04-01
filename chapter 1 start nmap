@@ -7,14 +7,28 @@ Introduction
 Nmap (“Network Mapper”) is a free and open source utility for network exploration and security auditing. Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. It was designed to rapidly scan large networks, but works fine against single hosts. Nmap runs on all major computer operating systems, and both console and graphical versions are available.
 Nmap（网络制图者）是一个为网络探究和安全审计的免费开源工具。很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。Nmap 利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和以及其他很多特征。它被设计为快速扫描大型网络，但对单个主机工作得也很好。Nmap运行在大部分的操作系统上，同时包含控制台和图形界面版本。
 This chapter uses fictional stories to provide a broad overview of Nmap and how it is typically used. An important legal section helps users avoid (or at least be aware of) controversial usage that could lead to ISP account cancellation or even civil and criminal charges. It also discusses the risks of crashing remote machines as well as miscellaneous issues such as the open source Nmap license (based on the GNU GPL), and copyright.
-本章用来几个故事来鸟瞰nmap和其典型使用方法。重要的法律一节能够帮助用户避免（或者至少意识到）争议的使用会导致ISP帐号被取消或者民事和刑事指控。在讨论其他主题如，nmap开源许可证（基于GNU GPL）和版权的同时，也讨论了使得远程主机崩溃的风险。
+本章用来几个故事来鸟瞰nmap和其典型使用方法。重要的法律一节能够帮助用户避免（或者至少意识到）有争议的使用会导致ISP帐号被取消或者民事和刑事指控。在讨论其他主题，如Nmap开源许可证（基于GNU GPL）和版权的同时，也讨论了使得远程主机崩溃的风险。
 
 Nmap Overview and Demonstration
 综述和演示
 Sometimes the best way to understand something is to see it in action. This section includes examples of Nmap used in (mostly) fictional yet typical circumstances. Nmap newbies should not expect to understand everything at once. This is simply a broad overview of features that are described in depth in later chapters. The “solutions” included throughout this book demonstrate many other common Nmap tasks for security auditors and network administrators.
 有时候理解一些东西的最好方法就是看它如何运行。本节包含了Nmap在（大部分）虚构但典型环境下的使用例子。Nmap新手不能期望与马上就能理解所有内容。这只是一个关于后续章节将要全马描述的综述。通书的解决方法演示了很多安全审计员和网络管理口的其他常见Nmap任务
 Avatar Online
-Felix dutifully arrives at work on December 15th, although he does not expect many structured tasks. The small San Francisco penetration-testing firm he works for has been quiet lately due to impending holidays. Felix spends business hours pursuing his latest hobby of building powerful Wi-Fi antennas for wireless assessments and war driving exploration. Nevertheless, Felix is hoping for more business. Hacking has been his hobby and fascination since a childhood spent learning everything he could about networking, security, Unix, and phone systems. Occasionally his curiosity took him too far, and Felix was almost swept up in the 1990 Operation Sundevil prosecutions. Fortunately Felix emerged from adolescence without a criminal record, while retaining his expert knowledge of security weaknesses. As a professional, he is able to perform the same types of network intrusions as before, but with the added benefit of contractual immunity from prosecution and even a paycheck! Rather than keeping his creative exploits secret, he can brag about them to client management when presenting his reports. So Felix was not disappointed when his boss interrupted his antenna soldering to announce that the sales department closed a pen-testing deal with the Avatar Online gaming company.
+Avatar 在线
+
+Felix dutifully arrives at work on December 15th, although he does not expect many structured tasks. 
+虽然不期望很多结构化的任务，在上月15日，Felix也还是尽职责的来上班。
+The small San Francisco penetration-testing firm he works for has been quiet lately due to impending holidays. 
+他工作的渗透测试小公司坐落在San Francisco，最近由于迫近假期的原因安静了一段时间了。
+Felix spends business hours pursuing his latest hobby of building powerful Wi-Fi antennas for wireless assessments and war driving exploration. 
+Felix工作时间
+Nevertheless, Felix is hoping for more business. 
+Hacking has been his hobby and fascination since a childhood spent learning everything he could about networking, security, Unix, and phone systems. 
+Occasionally his curiosity took him too far, and Felix was almost swept up in the 1990 Operation Sundevil prosecutions. 
+Fortunately Felix emerged from adolescence without a criminal record, while retaining his expert knowledge of security weaknesses. 
+As a professional, he is able to perform the same types of network intrusions as before, but with the added benefit of contractual immunity from prosecution and even a paycheck! 
+Rather than keeping his creative exploits secret, he can brag about them to client management when presenting his reports. 
+So Felix was not disappointed when his boss interrupted his antenna soldering to announce that the sales department closed a pen-testing deal with the Avatar Online gaming company.
 Avatar Online (AO) is a small company working to create the next generation of massive multi-player online role-playing games (MMORPGs). Their product, inspired by the Metaverse envisioned in Neil Stevenson's Snow Crash, is fascinating but still highly confidential. After witnessing the high-profile leak of Valve Software's upcoming game source code, AO quickly hired the security consultants. Felix's task is to initiate an external (from outside the firewall) vulnerability assessment while his partners work on physical security, source code auditing, social engineering, and so forth. Felix is permitted to exploit any vulnerabilities found.
 The first step in a vulnerability assessment is network discovery. This reconnaissance stage determines what IP address ranges the target is using, what hosts are available, what services those hosts are offering, general network topology details, and what firewall/filtering policies are in effect.
 Determining the IP ranges to scan would normally be an elaborate process involving ARIN (or another geographical registry) lookups, DNS queries and zone transfer attempts, various web sleuthing techniques, and more. But in this case, Avatar Online explicitly specified what networks they want tested: the corporate network on 6.209.24.0/24 and their production/DMZ systems residing on 6.207.0.0/22. Felix checks the IP whois records anyway and confirms that these IP ranges are allocated to AO[1]. Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. No problem.
@@ -23,50 +37,156 @@ Being the careful type, Felix first starts out with what is known as an Nmap lis
 Example 1.1. Nmap list scan against Avatar Online IP addresses
 例子1.1 nmap例举对IP 地址进行扫描
 
-Reading over the results, Felix finds that all of the machines with reverse-DNS entries resolve to Avatar Online. No other businesses seem to share the IP space. Moreover, these results give Felix a rough idea of how many machines are in use and a good idea of what many are used for. He is now ready to get a bit more intrusive and try a port scan. He uses Nmap features that try to determine the application and version number of each service listening on the network. He also requests that Nmap try to guess the remote operating system via a series of low-level TCP/IP probes known as OS fingerprinting. This sort of scan is not at all stealthy, but that does not concern Felix. He is interested in whether the administrators of AO even notice these blatant scans. After a bit of consideration, Felix settles on the following command:
+Reading over the results, Felix finds that all of the machines with reverse-DNS entries resolve to Avatar Online. 
+No other businesses seem to share the IP space. Moreover, these results give Felix a rough idea of how many machines are in use and a good idea of what many are used for. 
+He is now ready to get a bit more intrusive and try a port scan. 
+He uses Nmap features that try to determine the application and version number of each service listening on the network. 
+He also requests that Nmap try to guess the remote operating system via a series of low-level TCP/IP probes known as OS fingerprinting. 
+This sort of scan is not at all stealthy, but that does not concern Felix. 
+He is interested in whether the administrators of AO even notice these blatant scans. 
+After a bit of consideration, Felix settles on the following command:
 nmap -sS -p- -PE -PP -PS80,443 -PA3389 -PU40125 -A -T4 -oA avatartcpscan-%D 6.209.24.0/24 6.207.0.0/22
 These options are described in later chapters, but here is a quick summary of them.
 -sS
-Enables the efficient TCP port scanning technique known as SYN scan. Felix would have added a U at the end if he also wanted to do a UDP scan, but he is saving that for later. SYN scan is the default scan type, but stating it explicitly does not hurt.
+Enables the efficient TCP port scanning technique known as SYN scan. 
+Felix would have added a U at the end if he also wanted to do a UDP scan, but he is saving that for later. 
+SYN scan is the default scan type, but stating it explicitly does not hurt.
 启用被称为SYN扫描的高效TCP端口扫描技术。
 -p-
-Requests that Nmap scan every port from 1-65535. This is more comprehensive than the default, which is to scan only the 1,000 ports which we've found to be most commonly accessible in large-scale Internet testing. This option format is simply a short cut for -p1-65535. Felix could have specified -p0-65535 if he wanted to scan the rather illegitimate port zero as well. The -p option has a very flexible syntax, even allowing the specification of a differing set of UDP and TCP ports.
+Requests that Nmap scan every port from 1-65535. 
+This is more comprehensive than the default, which is to scan only the 1,000 ports which we've found to be most commonly accessible in large-scale Internet testing. 
+This option format is simply a short cut for -p1-65535. 
+Felix could have specified -p0-65535 if he wanted to scan the rather illegitimate port zero as well. 
+The -p option has a very flexible syntax, even allowing the specification of a differing set of UDP and TCP ports.
 -PE -PP -PS80,443 -PA3389 -PU40125
-These are all host discovery techniques (ping types) used in combination to determine which targets on a network really available and avoid wasting a lot of time scanning IP addresses that are not in use. This particular incantation sends ICMP echo request and timestamp request packets; TCP SYN packet to ports 80 and 443; TCP ACK packets to port 3389; and a UDP packet to port 40,125. If Nmap receives a response from a target host to any of these probes, it considers the host to be up and available for scanning. This is the most effective six-probe combination that we've found in large-scale empirical testing for host discovery against targets over the Internet. It is more extensive than the Nmap default, which is -PE -PS443 -PA80 -PP. In a pen-testing situation, you often want to scan every host even if they do not seem to be up. After all, they could just be heavily filtered in such a way that the probes you selected are ignored but some other obscure port may be available. To scan every IP whether it shows an available host or not, specify the -Pn option instead of all of the above. Felix starts such a scan in the background, though it may take many hours to complete.
+These are all host discovery techniques (ping types) used in combination to determine which targets on a network really available and avoid wasting a lot of time scanning IP addresses that are not in use. 
+This particular incantation sends ICMP echo request and timestamp request packets; TCP SYN packet to ports 80 and 443; TCP ACK packets to port 3389; and a UDP packet to port 40,125. 
+If Nmap receives a response from a target host to any of these probes, it considers the host to be up and available for scanning. 
+This is the most effective six-probe combination that we've found in large-scale empirical testing for host discovery against targets over the Internet. 
+It is more extensive than the Nmap default, which is -PE -PS443 -PA80 -PP. 
+In a pen-testing situation, you often want to scan every host even if they do not seem to be up. After all, they could just be heavily filtered in such a way that the probes you selected are ignored but some other obscure port may be available. 
+To scan every IP whether it shows an available host or not, specify the -Pn option instead of all of the above. 
+Felix starts such a scan in the background, though it may take many hours to complete.
 -A
-This shortcut option turns on Advanced and Aggressive features such as OS and service detection. At the time of this writing it is equivalent to -sV -sC -O --traceroute (version detection, Nmap Scripting Engine with the default set of scripts, remote OS detection, and traceroute). More features may be added to -A later.
+This shortcut option turns on Advanced and Aggressive features such as OS and service detection. 
+At the time of this writing it is equivalent to -sV -sC -O --traceroute (version detection, Nmap Scripting Engine with the default set of scripts, remote OS detection, and traceroute). 
+More features may be added to -A later.
 这个短选项开启高级的和侵略性的特性，比如操作系统和服务探测功能。在本书写作是，它与选项-sV -sC -O --traceroute（版本探测、默认的nmap脚本引擎、远程主机操作系统探测和路由追踪功能）等同。
 -T4
-Adjusts timing to the aggressive level (#4 of 5). This is the same as specifying -T aggressive, but is easier to type and spell. In general, the -T4 option is recommended if the connection between you and the target networks id reasonably fast and reliable.
+Adjusts timing to the aggressive level (#4 of 5). 
+This is the same as specifying -T aggressive, but is easier to type and spell. 
+In general, the -T4 option is recommended if the connection between you and the target networks id reasonably fast and reliable.
 调整
 -oA avatartcpscan-%D
-Outputs results in every format (normal, XML, grepable) to files named avatartcpscan-<date>.<extension> where the extensions are .nmap, .xml, and .gnmap respectively. The <date> gives the month, day, and year in a format like 073010. All of the output formats include the start date and time, but Felix likes to note the date explicitly in the filename. Normal output and errors are still sent to stdout[4] as well.
+Outputs results in every format (normal, XML, grepable) to files named avatartcpscan-<date>.<extension> where the extensions are .nmap, .xml, and .gnmap respectively.
+The <date> gives the month, day, and year in a format like 073010. 
+All of the output formats include the start date and time, but Felix likes to note the date explicitly in the filename. 
+Normal output and errors are still sent to stdout[4] as well.
 6.209.24.0/24 6.207.0.0/22
-These are the Avatar Online netblocks discussed above. They are given in CIDR notation, but Nmap allows them to be specified in many other formats. For example, 6.209.24.0/24 could instead be specified as 6.209.24.0-255.
-Since such a comprehensive scan against more than a thousand IP addresses could take a while, Felix simply starts it executing and resumes work on his Yagi antenna. An couple hours later he notices that it has finished and takes a peek at the results. Example 1.2shows one of the machines discovered.
+These are the Avatar Online netblocks discussed above. 
+They are given in CIDR notation, but Nmap allows them to be specified in many other formats. 
+For example, 6.209.24.0/24 could instead be specified as 6.209.24.0-255.
+Since such a comprehensive scan against more than a thousand IP addresses could take a while, Felix simply starts it executing and resumes work on his Yagi antenna. 
+An couple hours later he notices that it has finished and takes a peek at the results. 
+Example 1.2shows one of the machines discovered.
 Example 1.2. Nmap results against an AO firewall
 例子2.2 nmap扫描一个AO防火墙的结果
 
-To the trained eye, this conveys substantial information about AO's security posture. Felix first notes the reverse DNS name—this machine is apparently meant to be a firewall for their corporate network. The next line is important, but all too often ignored. It states that the vast majority of the ports on this machine are in the filtered state. This means that Nmap is unable to reach the port because it is blocked by firewall rules. The fact that all ports except for a few chosen ones are in this state is a sign of security competence. Deny-by-default is a security mantra for good reasons—it means that even if someone accidentally left SunRPC (port 111) open on this machine, the firewall rules would prevent attackers from communicating with it.
-Felix then looks at every port line in turn. The first port is Secure Shell (OpenSSH). Version 3.7.1p2 is common, as many administrators upgraded to this version due to potentially exploitable buffer management bugs affecting previous versions. Nmap also notes that thesshv1 NSE script reports that the less secure SSHv1 protocol is supported. A truly paranoid sysadmin would only allow SSH connections from certain trusted IP addresses, but one can argue for open access in case the administrator needs emergency access while far from home. Security often involves trade-offs, and this one may be justifiable. Felix makes a note to try the Ncrack brute force network authentication cracker and especially his private timing-based SSH user enumeration tool against the server.
-Felix also notes port 53. It is running ISC BIND, which has a long history of remotely exploitable security holes. Visit the BIND security page for further details. BIND 9.2.1 even has a potentially exploitable buffer overflow, although the default build is not vulnerable. Felix checks and finds that this server is not vulnerable to the libbind issue, but that is beside the point. This server almost certainly should not be running an externally-accessible nameserver. A firewall should only run the bare essentials to minimize the risk of a disastrous compromise. Besides, this server is not authoritative for any domains—the real nameservers are on the production network. An administrator probably only meant for clients within the firewall to contact this nameserver, but did not bother locking it down to only the internal interface. Felix will later try to gather important information from this unnecessary server using zone transfer requests and intrusive queries. He may attempt cache poisoning as well. By spoofing the IP of windowsupdate.microsoft.com or another important download server, Felix may be able to trick unsuspecting internal client users into running a trojan-horse program that provides him with full network access behind the firewall.
-The next two open ports are 110 (POP3) and 143 (IMAP). Note that 113 (auth) between them is closed instead of open. POP3 and IMAP are mail retrieval services which, like BIND, have no legitimate place on this server. They are also a security risk in that they generally transfer the mail and (even worse) authentication credentials unencrypted. Users should probably VPN in and check their mail from an internal server. These ports could also be wrapped in SSL encryption. Nmap would have then listed the services as ssl/pop3 and ssl/imap. Felix will try his user enumeration and password guessing attacks on these services, which will probably be much more effective than against SSH.
-The final open port is a Squid proxy. This is another service that may have been intended for internal client use and should not be accessible from the outside (and particularly not on the firewall). Felix's initially positive opinion of the AO security administrators drops further. Felix will test whether he can abuse this proxy to connect to other sites on the Internet. Spammers and malicious hackers often use proxies in this way to hide their tracks. Even more critical, Felix will try to proxy his way into the internal network. This common attack is how Adrian Lamo broke into the New York Times internal network in 2002. Lamo was caught after he called reporters to brag about his exploits against the NY Times and other companies in detail.
-The following lines disclose that this is a Linux box, which is valuable information when attempting exploitation. The low three-day uptime was detected during OS fingerprinting by sending several probes for the TCP timestamp option value and extrapolating the line back to zero.
+To the trained eye, this conveys substantial information about AO's security posture. 
+Felix first notes the reverse DNS name—this machine is apparently meant to be a firewall for their corporate network. 
+The next line is important, but all too often ignored. It states that the vast majority of the ports on this machine are in the filtered state. 
+This means that Nmap is unable to reach the port because it is blocked by firewall rules. 
+The fact that all ports except for a few chosen ones are in this state is a sign of security competence. 
+Deny-by-default is a security mantra for good reasons—it means that even if someone accidentally left SunRPC (port 111) open on this machine, the firewall rules would prevent attackers from communicating with it.
+Felix then looks at every port line in turn. The first port is Secure Shell (OpenSSH). 
+Version 3.7.1p2 is common, as many administrators upgraded to this version due to potentially exploitable buffer management bugs affecting previous versions. 
+Nmap also notes that thesshv1 NSE script reports that the less secure SSHv1 protocol is supported. 
+A truly paranoid sysadmin would only allow SSH connections from certain trusted IP addresses, but one can argue for open access in case the administrator needs emergency access while far from home. 
+Security often involves trade-offs, and this one may be justifiable. 
+Felix makes a note to try the Ncrack brute force network authentication cracker and especially his private timing-based SSH user enumeration tool against the server.
+Felix also notes port 53. It is running ISC BIND, which has a long history of remotely exploitable security holes. 
+Visit the BIND security page for further details. 
+BIND 9.2.1 even has a potentially exploitable buffer overflow, although the default build is not vulnerable. 
+Felix checks and finds that this server is not vulnerable to the libbind issue, but that is beside the point. 
+This server almost certainly should not be running an externally-accessible nameserver. 
+A firewall should only run the bare essentials to minimize the risk of a disastrous compromise. 
+Besides, this server is not authoritative for any domains—the real nameservers are on the production network. 
+An administrator probably only meant for clients within the firewall to contact this nameserver, but did not bother locking it down to only the internal interface. 
+Felix will later try to gather important information from this unnecessary server using zone transfer requests and intrusive queries. He may attempt cache poisoning as well. 
+By spoofing the IP of windowsupdate.microsoft.com or another important download server, Felix may be able to trick unsuspecting internal client users into running a trojan-horse program that provides him with full network access behind the firewall.
+The next two open ports are 110 (POP3) and 143 (IMAP).
+Note that 113 (auth) between them is closed instead of open. POP3 and IMAP are mail retrieval services which, like BIND, have no legitimate place on this server. 
+They are also a security risk in that they generally transfer the mail and (even worse) authentication credentials unencrypted. 
+Users should probably VPN in and check their mail from an internal server. 
+These ports could also be wrapped in SSL encryption. 
+Nmap would have then listed the services as ssl/pop3 and ssl/imap. 
+Felix will try his user enumeration and password guessing attacks on these services, which will probably be much more effective than against SSH.
+The final open port is a Squid proxy. 
+This is another service that may have been intended for internal client use and should not be accessible from the outside (and particularly not on the firewall). 
+Felix's initially positive opinion of the AO security administrators drops further. 
+Felix will test whether he can abuse this proxy to connect to other sites on the Internet. 
+Spammers and malicious hackers often use proxies in this way to hide their tracks. 
+Even more critical, Felix will try to proxy his way into the internal network. 
+This common attack is how Adrian Lamo broke into the New York Times internal network in 2002. 
+Lamo was caught after he called reporters to brag about his exploits against the NY Times and other companies in detail.
+The following lines disclose that this is a Linux box, which is valuable information when attempting exploitation. 
+The low three-day uptime was detected during OS fingerprinting by sending several probes for the TCP timestamp option value and extrapolating the line back to zero.
 Felix then examines the Nmap output for another machine, as shown in Example 1.3.
 Example 1.3. Another interesting AO machine
 例子1.3 另外一个有趣的AO机器
 
-Felix smiles when he spies this Windows XP box on the Network. Thanks to a spate of MS RPC vulnerabilities, those machines are trivial to compromise if the OS patches aren't up-to-date. The second line shows that the default state is closed, meaning the firewall does not have the same deny-by-default policy for this machine as for itself. Instead they tried to specifically block the Windows ports they consider dangerous on 135-139. This filter is woefully inadequate, as MS exports MS RPC functionality on many other ports in Windows XP. TCP ports 445 and 1025 are two examples from this scan. While Nmap failed to recognize 16552, Felix has seen this pattern enough to know that it is probably the MS Messenger Service. If AO had been using deny-by-default filtering, port 16552 would not be accessible in the first place. Looking through the results page, Felix sees several other Windows machines on this DHCP network. Felix cannot wait to try his favorite DCOM RPC exploit against them. It was written by HD Moore and is available at http://www.metasploit.com/tools/dcom.c. If that fails, there are a couple newer MS RPC vulnerabilities he will try.
-Felix continues poring over the results for vulnerabilities he can leverage to compromise the network. On the production network, he sees that gw.avataronline.com is a Cisco router that also acts as a rudimentary firewall for the systems. They fall into the trap of only blocking privileged ports (those under 1024), which leaves a bunch of vulnerable SunRPC and other services accessible on that network. The machines with names like clust-* each have dozens of ports open that Nmap does not recognize. They are probably custom daemons running the AO game engine. www.avataronline.com is a Linux box with an open Apache server on the HTTP and HTTPS ports. Unfortunately, it is linked with an exploitable version of the OpenSSL library. Oops! Before the sun sets, Felix has gained privileged access to hosts on both the corporate and production networks.
-As Felix has demonstrated, Nmap is frequently used by security auditors and network administrators to help locate vulnerabilities on client/corporate networks. Subsequent chapters describe the techniques used by Felix, as well as many other Nmap features, in much greater detail.
+Felix smiles when he spies this Windows XP box on the Network. 
+Thanks to a spate of MS RPC vulnerabilities, those machines are trivial to compromise if the OS patches aren't up-to-date. 
+The second line shows that the default state is closed, meaning the firewall does not have the same deny-by-default policy for this machine as for itself. 
+Instead they tried to specifically block the Windows ports they consider dangerous on 135-139. 
+This filter is woefully inadequate, as MS exports MS RPC functionality on many other ports in Windows XP. 
+TCP ports 445 and 1025 are two examples from this scan. 
+While Nmap failed to recognize 16552, Felix has seen this pattern enough to know that it is probably the MS Messenger Service. 
+If AO had been using deny-by-default filtering, port 16552 would not be accessible in the first place. 
+Looking through the results page, Felix sees several other Windows machines on this DHCP network. 
+Felix cannot wait to try his favorite DCOM RPC exploit against them. 
+It was written by HD Moore and is available at http://www.metasploit.com/tools/dcom.c. 
+If that fails, there are a couple newer MS RPC vulnerabilities he will try.
+Felix continues poring over the results for vulnerabilities he can leverage to compromise the network. 
+On the production network, he sees that gw.avataronline.com is a Cisco router that also acts as a rudimentary firewall for the systems. 
+They fall into the trap of only blocking privileged ports (those under 1024), which leaves a bunch of vulnerable SunRPC and other services accessible on that network. 
+The machines with names like clust-* each have dozens of ports open that Nmap does not recognize. 
+They are probably custom daemons running the AO game engine. 
+www.avataronline.com is a Linux box with an open Apache server on the HTTP and HTTPS ports. Unfortunately, it is linked with an exploitable version of the OpenSSL library. 
+Oops! Before the sun sets, Felix has gained privileged access to hosts on both the corporate and production networks.
+As Felix has demonstrated, Nmap is frequently used by security auditors and network administrators to help locate vulnerabilities on client/corporate networks. 
+Subsequent chapters describe the techniques used by Felix, as well as many other Nmap features, in much greater detail.
 Saving the Human Race
 Figure 1.1. Trinity begins her assault
 图1.1 Trinity开始她的攻击
 
-Trinity is in quite a pickle! Having discovered that the world we take for granted is really a virtual “Matrix” run by machine overlords, Trinity decides to fight back and free the human race from this mental slavery. Making matters worse, her underground colony of freed humans (Zion) is under attack by 250,000 powerful alien sentinels. Her only hope involves deactivating the emergency power system for 27 city blocks in less than five minutes. The previous team died trying. In life's bleakest moments when all hope seems to be lost, what should you turn to? Nmap, of course! But not quite yet.
+Trinity is in quite a pickle! Having discovered that the world we take for granted is really a virtual “Matrix” run by machine overlords, Trinity decides to fight back and free the human race from this mental slavery. 
+Making matters worse, her underground colony of freed humans (Zion) is under attack by 250,000 powerful alien sentinels. 
+Her only hope involves deactivating the emergency power system for 27 city blocks in less than five minutes. 
+The previous team died trying. 
+In life's bleakest moments when all hope seems to be lost, what should you turn to? Nmap, of course! 
+But not quite yet.
 She first must defeat the perimeter security, which on many networks involves firewalls and intrusion detection systems (IDS). She is well aware of advanced techniques for circumventing these devices (covered later in this book). Unfortunately, the emergency power system administrators knew better than to connect such a critical system to the Internet, even indirectly. No amount of source routing or IP ID spoofed scanning will help Trinity overcome this “air gap” security. Thinking fast, she devises a clever plan that involves jumping her motorcycle off the rooftop of a nearby building, landing on the power station guard post, and then beating up all of the security guards. This advanced technique is not covered in any physical security manual, but proves highly effective. It demonstrates how clever hackers research and devise their own attacks, rather than always utilizing the script-kiddie approach of canned exploits.
-Trinity fights her way to the computer room and sits down at a terminal. She quickly determines that the network is using the private 10.0.0.0/8 network address space. A ping to the network address generates responses from dozens of machines. An Nmap ping scan would have provided a more comprehensive list of available machines, but using the broadcast technique saved precious seconds. Then she whips out Nmap[5]. The terminal has version 2.54BETA25 installed. This version is ancient (2001) and less efficient than newer releases, but Trinity had no time to install a better version from the future. This job will not take long anyway. She runs the command nmap -v -sS -O 10.2.1.3. This executes a TCP SYN scan and OS detection against 10.2.1.3 and provides verbose output. The host appears to be a security disaster—AIX 3.2 with well over a dozen ports open. Unfortunately, this is not the machine she needs to compromise. So she runs the same command against 10.2.2.2. This time the target OS is unrecognized (she should have upgraded Nmap!) and only has port 22 open. This is the Secure Shell encrypted administration service. As any sexy latex-clad hacker goddess knows, many SSH servers from around that time (2001) have an exploitable vulnerability in the CRC32 compensation attack detector. Trinity whips out an all-assembly-code exploit and utilizes it to change the root password of the target box to Z10N0101. Trinity uses much more secure passwords under normal circumstances. She logs in as root and issues a command to disable the emergency backup power system for 27 city blocks, finishing just in time! Here is a shot of the action:
+Trinity fights her way to the computer room and sits down at a terminal. 
+She quickly determines that the network is using the private 10.0.0.0/8 network address space. 
+A ping to the network address generates responses from dozens of machines. 
+An Nmap ping scan would have provided a more comprehensive list of available machines, but using the broadcast technique saved precious seconds. 
+Then she whips out Nmap[5]. 
+The terminal has version 2.54BETA25 installed. 
+This version is ancient (2001) and less efficient than newer releases, but Trinity had no time to install a better version from the future. 
+This job will not take long anyway. 
+She runs the command nmap -v -sS -O 10.2.1.3. 
+This executes a TCP SYN scan and OS detection against 10.2.1.3 and provides verbose output. 
+The host appears to be a security disaster—AIX 3.2 with well over a dozen ports open. 
+Unfortunately, this is not the machine she needs to compromise. 
+So she runs the same command against 10.2.2.2. 
+This time the target OS is unrecognized (she should have upgraded Nmap!) and only has port 22 open. 
+This is the Secure Shell encrypted administration service. 
+As any sexy latex-clad hacker goddess knows, many SSH servers from around that time (2001) have an exploitable vulnerability in the CRC32 compensation attack detector. 
+Trinity whips out an all-assembly-code exploit and utilizes it to change the root password of the target box to Z10N0101. 
+Trinity uses much more secure passwords under normal circumstances. 
+She logs in as root and issues a command to disable the emergency backup power system for 27 city blocks, finishing just in time! 
+Here is a shot of the action:
 Figure 1.2. Trinity scans the Matrix
 图1.2 Trinity扫描
  
