@@ -314,11 +314,11 @@ This book assumes basic familiarity with TCP/IP and networking concepts.
 本书假设你对TCP/IP和网络概念基本熟悉。
 本书假定您基本熟悉 TCP/IP 和网络概念。
 You won't find a primer on the OSI seven-layer model or a rundown of the Berkeley Socket API within these pages.
-本书不会给出OSI七层模型或者Berkeley套接字接口。
+本书没有关于OSI七层模型或者Berkeley套接字API的相关章节。
 For a comprehensive guide to TCP/IP, I recommend “The TCP/IP Guide” by Charles Kozierok or the old classic “TCP/IP Illustrated, Volume I” by W. Richard Stevens.
-对于 TCP/IP 的综合指南，建议参考Charles Kozierok的《The TCP/IP Guide》或者W. Richard Stevens写的老经典的《TCP/IP Illustrated》（卷1）。
+对于TCP/IP 的综合指南，建议参考Charles Kozierok的《The TCP/IP Guide》或者W. Richard Stevens写的老经典的《TCP/IP Illustrated》（卷1）。
 While TCP/IP familiarity is expected, even the best of us occasionally forget byte offsets for packet header fields and flags.
-虽然预计TCP/IP熟悉，即使是最好的我们偶尔也忘了字节偏移量为数据包标头字段和标志。
+虽然预计TCP/IP熟悉，即使是最好的我们偶尔也会忘了数据包头中各域和标志的字节偏移量。
 This section provides quick reference diagrams and field descriptions for the IPv4, TCP, UDP, and ICMP protocols.
 本节提供了IPv4、TCP、UDP和ICMP等协议的快速参考图和各域的描述。
 These beautiful diagrams from http://www.visi.com/~mjb/Drawings are used by permission of author Matt Baxter.
