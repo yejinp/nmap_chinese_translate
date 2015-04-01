@@ -19,11 +19,11 @@ It was written for my own purposes, and released in the hope that others would f
 From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide.
 从这些简陋的初级阶段，通过开放代码开发的力量，Nmap一天天长大，成长为世界上最受欢迎的，拥有数以百万计用户的网络安全扫描器。
 Over the years, Nmap has continued to add advanced functionality such as remote OS detection, version/service detection, and the Nmap Scripting Engine.
-多年来，Nmap添加了诸如远程OS检测，版本/服务检测和Nmap脚本引擎等高级功能。
+多年来，Nmap继续添加了如远程OS检测，版本/服务检测和Nmap脚本引擎等高级功能。
 It now supports all major Unix, Windows, and Mac OS platforms with both console and graphical interfaces.
-现在，它支持所有主要的UNIX、Windows和Mac OS平台的控制台和图形界面。
+现在，它同时支持所有主要Unix、Windows和Mac OS平台的控制台和图形界面。
 Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Codetalker Digest have recognized Nmap as “security tool of the year”.
-发表在《linux杂志》、《信息世界》、LinuxQuestions.Org和《Codetalker Digest》等上的文献，让Nmap成为了“年度安全工具”。
+在《linux杂志》、《信息世界》、LinuxQuestions.Org和《Codetalker Digest》等上的出版物，让Nmap成为了“年度安全工具”。
 It was even featured in nine movies, including The Matrix Reloaded, The Girl with the Dragon Tattoo, The Bourne Ultimatum, and Die Hard 4.
 包括《重装上阵》、《龙纹身的女孩》、《谍影重重》和《虎胆龙威4》等9部电影都有对Nmap的特写镜头。
 
@@ -169,7 +169,7 @@ Traffic is very light (about six posts per year) because it is reserved for only
 Developers and particularly devoted users can also subscribe to the nmap-dev mailing list.
 开发人员和特别忠实的用户也可以订阅nmap-dev的邮寄列表。
 Traffic is much higher (hundreds of posts per month), but it is a great place to learn about and try new features before they are released and to pick up tips from advanced users.
-这个的流量就大的多了（每个月有上百封的邮件），但这是一个了解和尝试发布前的新特性和从高级用户那里获得小窍门的好地方。
+这个的流量就大的多了（每个月有上百封邮件），但这是一个了解和尝试发布前的新特性和从高级用户那里获得小窍门的好地方。
 Subscription information and archives for both lists are available at http://seclists.org.
 在http://seclists.org上提供了上面两个预定信息列表和档案。
 While Nmap can be useful, it won't solve all of your security problems.
