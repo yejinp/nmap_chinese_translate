@@ -166,7 +166,12 @@ Her only hope involves deactivating the emergency power system for 27 city block
 The previous team died trying. 
 In life's bleakest moments when all hope seems to be lost, what should you turn to? Nmap, of course! 
 But not quite yet.
-She first must defeat the perimeter security, which on many networks involves firewalls and intrusion detection systems (IDS). She is well aware of advanced techniques for circumventing these devices (covered later in this book). Unfortunately, the emergency power system administrators knew better than to connect such a critical system to the Internet, even indirectly. No amount of source routing or IP ID spoofed scanning will help Trinity overcome this “air gap” security. Thinking fast, she devises a clever plan that involves jumping her motorcycle off the rooftop of a nearby building, landing on the power station guard post, and then beating up all of the security guards. This advanced technique is not covered in any physical security manual, but proves highly effective. It demonstrates how clever hackers research and devise their own attacks, rather than always utilizing the script-kiddie approach of canned exploits.
+She first must defeat the perimeter security, which on many networks involves firewalls and intrusion detection systems (IDS). She is well aware of advanced techniques for circumventing these devices (covered later in this book). 
+Unfortunately, the emergency power system administrators knew better than to connect such a critical system to the Internet, even indirectly. 
+No amount of source routing or IP ID spoofed scanning will help Trinity overcome this “air gap” security. 
+Thinking fast, she devises a clever plan that involves jumping her motorcycle off the rooftop of a nearby building, landing on the power station guard post, and then beating up all of the security guards. 
+This advanced technique is not covered in any physical security manual, but proves highly effective. 
+It demonstrates how clever hackers research and devise their own attacks, rather than always utilizing the script-kiddie approach of canned exploits.
 Trinity fights her way to the computer room and sits down at a terminal. 
 She quickly determines that the network is using the private 10.0.0.0/8 network address space. 
 A ping to the network address generates responses from dozens of machines. 
@@ -203,21 +208,46 @@ This was almost 50,000 hosts worldwide when I started several years ago, and it 
 Scanning all of these machines for potential vulnerabilities as part of monthly or quarterly assessments would be tough enough, but management wanted it done daily. 
 Attackers will not wait a week or month to exploit a newly exposed vulnerability, so I can't wait that long to find and patch it either.
 Looking around for tools, I quickly chose Nmap as my port scanner. 
-It is widely considered to be the best scanner, and I had already been using it for years to troubleshoot networks and test security. Next I needed software to aggregate Nmap output and print differences between runs. I considered several existing tools, including HD Moore's Nlog. Unfortunately none of these monitored changes in the way I desired. I had to know whenever a router or firewall access control list was misconfigured or a host was publicly sharing inappropriate content. I also worried about the scalability of these other solutions, so I decided to tackle the problem myself.
-The first issue to come up was speed. Our networks are located worldwide, yet I was provided with only a single U.S.-based host to do the scanning. In many cases, firewalls between the sites slowed the scanning down significantly. Scanning all 100,000 hosts took over 30 hours, which is unacceptable for a daily scan. So I wrote a script called nmap-wrapper which runs dozens of Nmap processes in parallel, reducing the scan time to fifteen hours, even including OS detection.
+It is widely considered to be the best scanner, and I had already been using it for years to troubleshoot networks and test security. 
+Next I needed software to aggregate Nmap output and print differences between runs. 
+I considered several existing tools, including HD Moore's Nlog. Unfortunately none of these monitored changes in the way I desired. 
+I had to know whenever a router or firewall access control list was misconfigured or a host was publicly sharing inappropriate content. 
+I also worried about the scalability of these other solutions, so I decided to tackle the problem myself.
+The first issue to come up was speed. Our networks are located worldwide, yet I was provided with only a single U.S.-based host to do the scanning. 
+In many cases, firewalls between the sites slowed the scanning down significantly. 
+Scanning all 100,000 hosts took over 30 hours, which is unacceptable for a daily scan. 
+So I wrote a script called nmap-wrapper which runs dozens of Nmap processes in parallel, reducing the scan time to fifteen hours, even including OS detection.
 The next problem was dealing with so much data. 
-A SQL database seemed like the best approach for scalability and data-mining reasons, but I had to abandon that idea due to time pressures. A future version may add this support. Instead, I used a flat file to store the results of each class C address range for each day. The most powerful and extensible way to parse and store this information was the Nmap XML format, but I chose the “grepable” (-oG option) format because it is so easy to parse from simple scripts. Per-host timestamps are also stored for reporting purposes. These have proven quite helpful when administrators try to blame machine or service crashes on the scanner. They cannot credibly claim a service crash at 7:12AM when I have proof that the scan ran at 9:45AM.
+A SQL database seemed like the best approach for scalability and data-mining reasons, but I had to abandon that idea due to time pressures. 
+A future version may add this support. Instead, I used a flat file to store the results of each class C address range for each day. 
+The most powerful and extensible way to parse and store this information was the Nmap XML format, but I chose the “grepable” (-oG option) format because it is so easy to parse from simple scripts. 
+Per-host timestamps are also stored for reporting purposes. 
+These have proven quite helpful when administrators try to blame machine or service crashes on the scanner. 
+They cannot credibly claim a service crash at 7:12AM when I have proof that the scan ran at 9:45AM.
 The scan produces copious data, with no convenient access method. 
-The standard Unix diff tool is not smart enough to report only the changes I care about, so I wrote a Perl script named nmap-diff to provide daily change reports. A typical output report is shown inExample 1.4.
+The standard Unix diff tool is not smart enough to report only the changes I care about, so I wrote a Perl script named nmap-diff to provide daily change reports. 
+A typical output report is shown inExample 1.4.
 Example 1.4. nmap-diff typical output
 例子1.4 nmap-diff的典型输出
 
-Management and staff were impressed when I demonstrated this new system at an internal company security symposium. But instead of allowing me to rest on my laurels, they began asking for new features. They wanted counts of mail and web servers, growth estimates, and more. This data was all available from the scans, but was difficult to access. So I created yet another Perl script, nmap-report, which made querying the data much easier. It takes specifications such as open ports or operating systems and finds all the systems that matched on a given day.
-One problem with this approach to security monitoring is that employees do not always place services on their IANA-registered official ports. For example, they might put a web server on port 22 (SSH) or vice versa. Just as I was debating how to address this problem, Nmap came out with an advanced service and version detection system (see Chapter 7, Service and Application Version Detection). nmap-reportnow has a rescan feature that uses version scanning to report the true services rather than guessing based on port number. I hope to further integrate version detection in future versions. Example 1.5 shows nmap-report listing FTP servers.
+Management and staff were impressed when I demonstrated this new system at an internal company security symposium. 
+But instead of allowing me to rest on my laurels, they began asking for new features. 
+They wanted counts of mail and web servers, growth estimates, and more. 
+This data was all available from the scans, but was difficult to access. 
+So I created yet another Perl script, nmap-report, which made querying the data much easier. 
+It takes specifications such as open ports or operating systems and finds all the systems that matched on a given day.
+One problem with this approach to security monitoring is that employees do not always place services on their IANA-registered official ports. 
+For example, they might put a web server on port 22 (SSH) or vice versa. 
+Just as I was debating how to address this problem, Nmap came out with an advanced service and version detection system (see Chapter 7, Service and Application Version Detection). 
+nmap-reportnow has a rescan feature that uses version scanning to report the true services rather than guessing based on port number. 
+I hope to further integrate version detection in future versions. 
+Example 1.5 shows nmap-report listing FTP servers.
 Example 1.5. nmap-report execution
 例子1.5 nmap执行报告
 
-While being far from perfect, these scripts have proven themselves quite valuable at monitoring large networks for security-impacting changes. Since Nmap itself is open source, it only seemed fair to release my scripts to the public as well. I have made them freely available at http://www.unspecific.com/nmap.
+While being far from perfect, these scripts have proven themselves quite valuable at monitoring large networks for security-impacting changes. 
+Since Nmap itself is open source, it only seemed fair to release my scripts to the public as well. 
+I have made them freely available at http://www.unspecific.com/nmap.
 
 ________________________________________
 [1] These IP addresses are actually registered to the United States Army Yuma Proving Ground, which is used to test a wide variety of artillery, missiles, tanks, and other deadly weapons. The moral is to be very careful about who you scan, lest you accidentally hit a highly sensitive network. The scan results in this story are not actually from this IP range.
@@ -226,71 +256,202 @@ ________________________________________
 [4] stdout is the “C” notation for representing the standard output mechanism for a system, such as to the Unix xterm or Windows command window in which Nmap was initiated.
 [5] A sexy leather-clad attacker from the previous team actually started the session. It is unclear at what point she died and left the remaining tasks to Trinity.
 The Phases of an Nmap Scan
-Now that we've seen some applications of Nmap, let's look at what happens when an Nmap scan runs. Scans proceed in phases, with each phase finishing before the next one begins. As you can see from the phase descriptions below, there is far more to Nmap than just port scanning.
+Now that we've seen some applications of Nmap, let's look at what happens when an Nmap scan runs. 
+Scans proceed in phases, with each phase finishing before the next one begins. 
+As you can see from the phase descriptions below, there is far more to Nmap than just port scanning.
 我们已经看到了nmap的一些应用，让我们看看在运行nmap扫描的时候发生了什么。扫描分阶段进行，每一阶段的结束就是下一阶段的开始。正如你会从下面阶段描述中了解的一样，nmap远远不只有端口扫描功能。
-Script pre-scanning. The Nmap Scripting Engine (NSE) uses a collection of special-purpose scripts to gain more information about remote systems. NSE is not executed unless you request it with options such as --script or -sC, and the pre-scanning phase only happens when scripts which need it are selected. This phase is for scripts which only have to be run once per Nmap execution rather than running separately against individual targets. Examples include dhcp-discover and broadcast-dns-service-discovery, which use broadcast queries to obtain information from common network services. NSE is fully documented in Chapter 9, and the different phases are covered in the section called “Script Types and Phases”.
+Script pre-scanning. 
+The Nmap Scripting Engine (NSE) uses a collection of special-purpose scripts to gain more information about remote systems. 
+NSE is not executed unless you request it with options such as --script or -sC, and the pre-scanning phase only happens when scripts which need it are selected. 
+This phase is for scripts which only have to be run once per Nmap execution rather than running separately against individual targets. 
+Examples include dhcp-discover and broadcast-dns-service-discovery, which use broadcast queries to obtain information from common network services. 
+NSE is fully documented in Chapter 9, and the different phases are covered in the section called “Script Types and Phases”.
 扫前脚本。 nmap脚本引擎利用收集的特殊目的脚本来获取关于远程主机的更多信息。NSE不是
-Target enumeration. In this phase, Nmap researches the host specifiers provided by the user, which may be a combination of host DNS names, IP addresses, CIDR network notations, and more. You can even use (-iR) to ask Nmap to choose your targets for you! Nmap resolves these specifiers into a list of IPv4 or IPv6 addresses for scanning. This phase cannot be skipped since it is essential for further scanning, but you can simplify the processing by passing just IP addresses so Nmap doesn't have to do forward resolution. If you pass the -sL -n options (list scan with no reverse-DNS resolution), Nmap will print out the targets and perform no further scanning. This phase is discussed in the section called “Specifying Target Hosts and Networks” and the section called “List Scan (-sL)”.
+Target enumeration. In this phase, Nmap researches the host specifiers provided by the user, which may be a combination of host DNS names, IP addresses, CIDR network notations, and more. 
+You can even use (-iR) to ask Nmap to choose your targets for you! 
+Nmap resolves these specifiers into a list of IPv4 or IPv6 addresses for scanning. 
+This phase cannot be skipped since it is essential for further scanning, but you can simplify the processing by passing just IP addresses so Nmap doesn't have to do forward resolution. 
+If you pass the -sL -n options (list scan with no reverse-DNS resolution), Nmap will print out the targets and perform no further scanning. 
+This phase is discussed in the section called “Specifying Target Hosts and Networks” and the section called “List Scan (-sL)”.
 目标枚举。在这个阶段，nmap
-Host discovery (ping scanning). Network scans usually begin by discovering which targets on the network are online and thus worth deeper investigation. This process is called host discovery or ping scanning. Nmap offers many host discovery techniques, ranging from quick ARP requests to elaborate combinations of TCP, ICMP, and other types of probes. This phase is run by default, though you can skip it (simply assume all target IPs are online) using the -Pn (no ping) option. To quit after host discovery, specify -sn -n. Host discovery is the subject of Chapter 3.
+Host discovery (ping scanning). Network scans usually begin by discovering which targets on the network are online and thus worth deeper investigation. 
+This process is called host discovery or ping scanning. 
+Nmap offers many host discovery techniques, ranging from quick ARP requests to elaborate combinations of TCP, ICMP, and other types of probes. 
+This phase is run by default, though you can skip it (simply assume all target IPs are online) using the -Pn (no ping) option.
+To quit after host discovery, specify -sn -n. Host discovery is the subject of Chapter 3.
 主机发现（ping扫描）。网络扫描通常从发现网络上的在线目标开始，这个处理过程就叫做主机发现或者ping扫描。nmap提供了很多主机发现技术，
-Reverse-DNS resolution. Once Nmap has determined which hosts to scan, it looks up the reverse-DNS names of all hosts found online by the ping scan. Sometimes a host's name provides clues to its function, and names make reports more readable than providing only IP numbers. This step may be skipped with the -n (no resolution) option, or expanded to cover all target IPs (even down ones) with -R(resolve all). Name resolution is covered in the section called “DNS Resolution”.
+Reverse-DNS resolution. Once Nmap has determined which hosts to scan, it looks up the reverse-DNS names of all hosts found online by the ping scan. 
+Sometimes a host's name provides clues to its function, and names make reports more readable than providing only IP numbers. 
+This step may be skipped with the -n (no resolution) option, or expanded to cover all target IPs (even down ones) with -R(resolve all). 
+Name resolution is covered in the section called “DNS Resolution”.
 反向DNS解析。
-Port scanning. This is Nmap's core operation. Probes are sent, and the responses (or non-responses) to those probes are used to classify remote ports into states such as open, closed, or filtered. That brief description doesn't begin to encompass Nmap's many scan types, configurability of scans, and algorithms for improving speed and accuracy. An overview of port scanning is in Chapter 4. Detailed information on algorithms and command-line options are in Chapter 5. Port scanning is performed by default, though you can skip it with the -sn option and still perform some of the later traceroute and partial Nmap Scripting Engine phases by specifying their particular command-line options (such as --traceroute and --script).
+Port scanning. This is Nmap's core operation. Probes are sent, and the responses (or non-responses) to those probes are used to classify remote ports into states such as open, closed, or filtered. 
+That brief description doesn't begin to encompass Nmap's many scan types, configurability of scans, and algorithms for improving speed and accuracy.
+An overview of port scanning is in Chapter 4. 
+Detailed information on algorithms and command-line options are in Chapter 5. 
+Port scanning is performed by default, though you can skip it with the -sn option and still perform some of the later traceroute and partial Nmap Scripting Engine phases by specifying their particular command-line options (such as --traceroute and --script).
 端口扫描，这是nmap的核心操作，发送探针后，对它的响应包（或者没有响应包）被用来区分远程端口为几种状态，比如开放、关闭或者被过滤。这些简单的描述
-Version detection. If any ports are found to be open, Nmap may be able to determine what server software is running on the remote system. It does this by sending a variety of probes to the open ports and matching any responses against a database of thousands of more than 6,500 known service signatures. Version detection is enabled with the -sV option and is fully described in Chapter 7.
+Version detection. If any ports are found to be open, Nmap may be able to determine what server software is running on the remote system. 
+It does this by sending a variety of probes to the open ports and matching any responses against a database of thousands of more than 6,500 known service signatures. 
+Version detection is enabled with the -sV option and is fully described in Chapter 7.
 版本探测
-OS detection. If requested with the -O option, Nmap proceeds to OS detection. Different operating systems implement network standards in subtly different ways. By measuring these differences it is often possible to determine the operating system running on a remote host. Nmap matches responses to a standard set of probes against a database of more than a thousand known operating system responses. OS detection is covered in Chapter 8.
+OS detection. If requested with the -O option, Nmap proceeds to OS detection. 
+Different operating systems implement network standards in subtly different ways. 
+By measuring these differences it is often possible to determine the operating system running on a remote host. 
+Nmap matches responses to a standard set of probes against a database of more than a thousand known operating system responses. 
+OS detection is covered in Chapter 8.
 操作系统探测
-Traceroute. Nmap contains an optimized traceroute implementation, enabled by the --traceroute option. It can find the network routes to many hosts in parallel, using the best available probe packets as determined by Nmap's previous discovery phases. Traceroute usually involves another round of reverse-DNS resolution for the intermediate hosts. More information is found in the section called “Host Discovery”.
+Traceroute. Nmap contains an optimized traceroute implementation, enabled by the --traceroute option. 
+It can find the network routes to many hosts in parallel, using the best available probe packets as determined by Nmap's previous discovery phases. 
+Traceroute usually involves another round of reverse-DNS resolution for the intermediate hosts. 
+More information is found in the section called “Host Discovery”.
 跟踪路由
 Script scanning. Most Nmap Scripting Engine (NSE) scripts run during this main script scanning phase, rather than the prescan and postscan phases. NSE is powered by the Lua programming language and a standard library designed for network information gathering. Scripts running during this phase generally run once for each target host and port number that they interact with. They commonly perform tasks such as detecting service vulnerabilities, malware discovery, collecting more information from databases and other network services, and advanced version detection. NSE is not executed unless you request it with options such as --script or -sC.
 脚本扫描
-Output. Finally, Nmap collects all the information it has gathered and writes it to the screen or to a file. Nmap can write output in several formats. Its default, human-readable format (interactive format) is usually presented in this book. Nmap also offers an XML-based output format, among others. The ins and outs of output are the subject of Chapter 13.
+Output. Finally, Nmap collects all the information it has gathered and writes it to the screen or to a file. 
+Nmap can write output in several formats. 
+Its default, human-readable format (interactive format) is usually presented in this book. 
+Nmap also offers an XML-based output format, among others. 
+The ins and outs of output are the subject of Chapter 13.
 输出。
-As already discussed, Nmap offers many options for controlling which of these phases are run. For scans of large networks, each phase is repeated many times since Nmap deals with the hosts in smaller groups. It scans each group completely and outputs those results, then moves on to the next batch of hosts.
-Script post-scanning. After Nmap has completed its scanning and normal output, scripts in this phase can process results and deliver final reports and statistics. See the section called “Script Types and Phases”. Nmap does not yet include any scripts in this phase, so it only runs if the user includes and executes their own post-scanning scripts.
+As already discussed, Nmap offers many options for controlling which of these phases are run. 
+For scans of large networks, each phase is repeated many times since Nmap deals with the hosts in smaller groups. 
+It scans each group completely and outputs those results, then moves on to the next batch of hosts.
+Script post-scanning. After Nmap has completed its scanning and normal output, scripts in this phase can process results and deliver final reports and statistics. 
+See the section called “Script Types and Phases”. Nmap does not yet include any scripts in this phase, so it only runs if the user includes and executes their own post-scanning scripts.
 扫描后脚本。
 
 Legal Issues
 法律问题
-When used properly, Nmap helps protect your network from invaders. But when used improperly, Nmap can (in rare cases) get you sued, fired, expelled, jailed, or banned by your ISP. Reduce your risk by reading this legal guide before launching Nmap.
+When used properly, Nmap helps protect your network from invaders. 
+But when used improperly, Nmap can (in rare cases) get you sued, fired, expelled, jailed, or banned by your ISP. 
+Reduce your risk by reading this legal guide before launching Nmap.
 Is Unauthorized Port Scanning a Crime?
-The legal ramifications of scanning networks with Nmap are complex and so controversial that third-party organizations have even printed T-shirts and bumper stickers promulgating opinions on the matter[6], as shown in Figure 1.3. The topic also draws many passionate but often unproductive debates and flame wars. If you ever participate in such discussions, try to avoid the overused and ill-fitting analogies to knocking on someone's home door or testing whether his door and windows are locked.
+The legal ramifications of scanning networks with Nmap are complex and so controversial that third-party organizations have even printed T-shirts and bumper stickers promulgating opinions on the matter[6], as shown in Figure 1.3. 
+The topic also draws many passionate but often unproductive debates and flame wars. 
+If you ever participate in such discussions, try to avoid the overused and ill-fitting analogies to knocking on someone's home door or testing whether his door and windows are locked.
 Figure 1.3. Strong opinions on port scanning legality and morality
 图1.3 
 
-While I agree with the sentiment that port scanning should not be illegal, it is rarely wise to take legal advice from a T-shirt. Indeed, taking it from a software engineer and author is only slightly better. Speak to a competent lawyer within your jurisdiction for a better understanding of how the law applies to your particular situation. With that important disclaimer out of the way, I'll provide some general information that may prove helpful.
-The best way to avoid controversy when using Nmap is to always secure written authorization from the target network representatives before initiating any scanning. There is still a chance that your ISP will give you trouble if they notice it (or if the target administrators accidentally send them an abuse report), but this is usually easy to resolve. When you are performing a penetration test,this authorization should be in the Statement of Work. When testing your own company, make certain that this activity clearly falls within your job description. Security consultants should be familiar with the excellent Open Source Security Testing Methodology Manual (OSSTMM), which provides best practices for these situations.
-While civil and (especially) criminal court cases are the nightmare scenario for Nmap users, these are very rare. After all, no United States federal laws explicitly criminalize port scanning. A much more frequent occurrence is that the target network will notice a scan and send a complaint to the network service provider where the scan initiated (your ISP). Most network administrators do not seem to care or notice the many scans bouncing off their networks daily, but a few complain. The scan source ISP may track down the user corresponding to the reported IP address and time, then chide the user or even kick him off the service. Port scanning without authorization is sometimes against the provider's acceptable use policy (AUP). For example, the AUP for the huge cable-modem ISP Comcast says:
-Network probing or port scanning tools are only permitted when used in conjunction with a residential home network, or if explicitly authorized by the destination host and/or network. Unauthorized port scanning, for any reason, is strictly prohibited.
-Even if an ISP does not explicitly ban unauthorized port scanning, they might claim that some “anti-hacking” provision applies. Of course this does not make port scanning illegal. Many perfectly legal and (in the United States) constitutionally protected activities are banned by ISPs. For example, the AUP quoted above also prohibits users from transmitting, storing, or posting “any information or material which a reasonable person could deem to be objectionable, offensive, indecent, pornographic, ... embarrassing, distressing, vulgar, hateful, racially or ethnically offensive, or otherwise inappropriate, regardless of whether this material or its dissemination is unlawful”. In other words, some ISPs ban any behavior that could possibly offend or annoy someone[7]. Indiscriminate scanning of other people's networks does have that potential. If you decide to perform such controversial scanning anyway, never do it from work, school, or any other service provider that has substantial control over your well-being. Use a commercial broadband or wireless provider instead. Losing your DSL connection and having to change providers is a slight nuisance, but it is immeasurably preferable to being expelled or fired.
-While legal cases involving port scanning (without follow-up hacking attacks) are rare, they do happen. One of the most notable cases involved a man named Scott Moulton who had an ongoing consulting contract to maintain the Cherokee County, Georgia emergency 911 system. In December 1999, he was tasked with setting up a router connecting the Canton, Georgia Police Department with the E911 Center. Concerned that this might jeopardize the E911 Center security, Scott initiated some preliminary port scanning of the networks involved. In the process he scanned a Cherokee County web server that was owned and maintained by a competing consulting firm named VC3. They noticed the scan and emailed Scott, who replied that he worked for the 911 Center and was testing security. VC3 then reported the activity to the police. Scott lost his E911 maintenance contract and was arrested for allegedly violating the Computer Fraud and Abuse Act of America Section 1030(a)(5)(B). This act applies against anyone who “intentionally accesses a protected computer without authorization, and as a result of such conduct, causes damage” (and meets other requirements). The damage claimed by VC3 involved time spent investigating the port scan and related activity. Scott sued VC3 for defamation, and VC3 countersued for violation of the Computer Fraud and Abuse Act as well as the Georgia Computer Systems Protection Act.
-The civil case against Scott was dismissed before trial, implying a complete lack of merit. The ruling made many Nmap users smile:
+While I agree with the sentiment that port scanning should not be illegal, it is rarely wise to take legal advice from a T-shirt. 
+Indeed, taking it from a software engineer and author is only slightly better. 
+Speak to a competent lawyer within your jurisdiction for a better understanding of how the law applies to your particular situation. 
+With that important disclaimer out of the way, I'll provide some general information that may prove helpful.
+The best way to avoid controversy when using Nmap is to always secure written authorization from the target network representatives before initiating any scanning. 
+There is still a chance that your ISP will give you trouble if they notice it (or if the target administrators accidentally send them an abuse report), but this is usually easy to resolve. 
+When you are performing a penetration test,this authorization should be in the Statement of Work. When testing your own company, make certain that this activity clearly falls within your job description. 
+Security consultants should be familiar with the excellent Open Source Security Testing Methodology Manual (OSSTMM), which provides best practices for these situations.
+While civil and (especially) criminal court cases are the nightmare scenario for Nmap users, these are very rare. 
+After all, no United States federal laws explicitly criminalize port scanning. A much more frequent occurrence is that the target network will notice a scan and send a complaint to the network service provider where the scan initiated (your ISP). 
+Most network administrators do not seem to care or notice the many scans bouncing off their networks daily, but a few complain. 
+The scan source ISP may track down the user corresponding to the reported IP address and time, then chide the user or even kick him off the service. 
+Port scanning without authorization is sometimes against the provider's acceptable use policy (AUP). For example, the AUP for the huge cable-modem ISP Comcast says:
+Network probing or port scanning tools are only permitted when used in conjunction with a residential home network, or if explicitly authorized by the destination host and/or network.
+Unauthorized port scanning, for any reason, is strictly prohibited.
+Even if an ISP does not explicitly ban unauthorized port scanning, they might claim that some “anti-hacking” provision applies. 
+Of course this does not make port scanning illegal. Many perfectly legal and (in the United States) constitutionally protected activities are banned by ISPs. 
+For example, the AUP quoted above also prohibits users from transmitting, storing, or posting “any information or material which a reasonable person could deem to be objectionable, offensive, indecent, pornographic, ... embarrassing, distressing, vulgar, hateful, racially or ethnically offensive, or otherwise inappropriate, regardless of whether this material or its dissemination is unlawful”. In other words, some ISPs ban any behavior that could possibly offend or annoy someone[7]. Indiscriminate scanning of other people's networks does have that potential. If you decide to perform such controversial scanning anyway, never do it from work, school, or any other service provider that has substantial control over your well-being. Use a commercial broadband or wireless provider instead. Losing your DSL connection and having to change providers is a slight nuisance, but it is immeasurably preferable to being expelled or fired.
+While legal cases involving port scanning (without follow-up hacking attacks) are rare, they do happen. 
+One of the most notable cases involved a man named Scott Moulton who had an ongoing consulting contract to maintain the Cherokee County, Georgia emergency 911 system. 
+In December 1999, he was tasked with setting up a router connecting the Canton, Georgia Police Department with the E911 Center. Concerned that this might jeopardize the E911 Center security, Scott initiated some preliminary port scanning of the networks involved. 
+In the process he scanned a Cherokee County web server that was owned and maintained by a competing consulting firm named VC3. They noticed the scan and emailed Scott, who replied that he worked for the 911 Center and was testing security. VC3 then reported the activity to the police. Scott lost his E911 maintenance contract and was arrested for allegedly violating the Computer Fraud and Abuse Act of America Section 1030(a)(5)(B). This act applies against anyone who “intentionally accesses a protected computer without authorization, and as a result of such conduct, causes damage” (and meets other requirements). The damage claimed by VC3 involved time spent investigating the port scan and related activity. Scott sued VC3 for defamation, and VC3 countersued for violation of the Computer Fraud and Abuse Act as well as the Georgia Computer Systems Protection Act.
+The civil case against Scott was dismissed before trial, implying a complete lack of merit.
+The ruling made many Nmap users smile:
 “Court holds that plaintiff's act of conducting an unauthorized port scan and throughput test of defendant's servers does not constitute a violation of either the Georgia Computer Systems Protection Act or the Computer Fraud and Abuse Act.”—Civ. Act. No. 1:00-CV-434-TWT (N.D. Ga. November 6, 2000)
-This was an exciting victory in the civil case, but Scott still had the criminal charges pending. Fortunately he kept his spirits high, sending the following note to the nmap-hackers mailing list:
-I am proud that I could be of some benefit to the computer society in defending and protecting the rights of specialists in the computer field, however it is EXTREMELY costly to support such an effort, of which I am not happy about. But I will continue to fight and prove that there is nothing illegal about port scanning especially when I was just doing my job.
+This was an exciting victory in the civil case, but Scott still had the criminal charges pending. 
+Fortunately he kept his spirits high, sending the following note to the nmap-hackers mailing list:
+I am proud that I could be of some benefit to the computer society in defending and protecting the rights of specialists in the computer field, however it is EXTREMELY costly to support such an effort, of which I am not happy about. 
+But I will continue to fight and prove that there is nothing illegal about port scanning especially when I was just doing my job.
 Eventually, the criminal court came to the same conclusion and all charges were dropped. While Scott was vindicated in the end, he suffered six-figure legal bills and endured stressful years battling through the court system. The silver lining is that after spending so much time educating his lawyers about the technical issues involved, Scott started a successful forensics services company.
 While the Moulton case sets a good example (if not legal precedent), different courts or situations could still lead to worse outcomes. Remember that many states have their own computer abuse laws, some of which can arguably make even pinging a remote machine without authorization illegal[8].
-Laws in other nations obviously differ as well. For example, A 17-year-old youth was convicted in Finland of attempted computer intrusion for simply port scanning a bank. He was fined to cover the target's investigation expenses. The Moulton ruling might have differed if the VC3 machine had actually crashed and they were able to justify the $5,000 damage figure required by the act.
+Laws in other nations obviously differ as well. 
+For example, A 17-year-old youth was convicted in Finland of attempted computer intrusion for simply port scanning a bank. He was fined to cover the target's investigation expenses. 
+The Moulton ruling might have differed if the VC3 machine had actually crashed and they were able to justify the $5,000 damage figure required by the act.
 At the other extreme, an Israeli judge acquitted Avi Mizrahi in early 2004 for vulnerability scanning the Mossad secret service. Judge Abraham Tennenbaum even commended Avi in his ruling:
-In a way, Internet surfers who check the vulnerabilities of Web sites are acting in the public good. If their intentions are not malicious and they do not cause any damage, they should even be praised.
-In 2007 and 2008, broad new cybercrime laws took effect in Germany and England. These laws are meant to ban the distribution, use, and even possession of “hacking tools”. For example, the UK amendment to the Computer Misuse Act makes it illegal to “supply or offer to supply [a program], believing that it is likely to be used to commit, or to assist in the commission of [a Computer Misuse Act violation]”. These laws have already led some security tool authors to close shop or move their projects to other countries. The problem is that most security tools can be used by both ethical professionals (white-hats) to defend their networks and black-hats to attack. These dangerous laws are based on the tool author or user's intent, which is subjective and hard to divine. Nmap was designed to help secure the Internet, but I'd hate to be arrested and forced to defend my intentions to a judge and jury, especially in a foreign country like Germany where I don't even speak the language. These laws are unlikely to affect tools as widespread and popular as Nmap, but they have had a chilling effect on smaller tools and those which are more commonly abused by computer criminals (such as exploitation frameworks).
-Regardless of the legal status of port scanning, ISP accounts will continue to be terminated if many complaints are generated. The best way to avoid ISP abuse reports or civil/criminal charges is to avoid annoying the target network administrators in the first place. Here are some practical suggestions:
-•	Ensure that you have permission to scan. Probably at least 90% of network scanning is non-controversial. You are rarely badgered for scanning your own machine or the networks you administer. The controversy comes when scanning other networks. There are many reasons (good and bad) for doing this sort of network exploration. Perhaps you are scanning the other systems in your dorm or department to look for publicly shared files (FTP, SMB, WWW, etc.). Or maybe you are just trying to find the IP address of a certain printer. You might have scanned your favorite web site to see if they are offering any other services, or because you were curious what OS they run. Perhaps you are just trying to test connectivity, or maybe you wanted to do a quick security sanity check before handing off your credit card details to that e-commerce company. You might be conducting Internet research. Or are you performing initial reconnaissance in preparation for a break-in attempt? The remote administrators rarely know your true intentions, and do sometimes get suspicious. The best approach is to get permission first. I have seen a few people with non-administrative roles land in hot water after deciding to “prove” network insecurity by launching an intrusive scan of the entire company or campus. Administrators tend to be more cooperative when asked in advance than when woken up at 3:00 AM by an IDS alarm claiming they are under massive attack. So whenever possible, obtain written authorization before scanning a network. Adrian Lamo would probably have avoided jail if he had asked the New York Times to test their security rather than telling reporters about the flaws afterward. Unfortunately they might have said no. Be prepared for this answer.
-•	Target your scan as tightly as possible. Any machine connected to the Internet is scanned regularly enough that most administrators ignore such Internet background noise. But scanning enough networks or executing very noisy/intrusive scans increases the probability of generating complaints. So if you are only looking for web servers, specify -p80 rather than scanning all 65,536 TCP ports on each machine. If you are only trying to find available hosts, do an Nmap ping scan rather than full port scan. Do not scan a CIDR /16 (65K hosts) when a /24 netblock suffices. The random scan mode now takes an argument specifying the number of hosts, rather than running forever. So consider -iR 1000 rather than -iR 10000 if the former is sufficient. Use the default timing (or even -T polite) rather than -T insane. Avoid noisy and relatively intrusive scans such as version detection (-sV) or NSE (--script). Similarly, a SYN scan (-sS) is quieter than a connect scan (-sT) while providing the same information and often being faster.
-•	As noted previously, do not do anything controversial from your work or school connections. Even though your intentions may be good, you have too much to lose if someone in power (e.g. boss, dean) decides you are a malicious cracker. Do you really want to explain your actions to someone who may not even know what port scanning means? Spend $40 a month for a shell, cell data, or residential broadband account. Not only are the repercussions less severe if you offend someone from such an account, but target network administrators are less likely to even bother complaining to mass-market providers. Also read the relevant AUP and choose a provider accordingly. If your provider (like Comcast discussed above) bans any unauthorized port scanning and posting of“offensive” material, do not be surprised if you are kicked off for this activity. In general, the more you pay to a service provider the more accommodating they are. A T1 provider is highly unlikely to yank your connection without notice because someone reported being port scanned. A dialup or residential DSL/cable provider very well might. This can happen even when the scan was forged by someone else.
-•	Nmap offers many options for stealthy scans, including source-IP spoofing, decoy scanning, and the more recent idle scan technique. These are discussed in the IDS evasion chapter. But remember that there is always a trade-off. You are harder to find if you launch scans from an open WAP far from your house, with 17 decoys, while doing subsequent probes through a chain of nine open proxies. But if anyone does track you down, they will be mighty suspicious of your intentions.
-•	Always have a legitimate reason for performing scans. An offended administrator might write to you first (or your ISP might forward his complaint to you) expecting some sort of justification for the activity. In the Scott Moulton case discussed above, VC3 first emailed Scott to ask what was going on. If they had been satisfied with his answer, matters might have stopped there rather than escalating into civil and criminal litigation. When I scan large portions of the Internet for research purposes, I use a reverse-DNS name that describes the project and run a web server on that IP address with detailed information and opt-out instructions.
-Also remember that ancillary and subsequent actions are often used as evidence of intent. A port scan by itself does not always signify an attack. A port scan followed closely by an IIS exploit, however, broadcasts the intention loud and clear. This is important because decisions to prosecute (or fire, expel, complain, etc.) are often based on the whole event and not just one component (such as a port scan).
-One dramatic case involved a Canadian man named Walter Nowakowski, who was apparently the first person to be charged in Canada with theft of communications (Canadian Criminal Code Section S.342.1) for accessing the Internet through someone's unsecured Wi-Fi network. Thousands of Canadian “war drivers” do this every day, so why was he singled out? Because of ancillary actions and intent. He was allegedly caught driving the wrong way on a one-way street, naked from the waist down, with laptop in hand, while downloading child pornography through the aforementioned unsecured wireless access point. The police apparently considered his activity egregious enough that they brainstormed for relevant charges and tacked on theft of communications to the many child pornography-related charges.
-Similarly, charges involving port scanning are usually reserved for the most egregious cases. Even when paranoid administrators notify the police that they have been scanned, prosecution (or any further action) is exceedingly rare. The fact that a 911 emergency service was involved is likely what motivated prosecutors in the Moulton case. Your author scanned millions of Internet hosts while writing this book and received fewer than ten complaints.
-To summarize this whole section, the question of whether port scanning is legal does not have a simple answer. I cannot unequivocally say “port scanning is never a crime”, as much as I would like to. Laws differ dramatically between jurisdictions, and cases hinge on their particular details. Even when facts are nearly identical, different judges and prosecutors do not always interpret them the same way. I can only urge caution and reiterate the suggestions above.
-For testing purposes, you have permission to scan the host scanme.nmap.org. You may have noticed it used in several examples already. Note that this permission only includes scanning with Nmap and not testing exploits or denial of service attacks. To conserve bandwidth, please do not initiate more than a dozen scans against that host per day. If this free scanning target service is abused, it will be taken down and Nmap will report Failed to resolve given hostname/IP: scanme.nmap.org.
+In a way, Internet surfers who check the vulnerabilities of Web sites are acting in the public good. 
+If their intentions are not malicious and they do not cause any damage, they should even be praised.
+In 2007 and 2008, broad new cybercrime laws took effect in Germany and England. These laws are meant to ban the distribution, use, and even possession of “hacking tools”. 
+For example, the UK amendment to the Computer Misuse Act makes it illegal to “supply or offer to supply [a program], believing that it is likely to be used to commit, or to assist in the commission of [a Computer Misuse Act violation]”. 
+These laws have already led some security tool authors to close shop or move their projects to other countries. 
+The problem is that most security tools can be used by both ethical professionals (white-hats) to defend their networks and black-hats to attack. 
+These dangerous laws are based on the tool author or user's intent, which is subjective and hard to divine. 
+Nmap was designed to help secure the Internet, but I'd hate to be arrested and forced to defend my intentions to a judge and jury, especially in a foreign country like Germany where I don't even speak the language. 
+These laws are unlikely to affect tools as widespread and popular as Nmap, but they have had a chilling effect on smaller tools and those which are more commonly abused by computer criminals (such as exploitation frameworks).
+Regardless of the legal status of port scanning, ISP accounts will continue to be terminated if many complaints are generated. 
+The best way to avoid ISP abuse reports or civil/criminal charges is to avoid annoying the target network administrators in the first place. 
+Here are some practical suggestions:
+•	Ensure that you have permission to scan. 
+Probably at least 90% of network scanning is non-controversial. You are rarely badgered for scanning your own machine or the networks you administer. 
+The controversy comes when scanning other networks. 
+There are many reasons (good and bad) for doing this sort of network exploration. 
+Perhaps you are scanning the other systems in your dorm or department to look for publicly shared files (FTP, SMB, WWW, etc.). Or maybe you are just trying to find the IP address of a certain printer. 
+You might have scanned your favorite web site to see if they are offering any other services, or because you were curious what OS they run. 
+Perhaps you are just trying to test connectivity, or maybe you wanted to do a quick security sanity check before handing off your credit card details to that e-commerce company. 
+You might be conducting Internet research. Or are you performing initial reconnaissance in preparation for a break-in attempt? 
+The remote administrators rarely know your true intentions, and do sometimes get suspicious. 
+The best approach is to get permission first. 
+I have seen a few people with non-administrative roles land in hot water after deciding to “prove” network insecurity by launching an intrusive scan of the entire company or campus. 
+Administrators tend to be more cooperative when asked in advance than when woken up at 3:00 AM by an IDS alarm claiming they are under massive attack. 
+So whenever possible, obtain written authorization before scanning a network. Adrian Lamo would probably have avoided jail if he had asked the New York Times to test their security rather than telling reporters about the flaws afterward. 
+Unfortunately they might have said no. Be prepared for this answer.
+•	Target your scan as tightly as possible. 
+Any machine connected to the Internet is scanned regularly enough that most administrators ignore such Internet background noise. 
+But scanning enough networks or executing very noisy/intrusive scans increases the probability of generating complaints. 
+So if you are only looking for web servers, specify -p80 rather than scanning all 65,536 TCP ports on each machine. 
+If you are only trying to find available hosts, do an Nmap ping scan rather than full port scan. Do not scan a CIDR /16 (65K hosts) when a /24 netblock suffices. 
+The random scan mode now takes an argument specifying the number of hosts, rather than running forever. 
+So consider -iR 1000 rather than -iR 10000 if the former is sufficient. Use the default timing (or even -T polite) rather than -T insane. 
+Avoid noisy and relatively intrusive scans such as version detection (-sV) or NSE (--script). Similarly, a SYN scan (-sS) is quieter than a connect scan (-sT) while providing the same information and often being faster.
+•	As noted previously, do not do anything controversial from your work or school connections. 
+Even though your intentions may be good, you have too much to lose if someone in power (e.g. boss, dean) decides you are a malicious cracker. 
+Do you really want to explain your actions to someone who may not even know what port scanning means? Spend $40 a month for a shell, cell data, or residential broadband account. 
+Not only are the repercussions less severe if you offend someone from such an account, but target network administrators are less likely to even bother complaining to mass-market providers. 
+Also read the relevant AUP and choose a provider accordingly. If your provider (like Comcast discussed above) bans any unauthorized port scanning and posting of“offensive” material, do not be surprised if you are kicked off for this activity. 
+In general, the more you pay to a service provider the more accommodating they are. A T1 provider is highly unlikely to yank your connection without notice because someone reported being port scanned. 
+A dialup or residential DSL/cable provider very well might.
+This can happen even when the scan was forged by someone else.
+•	Nmap offers many options for stealthy scans, including source-IP spoofing, decoy scanning, and the more recent idle scan technique. 
+These are discussed in the IDS evasion chapter. But remember that there is always a trade-off. 
+You are harder to find if you launch scans from an open WAP far from your house, with 17 decoys, while doing subsequent probes through a chain of nine open proxies. 
+But if anyone does track you down, they will be mighty suspicious of your intentions.
+•	Always have a legitimate reason for performing scans. 
+An offended administrator might write to you first (or your ISP might forward his complaint to you) expecting some sort of justification for the activity.
+In the Scott Moulton case discussed above, VC3 first emailed Scott to ask what was going on. 
+If they had been satisfied with his answer, matters might have stopped there rather than escalating into civil and criminal litigation. 
+When I scan large portions of the Internet for research purposes, I use a reverse-DNS name that describes the project and run a web server on that IP address with detailed information and opt-out instructions.
+Also remember that ancillary and subsequent actions are often used as evidence of intent. 
+A port scan by itself does not always signify an attack. 
+A port scan followed closely by an IIS exploit, however, broadcasts the intention loud and clear. 
+This is important because decisions to prosecute (or fire, expel, complain, etc.) are often based on the whole event and not just one component (such as a port scan).
+One dramatic case involved a Canadian man named Walter Nowakowski, who was apparently the first person to be charged in Canada with theft of communications (Canadian Criminal Code Section S.342.1) for accessing the Internet through someone's unsecured Wi-Fi network. 
+Thousands of Canadian “war drivers” do this every day, so why was he singled out? Because of ancillary actions and intent. 
+He was allegedly caught driving the wrong way on a one-way street, naked from the waist down, with laptop in hand, while downloading child pornography through the aforementioned unsecured wireless access point. 
+The police apparently considered his activity egregious enough that they brainstormed for relevant charges and tacked on theft of communications to the many child pornography-related charges.
+Similarly, charges involving port scanning are usually reserved for the most egregious cases. 
+Even when paranoid administrators notify the police that they have been scanned, prosecution (or any further action) is exceedingly rare. 
+The fact that a 911 emergency service was involved is likely what motivated prosecutors in the Moulton case. 
+Your author scanned millions of Internet hosts while writing this book and received fewer than ten complaints.
+To summarize this whole section, the question of whether port scanning is legal does not have a simple answer. 
+I cannot unequivocally say “port scanning is never a crime”, as much as I would like to. 
+Laws differ dramatically between jurisdictions, and cases hinge on their particular details. 
+Even when facts are nearly identical, different judges and prosecutors do not always interpret them the same way. 
+I can only urge caution and reiterate the suggestions above.
+For testing purposes, you have permission to scan the host scanme.nmap.org. 
+You may have noticed it used in several examples already. 
+Note that this permission only includes scanning with Nmap and not testing exploits or denial of service attacks. 
+To conserve bandwidth, please do not initiate more than a dozen scans against that host per day. 
+If this free scanning target service is abused, it will be taken down and Nmap will report Failed to resolve given hostname/IP: scanme.nmap.org.
 Can Port Scanning Crash the Target Computer/Networks?
-Nmap does not have any features designed to crash target networks. It usually tries to tread lightly. For example, Nmap detects dropped packets and slows down when they occur in order to avoid overloading the network. Nmap also does not send any corrupt packets. The IP, TCP, UDP, and ICMP headers are always appropriate, though the destination host is not necessarily expecting the packets. For these reasons, no application, host, or network component should ever crash based on an Nmap scan. If they do, that is a bug in the system which should be repaired by the vendor.
+Nmap does not have any features designed to crash target networks.
+It usually tries to tread lightly. 
+For example, Nmap detects dropped packets and slows down when they occur in order to avoid overloading the network. 
+Nmap also does not send any corrupt packets. 
+The IP, TCP, UDP, and ICMP headers are always appropriate, though the destination host is not necessarily expecting the packets. 
+For these reasons, no application, host, or network component should ever crash based on an Nmap scan. 
+If they do, that is a bug in the system which should be repaired by the vendor.
 nmap没有为使得目标网络奔溃的特性。他通常尝试
-Reports of systems being crashed by Nmap are rare, but they do happen. Many of these systems were probably unstable in the first place and Nmap either pushed them over the top or they crashed at the same time as an Nmap scan by pure coincidence. In other cases, poorly written applications, TCP/IP stacks, and even operating systems have been demonstrated to crash reproducibly given a certain Nmap command. These are usually older legacy devices, as newer equipment is rarely released with these problems. Smart companies use Nmap and many other common network tools to test devices prior to shipment. Those who omit such pre-release testing often find out about the problem in early beta tests when a box is first deployed on the Internet. It rarely takes long for a given IP to be scanned as part of Internet background noise. Keeping systems and devices up-to-date with the latest vendor patches and firmware should reduce the susceptibility of your machines to these problems, while also improving the security and usability of your network.
+Reports of systems being crashed by Nmap are rare, but they do happen. 
+Many of these systems were probably unstable in the first place and Nmap either pushed them over the top or they crashed at the same time as an Nmap scan by pure coincidence. In other cases, poorly written applications, TCP/IP stacks, and even operating systems have been demonstrated to crash reproducibly given a certain Nmap command. These are usually older legacy devices, as newer equipment is rarely released with these problems. Smart companies use Nmap and many other common network tools to test devices prior to shipment. Those who omit such pre-release testing often find out about the problem in early beta tests when a box is first deployed on the Internet. It rarely takes long for a given IP to be scanned as part of Internet background noise. Keeping systems and devices up-to-date with the latest vendor patches and firmware should reduce the susceptibility of your machines to these problems, while also improving the security and usability of your network.
 In many cases, finding that a machine crashes from a certain scan is valuable information. After all, attackers can do anything Nmap can do by using Nmap itself or their own custom scripts. Devices should not crash from being scanned and if they do, vendors should be pressured to provide a patch. In some usage scenarios, detecting fragile machines by crashing them is undesirable. In those cases you may want to perform very light scanning to reduce the risk of adverse effects. Here are a few suggestions:
 •	Use SYN scan (-sS) instead of connect scan (-sT). User-mode applications such as web servers can rarely even detect the former because it is all handled in kernel space and thus the services have no excuse to crash.
 •	Version scanning (-sV) and some of our NSE scripts (-sC or --script) risk crashing poorly written applications. Similarly, some buggy operating systems have been reported to crash when OS fingerprinted (-O). Omit these options for particularly sensitive environments or where you do not need the results.
