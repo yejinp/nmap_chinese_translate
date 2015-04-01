@@ -4,15 +4,30 @@
 
 Introduction
 介绍
-Nmap (“Network Mapper”) is a free and open source utility for network exploration and security auditing. Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. It was designed to rapidly scan large networks, but works fine against single hosts. Nmap runs on all major computer operating systems, and both console and graphical versions are available.
-Nmap（网络制图者）是一个为网络探究和安全审计的免费开源工具。很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。Nmap 利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和以及其他很多特征。它被设计为快速扫描大型网络，但对单个主机工作得也很好。Nmap运行在大部分的操作系统上，同时包含控制台和图形界面版本。
-This chapter uses fictional stories to provide a broad overview of Nmap and how it is typically used. An important legal section helps users avoid (or at least be aware of) controversial usage that could lead to ISP account cancellation or even civil and criminal charges. It also discusses the risks of crashing remote machines as well as miscellaneous issues such as the open source Nmap license (based on the GNU GPL), and copyright.
-本章用来几个故事来鸟瞰nmap和其典型使用方法。重要的法律一节能够帮助用户避免（或者至少意识到）有争议的使用会导致ISP帐号被取消或者民事和刑事指控。在讨论其他主题，如Nmap开源许可证（基于GNU GPL）和版权的同时，也讨论了使得远程主机崩溃的风险。
+Nmap (“Network Mapper”) is a free and open source utility for network exploration and security auditing. 
+Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. 
+Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. 
+It was designed to rapidly scan large networks, but works fine against single hosts. 
+Nmap runs on all major computer operating systems, and both console and graphical versions are available.
+Nmap（网络制图者）是一个为网络探究和安全审计的免费开源工具。很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。
+Nmap 利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和以及其他很多特征。它被设计为快速扫描大型网络，但对单个主机工作得也很好。Nmap运行在大部分的操作系统上，同时包含控制台和图形界面版本。
+This chapter uses fictional stories to provide a broad overview of Nmap and how it is typically used. 
+An important legal section helps users avoid (or at least be aware of) controversial usage that could lead to ISP account cancellation or even civil and criminal charges. 
+It also discusses the risks of crashing remote machines as well as miscellaneous issues such as the open source Nmap license (based on the GNU GPL), and copyright.
+本章用来几个故事来鸟瞰nmap和其典型使用方法。
+重要的法律一节能够帮助用户避免（或者至少意识到）有争议的使用会导致ISP帐号被取消或者民事和刑事指控。
+在讨论其他主题，如Nmap开源许可证（基于GNU GPL）和版权的同时，也讨论了使得远程主机崩溃的风险。
 
 Nmap Overview and Demonstration
 综述和演示
-Sometimes the best way to understand something is to see it in action. This section includes examples of Nmap used in (mostly) fictional yet typical circumstances. Nmap newbies should not expect to understand everything at once. This is simply a broad overview of features that are described in depth in later chapters. The “solutions” included throughout this book demonstrate many other common Nmap tasks for security auditors and network administrators.
-有时候理解一些东西的最好方法就是看它如何运行。本节包含了Nmap在（大部分）虚构但典型环境下的使用例子。Nmap新手不能期望与马上就能理解所有内容。这只是一个关于后续章节将要全马描述的综述。通书的解决方法演示了很多安全审计员和网络管理口的其他常见Nmap任务
+Sometimes the best way to understand something is to see it in action. 
+This section includes examples of Nmap used in (mostly) fictional yet typical circumstances. 
+Nmap newbies should not expect to understand everything at once. 
+This is simply a broad overview of features that are described in depth in later chapters. 
+The “solutions” included throughout this book demonstrate many other common Nmap tasks for security auditors and network administrators.
+有时候理解一些东西的最好方法就是看它如何运行。
+本节包含了Nmap在（大部分）虚构但典型环境下的使用例子。Nmap新手不能期望与马上就能理解所有内容。
+这只是一个关于后续章节将要全马描述的综述。通书的解决方法演示了很多安全审计员和网络管理口的其他常见Nmap任务
 Avatar Online
 Avatar 在线
 
@@ -29,10 +44,25 @@ Fortunately Felix emerged from adolescence without a criminal record, while reta
 As a professional, he is able to perform the same types of network intrusions as before, but with the added benefit of contractual immunity from prosecution and even a paycheck! 
 Rather than keeping his creative exploits secret, he can brag about them to client management when presenting his reports. 
 So Felix was not disappointed when his boss interrupted his antenna soldering to announce that the sales department closed a pen-testing deal with the Avatar Online gaming company.
-Avatar Online (AO) is a small company working to create the next generation of massive multi-player online role-playing games (MMORPGs). Their product, inspired by the Metaverse envisioned in Neil Stevenson's Snow Crash, is fascinating but still highly confidential. After witnessing the high-profile leak of Valve Software's upcoming game source code, AO quickly hired the security consultants. Felix's task is to initiate an external (from outside the firewall) vulnerability assessment while his partners work on physical security, source code auditing, social engineering, and so forth. Felix is permitted to exploit any vulnerabilities found.
-The first step in a vulnerability assessment is network discovery. This reconnaissance stage determines what IP address ranges the target is using, what hosts are available, what services those hosts are offering, general network topology details, and what firewall/filtering policies are in effect.
-Determining the IP ranges to scan would normally be an elaborate process involving ARIN (or another geographical registry) lookups, DNS queries and zone transfer attempts, various web sleuthing techniques, and more. But in this case, Avatar Online explicitly specified what networks they want tested: the corporate network on 6.209.24.0/24 and their production/DMZ systems residing on 6.207.0.0/22. Felix checks the IP whois records anyway and confirms that these IP ranges are allocated to AO[1]. Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. No problem.
-Being the careful type, Felix first starts out with what is known as an Nmap list scan (-sL option). This feature simply enumerates every IP address in the given target netblock(s) and does a reverse-DNS lookup (unless -n was specified) on each. One reason to do this first is stealth. The names of the hosts can hint at potential vulnerabilities and allow for a better understanding of the target network, all without raising alarm bells[3]. Felix is doing this for another reason—to double-check that the IP ranges are correct. The systems administrator who provided the IPs might have made a mistake, and scanning the wrong company would be a disaster. The contract signed with Avatar Online may act as a get-out-of-jail-free card for penetrating their networks, but will not help if Felix accidentally compromises another company's server! The command he uses and an excerpt of the results are shown in Example 1.1.
+Avatar Online (AO) is a small company working to create the next generation of massive multi-player online role-playing games (MMORPGs). 
+Their product, inspired by the Metaverse envisioned in Neil Stevenson's Snow Crash, is fascinating but still highly confidential. 
+After witnessing the high-profile leak of Valve Software's upcoming game source code, AO quickly hired the security consultants. 
+Felix's task is to initiate an external (from outside the firewall) vulnerability assessment while his partners work on physical security, source code auditing, social engineering, and so forth. 
+Felix is permitted to exploit any vulnerabilities found.
+The first step in a vulnerability assessment is network discovery. 
+This reconnaissance stage determines what IP address ranges the target is using, what hosts are available, what services those hosts are offering, general network topology details, and what firewall/filtering policies are in effect.
+Determining the IP ranges to scan would normally be an elaborate process involving ARIN (or another geographical registry) lookups, DNS queries and zone transfer attempts, various web sleuthing techniques, and more. 
+But in this case, Avatar Online explicitly specified what networks they want tested: the corporate network on 6.209.24.0/24 and their production/DMZ systems residing on 6.207.0.0/22. 
+Felix checks the IP whois records anyway and confirms that these IP ranges are allocated to AO[1]. 
+Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. No problem.
+Being the careful type, Felix first starts out with what is known as an Nmap list scan (-sL option). 
+This feature simply enumerates every IP address in the given target netblock(s) and does a reverse-DNS lookup (unless -n was specified) on each. 
+One reason to do this first is stealth. 
+The names of the hosts can hint at potential vulnerabilities and allow for a better understanding of the target network, all without raising alarm bells[3]. 
+Felix is doing this for another reason—to double-check that the IP ranges are correct. 
+The systems administrator who provided the IPs might have made a mistake, and scanning the wrong company would be a disaster. 
+The contract signed with Avatar Online may act as a get-out-of-jail-free card for penetrating their networks, but will not help if Felix accidentally compromises another company's server! 
+The command he uses and an excerpt of the results are shown in Example 1.1.
 
 Example 1.1. Nmap list scan against Avatar Online IP addresses
 例子1.1 nmap例举对IP 地址进行扫描
@@ -64,7 +94,8 @@ This particular incantation sends ICMP echo request and timestamp request packet
 If Nmap receives a response from a target host to any of these probes, it considers the host to be up and available for scanning. 
 This is the most effective six-probe combination that we've found in large-scale empirical testing for host discovery against targets over the Internet. 
 It is more extensive than the Nmap default, which is -PE -PS443 -PA80 -PP. 
-In a pen-testing situation, you often want to scan every host even if they do not seem to be up. After all, they could just be heavily filtered in such a way that the probes you selected are ignored but some other obscure port may be available. 
+In a pen-testing situation, you often want to scan every host even if they do not seem to be up. 
+After all, they could just be heavily filtered in such a way that the probes you selected are ignored but some other obscure port may be available. 
 To scan every IP whether it shows an available host or not, specify the -Pn option instead of all of the above. 
 Felix starts such a scan in the background, though it may take many hours to complete.
 -A
