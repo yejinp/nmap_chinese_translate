@@ -192,13 +192,23 @@ Figure 1.2. Trinity scans the Matrix
  
 A terminal-view video showing the whole hack is available at http://nmap.org/movies.html, unless the MPAA finds out and sends sentinels or lawyers after us.
 MadHat in Wonderland
-This story differs from the previous ones in that it is actually true. Written by frequent Nmap user and contributor Lee “MadHat”Heath, it describes how he enhanced and customized Nmap for daily use in a large enterprise. In true open source spirit, he has released these valuable scripts on his Web site. IP addresses have been changed to protect the corporate identity. The remainder of this section is in his own words.
-After spending the past couple of decades learning computers and working my way up from tech support through sysadmin and into my dream job of Information Security Officer for a major Internet company, I found myself with a problem. I was handed the sole responsibility of security monitoring for our entire IP space. This was almost 50,000 hosts worldwide when I started several years ago, and it has doubled since then.
-Scanning all of these machines for potential vulnerabilities as part of monthly or quarterly assessments would be tough enough, but management wanted it done daily. Attackers will not wait a week or month to exploit a newly exposed vulnerability, so I can't wait that long to find and patch it either.
-Looking around for tools, I quickly chose Nmap as my port scanner. It is widely considered to be the best scanner, and I had already been using it for years to troubleshoot networks and test security. Next I needed software to aggregate Nmap output and print differences between runs. I considered several existing tools, including HD Moore's Nlog. Unfortunately none of these monitored changes in the way I desired. I had to know whenever a router or firewall access control list was misconfigured or a host was publicly sharing inappropriate content. I also worried about the scalability of these other solutions, so I decided to tackle the problem myself.
+This story differs from the previous ones in that it is actually true. 
+Written by frequent Nmap user and contributor Lee “MadHat”Heath, it describes how he enhanced and customized Nmap for daily use in a large enterprise. 
+In true open source spirit, he has released these valuable scripts on his Web site. 
+IP addresses have been changed to protect the corporate identity. 
+The remainder of this section is in his own words.
+After spending the past couple of decades learning computers and working my way up from tech support through sysadmin and into my dream job of Information Security Officer for a major Internet company, I found myself with a problem. 
+I was handed the sole responsibility of security monitoring for our entire IP space. 
+This was almost 50,000 hosts worldwide when I started several years ago, and it has doubled since then.
+Scanning all of these machines for potential vulnerabilities as part of monthly or quarterly assessments would be tough enough, but management wanted it done daily. 
+Attackers will not wait a week or month to exploit a newly exposed vulnerability, so I can't wait that long to find and patch it either.
+Looking around for tools, I quickly chose Nmap as my port scanner. 
+It is widely considered to be the best scanner, and I had already been using it for years to troubleshoot networks and test security. Next I needed software to aggregate Nmap output and print differences between runs. I considered several existing tools, including HD Moore's Nlog. Unfortunately none of these monitored changes in the way I desired. I had to know whenever a router or firewall access control list was misconfigured or a host was publicly sharing inappropriate content. I also worried about the scalability of these other solutions, so I decided to tackle the problem myself.
 The first issue to come up was speed. Our networks are located worldwide, yet I was provided with only a single U.S.-based host to do the scanning. In many cases, firewalls between the sites slowed the scanning down significantly. Scanning all 100,000 hosts took over 30 hours, which is unacceptable for a daily scan. So I wrote a script called nmap-wrapper which runs dozens of Nmap processes in parallel, reducing the scan time to fifteen hours, even including OS detection.
-The next problem was dealing with so much data. A SQL database seemed like the best approach for scalability and data-mining reasons, but I had to abandon that idea due to time pressures. A future version may add this support. Instead, I used a flat file to store the results of each class C address range for each day. The most powerful and extensible way to parse and store this information was the Nmap XML format, but I chose the “grepable” (-oG option) format because it is so easy to parse from simple scripts. Per-host timestamps are also stored for reporting purposes. These have proven quite helpful when administrators try to blame machine or service crashes on the scanner. They cannot credibly claim a service crash at 7:12AM when I have proof that the scan ran at 9:45AM.
-The scan produces copious data, with no convenient access method. The standard Unix diff tool is not smart enough to report only the changes I care about, so I wrote a Perl script named nmap-diff to provide daily change reports. A typical output report is shown inExample 1.4.
+The next problem was dealing with so much data. 
+A SQL database seemed like the best approach for scalability and data-mining reasons, but I had to abandon that idea due to time pressures. A future version may add this support. Instead, I used a flat file to store the results of each class C address range for each day. The most powerful and extensible way to parse and store this information was the Nmap XML format, but I chose the “grepable” (-oG option) format because it is so easy to parse from simple scripts. Per-host timestamps are also stored for reporting purposes. These have proven quite helpful when administrators try to blame machine or service crashes on the scanner. They cannot credibly claim a service crash at 7:12AM when I have proof that the scan ran at 9:45AM.
+The scan produces copious data, with no convenient access method. 
+The standard Unix diff tool is not smart enough to report only the changes I care about, so I wrote a Perl script named nmap-diff to provide daily change reports. A typical output report is shown inExample 1.4.
 Example 1.4. nmap-diff typical output
 例子1.4 nmap-diff的典型输出
 
@@ -397,5 +407,6 @@ ncat已经实施了这样一个系统并证明非常有用。
 我们计划生产、鼓励和发布nmap相关视频来介绍给人们并教会他们高效使用的技术。
 For a rougher and lower-level list of what we're working on right now and planned for the near future, you can always read the Nmap todo list at http://nmap.org/svn/todo/nmap.txt.
 在http://nmap.org/svn/todo/nmap.txt上可以了解到nmap要做的事情列表。
-Some of the coolest Nmap features in the past, such as OS and version detection, were developed in secret and given a surprise release. You can expect more of these in coming years because they are so much fun!
+Some of the coolest Nmap features in the past, such as OS and version detection, were developed in secret and given a surprise release.
+You can expect more of these in coming years because they are so much fun!
 过去Nmap中最酷的特性，比如操作系统和版本检测，在秘密开发中，会给一个惊喜发布。你可以期望在将来的几年他们会变得很有趣。
