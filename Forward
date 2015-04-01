@@ -45,12 +45,12 @@ Some of its options have never even been documented.
 This book documents all Nmap features and, more importantly, teaches the most effective ways of using them.
 本书描述了所有的Nmap特性，更重要的是，教你最高效使用它们的方法。
 It has taken nearly four years to write, with constant updating as Nmap has evolved.
-为了保持与Nmap的更新与进化，用了差不多4年来完成本书。
+随着Nmap进化过程中的不断更新，用了差不多4年来编写本书。    （ ?? ）
 
 This book is dedicated to the Nmap community of users and developers.
-敬以本书奉献给Nmap社区的用户和开发人员。
+谨以本书奉献给Nmap社区的用户和开发人员。
 Your passion, ideas, patches, feature requests, flame wars, bug reports, and midnight rants have shaped Nmap into what it is today.
-你的激情、想法、补丁、功能请求、激烈争论、报告bug和午夜牢骚让Nmap成为今天的样子。
+正是你们的激情、想法、补丁、功能请求、激烈争论、Bug报告和午夜的咆哮让Nmap成为今天的样子。
                                     —Gordon “Fyodor” Lyon <fyodor@nmap.org>
 
 Intended Audience and Organization
