@@ -19,13 +19,13 @@ It was written for my own purposes, and released in the hope that others would f
 From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide.
 从这些简陋的初级阶段，通过开放代码开发的力量，Nmap一天天长大，成长为世界上最受欢迎的，拥有数以百万计用户的网络安全扫描器。
 Over the years, Nmap has continued to add advanced functionality such as remote OS detection, version/service detection, and the Nmap Scripting Engine.
-多年来，nmap添加了诸如远程操作系统检测，版本/服务检测，以及nmap脚本引擎等高级功能。
+多年来，Nmap添加了诸如远程操作系统检测，版本/服务检测和Nmap脚本引擎等高级功能。
 It now supports all major Unix, Windows, and Mac OS platforms with both console and graphical interfaces.
 现在，它支持所有主要的UNIX、Windows和Mac操作系统平台的控制台和图形界面。
 Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Codetalker Digest have recognized Nmap as “security tool of the year”.
-发表在《linux杂志》、《信息世界》、LinuxQuestions.Org和《码农摘要》等上的文献，让nmap成为了“年度安全工具”。
+发表在《linux杂志》、《信息世界》、LinuxQuestions.Org和《Codetalker Digest》等上的文献，让Nmap成为了“年度安全工具”。
 It was even featured in nine movies, including The Matrix Reloaded, The Girl with the Dragon Tattoo, The Bourne Ultimatum, and Die Hard 4.
-甚至包括《重装上阵》、《龙纹身的女孩》、《谍影重重》和《虎胆龙威4》等9部电影都有nmap的特写镜头。
+包括《重装上阵》、《龙纹身的女孩》、《谍影重重》和《虎胆龙威4》等9部电影都有对Nmap的特写镜头。
 
 Nmap (“Network Mapper”) is a free and open source utility for network exploration and security auditing.
 Nmap（网络制图者）是一个为网络探索和安全审计的免费开源工具。
@@ -41,29 +41,29 @@ While Nmap is extremely powerful, it is also complex.
 More than 100 command-line options add expressiveness for networking gurus, but can confound novices.
 超过100多个命令行选项让网络专家如虎添翼，但迷惑新手。
 Some of its options have never even been documented.
-其中一些选项甚至都没有被记录在案。
+其中的一些选项甚至都没有被记录在案。
 This book documents all Nmap features and, more importantly, teaches the most effective ways of using them.
 本书描述了所有的Nmap特性，更重要的是，教你最高效使用它们的方法。
 It has taken nearly four years to write, with constant updating as Nmap has evolved.
-为了保持与nmap的更新与进化，用了差不多4年来完成本书。
+为了保持与Nmap的更新与进化，用了差不多4年来完成本书。
 
 This book is dedicated to the Nmap community of users and developers.
-敬以本书奉献给nmap社区的用户和开发人员。
+敬以本书奉献给Nmap社区的用户和开发人员。
 Your passion, ideas, patches, feature requests, flame wars, bug reports, and midnight rants have shaped Nmap into what it is today.
-你的激情、想法、补丁、功能请求、激烈争论、报告bug和午夜牢骚让nmap成为今天的样子。
+你的激情、想法、补丁、功能请求、激烈争论、报告bug和午夜牢骚让Nmap成为今天的样子。
                                     —Gordon “Fyodor” Lyon <fyodor@nmap.org>
 
 Intended Audience and Organization
 目标读者和组织
 
 This book documents the free Nmap Security Scanner, from port scanning basics for novices to the types of packet crafting used by advanced hackers.
-本书从给新手的基本端口扫描到为高级黑客使用的各种包加工技巧描述了免费的安全扫描器nmap。
+本书从给新手的基本端口扫描到为高级黑客使用的各种包加工技巧描述了免费的安全扫描器Nmap。
 It should benefit Nmap users (or potential users) of all experience levels.
-它应让所有经验层次的 Nmap 用户 （或潜在的用户）受益。
+它应让所有经验层次的 Nmap 用户（或潜在的用户）受益。
 Starting with the basics, this book gives an overview of Nmap by example in Chapter 1.
-从基础开始，本书在第一章通过例子来展示nmap的概貌。
+从基础开始，本书在第一章通过例子来展示Nmap的概貌。
 Then Chapter 2 covers obtaining, compiling and installing Nmap.
-然后在第二章涵盖如何获取、编译和安装nmap。
+然后在第二章涵盖如何获取、编译和安装Nmap。
 Chapters 3 through 5 cover features in the order you might use them when conducting a penetration test.
 第三章到第五章是根据在执行渗透测试中可能用到特性的顺序分别进行介绍。
 First comes host discovery (“ping scanning”), which determines the available hosts on a network.
@@ -72,12 +72,12 @@ First comes host discovery (“ping scanning”), which determines the available
 Next, port scanning is covered in depth.
 紧接着全面描述了端口扫描功能。
 In Chapter 5, all the Nmap scanning techniques are detailed, with advice and examples.
-第五章中，在描述了nmap所有扫描技术的同时给出建议和例子。
+第五章中，在描述了Nmap所有扫描技术的同时给出建议和例子。
 第五章中详细描述了Nmap的所有扫描技术，提供咨询意见和例子。
 Scanning a large network can take a long time, so Chapter 6 is full of performance optimization advice.
 扫描一个大型网络可以耗费很长时间，所以第六章是完整的性能优化建议。
 Chapter 7 details service and application version detection, in which Nmap queries ports to determine exactly what is running rather than simply guessing based on the port number.
-在第七章详细描述了服务和应用版本探测功能，其中nmap利用查询端口方式来正确识别，而不是基于端口号简单猜测运行着什么服务。
+在第七章详细描述了服务和应用版本探测功能，其中Nmap利用查询端口方式来正确识别，而不是基于端口号简单猜测运行着什么服务。
 第七章详细介绍了服务和应用程序版本检测功能，其中 Nmap 查询端口以确定到底是什么正在运行，而不只猜测的基础的端口号。
 Chapter 8 covers one of Nmap's most loved features: remote OS detection.
 第八章涵盖Nmap用户最喜欢的特性之一：远程操作系统探测。
