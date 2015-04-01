@@ -318,11 +318,11 @@ You won't find a primer on the OSI seven-layer model or a rundown of the Berkele
 For a comprehensive guide to TCP/IP, I recommend “The TCP/IP Guide” by Charles Kozierok or the old classic “TCP/IP Illustrated, Volume I” by W. Richard Stevens.
 对于TCP/IP 的综合指南，建议参考Charles Kozierok的《The TCP/IP Guide》或者W. Richard Stevens写的老经典的《TCP/IP Illustrated》（卷1）。
 While TCP/IP familiarity is expected, even the best of us occasionally forget byte offsets for packet header fields and flags.
-虽然预计TCP/IP熟悉，即使是最好的我们偶尔也会忘了数据包头中各域和标志的字节偏移量。
+虽然期望对TCP/IP熟悉，但即使是我们中最优秀的人偶尔也会忘了数据包头中各域和标志的字节偏移量。
 This section provides quick reference diagrams and field descriptions for the IPv4, TCP, UDP, and ICMP protocols.
 本节提供了IPv4、TCP、UDP和ICMP等协议的快速参考图和各域的描述。
 These beautiful diagrams from http://www.visi.com/~mjb/Drawings are used by permission of author Matt Baxter.
-那些漂亮的图得到其作者Matt Baxter的允许，来自 http://www.visi.com/~mjb/Drawings。
+得到其作者Matt Baxter的同意后我们才使用这些来自http://www.visi.com/~mjb/Drawings漂亮的图，。
 
 Figure 1. IPv4 header
 图1 IPv4头
