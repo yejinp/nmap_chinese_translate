@@ -50,7 +50,7 @@ It has taken nearly four years to write, with constant updating as Nmap has evol
 This book is dedicated to the Nmap community of users and developers.
 谨以本书奉献给Nmap社区的用户和开发人员。
 Your passion, ideas, patches, feature requests, flame wars, bug reports, and midnight rants have shaped Nmap into what it is today.
-正是你们的激情、想法、补丁、功能请求、激烈争论、Bug报告和午夜的牢骚让Nmap成为今天的样子。
+正是你们的激情、观点、patches、功能请求、激烈争论、Bug报告和午夜的牢骚让Nmap成为今天的样子。
                                     —Gordon “Fyodor” Lyon <fyodor@nmap.org>
 
 Intended Audience and Organization
@@ -67,37 +67,33 @@ Then Chapter 2 covers obtaining, compiling and installing Nmap.
 Chapters 3 through 5 cover features in the order you might use them when conducting a penetration test.
 第三章到第五章是根据在执行渗透测试中可能用到特性的顺序分别进行介绍。
 First comes host discovery (“ping scanning”), which determines the available hosts on a network.
-首先是确定一个网络上可用主机的主机发现（ping扫描）功能。
-首先是主机发现 （"ping 扫描"），确定网络上可用的主机。
+首先是主机发现（ping扫描）功能，确定一个网络上可用的主机。
 Next, port scanning is covered in depth.
-紧接着全面描述了端口扫描功能。
+紧接着深入涵盖端口扫描功能。
 In Chapter 5, all the Nmap scanning techniques are detailed, with advice and examples.
-第五章中，在描述了Nmap所有扫描技术的同时给出建议和例子。
-第五章中详细描述了Nmap的所有扫描技术，提供咨询意见和例子。
+第五章中，在详细描述了Nmap所有扫描技术的同时给出建议和例子。
 Scanning a large network can take a long time, so Chapter 6 is full of performance optimization advice.
 扫描一个大型网络可以耗费很长时间，所以整个第六章都是性能优化建议。
 Chapter 7 details service and application version detection, in which Nmap queries ports to determine exactly what is running rather than simply guessing based on the port number.
-在第七章详细描述了服务和应用版本探测功能，其中Nmap利用查询端口方式来正确识别，而不是基于端口号简单猜测运行着什么服务。
+第七章详细描述了服务和应用版本探测功能，其中Nmap利用查询端口方式来准确地确定，而不是基于端口号来简单猜测运行着什么服务。
 第七章详细介绍了服务和应用程序版本检测功能，其中 Nmap 查询端口以确定到底是什么正在运行，而不只猜测的基础的端口号。
 Chapter 8 covers one of Nmap's most loved features: remote OS detection.
 第八章涵盖Nmap用户最喜欢的特性之一：远程OS探测。
 第八章涵盖 Nmap 用户最爱的特征之一： 远程操作系统识别。
 Chapter 9 details the Nmap Scripting Engine (NSE), which allows users to write (and share) simple scripts to automate a wide variety of networking tasks.
-第九章详细介绍 Nmap脚本引擎（NSE），从而允许用户编写（和分享）一些简单的脚本来自动化执行各种各样的网络任务。
-第九章详细介绍 Nmap 脚本引擎 （NSE），从而允许用户写入（和共享）简单的脚本来自动执行各种各样的网络任务。
+第九章详细介绍 Nmap脚本引擎（NSE），从而允许用户编写（和分享）简单的脚本来自动化执行各种各样的网络任务。
 My favorite chapter is number 10: Detecting and Subverting Firewalls and Intrusion Detection Systems.
 我最喜欢的是第十章：防火墙和入侵检测系统的探测和推翻（规避？？）。
 For balance, that is followed by a chapter on defending against Nmap scans.
 为了平衡，紧接着的一章就是如何防御nmap扫描。
 Chapter 12 then fully documents the Zenmap multi-platform Nmap GUI and results viewer.
-然后，在第十二章完整描述了zenmap多平台nmap图形用户界面和结果查看器。
+然后，在第十二章完整描述了Zenmap多平台Nmap GUI和结果查看器。
 The next two chapters cover output formats and data files.
 接下来的两章涵盖输出格式和数据文件。
 The final four chapters are reference guides for the whole family of tools: Nmap, Ndiff, Ncat, and Nping.
 最后的四章是介绍工具大家庭：Nmap、Ndiff、Ncat和Nping的参考指南。
 These are quick resources for looking up specific command-line options or brief feature summaries.
-这些章节提供了一种查询特定命令行选项或者特征简述的快速资源。
-
+这些章节提供了查询特定命令行选项或简要功能摘要的快速资源。
 Scattered throughout the book are detailed instructions for performing common tasks such as scanning a network for a certain single open TCP port or detecting wireless access points by scanning from the wired side.
 书中随处可见完成常见任务，如通过扫描一个网络中特定开放端口或者通过有线来探测无线接入点的详细指令，。
 First each problem is described, then an effective solution is provided.
