@@ -299,7 +299,7 @@ Cover layout was done with Scribus and (due to printing company format requireme
 Raster graphics for the cover and internal illustrations were created with The Gimp, while Inkscape was used for vector graphics.
 封面位图和书中插图用Gimp完成，而向量图则用Inkscape完成。
 Subversion was used for revision control and the free web chapters are serviced by Apache httpd.
-我们用Subversion来控制版本，免费的章节由apache httd给大家提供服务。
+我们用Subversion来控制版本，免费的章节由Apache httd给大家提供服务。
 
 TCP/IP参考
 TCP/IP Reference
