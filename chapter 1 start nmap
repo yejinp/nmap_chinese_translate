@@ -774,10 +774,15 @@ The Future of Nmap
 nmap的未来
 While it is easy to catalogue the history of Nmap, the future is uncertain. 
 Nmap didn't start off with any grand development plan, and most of the milestones in the preceding timeline were not planned more than a year or two in advance. 
+Nmap没有从体面的开发计划开始，时间轴上大部分的里程碑都不是提前1到2年计划的
 Instead of trying to predict the shape of the Internet and networking way out in the future, I closely study where it is now and decide what will be most useful for Nmap in the near term. 
+而不是未来因特网的形态和网络方式
 So I have no idea where Nmap will be 10 years from now, though I expect it to be as popular and vibrant as ever. 
+所以我不知道10年后Nmap的样子，虽然我期望他和现在一样流行和。
 The Nmap community is large enough to guide Nmap wherever it needs to go. 
+Nmap 社区大到足以指导如何需要他的地方。
 Nmap has faced curve balls before, such as the sudden removal of raw packet support in Windows XP SP2, dramatic changes in network filtering practices and technology, and the slow emergence of IPv6. 
+
 Each of those required significant changes to Nmap, and we will have to do the same to embrace or at least cope with future networking changes.
 总结nmap历史当然容易，但未来就不确定了。nmap
 While the 10-year plan is up in the air, we do have plans and guiding priorities for the next several years:
@@ -794,11 +799,15 @@ The Nmap Scripting Engine already supports many web scanning features, but I'd l
 Nmap should be able to port scan through those proxies too.
 扫描web网站--nmap将会成长为处理web扫描。在nmap发展的时候，不同的服务
 •	Web infrastructure improvements — Nmap is a cooperative project developed by many individuals. 
+改进web基础设施---Nmap是一个有很多个人开发的作项目。
 As the number of people involved increases, we also need to scale the tools and infrastructure resources to facilitate that cooperation. 
+随着参与人数的增长，我们也需要工具和基础设施来合作
 We're planning an Nmap wiki, an improved Subversion source control server, and possibly a web discussion forum. 
+我们计划了一个Nmap wiki, 一个改进的Subversion 资源管理服务器和一个web论坛。
 We are also moving the infrastructure to virtual machines for security isolation and to better share administration tasks. 
+为了安全和更好的分享管理工作，我们也把设施移到虚拟机上，
 The web sites desperately need a redesign as well, unless 1990's table-based layouts come back in favor.
-改进web基础设施---Nmap是一个有很多个人开发的作项目。随着相关人数的增长，我们也需要工具和基础设施来
+站点肯定需要重新设计，除了
 •	Online scanning web service — We're working on a service which allows users to scan their own machines and networks “from the cloud” to see what is exposed from an outside perspective. 
 Repeat scans can be scheduled with changes sent in email alerts or browsed online.
 在线扫描web服务--我们正工作在一种用户能够通过云扫描他们自己主机和网络来从外面暴露的服务。
