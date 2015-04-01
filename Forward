@@ -279,19 +279,18 @@ Technology Used to Create This Book
 As an author of open source tools myself, I'm a big believer in their power and capability.
 身为开源工具作者，我对他们的力量和能力坚信不疑。
 So I made an effort to use them wherever possible in creating this book.
-所以我尝试让任何地方利用他们来创作本书。
 所以努力创造这本书时，我尽可能使用他们。
 I wasn't about to write it in Microsoft Word and then handle layout with Adobe FrameMaker!
-我可不想写在Microsoft Word中，然后再用Adobe framemaker来处理布局。
+我可不想先用Microsoft Word编写，然后再用Adobe framemaker来处理布局。
 Nmap Network Scanning was written with the GNU Emacs text editor in the DocBook XML format.
-nmap网络扫描用gnu emacs文本编辑器用docbookxml格式编写。
+nmap网络扫描以docbookxml格式用GNU Emacs文本编辑器编写。
 Nmap 网络扫描是用 GNU Emacs 文本编辑器 DocBook XML 格式的。
 The free online chapters are created from the XML using Norman Walsh's XSL Stylesheets and the xsltproc XSL processor.
 免费在线章节是使用诺曼·沃尔什的XSL样式表和xsltproc XSL处理器从xml创作而来。
 The print version also uses Norman's stylesheets and xsltproc, but output to the XSL-FO format.
-印刷版也使用了诺曼的样式表和 xsltproc，但输出为 XSL-FO 格式。
+印刷版同样使用了诺曼的样式表和 xsltproc，但输出为 XSL-FO 格式。
 An XSL-FO processor is then used to build a PDF.
-然后用XSL-FO处理器生成PDF文档。
+然后用XSL-FO处理器来生成PDF文档。
 I would like to use Apache FOP for this, but a footnote-related bug prevents this, so I switched to the RenderX XEP Engine.
 XEP is proprietary, but at least it runs on Linux.
 我本想用Apache FOP，但脚注相关的问题让这不可行，所以我调整使用RenderX XEP引擎来完成这些工作。
@@ -308,8 +307,7 @@ TCP/IP参考
 TCP/IP Reference
 
 This book assumes basic familiarity with TCP/IP and networking concepts.
-本书假设你对TCP/IP和网络概念基本熟悉。
-本书假定您基本熟悉 TCP/IP 和网络概念。
+本书假定您基本熟悉TCP/IP和网络概念。
 You won't find a primer on the OSI seven-layer model or a rundown of the Berkeley Socket API within these pages.
 本书没有关于OSI七层模型或者Berkeley套接字API的相关章节。
 For a comprehensive guide to TCP/IP, I recommend “The TCP/IP Guide” by Charles Kozierok or the old classic “TCP/IP Illustrated, Volume I” by W. Richard Stevens.
