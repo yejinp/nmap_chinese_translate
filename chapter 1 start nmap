@@ -717,20 +717,34 @@ It is a reimplementation of the classic Netcat tool which adds support for moder
 See Chapter 17, Ncat Reference Guide.
 •	January 23, 2009 — Added the Ndiff utility which compares the results of two Nmap scans, making it easy to scan networks on a regular basis and create a report (XML or text) showing any changes. 
 See Chapter 16, Ndiff Reference Guide.
+
 •	March 30, 2009 — A special Nmap release (4.85BETA5) is produced to remotely detect the Conficker worm which has infected millions of machines on the Internet. 
+2009年4月30日  一个特别的Nmap发布（），远程探测蠕虫Conficker，这个蠕虫已经感染了因特网上上千万的机器。
 Demand is so high that Nmap is booted from Dreamhost's “unlimited bandwidth” web hosting plan for using too much bandwidth. 
+
 The University of California, San Diego steps up and provides a fast mirror server. 
+大学，提供了一个快速镜像服务器。
 The next version of the Conficker worm blocks infected users from reaching Insecure.Org and Nmap.Org. 
+下一个版本
 We take that as a compliment to Nmap's effectiveness.
+
 •	June 12, 2009 — Added SCTP port scanning and host discovery support to Nmap. 
+2009年6月12日， 添加了SCTP端口扫描和主机发现功能到Nmap。
 SCTP is a layer 4 protocol used mostly for telephony related applications.
+SCTP是一个4层协议，大部分用于电话相关的应用。
 •	July 16, 2009 — Released Nmap 5.00. 
+2009年7月16日，发布Nmap5.00
 The tarball is more than 27MB and contains 2,003 OS fingerprints, 5,512 version detection signatures, and 59 NSE scripts.
+原始包大小超过27MB，包含超过2,003个OS指纹、5,1512个版本探测签名和59个NSE脚本。
 •	August 24, 2009 — The Nmap project completes its fifth Summer of Code. 
+2009年八月24日  Nmap完成了它的第五次代码夏令营
 For the first time, every student passed! 
+第一次，所有的学生都通过了。
 They created Nping as well as the network authentication cracker Ncrack and made dramatic improvements to the Nmap Scripting Engine, Ncat, and Zenmap.
 •	March 29, 2010 — Added Nping, a handy tool for network packet generation, response analysis and response time measurement (seeChapter 18, Nping Reference Guide).
+2010年3月29日   添加了Nping，一个网络包产生器，相应分析和相应数据
 •	July 28, 2010 — David Fifield and I present on Mastering the Nmap Scripting Engine at the Black Hat and Defcon conferences, including live demos (video: http://nmap.org/presentations/).
+2010年7月28日  我和David Fifield在Black Hat and Defcon会议上掌握Nmap脚本引擎功能的演示，包含活的演示（视频见：http://nmap.org/presentations/）
 •	August 17, 2010 — Scanning the top million web sites for fun leads to a spinoff art project as we release Icons of the Web, a mosaic of web site icons scaled by their popularity. 
 It is written up in the New York Times, The Telegraph, Slashdot, Gizmodo,Engadget, and many others. 
 The Newseum in Washington D.C. exhibits a giant version and it was even featured in the Guinness World Records book.
@@ -740,14 +754,19 @@ We also added a novel echo mode feature to Nping which can ease network analysis
 Performance was a high priority too, with certain scan times reduced from hours to minutes and memory consumption reduced 90% in our benchmark scan.
 发布nmap5.50版本。添加了支持古老的
 •	June 8, 2011 — We made a commermorative World IPv6 day release with numerous new IPv6 features, plus we ensured that all of our websites were IPv6-enabled. 
+2011年六月八日，很多新的IPv6特性，额外保证我们所有的站点支持IPv6。
 While Nmap has supported basic IPv6 scanning since 2002, we added advanced host discovery and raw port scanning. 
+从2002年起，nmap就支持基本的ipv6扫描，我们添加了高级的主机发现和原始端口扫描功能。
 We also soon added a new machine language based IPv6 OS detection system (see the section called “IPv6 fingerprinting”).
-2011年六月八日，很多新的IPv6特性，额外保证我们所有的站点支持IPv6。从2002年起，nmap就支持基本的ipv6扫描，我们添加了高级的主机发现和原始端口扫描功能，不久我们基于IPv6操作系统探测功能添加了新的机器语言（详见“IPv6指纹”一节）。
+不久我们基于IPv6操作系统探测功能添加了新的机器语言（详见“IPv6指纹”一节）。
 •	November 4, 2011 — After surveying more than 3,000 Nmap users for their favorite security tools, we releaunched our SecTools.orgweb site with the new data. 
+2011年十一月4日--在对超过3,000个nmap用户喜爱的安全工具调查后，我们重新发起了我们的SecTools.org web站点。
 Our previous sites were just static HTML files, but this new release includes interactive rating and review features to better share information. 
+我们之前的站点只是静态的HTML文件，但这个新发布的包含交互评价和评审特性
 49 of the the top 125 tools profiled on the site are new to the list. 
+站点上排名前125个工具中的49都是列表的新成员。
 Of course the Nmap family of tools are excluded from the site due to potential conflicts of interest.
-2011年十一月4日--在对超过3000个nmap用户喜爱的安全工具调查后，我们重新发起了我们的SecTools.org web站点。我们之前的站点只是静态的HTML文件，但这个新发布的包含交互评价和评审特性
+当然，由于因特网潜在的冲突。
 •	May 21, 2012 — Nmap 6 was released! The tarball is more than 54MB and contains 3,572 OS fingerprints, 8,165 version detection signatures, and 348 NSE scripts.
 2012年五月21日，发布了nmap 6！原始码已经超过54MB，并包含超过3572个操作系统指纹、8165个版本探测签名和348个NSE脚本。
 
