@@ -638,18 +638,41 @@ Details and screen shots from all these movies are available at http://nmap.org/
 •	July 21, 2003 — I finish a first implementation of Nmap service/version detection (Chapter 7, Service and Application Version Detection) and release it to a couple dozen top Nmap developers and users as Nmap 3.40PVT1. 
 That is followed up by 16 more private releases over the next couple months as we improve the system and add signatures.
 •	September 16, 2003 — Nmap service detection is publicly released as part of Nmap 3.45.
-•	February 20, 2004 — Nmap 3.50 is released. The tarball is now 1,571KB. SCO Corporation is banned from redistributing Nmap because they refuse to comply with the GPL. They have to rebuild their Caldera release ISOs to remove Nmap. 
+2003年9月16日，Nmap服务探测作为Nmap 3.45的一部分公开发布。
+•	February 20, 2004 — Nmap 3.50 is released. 
+2004年2月20日 Nmap3.50发布。 
+The tarball is now 1,571KB. 
+现在的压缩包为1,571KB。
+SCO Corporation is banned from redistributing Nmap because they refuse to comply with the GPL. 
+由于拒绝遵守GPL，SCO公司被禁止发布Nmap。
+They have to rebuild their Caldera release ISOs to remove Nmap. 
+为了移除Nmap，他们只有重新生成他们的Caldera发布镜像。
 This release includes the packet tracing and UDP ping options, as well as an OS classification system.
-•	August 31, 2004 — The core Nmap port scanning engine is rewritten for Nmap 3.70. The new engine, named ultra_scan features dramatically improved algorithms and parallelization support to improve both accuracy and speed. 
+这个发布包含了包跟踪和UDP Ping选项，同时一个OS分类系统。
+•	August 31, 2004 — The core Nmap port scanning engine is rewritten for Nmap 3.70. 
+2004年8月31日， Nmap核心功能，端口扫描以前重写了，为了3.70。
+The new engine, named ultra_scan features dramatically improved algorithms and parallelization support to improve both accuracy and speed. 
+新引擎，命名为ultra_scan以非常大的改进算法为特征，为提供精确度和速度支持并行。
 The differences are particularly dramatic for hosts behind strict firewalls.
+对于严格防火墙后的主机来说，他们的区别非常剧烈。
 •	June 25, 2005 — Google sponsors 10 college and graduate students to work on Nmap full time for the summer as part of Google'sSummer of Code initiative. 
+2005年6月25日  Google 10个大学和研究学生来为Nmap全职工作一个夏天，作为Google的夏天代码开始。
 Projects include a modern reimplementation of Netcat named Ncat (Chris Gibson), a second generation OS detection system (Zhao Lei), a new cross-platform GUI which later becomes Zenmap (Adriano Monteiro Marques), and many other cool projects described at http://seclists.org/nmap-hackers/2005/8.
+项目保护一个Netcat的现代实现，名字为Ncat,一个第二代OS探测系统（zhao lei）,一个跨平台GUI，后来成为Zenmap(Adriano Monteiro Marques),和很多其他很酷的项目，描述在http://seclists.org/nmap-hackers/2005/8.
 •	September 8, 2005 — Nmap gains raw ethernet frame sending support with the release of version 3.90. 
+2005年9月8日  随着Nmap3.90的发布，Nmap获得了支持发送原始以太网帧 
 This allows for ARP scanning (see the section called “ARP Scan (-PR)”) and MAC address spoofing as well as evading the raw IP packet ban introduced by Microsoft in Windows XP SP2.
+这允许ARP扫描（）和MAC地址，
 •	January 31, 2006 — Nmap 4.00 is released. 
-The tarball is now 2,388KB. This release includes runtime interaction to provide on-demand completion estimates, a Windows executable installer, NmapFE updates to support GTK2, and much more.
+2006年1月31日   Nmap4.00发布
+The tarball is now 2,388KB. 
+此时 压缩包为2,388KB.
+This release includes runtime interaction to provide on-demand completion estimates, a Windows executable installer, NmapFE updates to support GTK2, and much more.
+这个发布包含运行时交互来提供根据需求完成评估,一个Windows可执行安装包， 支持GTK2的NmapFE的更新以及更多。
 •	May 24, 2006 — Google sponsors 10 more Nmap summer developers as part of their SoC program. 
+2006年 5月24日， 作为他们SoC的一部分，Google又赞助了10个Nmap夏天开发人员。
 Zhao and Adriano return as part of 2006 SoC to further develop their respective projects. 
+
 Diman Todorov is sponsored to help develop the Nmap Scripting Engine (Chapter 9, Nmap Scripting Engine). 
 These and seven other talented students and their projects are described athttp://seclists.org/nmap-hackers/2006/9.
 •	June 24, 2006 — After two years of development and testing, the 2nd generation OS detection system is integrated into Nmap 4.20ALPHA1. 
