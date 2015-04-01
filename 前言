@@ -19,9 +19,9 @@ It was written for my own purposes, and released in the hope that others would f
 From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide.
 从这些简陋的初级阶段，通过开放代码开发的力量，Nmap一天天长大，成长为世界上最受欢迎的，拥有数以百万计用户的网络安全扫描器。
 Over the years, Nmap has continued to add advanced functionality such as remote OS detection, version/service detection, and the Nmap Scripting Engine.
-多年来，nmap添加了诸如远程操作系统检测，版本/服务检测，以及nmap脚本引擎等这些高级功能。
+多年来，nmap添加了诸如远程操作系统检测，版本/服务检测，以及nmap脚本引擎等高级功能。
 It now supports all major Unix, Windows, and Mac OS platforms with both console and graphical interfaces.
-现在，它的控制台和图形界面都支持所有主要UNIX、Windows和Mac操作系统平台，
+现在，它支持所有主要的UNIX、Windows和Mac操作系统平台的控制台和图形界面。
 Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Codetalker Digest have recognized Nmap as “security tool of the year”.
 发表在《linux杂志》、《信息世界》、LinuxQuestions.Org和《码农摘要》等上的文献，让nmap成为了“年度安全工具”。
 It was even featured in nine movies, including The Matrix Reloaded, The Girl with the Dragon Tattoo, The Bourne Ultimatum, and Die Hard 4.
@@ -45,7 +45,7 @@ Some of its options have never even been documented.
 This book documents all Nmap features and, more importantly, teaches the most effective ways of using them.
 本书描述了所有的Nmap特性，更重要的是，教你最高效使用它们的方法。
 It has taken nearly four years to write, with constant updating as Nmap has evolved.
-紧随nmap持续的更新与进化，前后用了差不多4年来写这本书。
+为了保持与nmap的更新与进化，用了差不多4年来完成本书。
 
 This book is dedicated to the Nmap community of users and developers.
 敬以本书奉献给nmap社区的用户和开发人员。
@@ -61,74 +61,74 @@ This book documents the free Nmap Security Scanner, from port scanning basics fo
 It should benefit Nmap users (or potential users) of all experience levels.
 它应让所有经验层次的 Nmap 用户 （或潜在的用户）受益。
 Starting with the basics, this book gives an overview of Nmap by example in Chapter 1.
-从基本的开始，本书在第一章通过例子来展示nmap的概貌。
+从基础开始，本书在第一章通过例子来展示nmap的概貌。
 Then Chapter 2 covers obtaining, compiling and installing Nmap.
-然后在第二章描述了如何获取、编译和安装nmap。
+然后在第二章涵盖如何获取、编译和安装nmap。
 Chapters 3 through 5 cover features in the order you might use them when conducting a penetration test.
-第三章到第五章根据你在渗透测试中可能用到特性的顺序进行介绍。
+第三章到第五章是根据你在渗透测试中可能用到特性的顺序进行介绍。
 First comes host discovery (“ping scanning”), which determines the available hosts on a network.
 首先是确定一个网络上可用主机的主机发现（ping扫描）功能。
 首先是主机发现 （"ping 扫描"），确定网络上可用的主机。
 Next, port scanning is covered in depth.
-然后全面描述了端口扫描功能。
+紧接着全面描述了端口扫描功能。
 In Chapter 5, all the Nmap scanning techniques are detailed, with advice and examples.
-在第五章中，在对所有的nmap扫描技术都有详细描述的同时给出建议和例子。
+第五章中，在描述了nmap所有扫描技术的同时给出建议和例子。
 第五章中详细 描述了Nmap的所有扫描技术，提供咨询意见和例子。
 Scanning a large network can take a long time, so Chapter 6 is full of performance optimization advice.
-扫描一个大的网络会耗费很长一段时间，因此第六章全都是性能优化建议。
 扫描一个大型网络可以耗费很长时间，所以第六章是完整的性能优化建议。
 Chapter 7 details service and application version detection, in which Nmap queries ports to determine exactly what is running rather than simply guessing based on the port number.
-在第七章详细描述了服务和应用版本探测功能，这些功能让nmap查询端口以正确地识别而不是基于端口号简单猜测运行着什么服务。
+在第七章详细描述了服务和应用版本探测功能，其中nmap利用查询端口方式来正确识别，而不是基于端口号简单猜测运行着什么服务。
 第七章详细介绍了服务和应用程序版本检测功能，其中 Nmap 查询端口以确定到底是什么正在运行，而不只猜测的基础的端口号。
 Chapter 8 covers one of Nmap's most loved features: remote OS detection.
-第八章描述了大部分Nmap用户最喜欢的特性：远程操作系统探测。
+第八章涵盖Nmap用户最喜欢的特性之一：远程操作系统探测。
 第八章涵盖 Nmap 用户最爱的特征之一： 远程操作系统识别。
 Chapter 9 details the Nmap Scripting Engine (NSE), which allows users to write (and share) simple scripts to automate a wide variety of networking tasks.
-第九章详细描述了nmap的脚本引擎（NSE），从而允许用户编写（也可分享）一些简单脚本来自动化完成多种多样的网络任务。
+第九章详细介绍 nmap的脚本引擎（NSE），从而允许用户编写（和分享）一些简单脚本来自动化完成各种各样的网络任务。
 第九章详细介绍 Nmap 脚本引擎 （NSE），从而允许用户写入（和共享）简单的脚本来自动执行各种各样的网络任务。
 My favorite chapter is number 10: Detecting and Subverting Firewalls and Intrusion Detection Systems.
 我最喜欢的是第十章：防火墙和入侵检测系统的探测并推翻。
 For balance, that is followed by a chapter on defending against Nmap scans.
 为了平衡，紧接着的一章就是如何防御nmap扫描。
 Chapter 12 then fully documents the Zenmap multi-platform Nmap GUI and results viewer.
-然后，第十二章完整描述了zenmap多平台nmap图形用户界面和结果查看器。
+然后，在第十二章完整描述了zenmap多平台nmap图形用户界面和结果查看器。
 The next two chapters cover output formats and data files.
-下面的两章描述了输出格式和数据文件。
 接下来的两章涵盖输出格式和数据文件。
 The final four chapters are reference guides for the whole family of tools: Nmap, Ndiff, Ncat, and Nping.
 最后的四章是介绍工具大家庭：Nmap、Ndiff、Ncat和Nping的参考指南。
 These are quick resources for looking up specific command-line options or brief feature summaries.
 这些章节提供了一种快速查询特定命令行选项或者特征简述。
-这些是快速资源用于查找特定的命令行选项或简要功能摘要。
+这些是用于查找特定的命令行选项或简要功能摘要的快速资源。
 
 Scattered throughout the book are detailed instructions for performing common tasks such as scanning a network for a certain single open TCP port or detecting wireless access points by scanning from the wired side.
-书中随处可见完成常见任务的详细指令，如通过扫描一个网络中特定开放端口或者通过有线来探测无线接入点。
+书中随处可见完成常见任务，如通过扫描一个网络中特定开放端口或者通过有线来探测无线接入点的详细指令，。
 First each problem is described, then an effective solution is provided.
 首先描述了每个问题，然后提供了高效的解决方法。
 首先描述了每个问题，然后提供了一个有效的解决方案。
 
 A final discussion section describes the solution in more depth and may provide alternative solutions and insights into similar problems.
 最后更深层次讨论描述了解决方法并提供了可选解决方法和类似问题的深刻见解。
-最后讨论部分描述了更深入的解决方案，并可能提供的备选解决方案和类似问题的见解。
+最后的讨论部分描述了更深入的解决方案，并可能提供备选解决方案和类似问题的见解。
 
 Conventions
 惯例
 Nmap output is used throughout this book to demonstrate principles and features.
-nmap的输出贯穿在本书的展示和特性。
+在本书的展示和特性中nmap的输出贯穿。
+整本书中演示原理及特点都用到了Nmap输出。
 The output is often edited to cut out lines which are irrelevant to the point being made.
 为了展示重点，输出中常常会剪掉不相关的行。
 输出通常编辑裁剪与重点无关的行。
 The dates/times and version numbers printed by Nmap are generally removed as well, since some readers find them distracting.
-由于日期/时间和版本号会分散读者的注意力，因此通常也会被移除。
+由于Nmap打印的日期/时间和版本号会分散读者的注意力，因此通常也会被移除。
 Sensitive information such as hostnames, IP addresses, and MAC addresses may be changed or removed.
 敏感信息，如主机名、 IP地址和MAC地址可能会更改或删除。
+可能会更改或删除敏感信息，如主机名、 IP地址和MAC地址。
 Other information may be cut or lines wrapped so that they fit on a printed page.
 为了合适的打印版面，其他的信息可能会被剪切或折行。
 Similar editing is done for the output of other applications.
 类似的编辑也会用在其他应用的输出中。
 
 Example 1 gives a glimpse at Nmap's capabilities while also demonstrating output formatting.
-示例 1 一瞥Nmap功能的同时也显示出输出格式。
+示例1在一瞥Nmap功能的同时也显示出输出格式。
 
 Example 1. A typical Nmap scan
 
@@ -137,13 +137,11 @@ Example 1. A typical Nmap scan
 表1 格式风格惯例
 Token type	Example
 Literal string	I get much more excited by ports in the open state than those reported as closed or filtered.
-
 Command-line options	One of the coolest, yet least understood Nmap options is --packet-trace.
 命令行选项
 Filenames	Follow the -iL option with the input filename such as C:\net\dhcp-leases.txt or /home/h4x/hosts-to-pwn.lst.
 文件名
 Emphasis	Using Nmap from your work or school computer to attack banks and military targets is a bad idea.
-
 Application commands	Trinity scanned the Matrix with the command nmap -v -sS -O 10.2.2.2.
 应用命令
 Replaceable variables	Let <source> be the machine running Nmap and <target> be microsoft.com.
