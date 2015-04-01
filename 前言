@@ -319,7 +319,7 @@ While TCP/IP familiarity is expected, even the best of us occasionally forget by
 This section provides quick reference diagrams and field descriptions for the IPv4, TCP, UDP, and ICMP protocols.
 本节提供了IPv4、TCP、UDP和ICMP等协议的快速参考图和各域的描述。
 These beautiful diagrams from http://www.visi.com/~mjb/Drawings are used by permission of author Matt Baxter.
-得到其作者Matt Baxter的同意后我们才使用这些来自http://www.visi.com/~mjb/Drawings漂亮的图，。
+征得其作者Matt Baxter的同意后我们才使用这些来自http://www.visi.com/~mjb/Drawings漂亮图片，。
 
 Figure 1. IPv4 header
 图1 IPv4头
