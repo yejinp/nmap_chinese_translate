@@ -34,7 +34,7 @@ Many systems and network administrators also find it useful for tasks such as ne
 Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. 
 Nmap利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（OS版本）、在使用那些包过滤器或者防火墙和其他许多特征。
 It was designed to rapidly scan large networks, but works fine against single hosts.
-它旨在快速扫描大型网络，但对单个主机也工作得也很好。
+它旨在快速扫描大型网络，但对单个主机也工作得很好。
 
 While Nmap is extremely powerful, it is also complex.
 虽然Nmap功能非常强大，它也是很复杂的。
