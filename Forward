@@ -283,19 +283,20 @@ So I made an effort to use them wherever possible in creating this book.
 I wasn't about to write it in Microsoft Word and then handle layout with Adobe FrameMaker!
 我可不想先用Microsoft Word编写，然后再用Adobe framemaker来处理布局。
 Nmap Network Scanning was written with the GNU Emacs text editor in the DocBook XML format.
-nmap网络扫描以docbookxml格式用GNU Emacs文本编辑器编写。
+Nmap网络扫描用GNU Emacs文本编辑器以docbookxml格式编写。
 Nmap 网络扫描是用 GNU Emacs 文本编辑器 DocBook XML 格式的。
 The free online chapters are created from the XML using Norman Walsh's XSL Stylesheets and the xsltproc XSL processor.
 免费在线章节是使用诺曼·沃尔什的XSL样式表和xsltproc XSL处理器从xml创作而来。
 The print version also uses Norman's stylesheets and xsltproc, but output to the XSL-FO format.
-印刷版同样使用了诺曼的样式表和 xsltproc，但输出为 XSL-FO 格式。
+印刷版同样使用了诺曼的样式表和 xsltproc，但输出为XSL-FO格式。
 An XSL-FO processor is then used to build a PDF.
 然后用XSL-FO处理器来生成PDF文档。
 I would like to use Apache FOP for this, but a footnote-related bug prevents this, so I switched to the RenderX XEP Engine.
+我本想用Apache FOP，但脚注相关的问题让这行不通，所以我换到使用RenderX XEP引擎来完成这些工作。
 XEP is proprietary, but at least it runs on Linux.
-我本想用Apache FOP，但脚注相关的问题让这不可行，所以我调整使用RenderX XEP引擎来完成这些工作。
+XEP 是专有软件，但至少可以在 Linux 上运行。
 I hope to switch back to FOP after the footnote bug is fixed.
-我希望在脚注问题解决后能换回到FOP。
+我希望在脚注相关问题解决后能换回到FOP。
 Cover layout was done with Scribus and (due to printing company format requirements) Adobe InDesign.
 封面布局使用Scribus和Adobe InDesign（由于印刷公司格式要求）完成。
 Raster graphics for the cover and internal illustrations were created with The Gimp, while Inkscape was used for vector graphics.
