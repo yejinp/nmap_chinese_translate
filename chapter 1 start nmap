@@ -9,50 +9,71 @@ Many systems and network administrators also find it useful for tasks such as ne
 Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. 
 It was designed to rapidly scan large networks, but works fine against single hosts. 
 Nmap runs on all major computer operating systems, and both console and graphical versions are available.
-Nmap（网络制图者）是一个为网络探究和安全审计的免费开源工具。很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。
-Nmap 利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和以及其他很多特征。它被设计为快速扫描大型网络，但对单个主机工作得也很好。Nmap运行在大部分的操作系统上，同时包含控制台和图形界面版本。
+Nmap（网络制图者）是一个为网络探究和安全审计的免费开源工具。
+很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。
+Nmap 利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和以及其他很多特征。
+它被设计为快速扫描大型网络，但对单个主机工作得也很好。
+Nmap运行在大部分的操作系统上，同时包含控制台和图形界面版本。
 This chapter uses fictional stories to provide a broad overview of Nmap and how it is typically used. 
-An important legal section helps users avoid (or at least be aware of) controversial usage that could lead to ISP account cancellation or even civil and criminal charges. 
-It also discusses the risks of crashing remote machines as well as miscellaneous issues such as the open source Nmap license (based on the GNU GPL), and copyright.
 本章用来几个故事来鸟瞰nmap和其典型使用方法。
+An important legal section helps users avoid (or at least be aware of) controversial usage that could lead to ISP account cancellation or even civil and criminal charges. 
 重要的法律一节能够帮助用户避免（或者至少意识到）有争议的使用会导致ISP帐号被取消或者民事和刑事指控。
+It also discusses the risks of crashing remote machines as well as miscellaneous issues such as the open source Nmap license (based on the GNU GPL), and copyright.
 在讨论其他主题，如Nmap开源许可证（基于GNU GPL）和版权的同时，也讨论了使得远程主机崩溃的风险。
 
 Nmap Overview and Demonstration
 综述和演示
+
 Sometimes the best way to understand something is to see it in action. 
-This section includes examples of Nmap used in (mostly) fictional yet typical circumstances. 
-Nmap newbies should not expect to understand everything at once. 
-This is simply a broad overview of features that are described in depth in later chapters. 
-The “solutions” included throughout this book demonstrate many other common Nmap tasks for security auditors and network administrators.
 有时候理解一些东西的最好方法就是看它如何运行。
-本节包含了Nmap在（大部分）虚构但典型环境下的使用例子。Nmap新手不能期望与马上就能理解所有内容。
-这只是一个关于后续章节将要全马描述的综述。通书的解决方法演示了很多安全审计员和网络管理口的其他常见Nmap任务
+This section includes examples of Nmap used in (mostly) fictional yet typical circumstances. 
+本节包含了Nmap在（大部分）虚构但典型环境下的使用例子。
+Nmap newbies should not expect to understand everything at once. 
+Nmap新手不能期望与马上就能理解所有内容。
+This is simply a broad overview of features that are described in depth in later chapters. 
+这只是一个关于后续章节将要全马描述的综述。
+The “solutions” included throughout this book demonstrate many other common Nmap tasks for security auditors and network administrators.
+通书的解决方法演示了很多安全审计员和网络管理口的其他常见Nmap任务
+
 Avatar Online
 Avatar 在线
 
 Felix dutifully arrives at work on December 15th, although he does not expect many structured tasks. 
 虽然不期望很多结构化的任务，在上月15日，Felix也还是尽职责的来上班。
 The small San Francisco penetration-testing firm he works for has been quiet lately due to impending holidays. 
-他工作的渗透测试小公司坐落在San Francisco，最近由于迫近假期的原因安静了一段时间了。
+他工作的渗透测试小公司坐落在San Francisco，最近由于迫近假期的原因安静一段时间了。
 Felix spends business hours pursuing his latest hobby of building powerful Wi-Fi antennas for wireless assessments and war driving exploration. 
 Felix工作时间
 Nevertheless, Felix is hoping for more business. 
 Hacking has been his hobby and fascination since a childhood spent learning everything he could about networking, security, Unix, and phone systems. 
 Occasionally his curiosity took him too far, and Felix was almost swept up in the 1990 Operation Sundevil prosecutions. 
+不经意间，他的好奇心把他戴的很远了，Felix基本上
 Fortunately Felix emerged from adolescence without a criminal record, while retaining his expert knowledge of security weaknesses. 
+幸好，Felix 从他没有犯罪记录的青年时代走过来了。
 As a professional, he is able to perform the same types of network intrusions as before, but with the added benefit of contractual immunity from prosecution and even a paycheck! 
+作为专业人员，他有能力完成与之前一样的网络入侵相关工作，但是由于支票。
 Rather than keeping his creative exploits secret, he can brag about them to client management when presenting his reports. 
+给客户管理做报告时呈现出
 So Felix was not disappointed when his boss interrupted his antenna soldering to announce that the sales department closed a pen-testing deal with the Avatar Online gaming company.
+所以当他的老板打断他的，并说明销售部门已经关闭了一个与游戏公司Avatar Online的渗透测试交易时，Felix并不失望。
 Avatar Online (AO) is a small company working to create the next generation of massive multi-player online role-playing games (MMORPGs). 
+Avatar Online是一个创建下一代大规模多人在线角色游戏的小公司。
 Their product, inspired by the Metaverse envisioned in Neil Stevenson's Snow Crash, is fascinating but still highly confidential. 
+他们仍然是高度保密的产品，
 After witnessing the high-profile leak of Valve Software's upcoming game source code, AO quickly hired the security consultants. 
+
 Felix's task is to initiate an external (from outside the firewall) vulnerability assessment while his partners work on physical security, source code auditing, social engineering, and so forth. 
+Felix任务就是外部物理安全、代码审计、社会工程和其他。
 Felix is permitted to exploit any vulnerabilities found.
+Felix 保证不会他们发现的脆弱。
 The first step in a vulnerability assessment is network discovery. 
+第一步就是发现网络。
 This reconnaissance stage determines what IP address ranges the target is using, what hosts are available, what services those hosts are offering, general network topology details, and what firewall/filtering policies are in effect.
+
 Determining the IP ranges to scan would normally be an elaborate process involving ARIN (or another geographical registry) lookups, DNS queries and zone transfer attempts, various web sleuthing techniques, and more. 
+确定扫描的IP范围
 But in this case, Avatar Online explicitly specified what networks they want tested: the corporate network on 6.209.24.0/24 and their production/DMZ systems residing on 6.207.0.0/22. 
+但在这个案例中，Avatar Online明确说明了他们希望测试的内容：公司网络和他们的产品系统
 Felix checks the IP whois records anyway and confirms that these IP ranges are allocated to AO[1]. 
 Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. No problem.
 Being the careful type, Felix first starts out with what is known as an Nmap list scan (-sL option). 
@@ -197,7 +218,8 @@ Her only hope involves deactivating the emergency power system for 27 city block
 The previous team died trying. 
 In life's bleakest moments when all hope seems to be lost, what should you turn to? Nmap, of course! 
 But not quite yet.
-She first must defeat the perimeter security, which on many networks involves firewalls and intrusion detection systems (IDS). She is well aware of advanced techniques for circumventing these devices (covered later in this book). 
+She first must defeat the perimeter security, which on many networks involves firewalls and intrusion detection systems (IDS). 
+She is well aware of advanced techniques for circumventing these devices (covered later in this book). 
 Unfortunately, the emergency power system administrators knew better than to connect such a critical system to the Internet, even indirectly. 
 No amount of source routing or IP ID spoofed scanning will help Trinity overcome this “air gap” security. 
 Thinking fast, she devises a clever plan that involves jumping her motorcycle off the rooftop of a nearby building, landing on the power station guard post, and then beating up all of the security guards. 
@@ -244,7 +266,8 @@ Next I needed software to aggregate Nmap output and print differences between ru
 I considered several existing tools, including HD Moore's Nlog. Unfortunately none of these monitored changes in the way I desired. 
 I had to know whenever a router or firewall access control list was misconfigured or a host was publicly sharing inappropriate content. 
 I also worried about the scalability of these other solutions, so I decided to tackle the problem myself.
-The first issue to come up was speed. Our networks are located worldwide, yet I was provided with only a single U.S.-based host to do the scanning. 
+The first issue to come up was speed. 
+Our networks are located worldwide, yet I was provided with only a single U.S.-based host to do the scanning. 
 In many cases, firewalls between the sites slowed the scanning down significantly. 
 Scanning all 100,000 hosts took over 30 hours, which is unacceptable for a daily scan. 
 So I wrote a script called nmap-wrapper which runs dozens of Nmap processes in parallel, reducing the scan time to fifteen hours, even including OS detection.
@@ -337,7 +360,11 @@ It can find the network routes to many hosts in parallel, using the best availab
 Traceroute usually involves another round of reverse-DNS resolution for the intermediate hosts. 
 More information is found in the section called “Host Discovery”.
 跟踪路由
-Script scanning. Most Nmap Scripting Engine (NSE) scripts run during this main script scanning phase, rather than the prescan and postscan phases. NSE is powered by the Lua programming language and a standard library designed for network information gathering. Scripts running during this phase generally run once for each target host and port number that they interact with. They commonly perform tasks such as detecting service vulnerabilities, malware discovery, collecting more information from databases and other network services, and advanced version detection. NSE is not executed unless you request it with options such as --script or -sC.
+Script scanning. Most Nmap Scripting Engine (NSE) scripts run during this main script scanning phase, rather than the prescan and postscan phases. 
+NSE is powered by the Lua programming language and a standard library designed for network information gathering. 
+Scripts running during this phase generally run once for each target host and port number that they interact with. 
+They commonly perform tasks such as detecting service vulnerabilities, malware discovery, collecting more information from databases and other network services, and advanced version detection. 
+NSE is not executed unless you request it with options such as --script or -sC.
 脚本扫描
 Output. Finally, Nmap collects all the information it has gathered and writes it to the screen or to a file. 
 Nmap can write output in several formats. 
@@ -377,7 +404,8 @@ After all, no United States federal laws explicitly criminalize port scanning.
 A much more frequent occurrence is that the target network will notice a scan and send a complaint to the network service provider where the scan initiated (your ISP). 
 Most network administrators do not seem to care or notice the many scans bouncing off their networks daily, but a few complain. 
 The scan source ISP may track down the user corresponding to the reported IP address and time, then chide the user or even kick him off the service. 
-Port scanning without authorization is sometimes against the provider's acceptable use policy (AUP). For example, the AUP for the huge cable-modem ISP Comcast says:
+Port scanning without authorization is sometimes against the provider's acceptable use policy (AUP). 
+For example, the AUP for the huge cable-modem ISP Comcast says:
 Network probing or port scanning tools are only permitted when used in conjunction with a residential home network, or if explicitly authorized by the destination host and/or network.
 Unauthorized port scanning, for any reason, is strictly prohibited.
 Even if an ISP does not explicitly ban unauthorized port scanning, they might claim that some “anti-hacking” provision applies. 
@@ -411,7 +439,9 @@ The silver lining is that after spending so much time educating his lawyers abou
 While the Moulton case sets a good example (if not legal precedent), different courts or situations could still lead to worse outcomes. 
 Remember that many states have their own computer abuse laws, some of which can arguably make even pinging a remote machine without authorization illegal[8].
 Laws in other nations obviously differ as well. 
-For example, A 17-year-old youth was convicted in Finland of attempted computer intrusion for simply port scanning a bank. He was fined to cover the target's investigation expenses. 
+For example, A 17-year-old youth was convicted in Finland of attempted computer intrusion for simply port scanning a bank. 
+
+He was fined to cover the target's investigation expenses. 
 The Moulton ruling might have differed if the VC3 machine had actually crashed and they were able to justify the $5,000 damage figure required by the act.
 At the other extreme, an Israeli judge acquitted Avi Mizrahi in early 2004 for vulnerability scanning the Mossad secret service. 
 Judge Abraham Tennenbaum even commended Avi in his ruling:
