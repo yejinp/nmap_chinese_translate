@@ -96,17 +96,14 @@ The next two chapters cover output formats and data files.
 The final four chapters are reference guides for the whole family of tools: Nmap, Ndiff, Ncat, and Nping.
 最后的四章是介绍工具大家庭：Nmap、Ndiff、Ncat和Nping的参考指南。
 These are quick resources for looking up specific command-line options or brief feature summaries.
-这些章节提供了一种快速查询特定命令行选项或者特征简述。
-这些是用于查找特定的命令行选项或简要功能摘要的快速资源。
+这些章节提供了一种查询特定命令行选项或者特征简述的快速资源。
 
 Scattered throughout the book are detailed instructions for performing common tasks such as scanning a network for a certain single open TCP port or detecting wireless access points by scanning from the wired side.
 书中随处可见完成常见任务，如通过扫描一个网络中特定开放端口或者通过有线来探测无线接入点的详细指令，。
 First each problem is described, then an effective solution is provided.
-首先描述了每个问题，然后提供了高效的解决方法。
 首先描述了每个问题，然后提供了一个有效的解决方案。
-
 A final discussion section describes the solution in more depth and may provide alternative solutions and insights into similar problems.
-最后更深层次讨论描述了解决方法并提供了可选解决方法和类似问题的深刻见解。
+最后更深入的讨论了解决方法并提供了可选解决方法和类似问题的深刻见解。
 最后的讨论部分描述了更深入的解决方案，并可能提供备选解决方案和类似问题的见解。
 
 Conventions
