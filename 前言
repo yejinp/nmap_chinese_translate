@@ -14,14 +14,14 @@ My goal was to consolidate the fragmented field of special-purpose port scanners
 Nmap then consisted of three files (barely 2,000 lines of code) and supported only the Linux operating system.
 后来Nmap包含3个文件（仅仅包含约2000行代码），并只支持Linux操作系统。
 It was written for my own purposes, and released in the hope that others would find it useful.
-它编写并发表这个软件的目的是希望其他人会发现它很有用。
+编写并发表这个软件的目的是希望其他人会发现它很有用。
 
 From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide.
 从这些简陋的初级阶段，通过开放代码开发的力量，Nmap一天天长大，成长为世界上最受欢迎的，拥有数以百万计用户的网络安全扫描器。
 Over the years, Nmap has continued to add advanced functionality such as remote OS detection, version/service detection, and the Nmap Scripting Engine.
-多年来，Nmap添加了诸如远程操作系统检测，版本/服务检测和Nmap脚本引擎等高级功能。
+多年来，Nmap添加了诸如远程OS检测，版本/服务检测和Nmap脚本引擎等高级功能。
 It now supports all major Unix, Windows, and Mac OS platforms with both console and graphical interfaces.
-现在，它支持所有主要的UNIX、Windows和Mac操作系统平台的控制台和图形界面。
+现在，它支持所有主要的UNIX、Windows和Mac OS平台的控制台和图形界面。
 Publications including Linux Journal, Info World, LinuxQuestions.Org, and the Codetalker Digest have recognized Nmap as “security tool of the year”.
 发表在《linux杂志》、《信息世界》、LinuxQuestions.Org和《Codetalker Digest》等上的文献，让Nmap成为了“年度安全工具”。
 It was even featured in nine movies, including The Matrix Reloaded, The Girl with the Dragon Tattoo, The Bourne Ultimatum, and Die Hard 4.
@@ -32,7 +32,7 @@ Nmap（网络制图者）是一个为网络探索和安全审计的免费开源�
 Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. 
 很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务也很有用。
 Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. 
-Nmap利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和其他许多特征。
+Nmap利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（OS版本）、在使用那些包过滤器或者防火墙和其他许多特征。
 It was designed to rapidly scan large networks, but works fine against single hosts.
 它旨在快速扫描大型网络，但对单个主机也工作得也很好。
 
@@ -80,7 +80,7 @@ Chapter 7 details service and application version detection, in which Nmap queri
 在第七章详细描述了服务和应用版本探测功能，其中Nmap利用查询端口方式来正确识别，而不是基于端口号简单猜测运行着什么服务。
 第七章详细介绍了服务和应用程序版本检测功能，其中 Nmap 查询端口以确定到底是什么正在运行，而不只猜测的基础的端口号。
 Chapter 8 covers one of Nmap's most loved features: remote OS detection.
-第八章涵盖Nmap用户最喜欢的特性之一：远程操作系统探测。
+第八章涵盖Nmap用户最喜欢的特性之一：远程OS探测。
 第八章涵盖 Nmap 用户最爱的特征之一： 远程操作系统识别。
 Chapter 9 details the Nmap Scripting Engine (NSE), which allows users to write (and share) simple scripts to automate a wide variety of networking tasks.
 第九章详细介绍 nmap的脚本引擎（NSE），从而允许用户编写（和分享）一些简单脚本来自动化完成各种各样的网络任务。
