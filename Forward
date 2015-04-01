@@ -166,9 +166,9 @@ Traffic is very light (about six posts per year) because it is reserved for only
 Developers and particularly devoted users can also subscribe to the nmap-dev mailing list.
 开发人员和特别忠实的用户也可以订阅nmap-dev的邮寄列表。
 Traffic is much higher (hundreds of posts per month), but it is a great place to learn about and try new features before they are released and to pick up tips from advanced users.
-这个的流量就大的多了（每个月有上百封邮件），但这是一个了解和尝试发布前的新特性和从高级用户那里获得小窍门的好地方。
+这个的流量就大的多了（每个月有上百封邮件），但这是一个了解和尝试发布前新特性和从高级用户那里获得小窍门的好地方。
 Subscription information and archives for both lists are available at http://seclists.org.
-在http://seclists.org上提供了上面两个预定信息列表和档案。
+在http://seclists.org上提供了上面两个订阅信息列表和档案。
 While Nmap can be useful, it won't solve all of your security problems.
 虽然Nmap很有用，但它并不能解决你所有的安全问题。
 Every few years I do a survey of thousands of Nmap users to determine what other tools they like.
@@ -212,29 +212,29 @@ In particular, I would like to thank the following people:
 David Fifield is listed first (everyone else is alphabetical) because he was a tremendous help during the book writing process.
 首先要说到David Fifield（其他人都是按字母顺序排列），因为他在本书在写作过程中提供了极大的帮助
 He solved a number of technical DocBook problems, created many of the final illustrations from my terrible drafts, dramatically improved the index, helped with proofreading, and even wrote Chapter 12, Zenmap GUI Users' Guide.
-他解决了很多DocBook的技术问题，从很多糟糕的收图中创作了最终插图，大大改进了索引，帮助校验，甚至写了第十二章，zenmap图形用户界面用户指南，
+他解决了很多DocBook的技术问题，从很多糟糕的草稿中创作了最终插图，大大改进了索引，帮助校验，甚至写了第十二章，Zenmap GUI用户指南，
 Matt Baxter allowed the use of his beautiful TCP/IP header diagrams (in the section called “TCP/IP Reference”).
 Matt Baxter允许使用他漂亮的TCP/IP报头的图表（在“TCP/IP参考”一节）。
 Several other diagrams in this book were done in that style to match.
 书中其他的图都是匹配这种风格来完成的。
 Saurabh Bhasin contributed detailed feedback on a regular basis.
-Saurabh Bhasin 定期贡献反馈的细节。
+Saurabh Bhasin 定期贡献详细的反馈。
 Mark Brewis could always be counted on for good advice.
-总能指望Mark Brewis提供好的建议。
+总能指望Mark Brewis提出好的建议。
 Ellen Colombo was a big help from the beginning.
 Ellen Colombo从一开始就提供了很大的帮助。
 Patrick Donnelly helped improve Chapter 9, Nmap Scripting Engine.
-Patrick Donnelly帮忙改善第九章，nmap脚本引擎。
+Patrick Donnelly帮忙改善第九章，Nmap脚本引擎。
 Brandon Enright printed out the whole book and reviewed it chapter by chapter.
-Brandon Enright打印出整本书，并逐章复审。
+Brandon Enright打印出整本书，并一章接一章做了复审工作。
 Brian Hatch has always been a big help.
 Brian Hatch一直提供很大的帮助。
 Loren Heal was a continual source of ideas.
-Loren Heal提供源源不断的主意。
+Loren Heal是源源不断主意的来源。
 Lee “MadHat” Heath wrote the section called “MadHat in Wonderland” and also an early version of the section called “Grepable Output (-oG)”.
-Lee “MadHat” Heath写了名为“MadHat 梦游仙境”的一节，并写作了名为“Grepable Output (-oG)”一节的早期版本。
+Lee “MadHat” Heath编写了名为“MadHat 梦游仙境”的一节，同时还编写了名为“Grepable输出 (-oG)”一节的早期版本。
 Dan Henage provided advice and proofread numerous chapters.
-Dan Henage 提供咨询，对许多章节都做了校对工作。
+Dan Henage 提供了咨询，并对许多章节都做了校对工作。
 Tor Houghton reviewed every chapter, probably giving me more feedback than anyone else.
 Tor Houghton复审了每一章，并给我提供了比别人更多的反馈。
 Doug Hoyte documented the many Nmap features he added, and also handled most of the book indexing.
