@@ -65,7 +65,7 @@ Starting with the basics, this book gives an overview of Nmap by example in Chap
 Then Chapter 2 covers obtaining, compiling and installing Nmap.
 然后在第二章涵盖如何获取、编译和安装nmap。
 Chapters 3 through 5 cover features in the order you might use them when conducting a penetration test.
-第三章到第五章是根据你在渗透测试中可能用到特性的顺序进行介绍。
+第三章到第五章是根据在执行渗透测试中可能用到特性的顺序分别进行介绍。
 First comes host discovery (“ping scanning”), which determines the available hosts on a network.
 首先是确定一个网络上可用主机的主机发现（ping扫描）功能。
 首先是主机发现 （"ping 扫描"），确定网络上可用的主机。
@@ -73,7 +73,7 @@ Next, port scanning is covered in depth.
 紧接着全面描述了端口扫描功能。
 In Chapter 5, all the Nmap scanning techniques are detailed, with advice and examples.
 第五章中，在描述了nmap所有扫描技术的同时给出建议和例子。
-第五章中详细 描述了Nmap的所有扫描技术，提供咨询意见和例子。
+第五章中详细描述了Nmap的所有扫描技术，提供咨询意见和例子。
 Scanning a large network can take a long time, so Chapter 6 is full of performance optimization advice.
 扫描一个大型网络可以耗费很长时间，所以第六章是完整的性能优化建议。
 Chapter 7 details service and application version detection, in which Nmap queries ports to determine exactly what is running rather than simply guessing based on the port number.
@@ -121,7 +121,6 @@ The dates/times and version numbers printed by Nmap are generally removed as wel
 由于Nmap打印的日期/时间和版本号会分散读者的注意力，因此通常也会被移除。
 Sensitive information such as hostnames, IP addresses, and MAC addresses may be changed or removed.
 敏感信息，如主机名、 IP地址和MAC地址可能会更改或删除。
-可能会更改或删除敏感信息，如主机名、 IP地址和MAC地址。
 Other information may be cut or lines wrapped so that they fit on a printed page.
 为了合适的打印版面，其他的信息可能会被剪切或折行。
 Similar editing is done for the output of other applications.
