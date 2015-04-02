@@ -729,18 +729,32 @@ This initial version includes 23 scripts for simple tasks such as detecting the 
 最开始的版本包含23个简单任务的脚本，比如探测不安全的SSHv1和SSLv2协议，从identd中获取服务所有者信息，测试DNS服务器是否支持递归查询。
 •	December 20, 2006 — Nmap's Subversion source code repository opens to the public. 
 Until this time, only a handful of developers had access to the private source repository. 
-Everyone else had to wait for releases. Now everyone can follow Nmap development day to day. 
+直到此时，只有很少的开发人员接触到私人代码库。
+Everyone else had to wait for releases. 
+每个人真好等到发布。
+Now everyone can follow Nmap development day to day. 
+现在每一个人每天都可以跟随Nmap开发。
 A new nmap-svn mailing list provides real-time change notification by email. 
+一个新的nmap svn邮件清单通过邮件提供了实时变化通知。
 For details, see the section called “Obtaining Nmap from the Subversion (SVN) Repository”.
+详细内容见“从SVN库中获取Nmap”一节。
 •	May 28, 2007 — Google sponsors six summer Nmap developers as part of their SoC program. 
+2007年5月28日  作为他们SoC项目的一部分，Google赞助了6个夏天Nmap开发人员。
 Among the sponsored students was David Fifield, who continued long after the summer ended and became Nmap's co-maintainer. 
+David Fifield也是赞助的学生，在夏天结束后他继续了很长时间，后来成为Nmap的合作维护人员。
 He even helped greatly in producing this book! 
+在创作本书时也提供了非常大的帮助！
 The Nmap students and their projects are listed at http://seclists.org/nmap-hackers/2007/3.
+Nmap学生和他们的项目列在http://seclists.org/nmap-hackers/2007/3
 •	July 8, 2007 — The Zenmap graphical front end (back then it was called Umit) is improved and integrated into the Nmap 4.22SOC1 release for testing. 
+2007年7月8日  改进后的Zenmap图像字体终端整合到了Nmap 4.22SOC1 发布版本。
 The venerable NmapFE GUI is removed. Zenmap is covered in Chapter 12, Zenmap GUI Users' Guide.
 •	December 13, 2007 — Nmap 4.50 is released to celebrate Nmap's 10th anniversary!
+2007年11月13日  为了祝贺Nmap十周年，Nmap4.50发布了。
 •	June 1, 2008 — Nmap 4.65 is released and includes, for the first time, an executable Mac OS X installer. 
+2008年6月1日， Nmap4.65发布了，首次包含了Mac OS X 可执行安装包。
 The Nmap source tarball is now four megabytes. 
+Nmap源码包此时有4MB。
 This release includes 41 NSE scripts, 1,307 OS fingerprints, and 4,706 version detection signatures.
 这个发布包含41个NSE脚本、1,307个OS指纹和4,706个版本探测签名。
 •	August 18, 2008 — The Nmap project completes its fourth Summer of Code, with our highest success percentage ever (six out of seven sponsored students succeeded). 
@@ -801,7 +815,7 @@ SCTP是一个4层协议，大部分用于电话相关的应用。
 •	July 16, 2009 — Released Nmap 5.00. 
 2009年7月16日，发布Nmap5.00
 The tarball is more than 27MB and contains 2,003 OS fingerprints, 5,512 version detection signatures, and 59 NSE scripts.
-原始包大小超过27MB，包含超过2,003个OS指纹、5,1512个版本探测签名和59个NSE脚本。
+原始包大小超过27MB，包含超过2,003个OS指纹、5,512个版本探测签名和59个NSE脚本。
 •	August 24, 2009 — The Nmap project completes its fifth Summer of Code. 
 2009年八月24日  Nmap完成了它的第五次代码夏令营
 For the first time, every student passed! 
@@ -815,7 +829,9 @@ They created Nping as well as the network authentication cracker Ncrack and made
 •	August 17, 2010 — Scanning the top million web sites for fun leads to a spinoff art project as we release Icons of the Web, a mosaic of web site icons scaled by their popularity. 
 2010年8月17日 扫描前一千哥网站导致艺术项目
 It is written up in the New York Times, The Telegraph, Slashdot, Gizmodo,Engadget, and many others. 
+在New York Times, The Telegraph, Slashdot, Gizmodo,Engadget和很多其他期刊中。
 The Newseum in Washington D.C. exhibits a giant version and it was even featured in the Guinness World Records book.
+一个大版本和吉尼斯世界纪录书。
 •	January 28, 2011 — Released Nmap 5.50. 
 2011年1月28日 发布Nmap 5.50。
 We added support for the ancient Gopher protocol for just fun, but serious improvements included tripling the NSE scripts to 177 and adding a new Zenmap script selection interface. 
