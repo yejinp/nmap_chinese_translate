@@ -843,5 +843,6 @@ ncat已经实施了这样一个系统并证明非常有用。
 For a rougher and lower-level list of what we're working on right now and planned for the near future, you can always read the Nmap todo list at http://nmap.org/svn/todo/nmap.txt.
 在http://nmap.org/svn/todo/nmap.txt上可以了解到nmap要做的事情列表。
 Some of the coolest Nmap features in the past, such as OS and version detection, were developed in secret and given a surprise release.
+过去Nmap中最酷的特性，比如操作系统和版本检测，在秘密开发中，会给一个惊喜发布。
 You can expect more of these in coming years because they are so much fun!
-过去Nmap中最酷的特性，比如操作系统和版本检测，在秘密开发中，会给一个惊喜发布。你可以期望在将来的几年他们会变得很有趣。
+你可以期望在将来的几年他们会变得很有趣。
