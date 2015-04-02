@@ -734,16 +734,25 @@ This allows Nmap to focus on the ports which have been empirically shown to be t
 •	October 4, 2008 — The Nmap Documentation Portal is launched at http://nmap.org/nsedoc/. 
 This allows users to brows all of Nmap's NSE script and library documentation in one place. 
 The documentation is generated from specially-formed comments in the source code (see the section called “Writing Script Documentation (NSEDoc)”).
-•	January 1, 2009 — The first version of this book, Nmap Network Scanning, is released. 
-The answer to whether anyone besides me would be interested in a 450+ page book on port scanning turns out to be a resounding yes!
-More than 10,000 copies are sold in the first 18 months. 
-It is also released by other publishers in the German, Korean, and Brazilian Portuguese languages.
-•	January 23, 2009 — Added Ncat, a feature-packed networking utility which reads and writes data across a network from the command line. 
-It is a reimplementation of the classic Netcat tool which adds support for modern networking features such as SSL, connection redirection, and proxying. 
-See Chapter 17, Ncat Reference Guide.
-•	January 23, 2009 — Added the Ndiff utility which compares the results of two Nmap scans, making it easy to scan networks on a regular basis and create a report (XML or text) showing any changes. 
-See Chapter 16, Ndiff Reference Guide.
 
+•	January 1, 2009 — The first version of this book, Nmap Network Scanning, is released. 
+2009年1月1日，本书的第一版Nmap网络扫描发布， 
+The answer to whether anyone besides me would be interested in a 450+ page book on port scanning turns out to be a resounding yes!
+
+More than 10,000 copies are sold in the first 18 months. 
+头18个月就销售了超过10,000份。
+It is also released by other publishers in the German, Korean, and Brazilian Portuguese languages.
+他同时也在其他德国、韩国和巴西的葡萄牙语的出版社发行
+•	January 23, 2009 — Added Ncat, a feature-packed networking utility which reads and writes data across a network from the command line. 
+2009年1月23日  添加了Ncat，一个能通过命令行从网络中读取和写入数据的网络工具。
+It is a reimplementation of the classic Netcat tool which adds support for modern networking features such as SSL, connection redirection, and proxying. 
+作为经典netcat工具的替代物，他添加了对闲的网络特性的支持，比如SSL、连接重定向和代理功能。
+See Chapter 17, Ncat Reference Guide.
+见第17章 Ncat参考指南
+•	January 23, 2009 — Added the Ndiff utility which compares the results of two Nmap scans, making it easy to scan networks on a regular basis and create a report (XML or text) showing any changes. 
+2009年1月23日  添加了Ndiff工具，这个工具用来比较两个Nmap扫描结果，让日常扫描网络并生成报告（XML或者text）小时如何改动。
+See Chapter 16, Ndiff Reference Guide.
+见第16章 Ndiff参考指南
 •	March 30, 2009 — A special Nmap release (4.85BETA5) is produced to remotely detect the Conficker worm which has infected millions of machines on the Internet. 
 2009年4月30日  一个特别的Nmap发布（），远程探测蠕虫Conficker，这个蠕虫已经感染了因特网上上千万的机器。
 Demand is so high that Nmap is booted from Dreamhost's “unlimited bandwidth” web hosting plan for using too much bandwidth. 
