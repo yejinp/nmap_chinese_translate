@@ -79,7 +79,9 @@ Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 I
 Being the careful type, Felix first starts out with what is known as an Nmap list scan (-sL option). 
 This feature simply enumerates every IP address in the given target netblock(s) and does a reverse-DNS lookup (unless -n was specified) on each. 
 One reason to do this first is stealth. 
+做这个事情的原因之一就是秘密行动。
 The names of the hosts can hint at potential vulnerabilities and allow for a better understanding of the target network, all without raising alarm bells[3]. 
+
 Felix is doing this for another reason—to double-check that the IP ranges are correct. 
 The systems administrator who provided the IPs might have made a mistake, and scanning the wrong company would be a disaster. 
 The contract signed with Avatar Online may act as a get-out-of-jail-free card for penetrating their networks, but will not help if Felix accidentally compromises another company's server! 
@@ -722,9 +724,13 @@ The venerable NmapFE GUI is removed. Zenmap is covered in Chapter 12, Zenmap GUI
 •	June 1, 2008 — Nmap 4.65 is released and includes, for the first time, an executable Mac OS X installer. 
 The Nmap source tarball is now four megabytes. 
 This release includes 41 NSE scripts, 1,307 OS fingerprints, and 4,706 version detection signatures.
+这个发布包含41个NSE脚本、1,307个OS指纹和4,706个版本探测签名。
 •	August 18, 2008 — The Nmap project completes its fourth Summer of Code, with our highest success percentage ever (six out of seven sponsored students succeeded). 
+2008年8月18日， Nmap项目完成了它的第四个代码夏令营，最高的成功百分比（赞助的7个学生中有6成功了）。
 They greatly improved Zenmap, the Nmap Scripting Engine, OS detection, and Ncat, as described at http://seclists.org/nmap-dev/2008/q4/193.
+这大大改进了Zenmap、Nmap脚本引擎、OS探测和Ncat, 在http://seclists.org/nmap-dev/2008/q4/193描述的那样。
 •	September 8, 2008 — Nmap 4.75 is released with almost 100 significant improvements over 4.68. 
+2008年9月8日，Nmap4.75发布，这个版本基于4.68做了差不多100处的明显改进。
 These include the Zenmap network topology viewer, which draws an interactive diagram of discovered network devices. 
 After 11 years of distributing Nmap (“the Network Mapper”), it can now actually draw network maps. 
 This version also includes scan aggregation, allowing several scans to be combined into one unified view. 
