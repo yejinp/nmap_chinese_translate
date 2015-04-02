@@ -615,11 +615,13 @@ The gzipped tarball is 28KB. Version 1.26 (48KB) is released 19 days later.
 Nine days later he sends me a pre-release version of Nessus, noting that it “is designed for sysadmins, not 3l33t H4ck3rZ”.
 1998年3月14日--Renaud Deraison写信告诉我，他正在写一个安全扫描器，并问他是否能用Nmap的源代码。当然，我说可以。 九天后，他给我发了nessus的发布前版本，注意它"为系统管理员设计，而不是3l33t H4ck3rZ"
 •	December 12, 1998 — Nmap version 2.00 is publicly released, introducing Nmap OS detection for the first time after several months of private development. 
+1998年11月12日 Nmap2.00版本对公众发布，在几个月的私下开发后，首次引入了Nmap Os探测功能。
 An paper describing the techniques was released in Phrack 54, Article 9. 
+描述技术文章在第54期的《Phrack》杂志的第9篇文章中描述。
 By this point Nmap is broken up into many files, consists of about 8,000 lines of code, is kept in a private CVS revision control system, and the tarball size is 275KB. 
+此时，nmap已经分开为几个文件了，用个人CVS版本管理系统保存，包含了约8000行的代码。原始码275KB。
 The nmap-hackers mailing list is started, and later grows to more than 80,000 members.
-1998年十月12日---nmap的2.20版本对大众发布了，在几月的私人开发后，首次介绍了nmap系统检测功能。
-描述技术文章在。此时，nmap已经分开为几个文件了，包含了约8000行的代码。
+Nmap黑客邮件清单也启动了，随后增长到超过80,000个会员。
 •	April 11, 1999 — Nmap 2.11BETA1 is released. This is the first version to contain a graphical user interface as an alternative to the traditional command-line usage. 
 The bundled Unix-only NmapFE GUI was originally written by Zach Smith. Some people like it, but most prefer command-line execution.
 1999年四月11日，nmap 2.11BETA1发布。这是首次包含图形用户界面作为传统命令行的替换物。
