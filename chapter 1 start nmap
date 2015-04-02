@@ -732,12 +732,19 @@ They greatly improved Zenmap, the Nmap Scripting Engine, OS detection, and Ncat,
 •	September 8, 2008 — Nmap 4.75 is released with almost 100 significant improvements over 4.68. 
 2008年9月8日，Nmap4.75发布，这个版本基于4.68做了差不多100处的明显改进。
 These include the Zenmap network topology viewer, which draws an interactive diagram of discovered network devices. 
+这些包含网络拓扑视图，描绘一个已经发现的网络设备的交互图。
 After 11 years of distributing Nmap (“the Network Mapper”), it can now actually draw network maps. 
+在分发后11年后，他现在真正成了描述网络地图。
 This version also includes scan aggregation, allowing several scans to be combined into one unified view. 
+这个版本也包含扫描，允许多个扫描结合为一个统一的视图。
 Both of these features are described in Chapter 12, Zenmap GUI Users' Guide). 
+那些特性在第十二章都有描述 GUI 用户指南。
 This release also includes port-frequency data from my Worldscan project, which I presented at Black Hat and Defcon the previous month. 
+这个发布也包含从我项目中而来的常用端口数据，这个像我我在Black Hat and Defcon上前一个月做了演讲。
 This allows Nmap to focus on the ports which have been empirically shown to be the most popular.
-•	October 4, 2008 — The Nmap Documentation Portal is launched at http://nmap.org/nsedoc/. 
+他允许Nmap把焦点房租那些最流行的端口上。
+•	October 4, 2008 — The Nmap Documentation Portal is launched at . 
+2008年10月4日，Nmap文档移植在http://nmap.org/nsedoc/上启动。
 This allows users to brows all of Nmap's NSE script and library documentation in one place. 
 The documentation is generated from specially-formed comments in the source code (see the section called “Writing Script Documentation (NSEDoc)”).
 
@@ -762,7 +769,7 @@ See Chapter 16, Ndiff Reference Guide.
 •	March 30, 2009 — A special Nmap release (4.85BETA5) is produced to remotely detect the Conficker worm which has infected millions of machines on the Internet. 
 2009年4月30日  一个特别的Nmap发布（），远程探测蠕虫Conficker，这个蠕虫已经感染了因特网上上千万的机器。
 Demand is so high that Nmap is booted from Dreamhost's “unlimited bandwidth” web hosting plan for using too much bandwidth. 
-
+需求如此大，以至于Nmap
 The University of California, San Diego steps up and provides a fast mirror server. 
 大学，提供了一个快速镜像服务器。
 The next version of the Conficker worm blocks infected users from reaching Insecure.Org and Nmap.Org. 
@@ -834,9 +841,14 @@ Each of those required significant changes to Nmap, and we will have to do the s
 总结nmap历史当然容易，但未来就不确定了。nmap
 While the 10-year plan is up in the air, we do have plans and guiding priorities for the next several years:
 10年计划，我们有接下来几年的计划和指导优先级。
-•	Nmap Scripting Engine — NSE has exploded in capabilities and popularity. As of mid-2010, it contains 131 scripts—68% higher than the year before. 
+•	Nmap Scripting Engine — NSE has exploded in capabilities and popularity. 
+Nmap脚本引擎---NSE已经在能力和流行程度上开发了。
+As of mid-2010, it contains 131 scripts—68% higher than the year before. 
+在2010年中期，他包含131个脚本 比上年多68%
 NSE scripts are also growing more powerful thanks to the ever-increasing library and infrastructure feature support. 
+感谢支持增长的苦和基础特性，NSE脚本已经成长的更有力了。
 I would like to see NSE grow to 500+ scripts in the next few years. 
+我很想NSE会在接下来的几年增长到500以上。
 Nmap will soon support prescan and postscan scripts which are not tied to an individual host or open port like the existing hostrule and portrule scripts are.
 nmap脚本引擎-NSE
 •	Scanning web sites — Nmap will also grow in its ability to handle web scanning. 
