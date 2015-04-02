@@ -690,15 +690,23 @@ This release includes runtime interaction to provide on-demand completion estima
 •	May 24, 2006 — Google sponsors 10 more Nmap summer developers as part of their SoC program. 
 2006年 5月24日， 作为他们SoC的一部分，Google又赞助了10个Nmap夏天开发人员。
 Zhao and Adriano return as part of 2006 SoC to further develop their respective projects. 
-
+Zhao和Adriano回来作为2006 SoC的一部分，深入开发他们相应的项目。
 Diman Todorov is sponsored to help develop the Nmap Scripting Engine (Chapter 9, Nmap Scripting Engine). 
-These and seven other talented students and their projects are described athttp://seclists.org/nmap-hackers/2006/9.
+Diman Todorov赞助帮忙开发Nmap脚本引擎（第九章，Nmap脚本引擎）。
+These and seven other talented students and their projects are described at http://seclists.org/nmap-hackers/2006/9.
+他们和另外7个天才学生和他们的项目在http://seclists.org/nmap-hackers/2006/9有描述。
 •	June 24, 2006 — After two years of development and testing, the 2nd generation OS detection system is integrated into Nmap 4.20ALPHA1. 
+2006年6月24日 经过两年的开发和测试，第二代OS探测系统被并入到Nmap4.20ALPHA1中。
 This new system is based on everything we've learned and the new ideas we've conceived since the first generation system debuted eight years earlier. 
+这个新的系统基于我们所学习到的一切和我们从8年前初次出现的第一代系统中想到的新想法。
 The new system, described in Chapter 8, Remote OS Detection, proves much more accurate and granular than the first generation, although it takes us 2.5 years to reach the size of the old DB.
+新的系统，在第八章，远程OS探测中有描述，证明比第一代更加精确和粒度也，虽然好过了2年半来达到旧的DB。
 •	December 10, 2006 — The Nmap Scripting Engine is released as part of Nmap 4.21ALPHA1. 
+2006年11月10日  Nmap脚本引擎作为Nmap4.2ALPHA1的一部分进行发布。
 NSE allows users to write (and share) simple scripts to automate a wide variety of networking tasks. 
+脚本引擎运行用户编写（和分享）简单的脚本来自动化执行各种各样的网络任务。
 This initial version includes 23 scripts for simple tasks such as detecting the insecure SSHv1 and SSLv2 protocols, obtaining service owner information from identd, and testing whether DNS servers support recursive queries.
+最开始的版本包含23个简单任务的脚本，比如探测不安全的SSHv1和SSLv2协议，从identd中获取服务所有者信息，测试DNS服务器是否支持递归查询。
 •	December 20, 2006 — Nmap's Subversion source code repository opens to the public. 
 Until this time, only a handful of developers had access to the private source repository. 
 Everyone else had to wait for releases. Now everyone can follow Nmap development day to day. 
