@@ -741,9 +741,9 @@ Demand is so high that Nmap is booted from Dreamhost's “unlimited bandwidth”
 The University of California, San Diego steps up and provides a fast mirror server. 
 大学，提供了一个快速镜像服务器。
 The next version of the Conficker worm blocks infected users from reaching Insecure.Org and Nmap.Org. 
-下一个版本
+下一个版本的Conficker蠕虫将用户从Insecure.Org 和 Nmap.Org隔离开来。
 We take that as a compliment to Nmap's effectiveness.
-
+我们把这个当作Nmap效率的补充。
 •	June 12, 2009 — Added SCTP port scanning and host discovery support to Nmap. 
 2009年6月12日， 添加了SCTP端口扫描和主机发现功能到Nmap。
 SCTP is a layer 4 protocol used mostly for telephony related applications.
@@ -757,11 +757,13 @@ The tarball is more than 27MB and contains 2,003 OS fingerprints, 5,512 version 
 For the first time, every student passed! 
 第一次，所有的学生都通过了。
 They created Nping as well as the network authentication cracker Ncrack and made dramatic improvements to the Nmap Scripting Engine, Ncat, and Zenmap.
+他们授权破解者Ncrack的同时也创作了Nping，并对nmap脚本引擎、Ncat和Zenmap做个大幅优化。
 •	March 29, 2010 — Added Nping, a handy tool for network packet generation, response analysis and response time measurement (seeChapter 18, Nping Reference Guide).
 2010年3月29日   添加了Nping，一个网络包产生器，相应分析和相应数据
 •	July 28, 2010 — David Fifield and I present on Mastering the Nmap Scripting Engine at the Black Hat and Defcon conferences, including live demos (video: http://nmap.org/presentations/).
 2010年7月28日  我和David Fifield在Black Hat and Defcon会议上掌握Nmap脚本引擎功能的演示，包含活的演示（视频见：http://nmap.org/presentations/）
 •	August 17, 2010 — Scanning the top million web sites for fun leads to a spinoff art project as we release Icons of the Web, a mosaic of web site icons scaled by their popularity. 
+2010年8月17日 扫描前一千哥网站导致艺术项目
 It is written up in the New York Times, The Telegraph, Slashdot, Gizmodo,Engadget, and many others. 
 The Newseum in Washington D.C. exhibits a giant version and it was even featured in the Guinness World Records book.
 •	January 28, 2011 — Released Nmap 5.50. 
