@@ -589,28 +589,37 @@ He has also written an excellent paper relating to the legal risks of publishing
 The History and Future of Nmap
 nmap的历史与将来
 Many ancient and well loved security tools, such as Netcat, tcpdump, and John the Ripper, haven't changed much over the years. 
-Others, including Wireshark, Metasploit, Cain and Abel, and Snort, have been under constant development since the day they were released. 
-Nmap is in that second category. 
-It was released as a simple Linux-only port scanner in 1997. 
-Over the next 16+ years it sprouted a myriad of valuable features, including OS detection, version detection, the Nmap Scripting Engine, a Windows port, a graphical user interface, Ncat, Nping, Ndiff, and more. 
-We plan to continue this rapid development pace in the future as well!
 很多非常好的古老安全工具，比如netcat、tcpdump和john the Ripper，已经有多年没有改动。
+Others, including Wireshark, Metasploit, Cain and Abel, and Snort, have been under constant development since the day they were released. 
 其他工具，如wireshark、metasploit、Cain and Abel和Snort则从发布之日起就保持着程序的开发。
-nmap属于后一类。1997年发布第一个简单的只支持Linux的端口扫描器。
+Nmap is in that second category. 
+nmap属于后一类。
+It was released as a simple Linux-only port scanner in 1997. 
+1997年发布第一个简单的只支持Linux的端口扫描器。
+Over the next 16+ years it sprouted a myriad of valuable features, including OS detection, version detection, the Nmap Scripting Engine, a Windows port, a graphical user interface, Ncat, Nping, Ndiff, and more. 
 在随后的16多年中，它迅速生长为金字塔结构的有用特性，包含操作系统检测、版本检测、nmap脚本引擎、windows port、图像用户界面、ncat、nping、ndiff以及更多。
+We plan to continue this rapid development pace in the future as well!
 我们计划继续保持这个快速开发节奏。
+
 The History of Nmap
 nmao的历史
+
 This section provides a timeline of the most important milestones over 16 years of Nmap history. 
+本节介绍Nmap历史上最重要的里程碑数据线。
 For all significant Nmap changes (thousands of them), read the Nmap Changelog. 
-Old releases of Nmap can be found at http://nmap.org/dist/, and ancient versions athttp://nmap.org/dist-old/.
+由于所有主要的Nmap变化（）请参阅 Nmap  Changelog。
+Old releases of Nmap can be found at http://nmap.org/dist/, and ancient versions at http://nmap.org/dist-old/.
+旧的 Nmap发布版本可以在http://nmap.org/dist/上找到，悠久的版本在http://nmap.org/dist-old/上。
 •	September 1, 1997 — Nmap is first released in Phrack magazine Issue 51, Article 11. 
+1997年九月一日，nmap被首次在杂志《》的第五十一期第十一篇文章中发布。
 It doesn't have a version number because new releases aren't planned. 
+由于没有新版本计划，所以没有版本号。
 Nmap is about 2,000 lines long, and compilation is as simple as gcc -O6 -o nmap nmap.c -lm.
-1997年九月一日，nmap被首次在杂志《》的第五十一期第十一篇文章中发布。由于没有新版本计划，所以没有版本号。nmap大约2000行代码的长度，同时编译方法也很简单：gcc -O6 -o nmap nmap.c -lm。
+nmap大约2000行代码的长度，同时编译方法也很简单：gcc -O6 -o nmap nmap.c -lm。
 •	September 5, 1997 — Due to popular demand, a slightly improved version of the Phrack code is released, calling itself version 1.25. 
+1997年九月五日，基于要求，在的基础上略微改进的版本也发布了，版本号为1.25. 
 The gzipped tarball is 28KB. Version 1.26 (48KB) is released 19 days later.
-1997年九月五日，基于要求，在的基础上略微改进的版本也发布了，版本号为1.25. 压缩文件约28kb。版本1.26(48kb)也在19天后发布。
+压缩文件约28kb。版本1.26(48kb)也在19天后发布。
 •	January 11, 1998 — Insecure.Org is registered and Nmap moves there from its previous home at the DataHaven Project ISP.
 1998年一月11日-注册了网站Insecure.Org，同时把nmap从其前移到了这里。
 •	March 14, 1998 — Renaud Deraison writes to inform me that he is writing a security scanner, and asks if he can use some Nmap source code. Of course I say yes. 
