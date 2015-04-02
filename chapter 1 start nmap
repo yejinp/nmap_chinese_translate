@@ -468,7 +468,10 @@ These laws are unlikely to affect tools as widespread and popular as Nmap, but t
 Regardless of the legal status of port scanning, ISP accounts will continue to be terminated if many complaints are generated. 
 The best way to avoid ISP abuse reports or civil/criminal charges is to avoid annoying the target network administrators in the first place. 
 Here are some practical suggestions:
+
 •	Ensure that you have permission to scan. 
+确保你有扫描许可
+
 Probably at least 90% of network scanning is non-controversial. You are rarely badgered for scanning your own machine or the networks you administer. 
 The controversy comes when scanning other networks. 
 There are many reasons (good and bad) for doing this sort of network exploration. 
@@ -484,7 +487,10 @@ Administrators tend to be more cooperative when asked in advance than when woken
 So whenever possible, obtain written authorization before scanning a network. 
 Adrian Lamo would probably have avoided jail if he had asked the New York Times to test their security rather than telling reporters about the flaws afterward. 
 Unfortunately they might have said no. Be prepared for this answer.
+
 •	Target your scan as tightly as possible. 
+扫描你的目标越严越好。
+
 Any machine connected to the Internet is scanned regularly enough that most administrators ignore such Internet background noise. 
 But scanning enough networks or executing very noisy/intrusive scans increases the probability of generating complaints. 
 So if you are only looking for web servers, specify -p80 rather than scanning all 65,536 TCP ports on each machine. 
@@ -493,7 +499,10 @@ The random scan mode now takes an argument specifying the number of hosts, rathe
 So consider -iR 1000 rather than -iR 10000 if the former is sufficient. Use the default timing (or even -T polite) rather than -T insane. 
 Avoid noisy and relatively intrusive scans such as version detection (-sV) or NSE (--script). 
 Similarly, a SYN scan (-sS) is quieter than a connect scan (-sT) while providing the same information and often being faster.
+
 •	As noted previously, do not do anything controversial from your work or school connections. 
+如前所述，不要用你的工作或者学校连接来做争议的时。
+
 Even though your intentions may be good, you have too much to lose if someone in power (e.g. boss, dean) decides you are a malicious cracker. 
 Do you really want to explain your actions to someone who may not even know what port scanning means? Spend $40 a month for a shell, cell data, or residential broadband account. 
 Not only are the repercussions less severe if you offend someone from such an account, but target network administrators are less likely to even bother complaining to mass-market providers. 
@@ -503,11 +512,13 @@ In general, the more you pay to a service provider the more accommodating they a
 A T1 provider is highly unlikely to yank your connection without notice because someone reported being port scanned. 
 A dialup or residential DSL/cable provider very well might.
 This can happen even when the scan was forged by someone else.
+
 •	Nmap offers many options for stealthy scans, including source-IP spoofing, decoy scanning, and the more recent idle scan technique. 
 These are discussed in the IDS evasion chapter. But remember that there is always a trade-off. 
 You are harder to find if you launch scans from an open WAP far from your house, with 17 decoys, while doing subsequent probes through a chain of nine open proxies. 
 But if anyone does track you down, they will be mighty suspicious of your intentions.
 •	Always have a legitimate reason for performing scans. 
+
 An offended administrator might write to you first (or your ISP might forward his complaint to you) expecting some sort of justification for the activity.
 In the Scott Moulton case discussed above, VC3 first emailed Scott to ask what was going on. 
 If they had been satisfied with his answer, matters might have stopped there rather than escalating into civil and criminal litigation. 
