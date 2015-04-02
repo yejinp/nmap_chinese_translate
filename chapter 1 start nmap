@@ -839,12 +839,14 @@ NSE scripts are also growing more powerful thanks to the ever-increasing library
 I would like to see NSE grow to 500+ scripts in the next few years. 
 Nmap will soon support prescan and postscan scripts which are not tied to an individual host or open port like the existing hostrule and portrule scripts are.
 nmap脚本引擎-NSE
-•	Scanning web sites — Nmap will also grow in its ability to handle web scanning. When Nmap was first developed, different services were often provided as separate daemons identified by the port number they listen on. 
+•	Scanning web sites — Nmap will also grow in its ability to handle web scanning. 
+扫描web站点
+When Nmap was first developed, different services were often provided as separate daemons identified by the port number they listen on. 
 Now, many new services simply run over HTTP and are identified by a URL path name rather than port number. 
 Scanning for known URL paths is similar in many ways to port scanning (and to the SunRPC scanning which Nmap has also done for many years). 
 The Nmap Scripting Engine already supports many web scanning features, but I'd like to see http brute force password cracking, better spidering support, an HTML/XML parser, better web application fingerprinting, and the ability to proxy certain requests through HTTP and SOCKS proxies. 
 Nmap should be able to port scan through those proxies too.
-扫描web网站--nmap将会成长为处理web扫描。在nmap发展的时候，不同的服务
+--nmap将会成长为处理web扫描。在nmap发展的时候，不同的服务
 •	Web infrastructure improvements — Nmap is a cooperative project developed by many individuals. 
 改进web基础设施---Nmap是一个有很多个人开发的作项目。
 As the number of people involved increases, we also need to scale the tools and infrastructure resources to facilitate that cooperation. 
