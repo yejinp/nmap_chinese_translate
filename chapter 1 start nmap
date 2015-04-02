@@ -890,7 +890,7 @@ The web sites desperately need a redesign as well, unless 1990's table-based lay
 •	Online scanning web service — We're working on a service which allows users to scan their own machines and networks “from the cloud” to see what is exposed from an outside perspective. 
 在线扫描web服务--我们正工作在一种用户能够通过云扫描他们自己主机和网络来从外面暴露的服务。
 Repeat scans can be scheduled with changes sent in email alerts or browsed online.
-
+重复扫描 在邮件警告或者在线浏览。
 In addition to those high-level priorities, we have some concrete tasks in mind:
 在这些高优先级之外，我们脑子中还有一些固定的任务：
 •	Internationalize Nmap to support many different languages rather than just English. 
