@@ -212,7 +212,8 @@ Saving the Human Race
 Figure 1.1. Trinity begins her assault
 图1.1 Trinity开始她的攻击
 
-Trinity is in quite a pickle! Having discovered that the world we take for granted is really a virtual “Matrix” run by machine overlords, Trinity decides to fight back and free the human race from this mental slavery. 
+Trinity is in quite a pickle! 
+Having discovered that the world we take for granted is really a virtual “Matrix” run by machine overlords, Trinity decides to fight back and free the human race from this mental slavery. 
 Making matters worse, her underground colony of freed humans (Zion) is under attack by 250,000 powerful alien sentinels. 
 Her only hope involves deactivating the emergency power system for 27 city blocks in less than five minutes. 
 The previous team died trying. 
@@ -304,16 +305,22 @@ Since Nmap itself is open source, it only seemed fair to release my scripts to t
 I have made them freely available at http://www.unspecific.com/nmap.
 
 ________________________________________
-[1] These IP addresses are actually registered to the United States Army Yuma Proving Ground, which is used to test a wide variety of artillery, missiles, tanks, and other deadly weapons. The moral is to be very careful about who you scan, lest you accidentally hit a highly sensitive network. The scan results in this story are not actually from this IP range.
-[2] Classless Inter-Domain Routing (CIDR) notation is a method for describing networks with more granularity than class A (CIDR /8), class B (CIDR /16), or class C (CIDR /24) notation. An excellent description is available athttp://dedicated.pacbell.net/faq/FAQs_techsupport.html#cidr.
+[1] These IP addresses are actually registered to the United States Army Yuma Proving Ground, which is used to test a wide variety of artillery, missiles, tanks, and other deadly weapons. 
+The moral is to be very careful about who you scan, lest you accidentally hit a highly sensitive network. 
+The scan results in this story are not actually from this IP range.
+[2] Classless Inter-Domain Routing (CIDR) notation is a method for describing networks with more granularity than class A (CIDR /8), class B (CIDR /16), or class C (CIDR /24) notation. 
+An excellent description is available athttp://dedicated.pacbell.net/faq/FAQs_techsupport.html#cidr.
 [3] It is possible that the target nameserver will log a suspicious bunch of reverse-DNS queries from Felix's nameserver, but most organizations don't even keep such logs, much less analyze them.
 [4] stdout is the “C” notation for representing the standard output mechanism for a system, such as to the Unix xterm or Windows command window in which Nmap was initiated.
-[5] A sexy leather-clad attacker from the previous team actually started the session. It is unclear at what point she died and left the remaining tasks to Trinity.
+[5] A sexy leather-clad attacker from the previous team actually started the session. 
+It is unclear at what point she died and left the remaining tasks to Trinity.
 The Phases of an Nmap Scan
 Now that we've seen some applications of Nmap, let's look at what happens when an Nmap scan runs. 
 Scans proceed in phases, with each phase finishing before the next one begins. 
 As you can see from the phase descriptions below, there is far more to Nmap than just port scanning.
-我们已经看到了nmap的一些应用，让我们看看在运行nmap扫描的时候发生了什么。扫描分阶段进行，每一阶段的结束就是下一阶段的开始。正如你会从下面阶段描述中了解的一样，nmap远远不只有端口扫描功能。
+我们已经看到了nmap的一些应用，让我们看看在运行nmap扫描的时候发生了什么。
+扫描分阶段进行，每一阶段的结束就是下一阶段的开始。
+正如你会从下面阶段描述中了解的一样，nmap远远不只有端口扫描功能。
 Script pre-scanning. 
 The Nmap Scripting Engine (NSE) uses a collection of special-purpose scripts to gain more information about remote systems. 
 NSE is not executed unless you request it with options such as --script or -sC, and the pre-scanning phase only happens when scripts which need it are selected. 
@@ -376,7 +383,8 @@ As already discussed, Nmap offers many options for controlling which of these ph
 For scans of large networks, each phase is repeated many times since Nmap deals with the hosts in smaller groups. 
 It scans each group completely and outputs those results, then moves on to the next batch of hosts.
 Script post-scanning. After Nmap has completed its scanning and normal output, scripts in this phase can process results and deliver final reports and statistics. 
-See the section called “Script Types and Phases”. Nmap does not yet include any scripts in this phase, so it only runs if the user includes and executes their own post-scanning scripts.
+See the section called “Script Types and Phases”. 
+Nmap does not yet include any scripts in this phase, so it only runs if the user includes and executes their own post-scanning scripts.
 扫描后脚本。
 
 Legal Issues
@@ -397,7 +405,8 @@ Speak to a competent lawyer within your jurisdiction for a better understanding 
 With that important disclaimer out of the way, I'll provide some general information that may prove helpful.
 The best way to avoid controversy when using Nmap is to always secure written authorization from the target network representatives before initiating any scanning. 
 There is still a chance that your ISP will give you trouble if they notice it (or if the target administrators accidentally send them an abuse report), but this is usually easy to resolve. 
-When you are performing a penetration test,this authorization should be in the Statement of Work. When testing your own company, make certain that this activity clearly falls within your job description. 
+When you are performing a penetration test,this authorization should be in the Statement of Work. 
+When testing your own company, make certain that this activity clearly falls within your job description. 
 Security consultants should be familiar with the excellent Open Source Security Testing Methodology Manual (OSSTMM), which provides best practices for these situations.
 While civil and (especially) criminal court cases are the nightmare scenario for Nmap users, these are very rare. 
 After all, no United States federal laws explicitly criminalize port scanning. 
@@ -586,7 +595,8 @@ We plan to continue this rapid development pace in the future as well!
 很多非常好的古老安全工具，比如netcat、tcpdump和john the Ripper，已经有多年没有改动。
 其他工具，如wireshark、metasploit、Cain and Abel和Snort则从发布之日起就保持着程序的开发。
 nmap属于后一类。1997年发布第一个简单的只支持Linux的端口扫描器。
-在随后的16多年中，它迅速生长为金字塔结构的有用特性，包含操作系统检测、版本检测、nmap脚本引擎、windows port、图像用户界面、ncat、nping、ndiff以及更多。我们计划继续保持这个快速开发节奏。
+在随后的16多年中，它迅速生长为金字塔结构的有用特性，包含操作系统检测、版本检测、nmap脚本引擎、windows port、图像用户界面、ncat、nping、ndiff以及更多。
+我们计划继续保持这个快速开发节奏。
 The History of Nmap
 nmao的历史
 This section provides a timeline of the most important milestones over 16 years of Nmap history. 
@@ -608,26 +618,32 @@ Nine days later he sends me a pre-release version of Nessus, noting that it “i
 An paper describing the techniques was released in Phrack 54, Article 9. 
 By this point Nmap is broken up into many files, consists of about 8,000 lines of code, is kept in a private CVS revision control system, and the tarball size is 275KB. 
 The nmap-hackers mailing list is started, and later grows to more than 80,000 members.
-1998年十月12日---nmap的2.20版本对大众发布了，在几月的私人开发后，首次介绍了nmap系统检测功能。描述技术文章在。此时，nmap已经分开为几个文件了，包含了约8000行的代码。
+1998年十月12日---nmap的2.20版本对大众发布了，在几月的私人开发后，首次介绍了nmap系统检测功能。
+描述技术文章在。此时，nmap已经分开为几个文件了，包含了约8000行的代码。
 •	April 11, 1999 — Nmap 2.11BETA1 is released. This is the first version to contain a graphical user interface as an alternative to the traditional command-line usage. 
 The bundled Unix-only NmapFE GUI was originally written by Zach Smith. Some people like it, but most prefer command-line execution.
-1999年四月11日，nmap 2.11BETA1发布。这是首次包含图形用户界面作为传统命令行的替换物。起始的只支持UNIX的NmapFE 用户图形界面由Zach Smith编写。有些人喜欢它，但大部分人还是更喜欢命令行操作。
+1999年四月11日，nmap 2.11BETA1发布。这是首次包含图形用户界面作为传统命令行的替换物。
+起始的只支持UNIX的NmapFE 用户图形界面由Zach Smith编写。有些人喜欢它，但大部分人还是更喜欢命令行操作。
 •	April 28, 2000 — Nmap 2.50 is released. By this point the tarball has grown to 461KB. 
 This release includes timing modes such as-T aggressive, direct SunRPC scanning, and the Window and ACK scan methods.
-2000年四月28日--nmap 2.50版本发布。这时原始码增长到461kb。 这次发布包含定时器模块，比如 、 直接SunRPC扫描以及窗口和ACK扫描方法。
+2000年四月28日--nmap 2.50版本发布。这时原始码增长到461kb。 
+这次发布包含定时器模块，比如 、 直接SunRPC扫描以及窗口和ACK扫描方法。
 •	May 28, 2000 — Gerhard Rieger sends a message to the nmap-dev list describing a new “protocol scan” he has developed for Nmap, and he even includes a patch. 
 This is so cool that I release Nmap 2.54BETA1 with his patch less than 12 hours later.
 2000年五月28日，Gerhard Rieger给我发消息说 nmap-dev列表描述了一个新的“协议扫描”已经开发完成，他甚至包含一个补丁。
 •	December 7, 2000 — Nmap 2.54BETA16 is released as the first official version to compile and run on Microsoft Windows. 
 The Windows porting work was done by Ryan Permeh and Andy Lutomirski.
-2000年十一月七日，nmap2.54BETA16作为官方编译和运行在微软Windows版本。这个Windows移植工作由Ryan Permeh和Andy Lutomirski完成。
+2000年十一月七日，nmap2.54BETA16作为官方编译和运行在微软Windows版本。
+这个Windows移植工作由Ryan Permeh和Andy Lutomirski完成。
 •	July 9, 2001 — The Nmap IP ID idle scan is introduced with Nmap 2.54BETA26. A paper describing the technique is released concurrently. 
 This extremely cool (though not always practical) scan technique is described in the section called “TCP Idle Scan (-sI)”.
-2001年六月9日---nmap IP ID空闲扫描引入到Nmap 2.54BETA26。介绍这个技术的文章也同时发表。这个非常酷（尽管不是非常实用）的扫描技术在“TCP空闲扫描（-sI）”一节中有描述。
+2001年六月9日---nmap IP ID空闲扫描引入到Nmap 2.54BETA26。介绍这个技术的文章也同时发表。
+这个非常酷（尽管不是非常实用）的扫描技术在“TCP空闲扫描（-sI）”一节中有描述。
 •	July 25, 2002 — I quit my job at Netscape/AOL and start my dream job working on Nmap full time.
 2002年六月25日--我辞退了在 Netscape/AOL的工作，开始了我全职工作在nmap的梦想。
 •	July 31, 2002 — Nmap 3.00 is released. The tarball is 922K. This release includes Mac OS X support, XML output, and uptime detection.
-2002年六月31日--- Nmap 3.00 发布。原始包922k。这个发布包含支持Mac os x、xml输出和运行时间探测功能。
+2002年六月31日--- Nmap 3.00 发布。原始包922k。
+这个发布包含支持Mac os x、xml输出和运行时间探测功能。
 •	August 28, 2002 — Nmap is converted from C to C++ and IPv6 supported is added as part of the Nmap 3.10ALPHA1 release.
 2002年八月28日  nmap从C转换为C++，同时支持IPv6作为一部分添加到Nmap 3.10ALPHA1发布版。
 •	May 15, 2003 — Nmap is featured in the movie The Matrix Reloaded, where Trinity uses it (followed by a real SSH exploit) to hack a power station and save the world. This leads to more publicity for Nmap than it had ever seen before. 
