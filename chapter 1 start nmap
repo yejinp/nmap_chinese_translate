@@ -309,42 +309,67 @@ I have made them freely available at http://www.unspecific.com/nmap.
 
 ________________________________________
 [1] These IP addresses are actually registered to the United States Army Yuma Proving Ground, which is used to test a wide variety of artillery, missiles, tanks, and other deadly weapons. 
+这些IP地址实际上是注册到美国军队的，可以用来测试大范围的、军舰、坦克和其他致命武器。
 The moral is to be very careful about who you scan, lest you accidentally hit a highly sensitive network. 
+你碰巧会遇到一个高敏感的网络。
 The scan results in this story are not actually from this IP range.
+这个故事中的扫描结果实际上不是从这个IP范围得到的。
 [2] Classless Inter-Domain Routing (CIDR) notation is a method for describing networks with more granularity than class A (CIDR /8), class B (CIDR /16), or class C (CIDR /24) notation. 
-An excellent description is available athttp://dedicated.pacbell.net/faq/FAQs_techsupport.html#cidr.
+无分类域内路由标记法（）是一个描述网络
+An excellent description is available at http://dedicated.pacbell.net/faq/FAQs_techsupport.html#cidr.
+一个描述见http://dedicated.pacbell.net/faq/FAQs_techsupport.html#cidr：
 [3] It is possible that the target nameserver will log a suspicious bunch of reverse-DNS queries from Felix's nameserver, but most organizations don't even keep such logs, much less analyze them.
+
 [4] stdout is the “C” notation for representing the standard output mechanism for a system, such as to the Unix xterm or Windows command window in which Nmap was initiated.
 [5] A sexy leather-clad attacker from the previous team actually started the session. 
 It is unclear at what point she died and left the remaining tasks to Trinity.
 The Phases of an Nmap Scan
+扫描的阶段
+
 Now that we've seen some applications of Nmap, let's look at what happens when an Nmap scan runs. 
+现在我们已经看到一些Nmap的应用，让我们看看在运行nmap扫描的时候发生了什么。
 Scans proceed in phases, with each phase finishing before the next one begins. 
-As you can see from the phase descriptions below, there is far more to Nmap than just port scanning.
-我们已经看到了nmap的一些应用，让我们看看在运行nmap扫描的时候发生了什么。
 扫描分阶段进行，每一阶段的结束就是下一阶段的开始。
-正如你会从下面阶段描述中了解的一样，nmap远远不只有端口扫描功能。
+As you can see from the phase descriptions below, there is far more to Nmap than just port scanning.
+正如你会从下面阶段描述中了解的一样，Nmap远远不只有端口扫描功能。
+
 Script pre-scanning. 
+扫描前脚本。
 The Nmap Scripting Engine (NSE) uses a collection of special-purpose scripts to gain more information about remote systems. 
+nmap脚本引擎利用收集的特殊目的脚本来获取关于远程主机的更多信息。
 NSE is not executed unless you request it with options such as --script or -sC, and the pre-scanning phase only happens when scripts which need it are selected. 
+除非你用选项 --script或者-sC要求，否则是不会执行NSE的，并且扫描前阶段只会当脚本被选中后才会有。
 This phase is for scripts which only have to be run once per Nmap execution rather than running separately against individual targets. 
+这个阶段的脚本只能运行一次，而不是
 Examples include dhcp-discover and broadcast-dns-service-discovery, which use broadcast queries to obtain information from common network services. 
+
 NSE is fully documented in Chapter 9, and the different phases are covered in the section called “Script Types and Phases”.
-扫前脚本。 nmap脚本引擎利用收集的特殊目的脚本来获取关于远程主机的更多信息。NSE不是
-Target enumeration. In this phase, Nmap researches the host specifiers provided by the user, which may be a combination of host DNS names, IP addresses, CIDR network notations, and more. 
+在第九章中有NSE的所有描述，在“Script Types and Phases”一节有不同阶段的涵盖。
+Target enumeration. 
+目标枚举。
+In this phase, Nmap researches the host specifiers provided by the user, which may be a combination of host DNS names, IP addresses, CIDR network notations, and more. 
+在这个阶段，Nmap
 You can even use (-iR) to ask Nmap to choose your targets for you! 
+你甚至可以使用（-iR）
 Nmap resolves these specifiers into a list of IPv4 or IPv6 addresses for scanning. 
 This phase cannot be skipped since it is essential for further scanning, but you can simplify the processing by passing just IP addresses so Nmap doesn't have to do forward resolution. 
+这个阶段不能跳过，由于是深入扫描的基础，但你可以通过只传递IP地址简化处理，所以Nmap不会转发解析。
 If you pass the -sL -n options (list scan with no reverse-DNS resolution), Nmap will print out the targets and perform no further scanning. 
+如果你传递 -sL -n选项(不进行反向DNS解析的列举扫描),Nmap 将打印目标并不做更深入的扫描。
 This phase is discussed in the section called “Specifying Target Hosts and Networks” and the section called “List Scan (-sL)”.
 目标枚举。在这个阶段，nmap
-Host discovery (ping scanning). Network scans usually begin by discovering which targets on the network are online and thus worth deeper investigation. 
+Host discovery (ping scanning). 
+主机发现（ping扫描）
+Network scans usually begin by discovering which targets on the network are online and thus worth deeper investigation. 
+主机发现（ping扫描）。网络扫描通常从发现网络上的在线目标开始。
 This process is called host discovery or ping scanning. 
+这个处理过程就叫做主机发现或者ping扫描。
 Nmap offers many host discovery techniques, ranging from quick ARP requests to elaborate combinations of TCP, ICMP, and other types of probes. 
+nmap提供了很多主机发现技术，
 This phase is run by default, though you can skip it (simply assume all target IPs are online) using the -Pn (no ping) option.
 To quit after host discovery, specify -sn -n. Host discovery is the subject of Chapter 3.
-主机发现（ping扫描）。网络扫描通常从发现网络上的在线目标开始，这个处理过程就叫做主机发现或者ping扫描。nmap提供了很多主机发现技术，
-Reverse-DNS resolution. Once Nmap has determined which hosts to scan, it looks up the reverse-DNS names of all hosts found online by the ping scan. 
+Reverse-DNS resolution. 
+Once Nmap has determined which hosts to scan, it looks up the reverse-DNS names of all hosts found online by the ping scan. 
 Sometimes a host's name provides clues to its function, and names make reports more readable than providing only IP numbers. 
 This step may be skipped with the -n (no resolution) option, or expanded to cover all target IPs (even down ones) with -R(resolve all). 
 Name resolution is covered in the section called “DNS Resolution”.
