@@ -514,7 +514,8 @@ A dialup or residential DSL/cable provider very well might.
 This can happen even when the scan was forged by someone else.
 
 •	Nmap offers many options for stealthy scans, including source-IP spoofing, decoy scanning, and the more recent idle scan technique. 
-These are discussed in the IDS evasion chapter. But remember that there is always a trade-off. 
+These are discussed in the IDS evasion chapter. 
+But remember that there is always a trade-off. 
 You are harder to find if you launch scans from an open WAP far from your house, with 17 decoys, while doing subsequent probes through a chain of nine open proxies. 
 But if anyone does track you down, they will be mighty suspicious of your intentions.
 •	Always have a legitimate reason for performing scans. 
@@ -644,7 +645,7 @@ Nine days later he sends me a pre-release version of Nessus, noting that it “i
 An paper describing the techniques was released in Phrack 54, Article 9. 
 描述技术文章在第54期的《Phrack》杂志的第9篇文章中描述。
 By this point Nmap is broken up into many files, consists of about 8,000 lines of code, is kept in a private CVS revision control system, and the tarball size is 275KB. 
-此时，nmap已经分开为几个文件了，用个人CVS版本管理系统保存，包含了约8000行的代码。原始码275KB。
+此时，nmap已经分开为几个文件了，用个人CVS版本管理系统保存，包含了约8000行的代码，原始码275KB。
 The nmap-hackers mailing list is started, and later grows to more than 80,000 members.
 Nmap黑客邮件清单也启动了，随后增长到超过80,000个会员。
 •	April 11, 1999 — Nmap 2.11BETA1 is released. 
@@ -672,8 +673,9 @@ This extremely cool (though not always practical) scan technique is described in
 这个非常酷（尽管不是非常实用）的扫描技术在“TCP空闲扫描（-sI）”一节中有描述。
 •	July 25, 2002 — I quit my job at Netscape/AOL and start my dream job working on Nmap full time.
 2002年六月25日--我辞退了在 Netscape/AOL的工作，开始了我全职工作在nmap的梦想。
-•	July 31, 2002 — Nmap 3.00 is released. The tarball is 922K. This release includes Mac OS X support, XML output, and uptime detection.
+•	July 31, 2002 — Nmap 3.00 is released. The tarball is 922K. 
 2002年六月31日--- Nmap 3.00 发布。原始包922k。
+This release includes Mac OS X support, XML output, and uptime detection.
 这个发布包含支持Mac os x、xml输出和运行时间探测功能。
 •	August 28, 2002 — Nmap is converted from C to C++ and IPv6 supported is added as part of the Nmap 3.10ALPHA1 release.
 2002年八月28日  nmap从C转换为C++，同时支持IPv6作为一部分添加到Nmap 3.10ALPHA1发布版。
@@ -924,7 +926,8 @@ In addition to those high-level priorities, we have some concrete tasks in mind:
 国际化nmap来支持英语外的多种不同语言。 
 The Zenmap front-end already does this, supporting five languages, as described in the section called “Zenmap in Your Language”.
 zenmap终端字体已经做了这些工作，正如在“Zenmap in Your Language”一节描述的一样，支持五种语言，
-•	Add a testing harness system to more easily catch regressions (bugs). Ncat has already implemented such a system and it has proven extremely useful.
+•	Add a testing harness system to more easily catch regressions (bugs). 
+Ncat has already implemented such a system and it has proven extremely useful.
 ncat已经实施了这样一个系统并证明非常有用。
 •	The OS and Version detection systems may be augmented to support the NIST Common Platform Enumeration (CPE) standard for better compatibility with other tools.
 操作系统和版本探测
