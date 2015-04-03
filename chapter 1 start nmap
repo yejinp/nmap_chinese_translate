@@ -907,9 +907,13 @@ nmap脚本引擎-NSE
 •	Scanning web sites — Nmap will also grow in its ability to handle web scanning. 
 扫描web站点
 When Nmap was first developed, different services were often provided as separate daemons identified by the port number they listen on. 
+随着Nmap的首次开发，不通的服务常常作为单独的守护进程来确定他们监听的端口号。
 Now, many new services simply run over HTTP and are identified by a URL path name rather than port number. 
+现在，很多服务简单的运行在HTTP，通过URL路径来识别，而不是端口号。
 Scanning for known URL paths is similar in many ways to port scanning (and to the SunRPC scanning which Nmap has also done for many years). 
+扫描URL路径跟扫描端口有很多相同的地方。
 The Nmap Scripting Engine already supports many web scanning features, but I'd like to see http brute force password cracking, better spidering support, an HTML/XML parser, better web application fingerprinting, and the ability to proxy certain requests through HTTP and SOCKS proxies. 
+Nmap脚本引擎已经支持很多的web扫描特性，但我想看到 http的密码暴力破解、更好的支持爬虫和html/xml解析器、更好的web应用指纹、代理特定请求。
 Nmap should be able to port scan through those proxies too.
 --nmap将会成长为处理web扫描。在nmap发展的时候，不同的服务
 •	Web infrastructure improvements — Nmap is a cooperative project developed by many individuals. 
