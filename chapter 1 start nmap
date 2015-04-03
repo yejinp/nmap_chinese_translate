@@ -577,13 +577,21 @@ Omit these options for particularly sensitive environments or where you do not n
 •	Using -T2 or slower (-T1, -T0) timing modes can reduce the chances that a port scan will harm a system, though they slow your scan dramatically. 
 Older Linux boxes had an identd daemon that would block services temporarily if they were accessed too frequently. 
 This could happen in a port scan, as well as during legitimate high-load situations. 
-Slower timing might help here. These slow timing modes should only be used as a last resort because they can slow scans by an order of magnitude or more.
+这会产生一个端口扫描，在合法的高负载的情况下。
+Slower timing might help here. 
+计时会有所帮助，
+These slow timing modes should only be used as a last resort because they can slow scans by an order of magnitude or more.
 •	Limit the number of ports and machines scanned to the fewest that are required. 
+让扫描的端口和主机尽量减到需要的个数。
 Every machine scanned has a minuscule chance of crashing, and so cutting the number of machines down improves your odds. 
+每个被扫描的主机都有崩溃的风险，所以减少扫描主机个数提高胜算。
 Reducing the number of ports scanned reduces the risks to end hosts as well as network devices. 
+减少端口扫描可以减少终端主机和网络设备的风险。
 Many NAT/firewall devices keep a state entry for every port probe. 
+很多NAT/防火墙设备对每个端口探针都会保留一个状态入口。
 Most of them expire old entries when the table fills up, but occasional (pathetic) implementations crash instead. 
 Reducing the ports and hosts scanned reduces the number of state entries and thus might help those fragile and defective devices stay up.
+减少端口和主机扫描就减少了状态入口，因此会帮助那些
 
 Nmap Copyright
 nmao版权
@@ -592,7 +600,9 @@ While Nmap is open source, it still has a copyright license that must be respect
 As free software, Nmap also carries no warranty. 
 作为免费软件，nmap也没有授权。
 These issues are covered in much greater detail in the section called “Legal Notices”. 
+这些问题在“”一节有更为详细的描述。
 Companies wishing to bundle and use Nmap within proprietary software and appliances are especially encouraged to read this section so they don't inadvertently violate the Nmap license. 
+希望绑定和使用免软件和应用版权Nmap的公司，非常建议阅读此节，为了他们不会无意中违反Nmap条款。
 Fortunately the Nmap Project sells commercial redistribution licenses for companies which need one.
 这些问题在“注意法律”一节有详细描述。
 ________________________________________
@@ -665,9 +675,10 @@ This release includes timing modes such as-T aggressive, direct SunRPC scanning,
 •	May 28, 2000 — Gerhard Rieger sends a message to the nmap-dev list describing a new “protocol scan” he has developed for Nmap, and he even includes a patch. 
 2000年五月28日，Gerhard Rieger给我发消息说 nmap-dev列表描述了一个新的“协议扫描”已经开发完成，他甚至包含一个补丁。
 This is so cool that I release Nmap 2.54BETA1 with his patch less than 12 hours later.
+这很酷，在发布后的12小时内，我就根据他的补丁发布了Nmap 2.54BETA1。
 •	December 7, 2000 — Nmap 2.54BETA16 is released as the first official version to compile and run on Microsoft Windows. 
-The Windows porting work was done by Ryan Permeh and Andy Lutomirski.
 2000年十一月七日，nmap2.54BETA16作为官方编译和运行在微软Windows版本。
+The Windows porting work was done by Ryan Permeh and Andy Lutomirski.
 这个Windows移植工作由Ryan Permeh和Andy Lutomirski完成。
 •	July 9, 2001 — The Nmap IP ID idle scan is introduced with Nmap 2.54BETA26. 
 2001年六月9日---nmap IP ID空闲扫描引入到Nmap 2.54BETA26。
