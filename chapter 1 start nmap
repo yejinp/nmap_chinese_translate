@@ -276,7 +276,8 @@ Scanning all 100,000 hosts took over 30 hours, which is unacceptable for a daily
 So I wrote a script called nmap-wrapper which runs dozens of Nmap processes in parallel, reducing the scan time to fifteen hours, even including OS detection.
 The next problem was dealing with so much data. 
 A SQL database seemed like the best approach for scalability and data-mining reasons, but I had to abandon that idea due to time pressures. 
-A future version may add this support. Instead, I used a flat file to store the results of each class C address range for each day. 
+A future version may add this support. 
+Instead, I used a flat file to store the results of each class C address range for each day. 
 The most powerful and extensible way to parse and store this information was the Nmap XML format, but I chose the “grepable” (-oG option) format because it is so easy to parse from simple scripts. 
 Per-host timestamps are also stored for reporting purposes. 
 These have proven quite helpful when administrators try to blame machine or service crashes on the scanner. 
@@ -348,7 +349,8 @@ Sometimes a host's name provides clues to its function, and names make reports m
 This step may be skipped with the -n (no resolution) option, or expanded to cover all target IPs (even down ones) with -R(resolve all). 
 Name resolution is covered in the section called “DNS Resolution”.
 反向DNS解析。
-Port scanning. This is Nmap's core operation. Probes are sent, and the responses (or non-responses) to those probes are used to classify remote ports into states such as open, closed, or filtered. 
+Port scanning. 
+This is Nmap's core operation. Probes are sent, and the responses (or non-responses) to those probes are used to classify remote ports into states such as open, closed, or filtered. 
 That brief description doesn't begin to encompass Nmap's many scan types, configurability of scans, and algorithms for improving speed and accuracy.
 An overview of port scanning is in Chapter 4. 
 Detailed information on algorithms and command-line options are in Chapter 5. 
@@ -384,7 +386,8 @@ The ins and outs of output are the subject of Chapter 13.
 As already discussed, Nmap offers many options for controlling which of these phases are run. 
 For scans of large networks, each phase is repeated many times since Nmap deals with the hosts in smaller groups. 
 It scans each group completely and outputs those results, then moves on to the next batch of hosts.
-Script post-scanning. After Nmap has completed its scanning and normal output, scripts in this phase can process results and deliver final reports and statistics. 
+Script post-scanning. 
+After Nmap has completed its scanning and normal output, scripts in this phase can process results and deliver final reports and statistics. 
 See the section called “Script Types and Phases”. 
 Nmap does not yet include any scripts in this phase, so it only runs if the user includes and executes their own post-scanning scripts.
 扫描后脚本。
@@ -420,7 +423,8 @@ For example, the AUP for the huge cable-modem ISP Comcast says:
 Network probing or port scanning tools are only permitted when used in conjunction with a residential home network, or if explicitly authorized by the destination host and/or network.
 Unauthorized port scanning, for any reason, is strictly prohibited.
 Even if an ISP does not explicitly ban unauthorized port scanning, they might claim that some “anti-hacking” provision applies. 
-Of course this does not make port scanning illegal. Many perfectly legal and (in the United States) constitutionally protected activities are banned by ISPs. 
+Of course this does not make port scanning illegal. 
+Many perfectly legal and (in the United States) constitutionally protected activities are banned by ISPs. 
 For example, the AUP quoted above also prohibits users from transmitting, storing, or posting “any information or material which a reasonable person could deem to be objectionable, offensive, indecent, pornographic, ... embarrassing, distressing, vulgar, hateful, racially or ethnically offensive, or otherwise inappropriate, regardless of whether this material or its dissemination is unlawful”. 
 In other words, some ISPs ban any behavior that could possibly offend or annoy someone[7]. 
 Indiscriminate scanning of other people's networks does have that potential. 
@@ -519,8 +523,9 @@ But remember that there is always a trade-off.
 You are harder to find if you launch scans from an open WAP far from your house, with 17 decoys, while doing subsequent probes through a chain of nine open proxies. 
 But if anyone does track you down, they will be mighty suspicious of your intentions.
 •	Always have a legitimate reason for performing scans. 
-
+进行扫描的时候总是会有各种原因
 An offended administrator might write to you first (or your ISP might forward his complaint to you) expecting some sort of justification for the activity.
+
 In the Scott Moulton case discussed above, VC3 first emailed Scott to ask what was going on. 
 If they had been satisfied with his answer, matters might have stopped there rather than escalating into civil and criminal litigation. 
 When I scan large portions of the Internet for research purposes, I use a reverse-DNS name that describes the project and run a web server on that IP address with detailed information and opt-out instructions.
@@ -535,31 +540,52 @@ The police apparently considered his activity egregious enough that they brainst
 Similarly, charges involving port scanning are usually reserved for the most egregious cases. 
 Even when paranoid administrators notify the police that they have been scanned, prosecution (or any further action) is exceedingly rare. 
 The fact that a 911 emergency service was involved is likely what motivated prosecutors in the Moulton case. 
+事实是一个911紧急服务，
 Your author scanned millions of Internet hosts while writing this book and received fewer than ten complaints.
+你的作者在编写本书时扫描因特网上成千上万个主机收到不到十个抱怨。
 To summarize this whole section, the question of whether port scanning is legal does not have a simple answer. 
+总结本节，问题就是端口扫描是否违法的答案并不简单。
 I cannot unequivocally say “port scanning is never a crime”, as much as I would like to. 
+我不能说“端口扫描永远不是犯罪”
 Laws differ dramatically between jurisdictions, and cases hinge on their particular details. 
+在和特定的细节上面，法律有非常大的不同。
 Even when facts are nearly identical, different judges and prosecutors do not always interpret them the same way. 
+甚至当事实基本相同时，不同的法官和观察员并不总是用相同的方法打断他们。
 I can only urge caution and reiterate the suggestions above.
 For testing purposes, you have permission to scan the host scanme.nmap.org. 
-You may have noticed it used in several examples already. 
+为了测试目标，你一个有扫描主机scanme.nmap.org的许可
+You may have noticed it used in several examples already.
+你可能已经注意到它被用在几个举例中了。 
 Note that this permission only includes scanning with Nmap and not testing exploits or denial of service attacks. 
+注意，这些许可只包含用Nmap扫描而不包含攻击测试或者拒绝攻击。
 To conserve bandwidth, please do not initiate more than a dozen scans against that host per day. 
+为了节省带宽，请不要每天对一个主机进行超过12次的扫描。
 If this free scanning target service is abused, it will be taken down and Nmap will report Failed to resolve given hostname/IP: scanme.nmap.org.
+如果免费扫描目标服务被滥用，Nmap会报告失败由于解析一个给定的主机名h/IP：scanme.nmap.org。
 Can Port Scanning Crash the Target Computer/Networks?
+端口扫描会让目标主机/网络崩溃么?
 Nmap does not have any features designed to crash target networks.
+Nmap 没有包含让目标网络崩溃的特性。
 It usually tries to tread lightly. 
+他通常尝试轻微的对待他们
 For example, Nmap detects dropped packets and slows down when they occur in order to avoid overloading the network. 
+比如，为了避免网络负载过高，Nmap探测会丢包和减速。
 Nmap also does not send any corrupt packets. 
+Nmap也不会发生破坏的包。
 The IP, TCP, UDP, and ICMP headers are always appropriate, though the destination host is not necessarily expecting the packets. 
+IP、TCP、UDP和ICMP头，虽然目标主机并不是必须期望这个包的。
 For these reasons, no application, host, or network component should ever crash based on an Nmap scan. 
+由于这些原因，没有应用、主机或者网络组件会由于Nmap扫描而崩溃。
 If they do, that is a bug in the system which should be repaired by the vendor.
 nmap没有为使得目标网络奔溃的特性。他通常尝试
 Reports of systems being crashed by Nmap are rare, but they do happen. 
+鲜有系统由于被Nmap扫崩溃的报告，这也的确发生过。
 Many of these systems were probably unstable in the first place and Nmap either pushed them over the top or they crashed at the same time as an Nmap scan by pure coincidence. 
+他们中的很多系统可能不稳定，Nmap或者，或者
 In other cases, poorly written applications, TCP/IP stacks, and even operating systems have been demonstrated to crash reproducibly given a certain Nmap command. 
+其他例子中，写得不好的应用、TCP/IP协议栈和甚至操作系统
 These are usually older legacy devices, as newer equipment is rarely released with these problems. 
-
+通常这些老的设备，更新的设备很少会带着这些问题发布。
 Smart companies use Nmap and many other common network tools to test devices prior to shipment. 
 小公司用Nmap和很多其他常用网络工具来测试发布前的设备。
 Those who omit such pre-release testing often find out about the problem in early beta tests when a box is first deployed on the Internet. 
@@ -573,7 +599,7 @@ In many cases, finding that a machine crashes from a certain scan is valuable in
 After all, attackers can do anything Nmap can do by using Nmap itself or their own custom scripts. 
 毕竟，攻击者能够用Nmap自身或者他们定制的脚步做任何Nmap能做的事情，
 Devices should not crash from being scanned and if they do, vendors should be pressured to provide a patch. 
-
+设备部应该由于被扫描而崩溃，如果这样的话，供应商应该有提供补丁的压力了。
 In some usage scenarios, detecting fragile machines by crashing them is undesirable. 
 一些应用场景下，通过不想要的崩溃，探测会使得机器脆弱。
 In those cases you may want to perform very light scanning to reduce the risk of adverse effects. 
