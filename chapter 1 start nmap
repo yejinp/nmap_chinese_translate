@@ -375,7 +375,8 @@ This step may be skipped with the -n (no resolution) option, or expanded to cove
 Name resolution is covered in the section called “DNS Resolution”.
 反向DNS解析。
 Port scanning. 
-This is Nmap's core operation. Probes are sent, and the responses (or non-responses) to those probes are used to classify remote ports into states such as open, closed, or filtered. 
+This is Nmap's core operation. 
+Probes are sent, and the responses (or non-responses) to those probes are used to classify remote ports into states such as open, closed, or filtered. 
 That brief description doesn't begin to encompass Nmap's many scan types, configurability of scans, and algorithms for improving speed and accuracy.
 An overview of port scanning is in Chapter 4. 
 Detailed information on algorithms and command-line options are in Chapter 5. 
@@ -390,9 +391,13 @@ Different operating systems implement network standards in subtly different ways
 By measuring these differences it is often possible to determine the operating system running on a remote host. 
 Nmap matches responses to a standard set of probes against a database of more than a thousand known operating system responses. 
 OS detection is covered in Chapter 8.
-操作系统探测
-Traceroute. Nmap contains an optimized traceroute implementation, enabled by the --traceroute option. 
+操作系统探测在第八章涵盖。
+Traceroute. 
+路由跟踪
+Nmap contains an optimized traceroute implementation, enabled by the --traceroute option. 
+Nmap 包含一个路由跟踪优化实现，通过 --traceroute 选项开启
 It can find the network routes to many hosts in parallel, using the best available probe packets as determined by Nmap's previous discovery phases. 
+它能够并行发现到达很多主机的网络路由，利用可提供的最好的探测包
 Traceroute usually involves another round of reverse-DNS resolution for the intermediate hosts. 
 More information is found in the section called “Host Discovery”.
 跟踪路由
