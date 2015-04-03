@@ -791,8 +791,9 @@ This allows Nmap to focus on the ports which have been empirically shown to be t
 •	October 4, 2008 — The Nmap Documentation Portal is launched at . 
 2008年10月4日，Nmap文档移植在http://nmap.org/nsedoc/上启动。
 This allows users to brows all of Nmap's NSE script and library documentation in one place. 
+这允许用户查看所有的Nmap 脚本引擎和库文档。
 The documentation is generated from specially-formed comments in the source code (see the section called “Writing Script Documentation (NSEDoc)”).
-
+本文档从特殊形式的评论产生而来（详见“编写脚本文档（NSEDoc”一节）。
 •	January 1, 2009 — The first version of this book, Nmap Network Scanning, is released. 
 2009年1月1日，本书的第一版Nmap网络扫描发布， 
 The answer to whether anyone besides me would be interested in a 450+ page book on port scanning turns out to be a resounding yes!
