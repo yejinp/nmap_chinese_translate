@@ -588,24 +588,28 @@ Reducing the ports and hosts scanned reduces the number of state entries and thu
 Nmap Copyright
 nmao版权
 While Nmap is open source, it still has a copyright license that must be respected. 
-As free software, Nmap also carries no warranty. These issues are covered in much greater detail in the section called “Legal Notices”. 
+在nmap开源的同时，它的版权许可证任然必须受到尊敬。
+As free software, Nmap also carries no warranty. 
+作为免费软件，nmap也没有授权。
+These issues are covered in much greater detail in the section called “Legal Notices”. 
 Companies wishing to bundle and use Nmap within proprietary software and appliances are especially encouraged to read this section so they don't inadvertently violate the Nmap license. 
 Fortunately the Nmap Project sells commercial redistribution licenses for companies which need one.
-在nmap开源的同时，它的版权许可证任然必须受到尊敬。作为免费软件，nmap也没有授权。这些问题在“注意法律”一节有详细描述。
+这些问题在“注意法律”一节有详细描述。
 ________________________________________
 [6] These are from the now-defunct AmericanSushi.Com.
 [7] The Comcast AUP was improved after this was first published. The latest version is available at http://www.comcast.net/terms/use/
 [8] An excellent paper on this topic by lawyer Ethan Preston is available at http://grove.ufl.edu/~techlaw/vol6/issue1/preston.html. 
-He has also written an excellent paper relating to the legal risks of publishing security information and exploits athttp://www.mcandl.com/computer-security.html.
+He has also written an excellent paper relating to the legal risks of publishing security information and exploits at http://www.mcandl.com/computer-security.html.
 
 The History and Future of Nmap
 nmap的历史与将来
+
 Many ancient and well loved security tools, such as Netcat, tcpdump, and John the Ripper, haven't changed much over the years. 
 很多非常好的古老安全工具，比如netcat、tcpdump和john the Ripper，已经有多年没有改动。
 Others, including Wireshark, Metasploit, Cain and Abel, and Snort, have been under constant development since the day they were released. 
 其他工具，如wireshark、metasploit、Cain and Abel和Snort则从发布之日起就保持着程序的开发。
 Nmap is in that second category. 
-nmap属于后一类。
+nmap属于第二类。
 It was released as a simple Linux-only port scanner in 1997. 
 1997年发布第一个简单的只支持Linux的端口扫描器。
 Over the next 16+ years it sprouted a myriad of valuable features, including OS detection, version detection, the Nmap Scripting Engine, a Windows port, a graphical user interface, Ncat, Nping, Ndiff, and more. 
@@ -655,12 +659,12 @@ This is the first version to contain a graphical user interface as an alternativ
 The bundled Unix-only NmapFE GUI was originally written by Zach Smith. Some people like it, but most prefer command-line execution.
 起始的只支持UNIX的NmapFE 用户图形界面由Zach Smith编写。有些人喜欢它，但大部分人还是更喜欢命令行操作。
 •	April 28, 2000 — Nmap 2.50 is released. By this point the tarball has grown to 461KB. 
-This release includes timing modes such as-T aggressive, direct SunRPC scanning, and the Window and ACK scan methods.
 2000年四月28日--nmap 2.50版本发布。这时原始码增长到461kb。 
+This release includes timing modes such as-T aggressive, direct SunRPC scanning, and the Window and ACK scan methods.
 这次发布包含定时器模块，比如 、 直接SunRPC扫描以及窗口和ACK扫描方法。
 •	May 28, 2000 — Gerhard Rieger sends a message to the nmap-dev list describing a new “protocol scan” he has developed for Nmap, and he even includes a patch. 
-This is so cool that I release Nmap 2.54BETA1 with his patch less than 12 hours later.
 2000年五月28日，Gerhard Rieger给我发消息说 nmap-dev列表描述了一个新的“协议扫描”已经开发完成，他甚至包含一个补丁。
+This is so cool that I release Nmap 2.54BETA1 with his patch less than 12 hours later.
 •	December 7, 2000 — Nmap 2.54BETA16 is released as the first official version to compile and run on Microsoft Windows. 
 The Windows porting work was done by Ryan Permeh and Andy Lutomirski.
 2000年十一月七日，nmap2.54BETA16作为官方编译和运行在微软Windows版本。
@@ -685,6 +689,7 @@ Nmap成为电影中黑客的标配。
 Nmap is later seen in The Bourne Ultimatum, Die Hard 4, The Girl with the Dragon Tattoo, Dredd, and many others. 
 Nmap后来出现在和很多其他电影中。
 Details and screen shots from all these movies are available at http://nmap.org/movies/.
+从电影中的细节和截图在http://nmap.org/movies/上有。
 •	July 21, 2003 — I finish a first implementation of Nmap service/version detection (Chapter 7, Service and Application Version Detection) and release it to a couple dozen top Nmap developers and users as Nmap 3.40PVT1. 
 2003年7月21日  我完成了首个Nmap服务/版本探测功能（）。
 That is followed up by 16 more private releases over the next couple months as we improve the system and add signatures.
@@ -797,7 +802,7 @@ The documentation is generated from specially-formed comments in the source code
 •	January 1, 2009 — The first version of this book, Nmap Network Scanning, is released. 
 2009年1月1日，本书的第一版Nmap网络扫描发布， 
 The answer to whether anyone besides me would be interested in a 450+ page book on port scanning turns out to be a resounding yes!
-
+关于扫描450多页的书，证明非常轰动的一年。
 More than 10,000 copies are sold in the first 18 months. 
 头18个月就销售了超过10,000份。
 It is also released by other publishers in the German, Korean, and Brazilian Portuguese languages.
