@@ -77,7 +77,8 @@ But in this case, Avatar Online explicitly specified what networks they want tes
 Felix checks the IP whois records anyway and confirms that these IP ranges are allocated to AO[1]. 
 Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. No problem.
 Being the careful type, Felix first starts out with what is known as an Nmap list scan (-sL option). 
-This feature simply enumerates every IP address in the given target netblock(s) and does a reverse-DNS lookup (unless -n was specified) on each. 
+This feature simply enumerates every IP address in the given target net block(s) and does a reverse-DNS lookup (unless -n was specified) on each. 
+这个特性简单的枚举给定目标网块的每个IP地址，并对每一个做一个反向DNS解析查询（除非  -n）。
 One reason to do this first is stealth. 
 做这个事情的原因之一就是秘密行动。
 The names of the hosts can hint at potential vulnerabilities and allow for a better understanding of the target network, all without raising alarm bells[3]. 
@@ -235,6 +236,7 @@ Trinity
 She quickly determines that the network is using the private 10.0.0.0/8 network address space. 
 她很快发现，那个网络使用私有的10.0.0.0/8的网络地址空间。
 A ping to the network address generates responses from dozens of machines. 
+一个到达网络地址的ping会产生来自很多主机的响应。
 An Nmap ping scan would have provided a more comprehensive list of available machines, but using the broadcast technique saved precious seconds. 
 Nmap的ping扫描会提高一个更多的可用机器列表，但使用广播技术保存
 Then she whips out Nmap[5]. 
@@ -242,6 +244,7 @@ Then she whips out Nmap[5].
 The terminal has version 2.54BETA25 installed. 
 终端安全了2.54BETA25版本
 This version is ancient (2001) and less efficient than newer releases, but Trinity had no time to install a better version from the future. 
+这个版本比较古老（2001），也比更新的版本低效，但Trinity没有时间从未来来安装一个更好的版本。
 This job will not take long anyway. 
 毕竟，这个工作不会花很长时间
 She runs the command nmap -v -sS -O 10.2.1.3. 
