@@ -378,18 +378,32 @@ Port scanning.
 This is Nmap's core operation. 
 Probes are sent, and the responses (or non-responses) to those probes are used to classify remote ports into states such as open, closed, or filtered. 
 That brief description doesn't begin to encompass Nmap's many scan types, configurability of scans, and algorithms for improving speed and accuracy.
-An overview of port scanning is in Chapter 4. 
+
+An overview of port scanning is in Chapter 4.
+第四章是端口扫描的概貌 
 Detailed information on algorithms and command-line options are in Chapter 5. 
+关于算法和命令行选项的详细信息在第五章中。
 Port scanning is performed by default, though you can skip it with the -sn option and still perform some of the later traceroute and partial Nmap Scripting Engine phases by specifying their particular command-line options (such as --traceroute and --script).
 端口扫描，这是nmap的核心操作，发送探针后，对它的响应包（或者没有响应包）被用来区分远程端口为几种状态，比如开放、关闭或者被过滤。这些简单的描述
-Version detection. If any ports are found to be open, Nmap may be able to determine what server software is running on the remote system. 
+Version detection. 
+版本探测。
+If any ports are found to be open, Nmap may be able to determine what server software is running on the remote system. 
+如果发现任何端口是开放的，Nmap会探测远程系统上运行的服务器软件是什么。
 It does this by sending a variety of probes to the open ports and matching any responses against a database of thousands of more than 6,500 known service signatures. 
+通过发送不同的探针到开放端口并匹配任何响应，超过65,00个已知的服务签名。
 Version detection is enabled with the -sV option and is fully described in Chapter 7.
-版本探测
-OS detection. If requested with the -O option, Nmap proceeds to OS detection. 
+版本探测通过-sV选项来开启，在第七章有完整的描述。
+OS detection. 
+OS探测
+If requested with the -O option, Nmap proceeds to OS detection. 
+需要-O选项，Nmap才处理OS探测。
 Different operating systems implement network standards in subtly different ways. 
+不同的操作系统实现微弱的不同网络标准。
 By measuring these differences it is often possible to determine the operating system running on a remote host. 
+通过衡量它们的不同，确定远程主机的操作系统常常是可能的。
 Nmap matches responses to a standard set of probes against a database of more than a thousand known operating system responses. 
+Nmap匹配响应到标准探针集合，超过一千多个已知操作系统响应。
+
 OS detection is covered in Chapter 8.
 操作系统探测在第八章涵盖。
 Traceroute. 
