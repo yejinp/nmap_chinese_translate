@@ -258,24 +258,41 @@ Written by frequent Nmap user and contributor Lee “MadHat”Heath, it describe
 In true open source spirit, he has released these valuable scripts on his Web site. 
 IP addresses have been changed to protect the corporate identity. 
 The remainder of this section is in his own words.
+本节其余内容为他自己所说。
 After spending the past couple of decades learning computers and working my way up from tech support through sysadmin and into my dream job of Information Security Officer for a major Internet company, I found myself with a problem. 
+在花费过去的几十年的时间学习计算机和工作
 I was handed the sole responsibility of security monitoring for our entire IP space. 
+负责对我们整个IP空间进行网络监控
 This was almost 50,000 hosts worldwide when I started several years ago, and it has doubled since then.
+当我开始几年的时候，差不多有50,000个主机，然后从那之后就翻倍了。
 Scanning all of these machines for potential vulnerabilities as part of monthly or quarterly assessments would be tough enough, but management wanted it done daily. 
+为了潜在的漏洞而扫描所有机器是每月或者每季度，或许会很棘手，但管理员需要每天都执行它。
 Attackers will not wait a week or month to exploit a newly exposed vulnerability, so I can't wait that long to find and patch it either.
+
 Looking around for tools, I quickly chose Nmap as my port scanner. 
+看看周围的工具，我很快选择Nmap作为我的端口扫描器。
 It is widely considered to be the best scanner, and I had already been using it for years to troubleshoot networks and test security. 
+它在很大范围被认为是最好的扫描器，并且我已经有好几年用它来排查网络和测试安全性。
 Next I needed software to aggregate Nmap output and print differences between runs. 
-I considered several existing tools, including HD Moore's Nlog. Unfortunately none of these monitored changes in the way I desired. 
+接着我需要Nmap输出和打印不同运行的软件。
+I considered several existing tools, including HD Moore's Nlog. 
+我考虑了多个已有的软件，包含HD Moore的Nlog。
+Unfortunately none of these monitored changes in the way I desired. 
+不幸的是，没有一个按照我期望的样子改变了。
 I had to know whenever a router or firewall access control list was misconfigured or a host was publicly sharing inappropriate content. 
+我必须知道路由器或者防火墙的访问控制列表配置错误或者一个主机对大众分享不适当的内容。
 I also worried about the scalability of these other solutions, so I decided to tackle the problem myself.
 The first issue to come up was speed. 
 Our networks are located worldwide, yet I was provided with only a single U.S.-based host to do the scanning. 
 In many cases, firewalls between the sites slowed the scanning down significantly. 
 Scanning all 100,000 hosts took over 30 hours, which is unacceptable for a daily scan. 
+扫描所有的100,00个主机消耗30个小时，对于一个日常扫描是不可接受的。
 So I wrote a script called nmap-wrapper which runs dozens of Nmap processes in parallel, reducing the scan time to fifteen hours, even including OS detection.
+所以我写了一个名为 nmap-wrapper的脚本，这个脚本可以并行运行很多的Nmap进程，减少扫描时间到十五个小时，就算包含OS探测。
 The next problem was dealing with so much data. 
+下一个问题就是如何处理这么多的数据。
 A SQL database seemed like the best approach for scalability and data-mining reasons, but I had to abandon that idea due to time pressures. 
+一个SQL数据库对和数据挖掘来说，看起来是最好的方法，但由于时间压力我放弃了这个想法。
 A future version may add this support. 
 未来的版本或许会添加支持此功能。
 Instead, I used a flat file to store the results of each class C address range for each day. 
