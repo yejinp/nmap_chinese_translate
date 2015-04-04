@@ -129,7 +129,9 @@ Felix could have specified -p0-65535 if he wanted to scan the rather illegitimat
 The -p option has a very flexible syntax, even allowing the specification of a differing set of UDP and TCP ports.
 -PE -PP -PS80,443 -PA3389 -PU40125
 These are all host discovery techniques (ping types) used in combination to determine which targets on a network really available and avoid wasting a lot of time scanning IP addresses that are not in use. 
+这些是所有主机发现技术（ping类型）组合来确定那个网络目标的确可用，并避免让费太多的时间扫描没有在使用的IP地址。
 This particular incantation sends ICMP echo request and timestamp request packets; TCP SYN packet to ports 80 and 443; TCP ACK packets to port 3389; and a UDP packet to port 40,125. 
+
 If Nmap receives a response from a target host to any of these probes, it considers the host to be up and available for scanning. 
 This is the most effective six-probe combination that we've found in large-scale empirical testing for host discovery against targets over the Internet. 
 It is more extensive than the Nmap default, which is -PE -PS443 -PA80 -PP. 
@@ -139,21 +141,29 @@ To scan every IP whether it shows an available host or not, specify the -Pn opti
 Felix starts such a scan in the background, though it may take many hours to complete.
 -A
 This shortcut option turns on Advanced and Aggressive features such as OS and service detection. 
+这个短选项开启高级的和侵略性的特性，比如操作系统和服务探测功能。
 At the time of this writing it is equivalent to -sV -sC -O --traceroute (version detection, Nmap Scripting Engine with the default set of scripts, remote OS detection, and traceroute). 
+在本书写作是，它与选项-sV -sC -O --traceroute（版本探测、默认的nmap脚本引擎、远程主机操作系统探测和路由追踪功能）等同。
 More features may be added to -A later.
-这个短选项开启高级的和侵略性的特性，比如操作系统和服务探测功能。在本书写作是，它与选项-sV -sC -O --traceroute（版本探测、默认的nmap脚本引擎、远程主机操作系统探测和路由追踪功能）等同。
+更多特性在以后的-A会添加
 -T4
 Adjusts timing to the aggressive level (#4 of 5). 
+调整计时级别
 This is the same as specifying -T aggressive, but is easier to type and spell. 
 In general, the -T4 option is recommended if the connection between you and the target networks id reasonably fast and reliable.
-调整
+通常，如果你和目标之间的连接较快且稳定，推荐使用-T4选项
 -oA avatartcpscan-%D
 Outputs results in every format (normal, XML, grepable) to files named avatartcpscan-<date>.<extension> where the extensions are .nmap, .xml, and .gnmap respectively.
+用所有格式输出结果
 The <date> gives the month, day, and year in a format like 073010. 
+<date> 用像073010的格式给出了月、日和年。
 All of the output formats include the start date and time, but Felix likes to note the date explicitly in the filename. 
+包含开始和日期和时间的输出格式，但是Felix喜欢在文件名中明确标记日期。
 Normal output and errors are still sent to stdout[4] as well.
+正常的输出和错误同样也发送到标准输出[4]。
 6.209.24.0/24 6.207.0.0/22
 These are the Avatar Online netblocks discussed above. 
+以上这些是Avatar Online 网络块的讨论。
 They are given in CIDR notation, but Nmap allows them to be specified in many other formats. 
 For example, 6.209.24.0/24 could instead be specified as 6.209.24.0-255.
 Since such a comprehensive scan against more than a thousand IP addresses could take a while, Felix simply starts it executing and resumes work on his Yagi antenna. 
