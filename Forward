@@ -10,9 +10,9 @@ Introduction
 On September 1, 1997, I released a security scanner named Nmap in the fifty-first issue of Phrack magazine.
 1997年9月1日，我在杂志《菲里克》（Phrack）的第五十一期上发表了一个名为nmap的安全扫描器。
 My goal was to consolidate the fragmented field of special-purpose port scanners into one powerful and flexible free tool, providing a consistent interface and efficient implementation of all practical port scanning techniques.
-我的目标是为了整合各种分散的特殊端口扫描器为一个功能强大且灵活的免费工具，在高效的实现所有实用端口扫描技术的同时提供一个统一的接口。
+我的目标是整合各种零碎的特殊端口扫描器为一个功能强大且灵活的免费工具，在高效实现所有实用端口扫描技术的同时提供一个统一的接口。
 Nmap then consisted of three files (barely 2,000 lines of code) and supported only the Linux operating system.
-后来Nmap包含3个文件（仅仅包含约2000行代码），并只支持Linux操作系统。
+后来Nmap包含3个文件（仅仅约2000行代码），并只支持Linux操作系统。
 It was written for my own purposes, and released in the hope that others would find it useful.
 编写并发表这个软件的目的是希望其他人会发现它很有用。
 
