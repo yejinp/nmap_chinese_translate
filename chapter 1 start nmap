@@ -227,36 +227,59 @@ Unfortunately, the emergency power system administrators knew better than to con
 No amount of source routing or IP ID spoofed scanning will help Trinity overcome this “air gap” security. 
 Thinking fast, she devises a clever plan that involves jumping her motorcycle off the rooftop of a nearby building, landing on the power station guard post, and then beating up all of the security guards. 
 This advanced technique is not covered in any physical security manual, but proves highly effective. 
+这个高级技术没有在任何物理安全手册中描述，但却被证明很有效。
 It demonstrates how clever hackers research and devise their own attacks, rather than always utilizing the script-kiddie approach of canned exploits.
+
 Trinity fights her way to the computer room and sits down at a terminal. 
+Trinity
 She quickly determines that the network is using the private 10.0.0.0/8 network address space. 
+她很快发现，那个网络使用私有的10.0.0.0/8的网络地址空间。
 A ping to the network address generates responses from dozens of machines. 
 An Nmap ping scan would have provided a more comprehensive list of available machines, but using the broadcast technique saved precious seconds. 
+Nmap的ping扫描会提高一个更多的可用机器列表，但使用广播技术保存
 Then she whips out Nmap[5]. 
+然后她 期望 Nmap。
 The terminal has version 2.54BETA25 installed. 
+终端安全了2.54BETA25版本
 This version is ancient (2001) and less efficient than newer releases, but Trinity had no time to install a better version from the future. 
 This job will not take long anyway. 
+毕竟，这个工作不会花很长时间
 She runs the command nmap -v -sS -O 10.2.1.3. 
+运行命令：nmap -v -sS -O 10.2.1.3
 This executes a TCP SYN scan and OS detection against 10.2.1.3 and provides verbose output. 
+这对10.2.1.3执行一个TCP SYN扫描和系统探测，并提供详细的输出。
 The host appears to be a security disaster—AIX 3.2 with well over a dozen ports open. 
+这个主机貌似
 Unfortunately, this is not the machine she needs to compromise. 
+不幸的是，这不是她需要的机器。
 So she runs the same command against 10.2.2.2. 
+所以她对10.2.2.2运行了相同的命令。
 This time the target OS is unrecognized (she should have upgraded Nmap!) and only has port 22 open. 
+这一次，目标OS不认识（她没有更新Nmap），并且只开放了端口22。
 This is the Secure Shell encrypted administration service. 
 As any sexy latex-clad hacker goddess knows, many SSH servers from around that time (2001) have an exploitable vulnerability in the CRC32 compensation attack detector. 
 Trinity whips out an all-assembly-code exploit and utilizes it to change the root password of the target box to Z10N0101. 
+Trinity 
 Trinity uses much more secure passwords under normal circumstances. 
+Trinity使用在通常情况下很安全的口令。
 She logs in as root and issues a command to disable the emergency backup power system for 27 city blocks, finishing just in time! 
+她作为root登录了，并 命令来关闭27个城市区的紧急备份电力系统，这些都是及时完成的。
 Here is a shot of the action:
+下面是动作的截图
 Figure 1.2. Trinity scans the Matrix
 图1.2 Trinity扫描
  
 A terminal-view video showing the whole hack is available at http://nmap.org/movies.html, unless the MPAA finds out and sends sentinels or lawyers after us.
+终端视频显示，整个黑客在可以在http://nmap.org/movies.html看到，
 MadHat in Wonderland
 This story differs from the previous ones in that it is actually true. 
+与上面的故事不同，这个故事是真实的。
 Written by frequent Nmap user and contributor Lee “MadHat”Heath, it describes how he enhanced and customized Nmap for daily use in a large enterprise. 
+描述了他在大公司中如何为日常使用而提高和定制Nmap
 In true open source spirit, he has released these valuable scripts on his Web site. 
+作为真实的开源精神，他在自己的网站上发布了那些很有价值的脚本。
 IP addresses have been changed to protect the corporate identity. 
+为了保护公司资产，改变了IP地址。
 The remainder of this section is in his own words.
 本节其余内容为他自己所说。
 After spending the past couple of decades learning computers and working my way up from tech support through sysadmin and into my dream job of Information Security Officer for a major Internet company, I found myself with a problem. 
@@ -268,7 +291,7 @@ This was almost 50,000 hosts worldwide when I started several years ago, and it 
 Scanning all of these machines for potential vulnerabilities as part of monthly or quarterly assessments would be tough enough, but management wanted it done daily. 
 为了潜在的漏洞而扫描所有机器是每月或者每季度，或许会很棘手，但管理员需要每天都执行它。
 Attackers will not wait a week or month to exploit a newly exposed vulnerability, so I can't wait that long to find and patch it either.
-
+对于一个新爆出的漏洞，攻击者不会等上一周或者一个月来利用，所以我不能等待那么长时间来发现或者给他打补丁。
 Looking around for tools, I quickly chose Nmap as my port scanner. 
 看看周围的工具，我很快选择Nmap作为我的端口扫描器。
 It is widely considered to be the best scanner, and I had already been using it for years to troubleshoot networks and test security. 
@@ -282,9 +305,14 @@ Unfortunately none of these monitored changes in the way I desired.
 I had to know whenever a router or firewall access control list was misconfigured or a host was publicly sharing inappropriate content. 
 我必须知道路由器或者防火墙的访问控制列表配置错误或者一个主机对大众分享不适当的内容。
 I also worried about the scalability of these other solutions, so I decided to tackle the problem myself.
+我也担心，其他解决方案的伸缩性，所以我决定亲自处理这个问题。
 The first issue to come up was speed. 
+首先要说的问题就是速度
+
 Our networks are located worldwide, yet I was provided with only a single U.S.-based host to do the scanning. 
+我们的网络处在世界范围内，
 In many cases, firewalls between the sites slowed the scanning down significantly. 
+很多案例中，在站点中间的防火墙会很大程度上降低扫描速度。
 Scanning all 100,000 hosts took over 30 hours, which is unacceptable for a daily scan. 
 扫描所有的100,00个主机消耗30个小时，对于一个日常扫描是不可接受的。
 So I wrote a script called nmap-wrapper which runs dozens of Nmap processes in parallel, reducing the scan time to fifteen hours, even including OS detection.
@@ -323,8 +351,9 @@ So I created yet another Perl script, nmap-report, which made querying the data 
 It takes specifications such as open ports or operating systems and finds all the systems that matched on a given day.
 One problem with this approach to security monitoring is that employees do not always place services on their IANA-registered official ports. 
 For example, they might put a web server on port 22 (SSH) or vice versa. 
+比如，他们或者会将一个web服务器放在端口22（SSH），或者反过来。
 Just as I was debating how to address this problem, Nmap came out with an advanced service and version detection system (see Chapter 7, Service and Application Version Detection). 
-
+正当我在争论如何演讲这个问题的时候， Nmap高级的服务和版本探测系统（详见第七章，服务和应用版本探测）。
 nmap-report now has a rescan feature that uses version scanning to report the true services rather than guessing based on port number. 
 nmap报告，现在又一个重复扫描特性，这个特性使用版本探测来报告真实的服务，而不是基于端口号来猜测。
 I hope to further integrate version detection in future versions. 
