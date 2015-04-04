@@ -92,25 +92,40 @@ Example 1.1. Nmap list scan against Avatar Online IP addresses
 例子1.1 nmap例举对IP 地址进行扫描
 
 Reading over the results, Felix finds that all of the machines with reverse-DNS entries resolve to Avatar Online. 
-No other businesses seem to share the IP space. Moreover, these results give Felix a rough idea of how many machines are in use and a good idea of what many are used for. 
+No other businesses seem to share the IP space. 
+似乎没有其他公司共享这个Ip空间。
+Moreover, these results give Felix a rough idea of how many machines are in use and a good idea of what many are used for. 
+并且，这些结果
 He is now ready to get a bit more intrusive and try a port scan. 
+他现在准备和试下端口扫描了。
 He uses Nmap features that try to determine the application and version number of each service listening on the network. 
+他利用Nmap的特性，尝试确定网络上每个监听服务的应用和版本号
 He also requests that Nmap try to guess the remote operating system via a series of low-level TCP/IP probes known as OS fingerprinting. 
+他也请求，Nmap尝试通过一些列命名为OS指纹的低层次的TCP/IP探针来猜测远程操作系统
 This sort of scan is not at all stealthy, but that does not concern Felix. 
+
 He is interested in whether the administrators of AO even notice these blatant scans. 
 After a bit of consideration, Felix settles on the following command:
+经过一些考虑，Felix确定了下面的命令：
 nmap -sS -p- -PE -PP -PS80,443 -PA3389 -PU40125 -A -T4 -oA avatartcpscan-%D 6.209.24.0/24 6.207.0.0/22
 These options are described in later chapters, but here is a quick summary of them.
+这些选项在后面的章节中有描述，但这里是他们的快速总结。
 -sS
 Enables the efficient TCP port scanning technique known as SYN scan. 
+开启名为SYN扫描的有效TCP端口扫描技术
 Felix would have added a U at the end if he also wanted to do a UDP scan, but he is saving that for later. 
+如果他也想进行UDP扫描，Felix可能会在命令后面加上U，但它留着后面这样做。
 SYN scan is the default scan type, but stating it explicitly does not hurt.
 启用被称为SYN扫描的高效TCP端口扫描技术。
 -p-
 Requests that Nmap scan every port from 1-65535. 
+邀请Nmap从1-65535所有的端口。
 This is more comprehensive than the default, which is to scan only the 1,000 ports which we've found to be most commonly accessible in large-scale Internet testing. 
+这比默认的更，
 This option format is simply a short cut for -p1-65535. 
+他是选项-p1-65535的简短形式。
 Felix could have specified -p0-65535 if he wanted to scan the rather illegitimate port zero as well. 
+
 The -p option has a very flexible syntax, even allowing the specification of a differing set of UDP and TCP ports.
 -PE -PP -PS80,443 -PA3389 -PU40125
 These are all host discovery techniques (ping types) used in combination to determine which targets on a network really available and avoid wasting a lot of time scanning IP addresses that are not in use. 
