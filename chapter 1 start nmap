@@ -5,14 +5,14 @@
 Introduction
 介绍
 Nmap (“Network Mapper”) is a free and open source utility for network exploration and security auditing. 
-Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. 
-Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. 
-It was designed to rapidly scan large networks, but works fine against single hosts. 
-Nmap runs on all major computer operating systems, and both console and graphical versions are available.
 Nmap（网络制图者）是一个为网络探究和安全审计的免费开源工具。
+Many systems and network administrators also find it useful for tasks such as network inventory, managing service upgrade schedules, and monitoring host or service uptime. 
 很多系统和网络管理员也发现用它来处理网络库存、管理服务更新日程安排和监控主机或者服务运行时间等任务。
+Nmap uses raw IP packets in novel ways to determine what hosts are available on the network, what services (application name and version) those hosts are offering, what operating systems (and OS versions) they are running, what type of packet filters/firewalls are in use, and dozens of other characteristics. 
 Nmap 利用基于原始IP数据包的新方法来判断网络上那些主机可用、主机上提供了那些服务（应用名和版本）、运行的操作系统（操作系统版本）、在使用那些包过滤器或者防火墙和以及其他很多特征。
+It was designed to rapidly scan large networks, but works fine against single hosts. 
 它被设计为快速扫描大型网络，但对单个主机工作得也很好。
+Nmap runs on all major computer operating systems, and both console and graphical versions are available.
 Nmap运行在大部分的操作系统上，同时包含控制台和图形界面版本。
 This chapter uses fictional stories to provide a broad overview of Nmap and how it is typically used. 
 本章用来几个故事来鸟瞰nmap和其典型使用方法。
@@ -75,10 +75,13 @@ Determining the IP ranges to scan would normally be an elaborate process involvi
 But in this case, Avatar Online explicitly specified what networks they want tested: the corporate network on 6.209.24.0/24 and their production/DMZ systems residing on 6.207.0.0/22. 
 但在这个案例中，Avatar Online明确说明了他们希望测试的内容：公司网络和他们的产品系统
 Felix checks the IP whois records anyway and confirms that these IP ranges are allocated to AO[1]. 
+Felix检查了Ip的whois记录，并确认这些IP范围是AO公司的。
 Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. 
+Felix潜意识对CIDR编码进行了解码，意识到中有1,280个IP地址。
 No problem.
 没问题
 Being the careful type, Felix first starts out with what is known as an Nmap list scan (-sL option). 
+很小心，Felix首先从他知道的Nmap列举扫描开始。
 This feature simply enumerates every IP address in the given target net block(s) and does a reverse-DNS lookup (unless -n was specified) on each. 
 这个特性简单的枚举给定目标网块的每个IP地址，并对每一个做一个反向DNS解析查询（除非  -n）。
 One reason to do this first is stealth. 
@@ -86,18 +89,23 @@ One reason to do this first is stealth.
 The names of the hosts can hint at potential vulnerabilities and allow for a better understanding of the target network, all without raising alarm bells[3]. 
 主机的名字暗示，潜在的漏洞和对目标网络更好的理解，这些都没有触发告警。
 Felix is doing this for another reason—to double-check that the IP ranges are correct. 
+Felix这样做有另外一个原因--两次检查那个IP范围是对的。
 The systems administrator who provided the IPs might have made a mistake, and scanning the wrong company would be a disaster. 
+那个提供IP地址的管理员可能犯了一个错误，扫描错误的公司将是一个灾难。
 The contract signed with Avatar Online may act as a get-out-of-jail-free card for penetrating their networks, but will not help if Felix accidentally compromises another company's server! 
+与 Avatar Online的合同会扮演一个免牢狱卡，渗透测试他们的网络，但如果碰巧弄到其他公司的服务器的话就不行了。
 The command he uses and an excerpt of the results are shown in Example 1.1.
+他用的命令和运行结果如示例1.1
 
 Example 1.1. Nmap list scan against Avatar Online IP addresses
 例子1.1 nmap例举对IP 地址进行扫描
 
 Reading over the results, Felix finds that all of the machines with reverse-DNS entries resolve to Avatar Online. 
+通读结果， Felix发现，所有的DNS反向代理机器入口都解析到Avatar Online。
 No other businesses seem to share the IP space. 
-似乎没有其他公司共享这个Ip空间。
+似乎没有其他公司共享这个IP空间。
 Moreover, these results give Felix a rough idea of how many machines are in use and a good idea of what many are used for. 
-并且，这些结果
+并且，这些结果给Felix一个念头，有多少机器在使用，和那些用于什么作用。
 He is now ready to get a bit more intrusive and try a port scan. 
 他现在准备和试下端口扫描了。
 He uses Nmap features that try to determine the application and version number of each service listening on the network. 
@@ -105,7 +113,7 @@ He uses Nmap features that try to determine the application and version number o
 He also requests that Nmap try to guess the remote operating system via a series of low-level TCP/IP probes known as OS fingerprinting. 
 他也请求，Nmap尝试通过一些列命名为OS指纹的低层次的TCP/IP探针来猜测远程操作系统
 This sort of scan is not at all stealthy, but that does not concern Felix. 
-
+这类扫描根本不秘密，但Felix也不关心了。
 He is interested in whether the administrators of AO even notice these blatant scans. 
 他对AO的管理员是否注意到这些扫描很感兴趣。
 After a bit of consideration, Felix settles on the following command:
@@ -190,16 +198,31 @@ Example 1.2. Nmap results against an AO firewall
 例子2.2 nmap扫描一个AO防火墙的结果
 
 To the trained eye, this conveys substantial information about AO's security posture. 
+这揭示了关于AO的安全态度的丰富休息。
 Felix first notes the reverse DNS name—this machine is apparently meant to be a firewall for their corporate network. 
-The next line is important, but all too often ignored. It states that the vast majority of the ports on this machine are in the filtered state. 
+Felix首先注意到，反向DNS 名字-这个机器明显是公司网络的防火墙。
+The next line is important, but all too often ignored. 
+下一行很重要，但通常都忽略了。
+It states that the vast majority of the ports on this machine are in the filtered state. 
+这显示，这个机器上很大一部分端口都处于被过滤状态。
 This means that Nmap is unable to reach the port because it is blocked by firewall rules. 
+这意味着，由于防火墙规则限制，Nmap不能到达这个端口
 The fact that all ports except for a few chosen ones are in this state is a sign of security competence. 
+事实就是，除了一些选择的
 Deny-by-default is a security mantra for good reasons—it means that even if someone accidentally left SunRPC (port 111) open on this machine, the firewall rules would prevent attackers from communicating with it.
-Felix then looks at every port line in turn. The first port is Secure Shell (OpenSSH). 
+默认拒绝是一个安全
+Felix then looks at every port line in turn. 
+Felix这个看了每一个端口行。
+The first port is Secure Shell (OpenSSH). 
+第一个端口就是 Secure shell(Openssh)。
 Version 3.7.1p2 is common, as many administrators upgraded to this version due to potentially exploitable buffer management bugs affecting previous versions. 
-Nmap also notes that thesshv1 NSE script reports that the less secure SSHv1 protocol is supported. 
+版本3.7.1p2很平常，随着之前版本暴露潜在的缓存管理问题，很多管理员更新到这个版本，
+Nmap also notes that the sshv1 NSE script reports that the less secure SSHv1 protocol is supported. 
+Nmap也注意到，sshv1 NSE脚本报告，他支持比较不安全的SSHV1协议。
 A truly paranoid sysadmin would only allow SSH connections from certain trusted IP addresses, but one can argue for open access in case the administrator needs emergency access while far from home. 
+
 Security often involves trade-offs, and this one may be justifiable. 
+安全通畅涉及到折中，
 Felix makes a note to try the Ncrack brute force network authentication cracker and especially his private timing-based SSH user enumeration tool against the server.
 Felix also notes port 53. 
 Felix也注意到53端口。
@@ -211,11 +234,14 @@ BIND 9.2.1 even has a potentially exploitable buffer overflow, although the defa
 BIND 9.2.1 甚至有一个潜在的缓冲区溢出，虽然默认是。
 Felix checks and finds that this server is not vulnerable to the libbind issue, but that is beside the point. 
 This server almost certainly should not be running an externally-accessible nameserver. 
+这个服务器基本肯定不会允许外部可以访问。
 A firewall should only run the bare essentials to minimize the risk of a disastrous compromise. 
+防火墙只运行基本的东西来最小化攻击的风险。
 Besides, this server is not authoritative for any domains—the real nameservers are on the production network. 
 An administrator probably only meant for clients within the firewall to contact this nameserver, but did not bother locking it down to only the internal interface. 
 Felix will later try to gather important information from this unnecessary server using zone transfer requests and intrusive queries. He may attempt cache poisoning as well. 
 By spoofing the IP of windowsupdate.microsoft.com or another important download server, Felix may be able to trick unsuspecting internal client users into running a trojan-horse program that provides him with full network access behind the firewall.
+通过欺骗windowsupdate.microsoft.com或者另外一个重要的下载服务器的IP地址，Felix
 The next two open ports are 110 (POP3) and 143 (IMAP).
 接下来的两个开放端口是110（POP3）和143（IMAP）。
 Note that 113 (auth) between them is closed instead of open. 
@@ -238,9 +264,13 @@ This is another service that may have been intended for internal client use and 
 这是另外一个服务，内部客户原来，不能从外部访问。
 Felix's initially positive opinion of the AO security administrators drops further. 
 Felix will test whether he can abuse this proxy to connect to other sites on the Internet. 
+Felix将测试他是否能够利用代理来连接到网络上的其他站点。
 Spammers and malicious hackers often use proxies in this way to hide their tracks. 
+和黑客，常常使用代理来隐藏他们的攻击。
 Even more critical, Felix will try to proxy his way into the internal network. 
+更紧要的是，Felix将要尝试使用代理来让他到达内部网络。
 This common attack is how Adrian Lamo broke into the New York Times internal network in 2002. 
+这个常见的攻击是Adrian Lamo在2002年攻入New York Times内部的方法。
 Lamo was caught after he called reporters to brag about his exploits against the NY Times and other companies in detail.
 The following lines disclose that this is a Linux box, which is valuable information when attempting exploitation. 
 The low three-day uptime was detected during OS fingerprinting by sending several probes for the TCP timestamp option value and extrapolating the line back to zero.
