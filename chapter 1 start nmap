@@ -77,13 +77,14 @@ But in this case, Avatar Online explicitly specified what networks they want tes
 Felix checks the IP whois records anyway and confirms that these IP ranges are allocated to AO[1]. 
 Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. 
 No problem.
+没问题
 Being the careful type, Felix first starts out with what is known as an Nmap list scan (-sL option). 
 This feature simply enumerates every IP address in the given target net block(s) and does a reverse-DNS lookup (unless -n was specified) on each. 
 这个特性简单的枚举给定目标网块的每个IP地址，并对每一个做一个反向DNS解析查询（除非  -n）。
 One reason to do this first is stealth. 
 做这个事情的原因之一就是秘密行动。
 The names of the hosts can hint at potential vulnerabilities and allow for a better understanding of the target network, all without raising alarm bells[3]. 
-
+主机的名字暗示，潜在的漏洞和对目标网络更好的理解，这些都没有触发告警。
 Felix is doing this for another reason—to double-check that the IP ranges are correct. 
 The systems administrator who provided the IPs might have made a mistake, and scanning the wrong company would be a disaster. 
 The contract signed with Avatar Online may act as a get-out-of-jail-free card for penetrating their networks, but will not help if Felix accidentally compromises another company's server! 
@@ -200,7 +201,10 @@ Nmap also notes that thesshv1 NSE script reports that the less secure SSHv1 prot
 A truly paranoid sysadmin would only allow SSH connections from certain trusted IP addresses, but one can argue for open access in case the administrator needs emergency access while far from home. 
 Security often involves trade-offs, and this one may be justifiable. 
 Felix makes a note to try the Ncrack brute force network authentication cracker and especially his private timing-based SSH user enumeration tool against the server.
-Felix also notes port 53. It is running ISC BIND, which has a long history of remotely exploitable security holes. 
+Felix also notes port 53. 
+Felix也注意到53端口。
+It is running ISC BIND, which has a long history of remotely exploitable security holes. 
+他运行ISC BIND，它有一个历史悠久的远程安全漏洞。
 Visit the BIND security page for further details. 
 通过查看BIND安全页面来了解更多细节。
 BIND 9.2.1 even has a potentially exploitable buffer overflow, although the default build is not vulnerable. 
@@ -213,12 +217,21 @@ An administrator probably only meant for clients within the firewall to contact 
 Felix will later try to gather important information from this unnecessary server using zone transfer requests and intrusive queries. He may attempt cache poisoning as well. 
 By spoofing the IP of windowsupdate.microsoft.com or another important download server, Felix may be able to trick unsuspecting internal client users into running a trojan-horse program that provides him with full network access behind the firewall.
 The next two open ports are 110 (POP3) and 143 (IMAP).
-Note that 113 (auth) between them is closed instead of open. POP3 and IMAP are mail retrieval services which, like BIND, have no legitimate place on this server. 
+接下来的两个开放端口是110（POP3）和143（IMAP）。
+Note that 113 (auth) between them is closed instead of open. 
+注意端口113（auth）在他们之间，但是是关闭的而没有打开。
+POP3 and IMAP are mail retrieval services which, like BIND, have no legitimate place on this server. 
+POP3和IMAP是悠久获取服务，跟BIND一样，在服务器上没有地方了。
 They are also a security risk in that they generally transfer the mail and (even worse) authentication credentials unencrypted. 
+他们也有一个安全风险，传输邮件（）和授权证书解码了。
 Users should probably VPN in and check their mail from an internal server. 
+用户可能会用VPN拨入并从内部服务器中检查他们的邮件。
 These ports could also be wrapped in SSL encryption. 
+这些端口也可以封装在SSL加密中。
 Nmap would have then listed the services as ssl/pop3 and ssl/imap. 
+Nmap会列举服务，像 ssl/pop3和ssl/imap。
 Felix will try his user enumeration and password guessing attacks on these services, which will probably be much more effective than against SSH.
+Felix将要尝试他的用户名枚举和猜测密码来估计服务，这对SSH会更加有效。
 The final open port is a Squid proxy. 
 最后的开放端口是一个Squid代理。
 This is another service that may have been intended for internal client use and should not be accessible from the outside (and particularly not on the firewall). 
@@ -232,18 +245,20 @@ Lamo was caught after he called reporters to brag about his exploits against the
 The following lines disclose that this is a Linux box, which is valuable information when attempting exploitation. 
 The low three-day uptime was detected during OS fingerprinting by sending several probes for the TCP timestamp option value and extrapolating the line back to zero.
 Felix then examines the Nmap output for another machine, as shown in Example 1.3.
+Felix然后检查了另外一台设备的Nmap输出，如示例 1.3所示。
 Example 1.3. Another interesting AO machine
 例子1.3 另外一个有趣的AO机器
 
 Felix smiles when he spies this Windows XP box on the Network. 
 Thanks to a spate of MS RPC vulnerabilities, those machines are trivial to compromise if the OS patches aren't up-to-date. 
 The second line shows that the default state is closed, meaning the firewall does not have the same deny-by-default policy for this machine as for itself. 
+第二行显示，默认状态是关闭的，这就意味着，对于，防火墙没有相同的默认拒绝策略。
 Instead they tried to specifically block the Windows ports they consider dangerous on 135-139. 
 This filter is woefully inadequate, as MS exports MS RPC functionality on many other ports in Windows XP. 
 TCP ports 445 and 1025 are two examples from this scan. 
 TCP端口445和1025是本扫描的两个例子。
 While Nmap failed to recognize 16552, Felix has seen this pattern enough to know that it is probably the MS Messenger Service. 
-
+Nmap识别端口16552失败，Felix 认为，这可能是MS消息服务。
 If AO had been using deny-by-default filtering, port 16552 would not be accessible in the first place. 
 Looking through the results page, Felix sees several other Windows machines on this DHCP network. 
 通读结果，Felix看到DHCP网络上的几个其他windows机器。
