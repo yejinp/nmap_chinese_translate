@@ -45,12 +45,12 @@ Some of its options have never even been documented.
 This book documents all Nmap features and, more importantly, teaches the most effective ways of using them.
 本书描述了所有的Nmap特性，更重要的是，教你最有效使用它们的方法。
 It has taken nearly four years to write, with constant updating as Nmap has evolved.
-为了保持与Nmap进化过程中的不断更新，用了差不多4年来编写本书。    （ ?? ）
+为了保持与Nmap进化过程中的不断更新，花了近4年来写完本书。    （ ?? ）
 
 This book is dedicated to the Nmap community of users and developers.
-谨以本书奉献给Nmap社区的用户和开发人员。
+谨以此书奉献给Nmap社区的用户和开发人员。
 Your passion, ideas, patches, feature requests, flame wars, bug reports, and midnight rants have shaped Nmap into what it is today.
-正是你们的激情、观点、Patches、功能请求、激烈争论、Bug报告和午夜的牢骚让Nmap成为今天的样子。
+正是你们的激情、观点、Patches、功能请求、激烈争论、Bug报告和午夜的咆哮让Nmap成为今天的样子。
                                     —Gordon “Fyodor” Lyon <fyodor@nmap.org>
 
 Intended Audience and Organization
@@ -59,7 +59,7 @@ Intended Audience and Organization
 This book documents the free Nmap Security Scanner, from port scanning basics for novices to the types of packet crafting used by advanced hackers.
 本书从给新手的基本端口扫描到为高级黑客使用的各种包加工技巧描述了免费的Nmap安全扫描器。
 It should benefit Nmap users (or potential users) of all experience levels.
-它应让所有经验层次的 Nmap 用户（或潜在的用户）受益。
+它应让所有经验层次的Nmap用户（或潜在的用户）受益。
 Starting with the basics, this book gives an overview of Nmap by example in Chapter 1.
 从基础开始，本书在第一章通过例子来展示Nmap的概貌。
 Then Chapter 2 covers obtaining, compiling and installing Nmap.
@@ -71,21 +71,19 @@ First comes host discovery (“ping scanning”), which determines the available
 Next, port scanning is covered in depth.
 紧接着深入涵盖端口扫描功能。
 In Chapter 5, all the Nmap scanning techniques are detailed, with advice and examples.
-第五章中，在详细描述了Nmap所有扫描技术的同时给出建议和例子。
+第五章中，在详细描述Nmap所有扫描技术的同时给出建议和例子。
 Scanning a large network can take a long time, so Chapter 6 is full of performance optimization advice.
-扫描一个大型网络可以耗费很长时间，所以整个第六章都是性能优化建议。
+扫描一个大型网络可能耗费很长时间，所以整个第六章都是性能优化建议。
 Chapter 7 details service and application version detection, in which Nmap queries ports to determine exactly what is running rather than simply guessing based on the port number.
-第七章详细描述了服务和应用版本探测功能，其中Nmap利用查询端口方式来准确地确定，而不是基于端口号来简单猜测运行着什么服务。
-第七章详细介绍了服务和应用程序版本检测功能，其中 Nmap 查询端口以确定到底是什么正在运行，而不只猜测的基础的端口号。
+第七章详细介绍了服务和应用版本探测功能，其中Nmap利用查询端口方式来准确地确定运行着什么服务，而不是基于端口号来简单猜测。
 Chapter 8 covers one of Nmap's most loved features: remote OS detection.
 第八章涵盖Nmap用户最喜欢的特性之一：远程OS探测。
-第八章涵盖 Nmap 用户最爱的特征之一： 远程操作系统识别。
 Chapter 9 details the Nmap Scripting Engine (NSE), which allows users to write (and share) simple scripts to automate a wide variety of networking tasks.
-第九章详细介绍 Nmap脚本引擎（NSE），从而允许用户编写（和分享）简单的脚本来自动化执行各种各样的网络任务。
+第九章详细介绍 Nmap脚本引擎（NSE），它允许用户编写（和分享）简单的脚本来自动化执行各种各样的网络任务。
 My favorite chapter is number 10: Detecting and Subverting Firewalls and Intrusion Detection Systems.
-我最喜欢的是第十章：防火墙和入侵检测系统的探测和推翻（规避？？）。
+我最喜欢的是第十章：防火墙和入侵检测系统的探测和推翻。
 For balance, that is followed by a chapter on defending against Nmap scans.
-为了平衡，紧接着的一章就是如何防御nmap扫描。
+为了平衡，接下来的一章是如何防御nmap扫描。
 Chapter 12 then fully documents the Zenmap multi-platform Nmap GUI and results viewer.
 然后，在第十二章完整描述了Zenmap多平台Nmap GUI和结果查看器。
 The next two chapters cover output formats and data files.
@@ -93,19 +91,19 @@ The next two chapters cover output formats and data files.
 The final four chapters are reference guides for the whole family of tools: Nmap, Ndiff, Ncat, and Nping.
 最后的四章是介绍工具大家庭：Nmap、Ndiff、Ncat和Nping的参考指南。
 These are quick resources for looking up specific command-line options or brief feature summaries.
-这些章节提供了查询特定命令行选项或简要功能摘要的快速资源。
+这些章节提供用于查询特定命令行选项或功能摘要的快速资源。
 Scattered throughout the book are detailed instructions for performing common tasks such as scanning a network for a certain single open TCP port or detecting wireless access points by scanning from the wired side.
 书中随处可见完成常见任务，如通过扫描一个网络中特定开放端口或者通过有线来探测无线接入点的详细指令，。
 First each problem is described, then an effective solution is provided.
 首先描述了每个问题，然后提供了一个有效的解决方案。
 A final discussion section describes the solution in more depth and may provide alternative solutions and insights into similar problems.
 最后更深入的讨论了解决方法并提供了可选解决方法和类似问题的见解。
-最后的讨论部分描述了更深入的解决方案，并可能提供备选解决方案和类似问题的见解。
+最后的讨论部分更深入描述了解决方案，并可能提供备选解决方案和类似问题的见解。
 
 Conventions
 惯例
 Nmap output is used throughout this book to demonstrate principles and features.
-在本书的展示和特性中nmap的输出贯穿。
+nmap输出贯穿在本书原理和特性的演示中。
 整本书中演示原理及特点都用到了Nmap输出。
 The output is often edited to cut out lines which are irrelevant to the point being made.
 为了展示重点，输出中常常会剪掉不相关的行。
