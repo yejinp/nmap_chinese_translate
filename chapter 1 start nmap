@@ -75,7 +75,8 @@ Determining the IP ranges to scan would normally be an elaborate process involvi
 But in this case, Avatar Online explicitly specified what networks they want tested: the corporate network on 6.209.24.0/24 and their production/DMZ systems residing on 6.207.0.0/22. 
 但在这个案例中，Avatar Online明确说明了他们希望测试的内容：公司网络和他们的产品系统
 Felix checks the IP whois records anyway and confirms that these IP ranges are allocated to AO[1]. 
-Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. No problem.
+Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. 
+No problem.
 Being the careful type, Felix first starts out with what is known as an Nmap list scan (-sL option). 
 This feature simply enumerates every IP address in the given target net block(s) and does a reverse-DNS lookup (unless -n was specified) on each. 
 这个特性简单的枚举给定目标网块的每个IP地址，并对每一个做一个反向DNS解析查询（除非  -n）。
@@ -105,6 +106,7 @@ He also requests that Nmap try to guess the remote operating system via a series
 This sort of scan is not at all stealthy, but that does not concern Felix. 
 
 He is interested in whether the administrators of AO even notice these blatant scans. 
+他对AO的管理员是否注意到这些扫描很感兴趣。
 After a bit of consideration, Felix settles on the following command:
 经过一些考虑，Felix确定了下面的命令：
 nmap -sS -p- -PE -PP -PS80,443 -PA3389 -PU40125 -A -T4 -oA avatartcpscan-%D 6.209.24.0/24 6.207.0.0/22
@@ -125,20 +127,28 @@ This is more comprehensive than the default, which is to scan only the 1,000 por
 This option format is simply a short cut for -p1-65535. 
 他是选项-p1-65535的简短形式。
 Felix could have specified -p0-65535 if he wanted to scan the rather illegitimate port zero as well. 
-
+如果要扫描非法端口0，Felix也通过选项-p0-65535。
 The -p option has a very flexible syntax, even allowing the specification of a differing set of UDP and TCP ports.
+-p选项使用灵活的语法，甚至允许UDP和TCP的不同端口集合。
 -PE -PP -PS80,443 -PA3389 -PU40125
 These are all host discovery techniques (ping types) used in combination to determine which targets on a network really available and avoid wasting a lot of time scanning IP addresses that are not in use. 
 这些是所有主机发现技术（ping类型）组合来确定那个网络目标的确可用，并避免让费太多的时间扫描没有在使用的IP地址。
 This particular incantation sends ICMP echo request and timestamp request packets; TCP SYN packet to ports 80 and 443; TCP ACK packets to port 3389; and a UDP packet to port 40,125. 
-
+发送ICMP回响请求和时间戳请求包，TCP SYN包到80和443端口;TCP ACK包到3389端口；UDP包到40和125端口。
 If Nmap receives a response from a target host to any of these probes, it considers the host to be up and available for scanning. 
+如果Nmap接收到目标主机针对探针发过来的响应， 它会考虑主机在运行，并且可以扫描。
 This is the most effective six-probe combination that we've found in large-scale empirical testing for host discovery against targets over the Internet. 
+这是最有效的六个探针结合，在大型主机发现测试
 It is more extensive than the Nmap default, which is -PE -PS443 -PA80 -PP. 
+选项-PE -PS443 -PA80 -PP比Nmap的默认选项更好的扩展性。
 In a pen-testing situation, you often want to scan every host even if they do not seem to be up. 
+在渗透测试条件下，你常常想扫描所有主机，尽管他们似乎没有起来。
 After all, they could just be heavily filtered in such a way that the probes you selected are ignored but some other obscure port may be available. 
+毕竟，
 To scan every IP whether it shows an available host or not, specify the -Pn option instead of all of the above. 
+为了扫描每一个IP地址是否可用，通过 选项-Pn而不是上面所有的选项。
 Felix starts such a scan in the background, though it may take many hours to complete.
+Felix用一个后台扫描开始，虽然它可能会耗费多个小时来完成。
 -A
 This shortcut option turns on Advanced and Aggressive features such as OS and service detection. 
 这个短选项开启高级的和侵略性的特性，比如操作系统和服务探测功能。
@@ -150,6 +160,7 @@ More features may be added to -A later.
 Adjusts timing to the aggressive level (#4 of 5). 
 调整计时级别
 This is the same as specifying -T aggressive, but is easier to type and spell. 
+中跟选项-T功能相同，但更容易输入和拼写。
 In general, the -T4 option is recommended if the connection between you and the target networks id reasonably fast and reliable.
 通常，如果你和目标之间的连接较快且稳定，推荐使用-T4选项
 -oA avatartcpscan-%D
@@ -165,10 +176,15 @@ Normal output and errors are still sent to stdout[4] as well.
 These are the Avatar Online netblocks discussed above. 
 以上这些是Avatar Online 网络块的讨论。
 They are given in CIDR notation, but Nmap allows them to be specified in many other formats. 
+这些是CIDR标记法，但Nmap也允许很多其他格式来标记。
 For example, 6.209.24.0/24 could instead be specified as 6.209.24.0-255.
+比如，6.209.24.0/24可以用6.209.24.0-255替换。
 Since such a comprehensive scan against more than a thousand IP addresses could take a while, Felix simply starts it executing and resumes work on his Yagi antenna. 
+由于扫描会耗费一些时间来扫描上千个Ip地址，Felix只是简单的
 An couple hours later he notices that it has finished and takes a peek at the results. 
-Example 1.2shows one of the machines discovered.
+几个小时候，他注意到扫描结束了，偷看了一下扫描结果。
+Example 1.2 shows one of the machines discovered.
+示例1.2显示了发现主机中的一个。
 Example 1.2. Nmap results against an AO firewall
 例子2.2 nmap扫描一个AO防火墙的结果
 
@@ -186,7 +202,9 @@ Security often involves trade-offs, and this one may be justifiable.
 Felix makes a note to try the Ncrack brute force network authentication cracker and especially his private timing-based SSH user enumeration tool against the server.
 Felix also notes port 53. It is running ISC BIND, which has a long history of remotely exploitable security holes. 
 Visit the BIND security page for further details. 
+通过查看BIND安全页面来了解更多细节。
 BIND 9.2.1 even has a potentially exploitable buffer overflow, although the default build is not vulnerable. 
+BIND 9.2.1 甚至有一个潜在的缓冲区溢出，虽然默认是。
 Felix checks and finds that this server is not vulnerable to the libbind issue, but that is beside the point. 
 This server almost certainly should not be running an externally-accessible nameserver. 
 A firewall should only run the bare essentials to minimize the risk of a disastrous compromise. 
@@ -202,7 +220,9 @@ These ports could also be wrapped in SSL encryption.
 Nmap would have then listed the services as ssl/pop3 and ssl/imap. 
 Felix will try his user enumeration and password guessing attacks on these services, which will probably be much more effective than against SSH.
 The final open port is a Squid proxy. 
+最后的开放端口是一个Squid代理。
 This is another service that may have been intended for internal client use and should not be accessible from the outside (and particularly not on the firewall). 
+这是另外一个服务，内部客户原来，不能从外部访问。
 Felix's initially positive opinion of the AO security administrators drops further. 
 Felix will test whether he can abuse this proxy to connect to other sites on the Internet. 
 Spammers and malicious hackers often use proxies in this way to hide their tracks. 
@@ -221,22 +241,42 @@ The second line shows that the default state is closed, meaning the firewall doe
 Instead they tried to specifically block the Windows ports they consider dangerous on 135-139. 
 This filter is woefully inadequate, as MS exports MS RPC functionality on many other ports in Windows XP. 
 TCP ports 445 and 1025 are two examples from this scan. 
+TCP端口445和1025是本扫描的两个例子。
 While Nmap failed to recognize 16552, Felix has seen this pattern enough to know that it is probably the MS Messenger Service. 
+
 If AO had been using deny-by-default filtering, port 16552 would not be accessible in the first place. 
 Looking through the results page, Felix sees several other Windows machines on this DHCP network. 
+通读结果，Felix看到DHCP网络上的几个其他windows机器。
 Felix cannot wait to try his favorite DCOM RPC exploit against them. 
+Felix迫不及待的来尝试他最喜欢的DCOM RPC。
 It was written by HD Moore and is available at http://www.metasploit.com/tools/dcom.c. 
+它是HD Moore写的，在http://www.metasploit.com/tools/dcom.c上就有。
 If that fails, there are a couple newer MS RPC vulnerabilities he will try.
+如果失败的话，还有其他一些更新的MS RPC漏洞可以尝试。
 Felix continues poring over the results for vulnerabilities he can leverage to compromise the network. 
+Felix继续
 On the production network, he sees that gw.avataronline.com is a Cisco router that also acts as a rudimentary firewall for the systems. 
+在产品网络，他看到gw.avataronline.com 是一个思科路由器，
 They fall into the trap of only blocking privileged ports (those under 1024), which leaves a bunch of vulnerable SunRPC and other services accessible on that network. 
 The machines with names like clust-* each have dozens of ports open that Nmap does not recognize. 
+那些名字像 clust-*的机器都有很多Nmap不能识别的开发端口。
 They are probably custom daemons running the AO game engine. 
-www.avataronline.com is a Linux box with an open Apache server on the HTTP and HTTPS ports. Unfortunately, it is linked with an exploitable version of the OpenSSL library. 
-Oops! Before the sun sets, Felix has gained privileged access to hosts on both the corporate and production networks.
+这些可能是运行在AO游戏引擎的定制守护进程。
+www.avataronline.com is a Linux box with an open Apache server on the HTTP and HTTPS ports. 
+www.avataronline.com是一个运行http和https端口的Apache的Linux盒子。
+Unfortunately, it is linked with an exploitable version of the OpenSSL library. 
+不幸的是，
+Oops! 
+哎呀！
+Before the sun sets, Felix has gained privileged access to hosts on both the corporate and production networks.
+在日出以前，Felix已经获取了访问公司和产品网络的特权。
 As Felix has demonstrated, Nmap is frequently used by security auditors and network administrators to help locate vulnerabilities on client/corporate networks. 
+Felix已经演示，Nmap经常被用于安全审计和网络管理员原来定位客户/公司网络的漏洞。
 Subsequent chapters describe the techniques used by Felix, as well as many other Nmap features, in much greater detail.
+后续章节更加详细的描述了Felix用到的技术和其他的NMap特性。
+
 Saving the Human Race
+拯救人类
 Figure 1.1. Trinity begins her assault
 图1.1 Trinity开始她的攻击
 
@@ -1100,7 +1140,7 @@ I would like to see NSE grow to 500+ scripts in the next few years.
 Nmap will soon support prescan and postscan scripts which are not tied to an individual host or open port like the existing hostrule and portrule scripts are.
 nmap脚本引擎-NSE
 •	Scanning web sites — Nmap will also grow in its ability to handle web scanning. 
-扫描web站点
+扫描web站点 Nmap将会成长到支持处理web扫描。
 When Nmap was first developed, different services were often provided as separate daemons identified by the port number they listen on. 
 随着Nmap的首次开发，不通的服务常常作为单独的守护进程来确定他们监听的端口号。
 Now, many new services simply run over HTTP and are identified by a URL path name rather than port number. 
@@ -1135,7 +1175,7 @@ zenmap终端字体已经做了这些工作，正如在“Zenmap in Your Language
 Ncat has already implemented such a system and it has proven extremely useful.
 ncat已经实施了这样一个系统并证明非常有用。
 •	The OS and Version detection systems may be augmented to support the NIST Common Platform Enumeration (CPE) standard for better compatibility with other tools.
-操作系统和版本探测
+操作系统和版本探测 支持NIST CPE代表与其他工具更好的兼容性。
 •	Zenmap will soon offer an advanced script selection interface, making it easy to browse and choose scripts and script-arguments supported by the version of Nmap installed on a machine.
 为了使得安装了nmap上的主机浏览和选择脚本和相关参数更加容易，zenmap不久就提供脚本选择接口的高级功能。
 •	We plan to produce, encourage the production of, and distribute more Nmap-related videos to introduce people to Nmap and teach them tricks and techniques for using it effectively.
