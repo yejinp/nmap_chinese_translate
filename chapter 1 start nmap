@@ -218,22 +218,21 @@ It states that the vast majority of the ports on this machine are in the filtere
 This means that Nmap is unable to reach the port because it is blocked by firewall rules. 
 这意味着，由于防火墙规则阻止，Nmap不能到达这个端口。
 The fact that all ports except for a few chosen ones are in this state is a sign of security competence. 
-事实就是，除了很少一部分筛选端口外，
 除了几个拣选的端口以外，所有端口都在在这种状态，这也是安全能力的一个体现。
 Deny-by-default is a security mantra for good reasons—it means that even if someone accidentally left SunRPC (port 111) open on this machine, the firewall rules would prevent attackers from communicating with it.
 默认拒绝是一个安全咒语很好的理由 — — 就是说，即使有人不小心 让SunRPC服务（端口 111） 打开了，防火墙规则会阻止攻击者与它通信。
 Felix then looks at every port line in turn. 
-Felix这个看了每一个端口行。
+Felix依次看了每一个端口行。
 The first port is Secure Shell (OpenSSH). 
-第一个端口就是 Secure shell(Openssh)。
+第一个端口是 Secure shell(OpenSSH)。
 Version 3.7.1p2 is common, as many administrators upgraded to this version due to potentially exploitable buffer management bugs affecting previous versions. 
 版本3.7.1p2很平常，随着之前版本暴露潜在的缓存管理问题，很多管理员更新到这个版本，
 Nmap also notes that the sshv1 NSE script reports that the less secure SSHv1 protocol is supported. 
 Nmap也注意到，sshv1 NSE脚本报告，他支持比较不安全的SSHV1协议。
 A truly paranoid sysadmin would only allow SSH connections from certain trusted IP addresses, but one can argue for open access in case the administrator needs emergency access while far from home. 
-
+一个真正偏执狂的系统管理员只允许特定信任IP地址的SSH连接，但  管理员需要紧急访问
 Security often involves trade-offs, and this one may be justifiable. 
-安全通畅涉及到折中，
+安全经常涉及到权衡取舍，这也有道理。
 Felix makes a note to try the Ncrack brute force network authentication cracker and especially his private timing-based SSH user enumeration tool against the server.
 Felix also notes port 53. 
 Felix也注意到53端口。
