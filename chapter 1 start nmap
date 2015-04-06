@@ -17,7 +17,7 @@ Nmap运行在大部分的操作系统上，同时包含控制台和图形界面�
 This chapter uses fictional stories to provide a broad overview of Nmap and how it is typically used. 
 本章用来几个故事来鸟瞰nmap和其典型使用方法。
 An important legal section helps users avoid (or at least be aware of) controversial usage that could lead to ISP account cancellation or even civil and criminal charges. 
-重要的法律一节能够帮助用户避免（或者至少意识到）有争议的使用会导致ISP帐号被取消或者民事和刑事指控。
+重要的法律一节能够帮助用户避免（或者至少意识到）有争议的使用会导致ISP帐号被取消或民事和刑事指控。
 It also discusses the risks of crashing remote machines as well as miscellaneous issues such as the open source Nmap license (based on the GNU GPL), and copyright.
 在讨论其他主题，如Nmap开源许可证（基于GNU GPL）和版权的同时，也讨论了使得远程主机崩溃的风险。
 
@@ -29,9 +29,9 @@ Sometimes the best way to understand something is to see it in action.
 This section includes examples of Nmap used in (mostly) fictional yet typical circumstances. 
 本节包含了Nmap在（大部分）虚构但典型环境下的使用例子。
 Nmap newbies should not expect to understand everything at once. 
-Nmap新手不能期望与马上就能理解所有内容。
+Nmap新手不能期望马上就能理解所有内容。
 This is simply a broad overview of features that are described in depth in later chapters. 
-这只是一个关于后续章节将要全马描述的综述。
+这只是一个关于后续章节将要全面描述特性的概述。
 The “solutions” included throughout this book demonstrate many other common Nmap tasks for security auditors and network administrators.
 通书的解决方法演示了很多安全审计员和网络管理口的其他常见Nmap任务
 
@@ -39,41 +39,45 @@ Avatar Online
 Avatar 在线
 
 Felix dutifully arrives at work on December 15th, although he does not expect many structured tasks. 
-虽然不期望很多结构化的任务，在上月15日，Felix也还是尽职责的来上班。
+在上月15日，虽然不期望很多结构化的任务，Felix也还是尽职尽责的来上班。
 The small San Francisco penetration-testing firm he works for has been quiet lately due to impending holidays. 
-他工作的渗透测试小公司坐落在San Francisco，最近由于迫近假期的原因安静一段时间了。
+他工作的渗透测试小公司在San Francisco，最近由于迫近假期的原因安静一段时间了。
 Felix spends business hours pursuing his latest hobby of building powerful Wi-Fi antennas for wireless assessments and war driving exploration. 
-Felix工作时间
+Felix在工作时间追求他最新的爱好，为无线评估和驾驶勘探的战争（？？）建设强大的 Wi-Fi 天线。
 Nevertheless, Felix is hoping for more business. 
+然而，Felix希望更多的业务。
 Hacking has been his hobby and fascination since a childhood spent learning everything he could about networking, security, Unix, and phone systems. 
+自从童年花时间学习与网络、 安全、 Unix 和电话系统有关的一切，黑客行为一直以来他的爱好和迷恋。
 Occasionally his curiosity took him too far, and Felix was almost swept up in the 1990 Operation Sundevil prosecutions. 
-不经意间，他的好奇心把他戴的很远了，Felix基本上
+偶尔他的好奇心把他带得太远,Felix几乎席卷了1990操作Sundevil起诉。
 Fortunately Felix emerged from adolescence without a criminal record, while retaining his expert knowledge of security weaknesses. 
-幸好，Felix 从他没有犯罪记录的青年时代走过来了。
+幸好，Felix 从他没有犯罪记录的青年时代走过来了，同时保留他安全弱点的专家知识。
 As a professional, he is able to perform the same types of network intrusions as before, but with the added benefit of contractual immunity from prosecution and even a paycheck! 
-作为专业人员，他有能力完成与之前一样的网络入侵相关工作，但是由于支票。
+作为专业人员，他可以完成与之前一样的网络入侵相关工作，合同的额外好处就是免于诉讼甚至还能拿到支票。
 Rather than keeping his creative exploits secret, he can brag about them to client management when presenting his reports. 
-给客户管理做报告时呈现出
+与守住自己创造性的漏洞秘密不同，他可以在给客户管理部门提交他的报告时吹嘘一下。
 So Felix was not disappointed when his boss interrupted his antenna soldering to announce that the sales department closed a pen-testing deal with the Avatar Online gaming company.
-所以当他的老板打断他的，并说明销售部门已经关闭了一个与游戏公司Avatar Online的渗透测试交易时，Felix并不失望。
+所以当他的老板打断他的天线焊接，并宣布销售部门已经关闭了一个与游戏公司Avatar Online的渗透测试交易时，Felix并不失望。
 Avatar Online (AO) is a small company working to create the next generation of massive multi-player online role-playing games (MMORPGs). 
-Avatar Online是一个创建下一代大规模多人在线角色游戏的小公司。
+Avatar Online是一个创建下一代大规模多人在线角色扮演游戏的小公司。
 Their product, inspired by the Metaverse envisioned in Neil Stevenson's Snow Crash, is fascinating but still highly confidential. 
-他们仍然是高度保密的产品，
+他们仍然是高度保密的产品，Neil Stevenson的Snow Crash所设想的鼓舞
+他们的产品，受尼尔 · 史蒂文森的暴雪（Snow Crash），所设想的鼓舞，令人着迷，但仍是高度机密。
 After witnessing the high-profile leak of Valve Software's upcoming game source code, AO quickly hired the security consultants. 
-
+在目睹Valve Software软件公司即将推出游戏的源代码高调泄露事件后，AO迅速雇佣安全顾问。
 Felix's task is to initiate an external (from outside the firewall) vulnerability assessment while his partners work on physical security, source code auditing, social engineering, and so forth. 
-Felix任务就是外部物理安全、代码审计、社会工程和其他。
+Felix的任务是启动外部(从防火墙外部)漏洞评估工作,而他伙伴的任务是物理安全、源代码审计和社会工程等等。
 Felix is permitted to exploit any vulnerabilities found.
-Felix 保证不会他们发现的脆弱。
+Felix被允许利用他发现的任何漏洞。
 The first step in a vulnerability assessment is network discovery. 
-第一步就是发现网络。
+脆弱性评估的第一步是网络发现。
 This reconnaissance stage determines what IP address ranges the target is using, what hosts are available, what services those hosts are offering, general network topology details, and what firewall/filtering policies are in effect.
-
+这个阶段，确定了那些目标使用的IP地址范围，那些主机可用，提供那些服务，网络详细拓扑和那些防火墙/过滤那些的策略。
+这个侦察阶段确定目标正在使用的 IP 地址范围、 哪些主机可用、 提供什么样的服务、大体的网络拓扑结构的详细信息和什么样的防火墙/过滤策略效力。
 Determining the IP ranges to scan would normally be an elaborate process involving ARIN (or another geographical registry) lookups, DNS queries and zone transfer attempts, various web sleuthing techniques, and more. 
-确定扫描的IP范围
+确定IP范围扫描通常是一个复杂的过程,涉及ARIN(或另一个地理注册)查找,DNS查询和区域转移的尝试,各种web侦查技术等等。
 But in this case, Avatar Online explicitly specified what networks they want tested: the corporate network on 6.209.24.0/24 and their production/DMZ systems residing on 6.207.0.0/22. 
-但在这个案例中，Avatar Online明确说明了他们希望测试的内容：公司网络和他们的产品系统
+但在这个案例中，Avatar Online明确说明了他们希望测试什么网络：6.209.24.0/24的公司网络和6.207.0.0/22的他们产品系统
 Felix checks the IP whois records anyway and confirms that these IP ranges are allocated to AO[1]. 
 Felix检查了Ip的whois记录，并确认这些IP范围是AO公司的。
 Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. 
@@ -272,8 +276,11 @@ Even more critical, Felix will try to proxy his way into the internal network.
 This common attack is how Adrian Lamo broke into the New York Times internal network in 2002. 
 这个常见的攻击是Adrian Lamo在2002年攻入New York Times内部的方法。
 Lamo was caught after he called reporters to brag about his exploits against the NY Times and other companies in detail.
+Lamo在他呼叫报告者来  NY Times和其他公司时被捕了。
 The following lines disclose that this is a Linux box, which is valuable information when attempting exploitation. 
+
 The low three-day uptime was detected during OS fingerprinting by sending several probes for the TCP timestamp option value and extrapolating the line back to zero.
+
 Felix then examines the Nmap output for another machine, as shown in Example 1.3.
 Felix然后检查了另外一台设备的Nmap输出，如示例 1.3所示。
 Example 1.3. Another interesting AO machine
@@ -753,11 +760,17 @@ But if anyone does track you down, they will be mighty suspicious of your intent
 An offended administrator might write to you first (or your ISP might forward his complaint to you) expecting some sort of justification for the activity.
 
 In the Scott Moulton case discussed above, VC3 first emailed Scott to ask what was going on. 
+上面讨论的Scott Moulton 案例中，VC#首先给Scott发送邮箱询问究竟在干啥。
 If they had been satisfied with his answer, matters might have stopped there rather than escalating into civil and criminal litigation. 
+如果他们对他的答复满意的话，事情一个就会停止而不是诉诸于法律了。
 When I scan large portions of the Internet for research purposes, I use a reverse-DNS name that describes the project and run a web server on that IP address with detailed information and opt-out instructions.
+当我基于研究目的扫描大部分因特网时，我使用DNS反向解析，并运行一个web服务器
 Also remember that ancillary and subsequent actions are often used as evidence of intent. 
+同样记住，任意和接着的动作常常作为动机的证据。
 A port scan by itself does not always signify an attack. 
+端口扫描本身并不总意味着攻击。
 A port scan followed closely by an IIS exploit, however, broadcasts the intention loud and clear. 
+端口扫描后面如果紧跟着IIS利用，然而，动机。
 This is important because decisions to prosecute (or fire, expel, complain, etc.) are often based on the whole event and not just one component (such as a port scan).
 One dramatic case involved a Canadian man named Walter Nowakowski, who was apparently the first person to be charged in Canada with theft of communications (Canadian Criminal Code Section S.342.1) for accessing the Internet through someone's unsecured Wi-Fi network. 
 Thousands of Canadian “war drivers” do this every day, so why was he singled out? Because of ancillary actions and intent. 
