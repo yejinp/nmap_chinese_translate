@@ -156,43 +156,44 @@ This particular incantation sends ICMP echo request and timestamp request packet
 If Nmap receives a response from a target host to any of these probes, it considers the host to be up and available for scanning. 
 如果Nmap接收到目标主机针对探针发过来的响应， 它会考虑主机在运行，并且可以扫描。
 This is the most effective six-probe combination that we've found in large-scale empirical testing for host discovery against targets over the Internet. 
-这是最有效的六个探针结合，在大型主机发现测试
+这是最有效的六个探针组合，是我们在互联网上对大型实证检验对目标进行主机发现时发现的。
 It is more extensive than the Nmap default, which is -PE -PS443 -PA80 -PP. 
-选项-PE -PS443 -PA80 -PP 比Nmap的默认选项有更好的扩展性。
+选项-PE -PS443 -PA80 -PP 比Nmap的默认选项使用得更广泛。
 In a pen-testing situation, you often want to scan every host even if they do not seem to be up. 
-在渗透测试条件下，你常常想要扫描所有主机，尽管他们似乎没有起来。
+在渗透测试条件下，你经常想要扫描所有主机，尽管他们似乎没有在运行。
 After all, they could just be heavily filtered in such a way that the probes you selected are ignored but some other obscure port may be available. 
-毕竟，
+毕竟，他们可能只是用大量筛选方式忽略了你所选的探针，但其他一些晦涩的端口可能会可用。
 To scan every IP whether it shows an available host or not, specify the -Pn option instead of all of the above. 
-为了扫描每一个IP地址是否可用，通过 选项-Pn而不是上面所有的选项。
+为了扫描每一个IP地址是否可用，指定选项-Pn而不是上面所有的选项。
 Felix starts such a scan in the background, though it may take many hours to complete.
-Felix用一个后台扫描开始，虽然它可能会耗费多个小时来完成。
+Felix在后台启动扫描，虽然它可能会耗费多个小时来完成。
 -A
 This shortcut option turns on Advanced and Aggressive features such as OS and service detection. 
-这个短选项开启高级的和侵略性的特性，比如操作系统和服务探测功能。
+这个快捷选项开启高级和积极的特性，比如OS和服务探测功能。
 At the time of this writing it is equivalent to -sV -sC -O --traceroute (version detection, Nmap Scripting Engine with the default set of scripts, remote OS detection, and traceroute). 
-在本书写作是，它与选项-sV -sC -O --traceroute（版本探测、默认的nmap脚本引擎、远程主机操作系统探测和路由追踪功能）等同。
+在写作本书时，它与选项-sV -sC -O --traceroute（版本探测、默认的nmap脚本引擎、远程主机OS探测和路由追踪功能）等同。
 More features may be added to -A later.
-更多特性在以后的-A会添加
+以后可能会在-A上添加更多特性。
 -T4
 Adjusts timing to the aggressive level (#4 of 5). 
 调整计时级别
+调整积极计时级别 （#4 的 5）。
 This is the same as specifying -T aggressive, but is easier to type and spell. 
-中跟选项-T功能相同，但更容易输入和拼写。
+这跟指定选项-T的积极性相同，但更容易输入和拼写。
 In general, the -T4 option is recommended if the connection between you and the target networks id reasonably fast and reliable.
-通常，如果你和目标之间的连接较快且稳定，推荐使用-T4选项
+通常，如果你和目标之间的连接速度合理且稳定，推荐使用-T4选项。
 -oA avatartcpscan-%D
 Outputs results in every format (normal, XML, grepable) to files named avatartcpscan-<date>.<extension> where the extensions are .nmap, .xml, and .gnmap respectively.
-用所有格式输出结果
+将结果输出到所有名为avatartcpscan-<日期>.<扩展>格式（正常、XML、grepable）的文件，后缀分别为.nmap、xml和.gnmap。
 The <date> gives the month, day, and year in a format like 073010. 
-<date> 用像073010的格式给出了月、日和年。
+<日期> 用像073010的格式给出月、日和年。
 All of the output formats include the start date and time, but Felix likes to note the date explicitly in the filename. 
-包含开始和日期和时间的输出格式，但是Felix喜欢在文件名中明确标记日期。
+所有输出格式包含开始日期和时间，但是Felix喜欢在文件名中明确标记日期。
 Normal output and errors are still sent to stdout[4] as well.
 正常的输出和错误同样也发送到标准输出[4]。
 6.209.24.0/24 6.207.0.0/22
 These are the Avatar Online netblocks discussed above. 
-以上这些是Avatar Online 网络块的讨论。
+以上这些地址是我们前面讨论Avatar Online的网络块。
 They are given in CIDR notation, but Nmap allows them to be specified in many other formats. 
 这些是CIDR标记法，但Nmap也允许很多其他格式来标记。
 For example, 6.209.24.0/24 could instead be specified as 6.209.24.0-255.
