@@ -195,32 +195,33 @@ Normal output and errors are still sent to stdout[4] as well.
 These are the Avatar Online netblocks discussed above. 
 以上这些地址是我们前面讨论Avatar Online的网络块。
 They are given in CIDR notation, but Nmap allows them to be specified in many other formats. 
-这些是CIDR标记法，但Nmap也允许很多其他格式来标记。
+这些地址用CIDR标记法给出，但Nmap允许用很多其他格式来指定它。
 For example, 6.209.24.0/24 could instead be specified as 6.209.24.0-255.
-比如，6.209.24.0/24可以用6.209.24.0-255替换。
+比如，6.209.24.0/24也可以换用6.209.24.0-255来指定。
 Since such a comprehensive scan against more than a thousand IP addresses could take a while, Felix simply starts it executing and resumes work on his Yagi antenna. 
-由于扫描会耗费一些时间来扫描上千个Ip地址，Felix只是简单的
+由于对上千个IP地址进行全面的扫描会耗费一些时间，Felix只是简单的在他的八木天线上开始执行和重启工作。
 An couple hours later he notices that it has finished and takes a peek at the results. 
-几个小时候，他注意到扫描结束了，偷看了一下扫描结果。
+几个小时候后，他注意到扫描已经结束并偷看了一下结果。
 Example 1.2 shows one of the machines discovered.
-示例1.2显示了发现主机中的一个。
+示例1.2显示了已经发现主机中的一个。
 Example 1.2. Nmap results against an AO firewall
-例子2.2 nmap扫描一个AO防火墙的结果
+例子2.2 Nmap对AO防火墙扫描的结果
 
 To the trained eye, this conveys substantial information about AO's security posture. 
-这揭示了关于AO的安全态度的丰富休息。
+对于受过训练的眼睛，这传达了关于AO的安全态度的丰富信息。
 Felix first notes the reverse DNS name—this machine is apparently meant to be a firewall for their corporate network. 
-Felix首先注意到，反向DNS 名字-这个机器明显是公司网络的防火墙。
+Felix首先注意到反向DNS名字-这个机器明显是他们公司网络的防火墙。
 The next line is important, but all too often ignored. 
-下一行很重要，但通常都忽略了。
+下一行很重要，但也常常被忽视。
 It states that the vast majority of the ports on this machine are in the filtered state. 
-这显示，这个机器上很大一部分端口都处于被过滤状态。
+它指出这台机器上绝大多数的端口是在被筛选状态。
 This means that Nmap is unable to reach the port because it is blocked by firewall rules. 
-这意味着，由于防火墙规则限制，Nmap不能到达这个端口
+这意味着，由于防火墙规则阻止，Nmap不能到达这个端口。
 The fact that all ports except for a few chosen ones are in this state is a sign of security competence. 
-事实就是，除了一些选择的
+事实就是，除了很少一部分筛选端口外，
+除了几个拣选的端口以外，所有端口都在在这种状态，这也是安全能力的一个体现。
 Deny-by-default is a security mantra for good reasons—it means that even if someone accidentally left SunRPC (port 111) open on this machine, the firewall rules would prevent attackers from communicating with it.
-默认拒绝是一个安全
+默认拒绝是一个安全咒语很好的理由 — — 就是说，即使有人不小心 让SunRPC服务（端口 111） 打开了，防火墙规则会阻止攻击者与它通信。
 Felix then looks at every port line in turn. 
 Felix这个看了每一个端口行。
 The first port is Secure Shell (OpenSSH). 
