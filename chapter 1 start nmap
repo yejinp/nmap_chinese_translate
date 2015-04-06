@@ -68,7 +68,7 @@ After witnessing the high-profile leak of Valve Software's upcoming game source 
 Felix's task is to initiate an external (from outside the firewall) vulnerability assessment while his partners work on physical security, source code auditing, social engineering, and so forth. 
 Felix的任务是启动外部(从防火墙外部)漏洞评估工作,而他伙伴的任务是物理安全、源代码审计和社会工程等等。
 Felix is permitted to exploit any vulnerabilities found.
-Felix被允许利用他发现的任何漏洞。
+Felix被允许利用发现的任何漏洞。
 The first step in a vulnerability assessment is network discovery. 
 脆弱性评估的第一步是网络发现。
 This reconnaissance stage determines what IP address ranges the target is using, what hosts are available, what services those hosts are offering, general network topology details, and what firewall/filtering policies are in effect.
@@ -77,85 +77,90 @@ This reconnaissance stage determines what IP address ranges the target is using,
 Determining the IP ranges to scan would normally be an elaborate process involving ARIN (or another geographical registry) lookups, DNS queries and zone transfer attempts, various web sleuthing techniques, and more. 
 确定IP范围扫描通常是一个复杂的过程,涉及ARIN(或另一个地理注册)查找,DNS查询和区域转移的尝试,各种web侦查技术等等。
 But in this case, Avatar Online explicitly specified what networks they want tested: the corporate network on 6.209.24.0/24 and their production/DMZ systems residing on 6.207.0.0/22. 
-但在这个案例中，Avatar Online明确说明了他们希望测试什么网络：6.209.24.0/24的公司网络和6.207.0.0/22的他们产品系统
+但在这个案例中，Avatar Online明确指定了他们希望测试的网络：在6.209.24.0/24的公司网络和在6.207.0.0/22产品/DMZ系统。
 Felix checks the IP whois records anyway and confirms that these IP ranges are allocated to AO[1]. 
-Felix检查了Ip的whois记录，并确认这些IP范围是AO公司的。
+Felix检查了IP的whois记录，并确认这些IP范围是分配给AO公司的。
 Felix subconsciously decodes the CIDR notation[2] and recognizes this as 1,280 IP addresses. 
-Felix潜意识对CIDR编码进行了解码，意识到中有1,280个IP地址。
+Felix下意识对CIDR标记进行了解码，意识到这是1280个IP地址。
 No problem.
 没问题
 Being the careful type, Felix first starts out with what is known as an Nmap list scan (-sL option). 
-很小心，Felix首先从他知道的Nmap列举扫描开始。
+很小心，Felix第一次从他知道的Nmap列表扫描开始。
 This feature simply enumerates every IP address in the given target net block(s) and does a reverse-DNS lookup (unless -n was specified) on each. 
 这个特性简单的枚举给定目标网块的每个IP地址，并对每一个做一个反向DNS解析查询（除非  -n）。
+此功能只是枚举 （除非指定了-n） 给定的目标网络提供的网块和对每个 IP 地址对做一个反向 DNS 查找。
 One reason to do this first is stealth. 
-做这个事情的原因之一就是秘密行动。
+这么做的原因之一就是隐形。
 The names of the hosts can hint at potential vulnerabilities and allow for a better understanding of the target network, all without raising alarm bells[3]. 
-主机的名字暗示，潜在的漏洞和对目标网络更好的理解，这些都没有触发告警。
+主机的名字可以暗示潜在的漏洞和对目标网络更好的理解，这些都没有触发告警。
+主机的名称可以暗示，潜在的安全漏洞和允许更好地了解目标网络，一切都不触发告警 [3]。
 Felix is doing this for another reason—to double-check that the IP ranges are correct. 
 Felix这样做有另外一个原因--两次检查那个IP范围是对的。
+Felix这样做的另一个原因是仔细检查 IP 范围是否正确。
 The systems administrator who provided the IPs might have made a mistake, and scanning the wrong company would be a disaster. 
-那个提供IP地址的管理员可能犯了一个错误，扫描错误的公司将是一个灾难。
+那个提供IP地址的系统管理员可能犯了一个错误，扫描错误的公司将是一个灾难。
+提供 ip 地址的系统管理员可能犯了一个错误，扫描错误的公司将是一场灾难。
 The contract signed with Avatar Online may act as a get-out-of-jail-free card for penetrating their networks, but will not help if Felix accidentally compromises another company's server! 
-与 Avatar Online的合同会扮演一个免牢狱卡，渗透测试他们的网络，但如果碰巧弄到其他公司的服务器的话就不行了。
+对于渗透测试他们的网络，与 Avatar Online签订的的合同会扮演救命稻草角色（法宝），但如果Felix意外危及另一家公司的服务器则没有帮助。
+与阿凡达在线签订的合同可以作为让-出来的--无监救命稻草牢渗透他们网络的卡，但如果费利克斯意外危及另一家公司的服务器则不是有帮助 ！
 The command he uses and an excerpt of the results are shown in Example 1.1.
-他用的命令和运行结果如示例1.1
-
+他用的命令和结果如示例1.1
+他使用的命令和结果摘录例子 1.1 所示。
 Example 1.1. Nmap list scan against Avatar Online IP addresses
 例子1.1 nmap例举对IP 地址进行扫描
-
 Reading over the results, Felix finds that all of the machines with reverse-DNS entries resolve to Avatar Online. 
-通读结果， Felix发现，所有的DNS反向代理机器入口都解析到Avatar Online。
+阅读结果， Felix发现所有的DNS反向代理机器入口都解析到Avatar Online。
 No other businesses seem to share the IP space. 
 似乎没有其他公司共享这个IP空间。
 Moreover, these results give Felix a rough idea of how many machines are in use and a good idea of what many are used for. 
-并且，这些结果给Felix一个念头，有多少机器在使用，和那些用于什么作用。
+并且，这些结果让Felix有多少机器正在使用和那些用于什么作用有了大致了解。
 He is now ready to get a bit more intrusive and try a port scan. 
-他现在准备和试下端口扫描了。
+他现在准备好更多的侵入和试一试端口扫描。
 He uses Nmap features that try to determine the application and version number of each service listening on the network. 
 他利用Nmap的特性，尝试确定网络上每个监听服务的应用和版本号
 He also requests that Nmap try to guess the remote operating system via a series of low-level TCP/IP probes known as OS fingerprinting. 
-他也请求，Nmap尝试通过一些列命名为OS指纹的低层次的TCP/IP探针来猜测远程操作系统
+他也请求，Nmap尝试通过一些列命名为OS指纹的低层次TCP/IP探针来猜测远程操作系统
 This sort of scan is not at all stealthy, but that does not concern Felix. 
-这类扫描根本不秘密，但Felix也不关心了。
+这类扫描根本不秘密，但Felix并不关心。
 He is interested in whether the administrators of AO even notice these blatant scans. 
-他对AO的管理员是否注意到这些扫描很感兴趣。
+他感兴趣的是AO的管理员是否注意到这些公然的扫描。
 After a bit of consideration, Felix settles on the following command:
 经过一些考虑，Felix确定了下面的命令：
 nmap -sS -p- -PE -PP -PS80,443 -PA3389 -PU40125 -A -T4 -oA avatartcpscan-%D 6.209.24.0/24 6.207.0.0/22
 These options are described in later chapters, but here is a quick summary of them.
-这些选项在后面的章节中有描述，但这里是他们的快速总结。
+这些选项在后面的章节中有描述，但这里是它们的快速总结。
 -sS
 Enables the efficient TCP port scanning technique known as SYN scan. 
-开启名为SYN扫描的有效TCP端口扫描技术
+开启名为SYN扫描的有效TCP端口扫描技术。
 Felix would have added a U at the end if he also wanted to do a UDP scan, but he is saving that for later. 
-如果他也想进行UDP扫描，Felix可能会在命令后面加上U，但它留着后面这样做。
+如果也想进行UDP扫描，Felix可能会在命令后面加上U，但它留着后面这样做。
 SYN scan is the default scan type, but stating it explicitly does not hurt.
-启用被称为SYN扫描的高效TCP端口扫描技术。
+SYN扫描是默认的扫描类型，但明确指出它不会伤害。
 -p-
 Requests that Nmap scan every port from 1-65535. 
-邀请Nmap从1-65535所有的端口。
+请求Nmap扫描从1到65535所有的端口。
 This is more comprehensive than the default, which is to scan only the 1,000 ports which we've found to be most commonly accessible in large-scale Internet testing. 
-这比默认的更，
+这比默认值更全面，默认只扫描我们发现的大型互联网测试中最常访问 1,000个端口。
 This option format is simply a short cut for -p1-65535. 
 他是选项-p1-65535的简短形式。
 Felix could have specified -p0-65535 if he wanted to scan the rather illegitimate port zero as well. 
-如果要扫描非法端口0，Felix也通过选项-p0-65535。
+如果要扫描非法端口0，Felix也通过选项-p0-65535指定。
 The -p option has a very flexible syntax, even allowing the specification of a differing set of UDP and TCP ports.
 -p选项使用灵活的语法，甚至允许UDP和TCP的不同端口集合。
+-P 选项有一个非常灵活的语法，甚至允许 UDP 和 TCP 指明不同的端口集。
 -PE -PP -PS80,443 -PA3389 -PU40125
 These are all host discovery techniques (ping types) used in combination to determine which targets on a network really available and avoid wasting a lot of time scanning IP addresses that are not in use. 
-这些是所有主机发现技术（ping类型）组合来确定那个网络目标的确可用，并避免让费太多的时间扫描没有在使用的IP地址。
+这些都是主机发现技术(ping类型)结合使用,以确定哪些目标网络上真正可用,避免浪费大量的时间扫描不在使用的IP地址。
 This particular incantation sends ICMP echo request and timestamp request packets; TCP SYN packet to ports 80 and 443; TCP ACK packets to port 3389; and a UDP packet to port 40,125. 
-发送ICMP回响请求和时间戳请求包，TCP SYN包到80和443端口;TCP ACK包到3389端口；UDP包到40和125端口。
+发送ICMP回显和时间戳请求包，TCP SYN包到80和443端口;TCP ACK包到3389端口；UDP包到40和125端口。
 If Nmap receives a response from a target host to any of these probes, it considers the host to be up and available for scanning. 
 如果Nmap接收到目标主机针对探针发过来的响应， 它会考虑主机在运行，并且可以扫描。
 This is the most effective six-probe combination that we've found in large-scale empirical testing for host discovery against targets over the Internet. 
 这是最有效的六个探针结合，在大型主机发现测试
 It is more extensive than the Nmap default, which is -PE -PS443 -PA80 -PP. 
-选项-PE -PS443 -PA80 -PP比Nmap的默认选项更好的扩展性。
+选项-PE -PS443 -PA80 -PP 比Nmap的默认选项有更好的扩展性。
 In a pen-testing situation, you often want to scan every host even if they do not seem to be up. 
-在渗透测试条件下，你常常想扫描所有主机，尽管他们似乎没有起来。
+在渗透测试条件下，你常常想要扫描所有主机，尽管他们似乎没有起来。
 After all, they could just be heavily filtered in such a way that the probes you selected are ignored but some other obscure port may be available. 
 毕竟，
 To scan every IP whether it shows an available host or not, specify the -Pn option instead of all of the above. 
