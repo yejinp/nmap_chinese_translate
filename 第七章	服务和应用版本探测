@@ -1,19 +1,59 @@
 
 Introduction
 
-While Nmap does many things, its most fundamental feature is port scanning. Point Nmap at a remote machine, and it might tell you that ports 25/tcp, 80/tcp, and 53/udp are open. Using its nmap-services database of more than 2,200 well-known services, Nmap would report that those ports probably correspond to a mail server (SMTP), web server (HTTP), and name server (DNS) respectively. This lookup is usually accurate—the vast majority of daemons listening on TCP port 25 are, in fact, mail servers. However, you should not bet your security on this! People can and do run services on strange ports. Perhaps their main web server was already on port 80, so they picked a different port for a staging or test server. Maybe they think hiding a vulnerable service on some obscure port prevents “evil hackers” from finding it. Even more common lately is that people choose ports based not on the service they want to run, but on what gets through the firewall. When ISPs blocked port 80 after major Microsoft IIS worms CodeRed and Nimda, hordes of users responded by moving their personal web servers to another port. When companies block Telnet access due to its horrific security risks, I have seen users simply run telnetd on the Secure Shell (SSH) port instead.
+While Nmap does many things, its most fundamental feature is port scanning. 
+Point Nmap at a remote machine, and it might tell you that ports 25/tcp, 80/tcp, and 53/udp are open. 
+Using its nmap-services database of more than 2,200 well-known services, Nmap would report that those ports probably correspond to a mail server (SMTP), web server (HTTP), and name server (DNS) respectively. 
+This lookup is usually accurate—the vast majority of daemons listening on TCP port 25 are, in fact, mail servers. 
+However, you should not bet your security on this! 
+People can and do run services on strange ports. 
+Perhaps their main web server was already on port 80, so they picked a different port for a staging or test server. 
+Maybe they think hiding a vulnerable service on some obscure port prevents “evil hackers” from finding it. 
+Even more common lately is that people choose ports based not on the service they want to run, but on what gets through the firewall. 
+When ISPs blocked port 80 after major Microsoft IIS worms CodeRed and Nimda, hordes of users responded by moving their personal web servers to another port. 
+When companies block Telnet access due to its horrific security risks, I have seen users simply run telnetd on the Secure Shell (SSH) port instead.
 
-Even if Nmap is right, and the hypothetical server above is running SMTP, HTTP, and DNS servers, that is not a lot of information. When doing vulnerability assessments (or even simple network inventories) of your companies or clients, you really want to know which mail and DNS servers and versions are running. Having an accurate version number helps dramatically in determining which exploits a server is vulnerable to. Do keep in mind that security fixes are often back-ported to earlier versions of software, so you cannot rely solely on the version number to prove a service is vulnerable. False negatives are rarer, but can happen when silly administrators spoof the version number of a vulnerable service to make it appear patched.
+Even if Nmap is right, and the hypothetical server above is running SMTP, HTTP, and DNS servers, that is not a lot of information. 
+When doing vulnerability assessments (or even simple network inventories) of your companies or clients, you really want to know which mail and DNS servers and versions are running. 
+Having an accurate version number helps dramatically in determining which exploits a server is vulnerable to. 
+Do keep in mind that security fixes are often back-ported to earlier versions of software, so you cannot rely solely on the version number to prove a service is vulnerable. 
+False negatives are rarer, but can happen when silly administrators spoof the version number of a vulnerable service to make it appear patched.
 
-Another good reason for determining the service types and version numbers is that many services share the same port number. For example, port 258/tcp is used by both the Checkpoint Firewall-1 GUI management interface and the yak Windows chat client. This makes a guess based on the nmap-services table even less accurate. Anyone who has done much scanning knows that you also often find services listening on unregistered ports—these are a complete mystery without version detection. A final problem is that filtered UDP ports often look the same to a simple port scanner as open ports. But if they respond to the service-specific probes sent by Nmap version detection, you know for sure that they are open (and often exactly what is running).
+Another good reason for determining the service types and version numbers is that many services share the same port number. 
+For example, port 258/tcp is used by both the Checkpoint Firewall-1 GUI management interface and the yak Windows chat client. 
+This makes a guess based on the nmap-services table even less accurate. 
+Anyone who has done much scanning knows that you also often find services listening on unregistered ports—these are a complete mystery without version detection. 
+A final problem is that filtered UDP ports often look the same to a simple port scanner as open ports. 
+But if they respond to the service-specific probes sent by Nmap version detection, you know for sure that they are open (and often exactly what is running).
 
-Service scans sometimes reveal information about a target beyond the service type and version number. Miscellaneous information discovered about a service is collected in the “info” field. This is displayed in the VERSION column inside parentheses following the product name and version number. This field can include SSH protocol numbers, Apache modules, and much more.
+Service scans sometimes reveal information about a target beyond the service type and version number. 
+Miscellaneous information discovered about a service is collected in the “info” field. 
+This is displayed in the VERSION column inside parentheses following the product name and version number. 
+This field can include SSH protocol numbers, Apache modules, and much more.
 
-Some services also report their configured hostnames, which differ from machines' reverse DNS hostnames surprisingly often. The hostname field is reported on a Service Info line following the port table. It sounds like a minor information leak, but can have consequences. One year at the CanSecWest security conference, I was huddled up in my room with my laptop. Suddenly the tcpdump window in the corner of my screen went wild and I realized my machine was under attack. I scanned back and found an unusual high port sitting open. Upon connecting, the port spewed a bunch of binary characters, but one ASCII field in the output gave a configured domain name. The domain was for a small enough security company that I knew exactly who was responsible. I had the front desk ring his hotel room, and boy was he surprised when I asked him to stop probing my box.
+Some services also report their configured hostnames, which differ from machines' reverse DNS hostnames surprisingly often. 
+The hostname field is reported on a Service Info line following the port table. 
+It sounds like a minor information leak, but can have consequences. 
+One year at the CanSecWest security conference, I was huddled up in my room with my laptop. 
+Suddenly the tcpdump window in the corner of my screen went wild and I realized my machine was under attack. 
+I scanned back and found an unusual high port sitting open. 
+Upon connecting, the port spewed a bunch of binary characters, but one ASCII field in the output gave a configured domain name. 
+The domain was for a small enough security company that I knew exactly who was responsible. 
+I had the front desk ring his hotel room, and boy was he surprised when I asked him to stop probing my box.
 
-Two more fields that version detection can discover are operating system and device type. These are also reported on the Service Info line. We use two techniques here. One is application exclusivity. If we identify a service as Microsoft Exchange, we know the operating system is Windows since Exchange doesn't run on anything else. The other technique is to persuade more portable applications to divulge the platform information. Many servers (especially web servers) require very little coaxing. This type of OS detection is intended to complement Nmap's OS detection system (-O) and can sometimes report differing results. For example, consider a Microsoft Exchange server hidden behind a port-forwarding Unix firewall.
+Two more fields that version detection can discover are operating system and device type. 
+These are also reported on the Service Info line. 
+We use two techniques here. 
+One is application exclusivity. 
+If we identify a service as Microsoft Exchange, we know the operating system is Windows since Exchange doesn't run on anything else. 
+The other technique is to persuade more portable applications to divulge the platform information. 
+Many servers (especially web servers) require very little coaxing. 
+This type of OS detection is intended to complement Nmap's OS detection system (-O) and can sometimes report differing results. 
+For example, consider a Microsoft Exchange server hidden behind a port-forwarding Unix firewall.
 
-The Nmap version scanning subsystem obtains all of this data by connecting to open ports and interrogating them for further information using probes that the specific services understand. This allows Nmap to give a detailed assessment of what is really running, rather than just what port numbers are open. Example 7.1 shows the actual output.
+The Nmap version scanning subsystem obtains all of this data by connecting to open ports and interrogating them for further information using probes that the specific services understand. 
+This allows Nmap to give a detailed assessment of what is really running, rather than just what port numbers are open. 
+Example 7.1 shows the actual output.
 
 Example 7.1. Simple usage of version detection
 
@@ -45,22 +85,29 @@ Nmap version detection offers the following advanced features (fully described l
 
     Multi-platform support, including Linux, Windows, Mac OS X, FreeBSD/NetBSD/OpenBSD, Solaris, and all the other platforms on which Nmap is known to work.
 
-    If SSL is detected, Nmap connects using OpenSSL (if available) and tries to determine what service is listening behind that encryption layer. This allows it to discover services like HTTPS, POP3S, IMAPS, etc. as well as providing version details.
+    If SSL is detected, Nmap connects using OpenSSL (if available) and tries to determine what service is listening behind that encryption layer. 
+    This allows it to discover services like HTTPS, POP3S, IMAPS, etc. as well as providing version details.
 
     If a SunRPC service is discovered, Nmap launches its brute-force RPC grinder to find the program number, name, and version number.
 
     IPv6 is supported, including TCP, UDP, and SSL over TCP.
 
-    Common Platform Enumeration (CPE) output for interoperation with other software (some information is only included in XML output). See the section called “Common Platform Enumeration (CPE)” for more about CPE.
+    Common Platform Enumeration (CPE) output for interoperation with other software (some information is only included in XML output). 
+    See the section called “Common Platform Enumeration (CPE)” for more about CPE.
 
-    Community contributions: if Nmap gets data back from a service that it does not recognize, a service fingerprint is printed along with a submission URL. This system is patterned after the extremely successful Nmap OS Detection fingerprint submission process. New probes and corrections can also be submitted.
+    Community contributions: if Nmap gets data back from a service that it does not recognize, a service fingerprint is printed along with a submission URL. 
+    This system is patterned after the extremely successful Nmap OS Detection fingerprint submission process. 
+    New probes and corrections can also be submitted.
 
     Comprehensive database: Nmap recognizes more than one thousand service signatures, covering more than 180 unique service protocols from ACAP, AFP, and AIM to XML-RPC, Zebedee, and Zebra.
     
     
     Usage and Examples
 
-Before delving into the technical details of how version detection is implemented, here are some examples demonstrating its usage and capabilities. To enable version detection, just add -sV to whatever Nmap flags you normally use. Or use the -A option, which turns on version detection and other Advanced and Aggressive features later. It is really that simple, as shown in Example 7.2.
+Before delving into the technical details of how version detection is implemented, here are some examples demonstrating its usage and capabilities. 
+To enable version detection, just add -sV to whatever Nmap flags you normally use. 
+Or use the -A option, which turns on version detection and other Advanced and Aggressive features later. 
+It is really that simple, as shown in Example 7.2.
 
 Example 7.2. Version detection against www.microsoft.com
 
@@ -80,7 +127,10 @@ OS details: Linux 2.1.19 - 2.2.25
 Nmap finished: 1 IP address (1 host up) scanned in 19.223 seconds
 
 
-This preceding scan demonstrates a couple things. First of all, it is gratifying to see www.Microsoft.Com served off one of Akamai's Linux boxes. More relevant to this chapter is that the listed service for port 443 is ssl/http. That means that service detection first discovered that the port was SSL, then it loaded up OpenSSL and performed service detection again through SSL connections to discover a web server running AkamiGHost behind the encryption. Recall that -T4 causes Nmap to go faster (more aggressive timing) and -F tells Nmap to scan only ports registered in nmap-services.
+This preceding scan demonstrates a couple things. First of all, it is gratifying to see www.Microsoft.Com served off one of Akamai's Linux boxes.
+More relevant to this chapter is that the listed service for port 443 is ssl/http. 
+That means that service detection first discovered that the port was SSL, then it loaded up OpenSSL and performed service detection again through SSL connections to discover a web server running AkamiGHost behind the encryption. 
+Recall that -T4 causes Nmap to go faster (more aggressive timing) and -F tells Nmap to scan only ports registered in nmap-services.
 
 Example 7.3 is a longer and more diverse example.
 
@@ -116,50 +166,110 @@ OS details: Linux Kernel 2.4.0 - 2.5.20
 Nmap finished: 1 IP address (1 host up) scanned in 42.494 seconds
 
 
-You can see here the way RPC services are treated, with the brute-force RPC scanner being used to determine that port 111 is rpcbind version 2. You may also notice that port 515 gives the service as printer, but that version field is empty. Nmap determined the service name by probing, but was not able to determine anything else. On the other hand, port 953 gives the service as “rndc?”. The question mark tells us that Nmap was not even able to determine the service name through probing. As a fallback, rndc is mentioned because that has port 953 registered in nmap-services. Unfortunately, none of Nmap's probes elicited any sort of response from rndc. If they had, Nmap would have printed a service fingerprint and a submission URL so that it could be recognized in the next version. As it is, Nmap requires a special probe. One might even be available by the time you read this. the section called “Community Contributions” provides details on writing your own probes.
+You can see here the way RPC services are treated, with the brute-force RPC scanner being used to determine that port 111 is rpcbind version 2. 
+You may also notice that port 515 gives the service as printer, but that version field is empty. 
+Nmap determined the service name by probing, but was not able to determine anything else. 
+On the other hand, port 953 gives the service as “rndc?”. 
+The question mark tells us that Nmap was not even able to determine the service name through probing. 
+As a fallback, rndc is mentioned because that has port 953 registered in nmap-services. 
+Unfortunately, none of Nmap's probes elicited any sort of response from rndc. 
+If they had, Nmap would have printed a service fingerprint and a submission URL so that it could be recognized in the next version. 
+As it is, Nmap requires a special probe. 
+One might even be available by the time you read this. the section called “Community Contributions” provides details on writing your own probes.
 
-It is also worth noting that some services provide much more information than just the version number. Examples above include whether X11 permits connections, the SSH protocol number, and the Apache module versions list. Some of the Apache modules even had to be cut from the output to fit on this page.
+It is also worth noting that some services provide much more information than just the version number. 
+Examples above include whether X11 permits connections, the SSH protocol number, and the Apache module versions list. 
+Some of the Apache modules even had to be cut from the output to fit on this page.
 
-A few early reviewers questioned the sanity of running services such as SSH and finger over SSL. This was actually just fun with stunnel, in part to ensure that parallel SSL scans actually work.
+A few early reviewers questioned the sanity of running services such as SSH and finger over SSL. 
+This was actually just fun with stunnel, in part to ensure that parallel SSL scans actually work.
 
 
 Technique Described
 
-Nmap version scanning is actually rather straightforward. It was designed to be as simple as possible while still being scalable, fast, and accurate. The truly nitty-gritty details are best discovered by downloading and reviewing the source code, but a synopsis of the techniques used follows.
+Nmap version scanning is actually rather straightforward. 
+It was designed to be as simple as possible while still being scalable, fast, and accurate. 
+The truly nitty-gritty details are best discovered by downloading and reviewing the source code, but a synopsis of the techniques used follows.
 
-Nmap first does a port scan as per your instructions, and then passes all the open or open|filtered TCP and/or UDP ports to the service scanning module. Those ports are then interrogated in parallel, although a single port is described here for simplicity.
+Nmap first does a port scan as per your instructions, and then passes all the open or open|filtered TCP and/or UDP ports to the service scanning module. 
+Those ports are then interrogated in parallel, although a single port is described here for simplicity.
 
-    Nmap checks to see if the port is one of the ports to be excluded, as specified by the Exclude directive in nmap-service-probes. If it is, Nmap will not scan this port for reasons mentioned in the section called “nmap-service-probes File Format”.
+    Nmap checks to see if the port is one of the ports to be excluded, as specified by the Exclude directive in nmap-service-probes. 
+    If it is, Nmap will not scan this port for reasons mentioned in the section called “nmap-service-probes File Format”.
 
-    If the port is TCP, Nmap starts by connecting to it. If the connection succeeds and the port had been in the open|filtered state, it is changed to open. This is rare (for TCP) since people trying to be so stealthy that they use a TCP scan type which produces open|filtered ports (such as FIN scan) generally know better than to blow all of their stealth by performing version detection.
+    If the port is TCP, Nmap starts by connecting to it. 
+    If the connection succeeds and the port had been in the open|filtered state, it is changed to open. 
+    This is rare (for TCP) since people trying to be so stealthy that they use a TCP scan type which produces open|filtered ports (such as FIN scan) generally know better than to blow all of their stealth by performing version detection.
 
-    Once the TCP connection is made, Nmap listens for roughly five seconds. Many common services, including most FTP, SSH, SMTP, Telnet, POP3, and IMAP servers, identify themselves in an initial welcome banner. Nmap refers to this as the “NULL probe” because Nmap just listens for responses without sending any probe data. If any data is received, Nmap compares it to about 3,000 NULL probe signatures in its nmap-service-probes file (described in the section called “nmap-service-probes File Format”). If the service is fully identified, we are done with that port! The regular expression in signatures can includes substring matches to pick version numbers out of the response. In some cases, Nmap gets a “soft match” on the service type, but no version info. In that case, Nmap continues but only sends probes that are known to recognize the soft-matched service type.
+    Once the TCP connection is made, Nmap listens for roughly five seconds.
+    Many common services, including most FTP, SSH, SMTP, Telnet, POP3, and IMAP servers, identify themselves in an initial welcome banner. 
+    Nmap refers to this as the “NULL probe” because Nmap just listens for responses without sending any probe data. 
+    If any data is received, Nmap compares it to about 3,000 NULL probe signatures in its nmap-service-probes file (described in the section called “nmap-service-probes File Format”). 
+    If the service is fully identified, we are done with that port! 
+    The regular expression in signatures can includes substring matches to pick version numbers out of the response. 
+    In some cases, Nmap gets a “soft match” on the service type, but no version info. 
+    In that case, Nmap continues but only sends probes that are known to recognize the soft-matched service type.
 
-    This point is where Nmap starts for UDP probes, and TCP connections continue here if the NULL probe described above fails or soft-matches. Since the reality is that most ports are used by the service they are registered to in nmap-services, every probe has a list of port numbers that are considered to be most effective. For example, the probe called GetRequest that recognizes web servers (among many other services) lists 80-85, 8000-8010, and 8080-8085 among its probable ports. Nmap sequentially (in the order they appear in the file) executes the probe(s) that match the port number being scanned.
+    This point is where Nmap starts for UDP probes, and TCP connections continue here if the NULL probe described above fails or soft-matches. 
+    Since the reality is that most ports are used by the service they are registered to in nmap-services, every probe has a list of port numbers that are considered to be most effective. 
+    For example, the probe called GetRequest that recognizes web servers (among many other services) lists 80-85, 8000-8010, and 8080-8085 among its probable ports. 
+    Nmap sequentially (in the order they appear in the file) executes the probe(s) that match the port number being scanned.
 
-    Each probe includes a probe string (which can be arbitrary ASCII text or \xHH escaped binary), which is sent to the port. Responses that come back are compared to a list of signature regular expressions of the same type as discussed in the NULL probe description above. As with the NULL probe, these tests can either result in a full match (ends processing for the remote service), a soft match (limits future probes to those which match a certain service), or no match at all. The exact list of regular expressions that Nmap uses to test for a match depends on the probe fallback configuration. For instance, the data returned from the X11Probe is very unlikely to match any regular expressions crafted for the GetRequest probe. On the other hand, it is likely that results returned from a Probe such as RTSPRequest might match a regular expression crafted for GetRequest because the two protocols being tested for are closely related. So the RTSPRequest probe has a fallback to GetRequest matches. For a more comprehensive explanation, see the section called “Cheats and Fallbacks”.
+    Each probe includes a probe string (which can be arbitrary ASCII text or \xHH escaped binary), which is sent to the port. 
+    Responses that come back are compared to a list of signature regular expressions of the same type as discussed in the NULL probe description above. 
+    As with the NULL probe, these tests can either result in a full match (ends processing for the remote service), a soft match (limits future probes to those which match a certain service), or no match at all. 
+    The exact list of regular expressions that Nmap uses to test for a match depends on the probe fallback configuration. 
+    For instance, the data returned from the X11Probe is very unlikely to match any regular expressions crafted for the GetRequest probe. 
+    On the other hand, it is likely that results returned from a Probe such as RTSPRequest might match a regular expression crafted for GetRequest because the two protocols being tested for are closely related. 
+    So the RTSPRequest probe has a fallback to GetRequest matches. 
+    For a more comprehensive explanation, see the section called “Cheats and Fallbacks”.
 
-    If any response during version detection is ever received from a UDP port which was in the open|filtered state, that state is changed to open. This makes version detection an excellent complement to UDP scan, which is forced to label all scanned UDP ports as open|filtered when some common firewall rules are in effect. While combining UDP scanning with version detection can take many times as long as a plain UDP scan, it is an effective and useful technique. This method is described in the section called “Disambiguating Open from Filtered UDP Ports”.
+    If any response during version detection is ever received from a UDP port which was in the open|filtered state, that state is changed to open.
+    This makes version detection an excellent complement to UDP scan, which is forced to label all scanned UDP ports as open|filtered when some common firewall rules are in effect.
+    While combining UDP scanning with version detection can take many times as long as a plain UDP scan, it is an effective and useful technique. 
+    This method is described in the section called “Disambiguating Open from Filtered UDP Ports”.
 
-    In most cases, the NULL probe or the probable port probe(s) (there is usually only one) described above match the service. Since the NULL probe shares its connection with the probable port probe, this allows service detection to be done with only one brief connection in most cases. With UDP only one packet is usually required. But should the NULL probe and probable port probe(s) fail, Nmap goes through other existing probes sequentially. In the case of TCP, Nmap must make a new connection for each probe to avoid having previous probes corrupt the results. This worst-case scenario can take a bit of time, especially since Nmap must wait about five seconds for the results from each probe because of slow network connections and otherwise slowly responding services. Fortunately, Nmap utilizes several automatic techniques to speed up scans:
+    In most cases, the NULL probe or the probable port probe(s) (there is usually only one) described above match the service. 
+    Since the NULL probe shares its connection with the probable port probe, this allows service detection to be done with only one brief connection in most cases. 
+    With UDP only one packet is usually required.
+    But should the NULL probe and probable port probe(s) fail, Nmap goes through other existing probes sequentially. 
+    In the case of TCP, Nmap must make a new connection for each probe to avoid having previous probes corrupt the results. 
+    This worst-case scenario can take a bit of time, especially since Nmap must wait about five seconds for the results from each probe because of slow network connections and otherwise slowly responding services. 
+    Fortunately, Nmap utilizes several automatic techniques to speed up scans:
 
-        Nmap makes most probes generic enough to match many services. For example, the GenericLines probe sends two blank lines (“\r\n\r\n”) to the service. This matches daemons of many diverse service types, including FTP, ident, POP3, UUCP, Postgres, and whois. The GetRequest probe matches even more service types. Other examples include “help\r\n” and generic RPC and MS SMB probes.
+        Nmap makes most probes generic enough to match many services. 
+        For example, the GenericLines probe sends two blank lines (“\r\n\r\n”) to the service. 
+        This matches daemons of many diverse service types, including FTP, ident, POP3, UUCP, Postgres, and whois. 
+        The GetRequest probe matches even more service types. 
+        Other examples include “help\r\n” and generic RPC and MS SMB probes.
 
         If a service matches a softmatch directive, Nmap only needs to try probes that can potentially match that service.
 
-        All probes were not created equal! Some match many more services than others. Because of this, Nmap uses the rarity metric to avoid trying probes that are extremely unlikely to match. Experienced Nmap users can force all probes to be tried regardless or limit probe attempts even further than the default by using the --version-intensity, --version-all, and --version-light options discussed in the section called “Probe Selection and Rarity”.
+        All probes were not created equal! 
+        Some match many more services than others. 
+        Because of this, Nmap uses the rarity metric to avoid trying probes that are extremely unlikely to match. 
+        Experienced Nmap users can force all probes to be tried regardless or limit probe attempts even further than the default by using the --version-intensity, --version-all, and --version-light options discussed in the section called “Probe Selection and Rarity”.
 
-    One of the probes tests whether the target port is running SSL. If so (and if OpenSSL is available), Nmap connects back via SSL and restarts the service scan to determine what is listening behind the encryption. A special directive allows different probable ports for normal and SSL tunneled connections. For example, Nmap should start against port 443 (HTTPS) with an SSL probe. But after SSL is detected and enabled, Nmap should try the GetRequest probe against port 443 because that port usually has a web server listening behind SSL encryption.
+    One of the probes tests whether the target port is running SSL. If so (and if OpenSSL is available), Nmap connects back via SSL and restarts the service scan to determine what is listening behind the encryption. 
+    A special directive allows different probable ports for normal and SSL tunneled connections. 
+    For example, Nmap should start against port 443 (HTTPS) with an SSL probe. But after SSL is detected and enabled, Nmap should try the GetRequest probe against port 443 because that port usually has a web server listening behind SSL encryption.
 
-    Another generic probe identifies RPC-based services. When these are found, the Nmap RPC grinder (discussed later) is initiated to brute force the RPC program number/name and supported version numbers. Similarly, an SMB post-processor for fingerprinting Windows services is available as part of the Chapter 9, Nmap Scripting Engine.
+    Another generic probe identifies RPC-based services. When these are found, the Nmap RPC grinder (discussed later) is initiated to brute force the RPC program number/name and supported version numbers. 
+    Similarly, an SMB post-processor for fingerprinting Windows services is available as part of the Chapter 9, Nmap Scripting Engine.
 
-    If at least one of the probes elicits some sort of response, yet Nmap is unable to recognize the service, the response content is printed to the user in the form of a fingerprint. If users know what services are actually listening, they are encouraged to submit the fingerprint to Nmap developers for integration into Nmap, as described in the section called “Submit Service Fingerprints”.
+    If at least one of the probes elicits some sort of response, yet Nmap is unable to recognize the service, the response content is printed to the user in the form of a fingerprint. 
+    If users know what services are actually listening, they are encouraged to submit the fingerprint to Nmap developers for integration into Nmap, as described in the section called “Submit Service Fingerprints”.
 
 Cheats and Fallbacks
 
-Even though Nmap waits a generous amount of time for services to reply, sometimes an application is slow to respond to the NULL probe. This can occur for a number of reasons, including slow reverse DNS lookups performed by some services. Because of this, Nmap can sometimes match the results from a subsequent probe to a match line designed for the NULL probe.
+Even though Nmap waits a generous amount of time for services to reply, sometimes an application is slow to respond to the NULL probe. 
+This can occur for a number of reasons, including slow reverse DNS lookups performed by some services. 
+Because of this, Nmap can sometimes match the results from a subsequent probe to a match line designed for the NULL probe.
 
-For example, suppose we scan port 25 (SMTP) on a server to determine what is listening. As soon as we connect, that service may conduct a bunch of DNS blacklist lookups to determine whether we should be treated as spammers and denied service. Before it finishes that, Nmap gives up waiting for a NULL probe response and sends the next probe with port 25 registered, which is “HELP\r\n”. When the service finally completes its anti-spam checks, it prints a greeting banner, reads the Help probe, and responds as shown in Example 7.4.
+For example, suppose we scan port 25 (SMTP) on a server to determine what is listening. 
+As soon as we connect, that service may conduct a bunch of DNS blacklist lookups to determine whether we should be treated as spammers and denied service. 
+Before it finishes that, Nmap gives up waiting for a NULL probe response and sends the next probe with port 25 registered, which is “HELP\r\n”. 
+When the service finally completes its anti-spam checks, it prints a greeting banner, reads the Help probe, and responds as shown in Example 7.4.
 
 Example 7.4. NULL probe cheat example output
 
@@ -177,16 +287,26 @@ Example 7.4. NULL probe cheat example output
 214 2.0.0 End of HELP info
 
 
-Nmap reads this data from the socket and finds that no regular expressions from the Help probe match the data returned. This is because Nmap normally expects to receive the ESMTP banner during the NULL probe and match it there.
+Nmap reads this data from the socket and finds that no regular expressions from the Help probe match the data returned. 
+This is because Nmap normally expects to receive the ESMTP banner during the NULL probe and match it there.
 
-Because this is a relatively common scenario, Nmap “cheats” by trying to match responses to any of the NULL Probe match lines if none of the probe-specific lines match. In this case, a null match line exists which reports that the program is Sendmail, the version is 8.12.3/8.12.3/Debian-7.1, and the hostname is hcsw.org.
+Because this is a relatively common scenario, Nmap “cheats” by trying to match responses to any of the NULL Probe match lines if none of the probe-specific lines match. 
+In this case, a null match line exists which reports that the program is Sendmail, the version is 8.12.3/8.12.3/Debian-7.1, and the hostname is hcsw.org.
 
-The NULL probe cheat is actually just a specific example of a more general Nmap feature: fallbacks. The fallback directive is described in detail in the section called “nmap-service-probes File Format”. Essentially, any probe that is likely to encounter results that can be matched by regular expressions in other probes has a fallback directive that specifies these other probes.
+The NULL probe cheat is actually just a specific example of a more general Nmap feature: fallbacks. 
+The fallback directive is described in detail in the section called “nmap-service-probes File Format”. 
+Essentially, any probe that is likely to encounter results that can be matched by regular expressions in other probes has a fallback directive that specifies these other probes.
 
-For example, in some configurations of the popular Apache web server, Apache won't respond to the GetRequest (“GET / HTTP/1.0\r\n\r\n”) probe because no virtual host name has been specified. Nmap is still able to correctly identify these servers because those servers usually respond to the HTTPOptions probe. That probe has a fallback to the GetRequest regular expressions, which are sufficiently general to recognize Apache's responses to the HTTPOptions probes.
+For example, in some configurations of the popular Apache web server, Apache won't respond to the GetRequest (“GET / HTTP/1.0\r\n\r\n”) probe because no virtual host name has been specified. 
+Nmap is still able to correctly identify these servers because those servers usually respond to the HTTPOptions probe. 
+That probe has a fallback to the GetRequest regular expressions, which are sufficiently general to recognize Apache's responses to the HTTPOptions probes.
 Probe Selection and Rarity
 
-In determining what probes to use, Nmap considers their rarity. This is an indication of how likely the probe is to return useful data. If a probe has a high rarity, it is considered less common and is less likely to be tried. Nmap users can specify which probes are tried by changing the intensity level of the version scan, as described below. The precise algorithm Nmap uses when determining which probes to use follows:
+In determining what probes to use, Nmap considers their rarity. 
+This is an indication of how likely the probe is to return useful data.
+If a probe has a high rarity, it is considered less common and is less likely to be tried. 
+Nmap users can specify which probes are tried by changing the intensity level of the version scan, as described below.
+The precise algorithm Nmap uses when determining which probes to use follows:
 
     For TCP, the NULL probe is always tried first.
 
@@ -196,22 +316,31 @@ In determining what probes to use, Nmap considers their rarity. This is an indic
 
 Once a probe is found to match, the algorithm terminates and results are reported.
 
-Because all of Nmap's probes (other than the NULL probe) have a rarity value associated with them, it is relatively easy to control how many of them are tried when performing a version scan. Simply choose an intensity level appropriate for a scan. The higher an intensity level, the more probes will be tried. So if a very comprehensive scan is desired, a high intensity level is appropriate—even though it may take longer than a scan conducted at a lower intensity level. Nmap's default intensity level is 7 but Nmap provides the following switches for different scanning needs:
+Because all of Nmap's probes (other than the NULL probe) have a rarity value associated with them, it is relatively easy to control how many of them are tried when performing a version scan. 
+Simply choose an intensity level appropriate for a scan. 
+The higher an intensity level, the more probes will be tried. 
+So if a very comprehensive scan is desired, a high intensity level is appropriate—even though it may take longer than a scan conducted at a lower intensity level. 
+Nmap's default intensity level is 7 but Nmap provides the following switches for different scanning needs:
 
 --version-intensity <intensity level between 0 and 9>
 
-    Sets the intensity level of a version scan to the specified value. If 0 is specified, only the NULL probe (for TCP) and probes that list the port as a probable port are tried. Example: nmap -sV --version-intensity 3 scanme.nmap.org 
+    Sets the intensity level of a version scan to the specified value. 
+    If 0 is specified, only the NULL probe (for TCP) and probes that list the port as a probable port are tried. 
+    Example: nmap -sV --version-intensity 3 scanme.nmap.org 
 --version-light
 
     Sets the intensity level to 2. Example: nmap -sV --version-light scanme.nmap.org 
 --version-all
 
-    Sets the intensity level to 9. Since all probes have a rarity level between 1 and 9, this tries all of the probes. Example: nmap -sV --version-all scanme.nmap.org 
+    Sets the intensity level to 9. Since all probes have a rarity level between 1 and 9, this tries all of the probes. 
+    Example: nmap -sV --version-all scanme.nmap.org 
     
     
     Technique Demonstrated
 
-If the English description above is not clear enough, you can see for yourself how it works by adding the --version-trace (and usually -d (debugging)) options to your Nmap command line. This shows all the connection and data read/write activity of the service scan. An annotated real-world example follows.
+If the English description above is not clear enough, you can see for yourself how it works by adding the --version-trace (and usually -d (debugging)) options to your Nmap command line. 
+This shows all the connection and data read/write activity of the service scan. 
+An annotated real-world example follows.
 
 # nmap -sSV -T4 -F -d --version-trace insecure.org
 
@@ -220,7 +349,8 @@ Host insecure.org (205.217.153.53) appears to be up ... good.
 Initiating SYN Stealth Scan against insecure.org (205.217.153.53) at 19:53
 Initiating service scan against 4 services on 1 host at 19:53
 
-The SYN scan has found 4 open ports—now we are beginning a service scan against each of them in parallel. We start with a TCP connection for the NULL probe:
+The SYN scan has found 4 open ports—now we are beginning a service scan against each of them in parallel. 
+We start with a TCP connection for the NULL probe:
 
 Starting probes against new service: 205.217.153.53:22 (tcp)
 NSOCK (2.0750s) TCP connection requested to 205.217.153.53:22 (IOD #1) EID 8
@@ -243,7 +373,8 @@ NSOCK (2.0870s) Callback: CONNECT SUCCESS for EID 8 [205.217.153.53:22]
 NSOCK (2.0870s) Read request from IOD #1 [205.217.153.53:22]
                 (timeout: 5000ms) EID 66
 
-At this point, NULL probe connections have successfully been made to all four services. It starts at 2 seconds because that is how long the ping and SYN scans took.
+At this point, NULL probe connections have successfully been made to all four services. 
+It starts at 2 seconds because that is how long the ping and SYN scans took.
 
 NSOCK (2.0880s) Callback: READ SUCCESS for EID 66 [205.217.153.53:22] 
                           (23 bytes): SSH-1.99-OpenSSH_3.1p1.
@@ -256,7 +387,10 @@ NSOCK (2.0880s) Callback: READ SUCCESS for EID 58 [205.217.153.53:25]
                           (27 bytes): 220 core.lnxnet.net ESMTP..
 Service scan soft match: 205.217.153.53:25 is smtp
 
-The mail server on port 25 also gave us a useful banner. We do not know what type of mail server it is, but starting with 220 and including the word ESMTP tells us it is a mail (SMTP) server. So Nmap softmatches smtp, meaning that only probes able to match SMTP servers are tried from now on. Note that non-printable characters are represented by dots—so the “..” after ESMTP is really the “\r\n” line termination sequence.
+The mail server on port 25 also gave us a useful banner. 
+We do not know what type of mail server it is, but starting with 220 and including the word ESMTP tells us it is a mail (SMTP) server. 
+So Nmap softmatches smtp, meaning that only probes able to match SMTP servers are tried from now on. 
+Note that non-printable characters are represented by dots—so the “..” after ESMTP is really the “\r\n” line termination sequence.
 
 NSOCK (2.0880s) Read request from IOD #2 [205.217.153.53:25]
                 (timeout: 4996ms) EID 74
@@ -266,7 +400,10 @@ NSOCK (7.0880s) Write request for 6 bytes to IOD #2 EID 83
 NSOCK (7.0880s) Read request from IOD #2 [205.217.153.53:25]
                 (timeout: 5000ms) EID 90
 
-Nmap listens a little longer on the SMTP connection, just in case the server has more to say. The read request times out after five seconds. Nmap then finds the next probe which is registered to port 25 and has SMTP signatures. That probe simply consists of HELP\r\n, which Nmap writes into the connection.
+Nmap listens a little longer on the SMTP connection, just in case the server has more to say. 
+The read request times out after five seconds. 
+Nmap then finds the next probe which is registered to port 25 and has SMTP signatures. 
+That probe simply consists of HELP\r\n, which Nmap writes into the connection.
 
 NSOCK (7.0880s) Callback: READ TIMEOUT for EID 50 [205.217.153.53:53]
 NSOCK (7.0880s) Write request for 32 bytes to IOD #3 EID 99
@@ -274,7 +411,9 @@ NSOCK (7.0880s) Write request for 32 bytes to IOD #3 EID 99
 NSOCK (7.0880s) Read request from IOD #3 [205.217.153.53:53]
                 (timeout: 5000ms) EID 106
 
-The DNS server on port 53 does not return anything at all. The first probe registered to port 53 in nmap-service-probes is DNSVersionBindReq, which queries a DNS server for its version number. This is sent onto the wire.
+The DNS server on port 53 does not return anything at all. 
+The first probe registered to port 53 in nmap-service-probes is DNSVersionBindReq, which queries a DNS server for its version number. 
+This is sent onto the wire.
 
 NSOCK (7.0880s) Callback: READ TIMEOUT for EID 42 [205.217.153.53:80]
 NSOCK (7.0880s) Write request for 18 bytes to IOD #4 EID 115
@@ -282,32 +421,44 @@ NSOCK (7.0880s) Write request for 18 bytes to IOD #4 EID 115
 NSOCK (7.0880s) Read request from IOD #4 [205.217.153.53:80]
                 (timeout: 5000ms) EID 122
 
-The port 80 NULL probe also failed to return any data. An HTTP GET request is sent, since that probe is registered to port 80.
+The port 80 NULL probe also failed to return any data. 
+An HTTP GET request is sent, since that probe is registered to port 80.
 
 NSOCK (7.0920s) Callback: READ SUCCESS for EID 122 
                 [205.217.153.53:80] [EOF](15858 bytes)
 Service scan match: insecure.org (205.217.153.53):80 is http.  
                     Version: |Apache httpd|2.0.39|(Unix) mod_perl/1.99_07-dev..
 
-Apache returned a huge (15KB) response, so it is not printed. That response provided detailed configuration information, which Nmap picks out of the response. There are no other probes registered for port 80. So if this had failed, Nmap would have tried the first TCP probe in nmap-service-probes. That probe simply sends blank lines (“\r\n\r\n”). A new connection would have been made in case the GET probe confused the service.
+Apache returned a huge (15KB) response, so it is not printed. 
+That response provided detailed configuration information, which Nmap picks out of the response. 
+There are no other probes registered for port 80. So if this had failed, Nmap would have tried the first TCP probe in nmap-service-probes. 
+That probe simply sends blank lines (“\r\n\r\n”).
+A new connection would have been made in case the GET probe confused the service.
 
 NSOCK (7.0920s) Callback: READ SUCCESS for EID 106 [205.217.153.53:53]
                         (50 bytes): .0.........version.bind.......9.2.1
 Service scan match: insecure.org (205.217.153.53):53 is domain.
                     Version: |ISC BIND|9.2.1||
 
-Port 53 responded to our DNS version request. Most of the response (as with the probe) is binary, but you can clearly see the version 9.2.1 there. If this probe had failed, the next probe registered to port 53 is a DNS server status request (14 bytes: \0\x0C\0\0\x10\0\0\0\0\0\0\0\0\0). Having this backup probe helps because many more servers respond to a status request than a version number request.
+Port 53 responded to our DNS version request. 
+Most of the response (as with the probe) is binary, but you can clearly see the version 9.2.1 there.
+If this probe had failed, the next probe registered to port 53 is a DNS server status request (14 bytes: \0\x0C\0\0\x10\0\0\0\0\0\0\0\0\0). 
+Having this backup probe helps because many more servers respond to a status request than a version number request.
 
 NSOCK (7.0920s) Callback: READ SUCCESS for EID 90 [205.217.153.53:25]
                 (55 bytes): 214 qmail home page: http...
 Service scan match: insecure.org (205.217.153.53):25 is smtp.
                     Version: |qmail smtpd|||
 
-Port 25 gives a very helpful response to the Help probe. Other SMTP servers such as Postfix, Courier, and Exim can often be identified by this probe as well. If the response did not match, Nmap would have given up on this service because it had already softmatched smtp and there are no more SMTP probes in nmap-service-probes.
+Port 25 gives a very helpful response to the Help probe. 
+Other SMTP servers such as Postfix, Courier, and Exim can often be identified by this probe as well. 
+If the response did not match, Nmap would have given up on this service because it had already softmatched smtp and there are no more SMTP probes in nmap-service-probes.
 
 The service scan took 5 seconds to scan 4 services on 1 host.
 
-This service scan run went pretty well. No service required more than one connection. It took five seconds because Qmail and Apache hit the five-second NULL probe timeout before Nmap sent the first real probes. Here is the reward for these efforts:
+This service scan run went pretty well. No service required more than one connection. 
+It took five seconds because Qmail and Apache hit the five-second NULL probe timeout before Nmap sent the first real probes. 
+Here is the reward for these efforts:
 
 Interesting ports on insecure.org (205.217.153.53):
 (The 1212 ports scanned but not shown below are in state: closed)
@@ -321,15 +472,31 @@ Nmap finished: 1 IP address (1 host up) scanned in 7.104 seconds
 
 Post-processors
 
-Nmap is usually finished working on a port once it has deduced the service and version information as demonstrated above. However, there are certain services for which Nmap performs additional work. The post-processors presently available are Nmap Scripting Engine integration, RPC grinding, and SSL tunneling. Windows SMB interrogation is under consideration.
+Nmap is usually finished working on a port once it has deduced the service and version information as demonstrated above.
+However, there are certain services for which Nmap performs additional work. 
+The post-processors presently available are Nmap Scripting Engine integration, RPC grinding, and SSL tunneling. 
+Windows SMB interrogation is under consideration.
 Nmap Scripting Engine Integration
 
-The regular-expression based approach of version detection is powerful, but it cannot recognize everything. Some services cannot be recognized by simply sending a standard probe and matching a pattern to the response. Some services require custom probe strings or a complex multi-step handshaking process. Others require more advanced processing than a regular expression to recognize a response. For example, the Skype v2 service was designed to be difficult to detect due to the risk that incumbent carriers (such as phone companies providing DSL lines) would consider them a competitor and degrade or block the service from their subscribers. The only way we could find to detect this service involved analyzing responses to two different probes. Similarly, we could recognize more SNMP services if we tried a few hundred different community names by brute force. Neither of these tasks are well suited to traditional Nmap version detection, but both were accomplished with the Chapter 9, Nmap Scripting Engine. For these reasons, version detection now calls NSE by default to handle some tricky services, as described in the section called “Version Detection Using NSE”.
+The regular-expression based approach of version detection is powerful, but it cannot recognize everything. 
+Some services cannot be recognized by simply sending a standard probe and matching a pattern to the response. 
+Some services require custom probe strings or a complex multi-step handshaking process. 
+Others require more advanced processing than a regular expression to recognize a response. 
+For example, the Skype v2 service was designed to be difficult to detect due to the risk that incumbent carriers (such as phone companies providing DSL lines) would consider them a competitor and degrade or block the service from their subscribers. 
+The only way we could find to detect this service involved analyzing responses to two different probes. 
+Similarly, we could recognize more SNMP services if we tried a few hundred different community names by brute force.
+Neither of these tasks are well suited to traditional Nmap version detection, but both were accomplished with the Chapter 9, Nmap Scripting Engine. 
+For these reasons, version detection now calls NSE by default to handle some tricky services, as described in the section called “Version Detection Using NSE”.
 RPC Grinding
 
-SunRPC (Sun Remote Procedure Call) is a common Unix protocol used to implement many services including NFS. Nmap ships with an nmap-rpc database of almost 600 RPC programs. Many RPC services use high-numbered ports and/or the UDP transport protocol, making them available through many poorly configured firewalls. RPC programs (and the infrastructure libraries themselves) also have a long history of serious remotely exploitable security holes. So network administrators and security auditors often wish to learn more about any RPC programs on their networks.
+SunRPC (Sun Remote Procedure Call) is a common Unix protocol used to implement many services including NFS. 
+Nmap ships with an nmap-rpc database of almost 600 RPC programs. 
+Many RPC services use high-numbered ports and/or the UDP transport protocol, making them available through many poorly configured firewalls. 
+RPC programs (and the infrastructure libraries themselves) also have a long history of serious remotely exploitable security holes. 
+So network administrators and security auditors often wish to learn more about any RPC programs on their networks.
 
-If the portmapper (rpcbind) service (UDP or TCP port 111) is available, RPC services can be enumerated with the Unix rpcinfo command. Example 7.5 demonstrates this against a default Solaris 9 server.
+If the portmapper (rpcbind) service (UDP or TCP port 111) is available, RPC services can be enumerated with the Unix rpcinfo command. 
+Example 7.5 demonstrates this against a default Solaris 9 server.
 
 Example 7.5. Enumerating RPC services with rpcinfo
 
@@ -357,17 +524,25 @@ Example 7.5. Enumerating RPC services with rpcinfo
     [ Dozens of lines cut for brevity ]
 
 
-This example shows that hosts frequently offer many RPC services, which increases the probability that one is exploitable. You should also notice that most of the services are on strange high-numbered ports (which may change for any number of reasons) and split between UDP and TCP transport protocols.
+This example shows that hosts frequently offer many RPC services, which increases the probability that one is exploitable. 
+You should also notice that most of the services are on strange high-numbered ports (which may change for any number of reasons) and split between UDP and TCP transport protocols.
 
-Because the RPC information is so sensitive, many administrators try to obscure this information by blocking the portmapper port (111). Unfortunately, this does not close the hole. Nmap can determine all of the same information by directly communicating with open RPC ports through the following three-step process.
+Because the RPC information is so sensitive, many administrators try to obscure this information by blocking the portmapper port (111). 
+Unfortunately, this does not close the hole. 
+Nmap can determine all of the same information by directly communicating with open RPC ports through the following three-step process.
 
     The TCP and/or UDP port scan finds all of the open ports.
 
     Version detection determines which of the open ports use the SunRPC protocol.
 
-    The RPC brute force engine determines the program identity of each RPC port by trying a null command against each of the 600 programs numbers in nmap-rpc. Most of the time Nmap guesses wrong and receives an error message stating that the requested program number is not listening on the port. Nmap continues trying each number in its list until success is returned for one of them. Nmap gives up in the unlikely event that it exhausts all of its known program numbers or if the port sends malformed responses that suggest it is not really RPC. 
+    The RPC brute force engine determines the program identity of each RPC port by trying a null command against each of the 600 programs numbers in nmap-rpc. 
+    Most of the time Nmap guesses wrong and receives an error message stating that the requested program number is not listening on the port.
+    Nmap continues trying each number in its list until success is returned for one of them. 
+    Nmap gives up in the unlikely event that it exhausts all of its known program numbers or if the port sends malformed responses that suggest it is not really RPC. 
 
-The RPC program identification probes are done in parallel, and retransmissions are handled for UDP ports. This feature is automatically activated whenever version detection finds any RPC ports. Example 7.6 demonstrates direct RPC scanning done as part of version detection.
+The RPC program identification probes are done in parallel, and retransmissions are handled for UDP ports. 
+This feature is automatically activated whenever version detection finds any RPC ports. 
+Example 7.6 demonstrates direct RPC scanning done as part of version detection.
 
 Example 7.6. Nmap direct RPC scan
 
@@ -401,7 +576,9 @@ Nmap finished: 1 IP address (1 host up) scanned in 252.701 seconds
 
 SSL Post-processor Notes
 
-As discussed in the technique section, Nmap has the ability to detect the SSL encryption protocol and then launch an encrypted session through which it executes normal version detection. As with the RPC grinder discussed previously, the SSL post-processor is automatically executed whenever an appropriate (SSL) port is detected. This is demonstrated by Example 7.7.
+As discussed in the technique section, Nmap has the ability to detect the SSL encryption protocol and then launch an encrypted session through which it executes normal version detection. 
+As with the RPC grinder discussed previously, the SSL post-processor is automatically executed whenever an appropriate (SSL) port is detected. 
+This is demonstrated by Example 7.7.
 
 Example 7.7. Version scanning through SSL
 
@@ -417,15 +594,27 @@ PORT    STATE SERVICE  VERSION
 Nmap finished: 1 IP address (1 host up) scanned in 35.038 seconds
 
 
-Note that the version information is the same for each of the two open ports, but the service is http on port 80 and ssl/http on port 443. The common case of HTTPS on port 443 is not hard-coded—Nmap should be able to detect SSL on any port and determine the underlying protocol for any service that Nmap can detect in clear-text. If Nmap had not detected the server listening behind SSL, the service listed would be ssl/unknown. If Nmap had not been built with SSL support, the service listed would have simply been ssl. The version field would be blank in both of these cases.
+Note that the version information is the same for each of the two open ports, but the service is http on port 80 and ssl/http on port 443. 
+The common case of HTTPS on port 443 is not hard-coded—Nmap should be able to detect SSL on any port and determine the underlying protocol for any service that Nmap can detect in clear-text.
+If Nmap had not detected the server listening behind SSL, the service listed would be ssl/unknown. 
+If Nmap had not been built with SSL support, the service listed would have simply been ssl. 
+The version field would be blank in both of these cases.
 
-The SSL support for Nmap depends on the free OpenSSL library. It is not included in the Linux RPM binaries, to avoid breaking systems which lack these libraries. The Nmap source code distribution attempts to detect OpenSSL on a system and link to it when available. See Chapter 2, Obtaining, Compiling, Installing, and Removing Nmap for details on customizing the build process to include or exclude OpenSSL.
+The SSL support for Nmap depends on the free OpenSSL library. 
+It is not included in the Linux RPM binaries, to avoid breaking systems which lack these libraries. 
+The Nmap source code distribution attempts to detect OpenSSL on a system and link to it when available.
+See Chapter 2, Obtaining, Compiling, Installing, and Removing Nmap for details on customizing the build process to include or exclude OpenSSL.
 
 
 
 nmap-service-probes File Format
 
-As with remote OS detection (-O), Nmap uses a flat file to store the version detection probes and match strings. While the version of nmap-services distributed with Nmap is sufficient for most users, understanding the file format allows advanced Nmap hackers to add their own services to the detection engine. Like many Unix files, nmap-service-probes is line-oriented. Lines starting with a hash (#) are treated as comments and ignored by the parser. Blank lines are ignored as well. Other lines must contain one of the directives described below. Some readers prefer to peek at the examples in the section called “Putting It All Together” before tackling the following dissection.
+As with remote OS detection (-O), Nmap uses a flat file to store the version detection probes and match strings.
+While the version of nmap-services distributed with Nmap is sufficient for most users, understanding the file format allows advanced Nmap hackers to add their own services to the detection engine. 
+Like many Unix files, nmap-service-probes is line-oriented. 
+Lines starting with a hash (#) are treated as comments and ignored by the parser.
+Blank lines are ignored as well. Other lines must contain one of the directives described below. 
+Some readers prefer to peek at the examples in the section called “Putting It All Together” before tackling the following dissection.
 Exclude Directive
 
 Syntax: Exclude <port specification>
@@ -434,9 +623,17 @@ Examples:
 
 Exclude 53,T:9100,U:30000-40000
 
-This directive excludes the specified ports from the version scan. It can only be used once and should be near the top of the file, above any Probe directives. The Exclude directive uses the same format as the Nmap -p switch, so ranges and comma separated lists of ports are supported. In the nmap-service-probes included with Nmap the only ports excluded are TCP port 9100 through 9107. These are common ports for printers to listen on and they often print any data sent to them. So a version detection scan can cause them to print many pages full of probes that Nmap sends, such as SunRPC requests, help statements, and X11 probes.
+This directive excludes the specified ports from the version scan. 
+It can only be used once and should be near the top of the file, above any Probe directives. 
+The Exclude directive uses the same format as the Nmap -p switch, so ranges and comma separated lists of ports are supported. 
+In the nmap-service-probes included with Nmap the only ports excluded are TCP port 9100 through 9107. 
+These are common ports for printers to listen on and they often print any data sent to them. 
+So a version detection scan can cause them to print many pages full of probes that Nmap sends, such as SunRPC requests, help statements, and X11 probes.
 
-This behavior is often undesirable, especially when a scan is meant to be stealthy. However, Nmap's default behavior of avoiding scanning this port can make it easier for a sneaky user to hide a service: simply run it on an excluded port such as 9100 and it is less likely to be identified by name. The port scan will still show it as open. Users can override the Exclude directive with the --allports option. This causes version detection to interrogate all open ports.
+This behavior is often undesirable, especially when a scan is meant to be stealthy. 
+However, Nmap's default behavior of avoiding scanning this port can make it easier for a sneaky user to hide a service: simply run it on an excluded port such as 9100 and it is less likely to be identified by name. 
+The port scan will still show it as open. Users can override the Exclude directive with the --allports option. 
+This causes version detection to interrogate all open ports.
 Probe Directive
 
 Syntax: Probe <protocol> <probename> <probestring>
@@ -447,17 +644,26 @@ Probe TCP GetRequest q|GET / HTTP/1.0\r\n\r\n|
 Probe UDP DNSStatusRequest q|\0\0\x10\0\0\0\0\0\0\0\0\0|
 Probe TCP NULL q||
 
-The Probe directive tells Nmap what string to send to recognize various services. All of the directives discussed later operate on the most recent Probe statement. The arguments are as follows:
+The Probe directive tells Nmap what string to send to recognize various services.
+All of the directives discussed later operate on the most recent Probe statement. 
+The arguments are as follows:
 
 <protocol>
 
     This must be either TCP or UDP. Nmap only uses probes that match the protocol of the service it is trying to scan.
 <probename>
 
-    This is a plain English name for the probe. It is used in service fingerprints to describe which probes elicited responses.
+    This is a plain English name for the probe. 
+    It is used in service fingerprints to describe which probes elicited responses.
 <probestring>
 
-    Tells Nmap what to send. It must start with a q, then a delimiter character which begins and ends the string. Between the delimiter characters is the string that is actually sent. It is formatted similarly to a C or Perl string in that it allows the following standard escape characters: \\ \0, \a, \b, \f, \n, \r, \t, \v, and \xHH (where H is any hexadecimal digit). One Probe line in nmap-service-probes has an empty probe string, as shown in the third example above. This is the TCP NULL probe which just listens for the initial banners that many services send. If your delimiter character (| in these examples) is needed for your probe string, you need to choose a different delimiter.
+    Tells Nmap what to send. 
+    It must start with a q, then a delimiter character which begins and ends the string. 
+    Between the delimiter characters is the string that is actually sent. 
+    It is formatted similarly to a C or Perl string in that it allows the following standard escape characters: \\ \0, \a, \b, \f, \n, \r, \t, \v, and \xHH (where H is any hexadecimal digit).
+    One Probe line in nmap-service-probes has an empty probe string, as shown in the third example above. 
+    This is the TCP NULL probe which just listens for the initial banners that many services send. 
+    If your delimiter character (| in these examples) is needed for your probe string, you need to choose a different delimiter.
 
 match Directive
 
@@ -473,33 +679,75 @@ match uucp m|^login: login: login: $| p/NetBSD uucpd/ o/NetBSD/ cpe:/o:netbsd:ne
 match printer m|^([\w-_.]+): lpd: Illegal service request\n$| p/lpd/ h/$1/
 match afs m|^[\d\D]{28}\s*(OpenAFS)([\d\.]{3}[^\s\0]*)\0| p/$1/ v/$2/
 
-The match directive tells Nmap how to recognize services based on responses to the string sent by the previous Probe directive. A single Probe line may be followed by dozens or hundreds of match statements. If the given pattern matches, an optional version specifier builds the application name, version number, and additional info for Nmap to report. The arguments to this directive follow:
+The match directive tells Nmap how to recognize services based on responses to the string sent by the previous Probe directive. 
+A single Probe line may be followed by dozens or hundreds of match statements.
+If the given pattern matches, an optional version specifier builds the application name, version number, and additional info for Nmap to report. 
+The arguments to this directive follow:
 
 <service>
 
-    This is simply the service name that the pattern matches. Examples would be ssh, smtp, http, or snmp. As a special case, you can prefix the service name with ssl/, as in ssl/vmware-auth. In that case, the service would be stored as vmware-auth tunneled by SSL. This is useful for services which can be fully recognized without the overhead of making an SSL connection.
+    This is simply the service name that the pattern matches. 
+    Examples would be ssh, smtp, http, or snmp. 
+    As a special case, you can prefix the service name with ssl/, as in ssl/vmware-auth. 
+    In that case, the service would be stored as vmware-auth tunneled by SSL. 
+    This is useful for services which can be fully recognized without the overhead of making an SSL connection.
 <pattern>
 
-    This pattern is used to determine whether the response received matches the service given in the previous parameter. The format is like Perl, with the syntax being m/[regex]/[opts]. The “m” tells Nmap that a match string is beginning. The forward slash (/) is a delimiter, which can be substituted by almost any printable character as long as the second slash is also replaced to match. The regex is a Perl-style regular expression. This is made possible by the excellent Perl Compatible Regular Expressions (PCRE) library (http://www.pcre.org). The only options currently supported are 'i', which makes a match case-insensitive and 's' which includes newlines in the '.' specifier. As you might expect, these two options have the same semantics as in Perl. Subexpressions to be captured (such as version numbers) are surrounded by parentheses as shown in most of the examples above.
+    This pattern is used to determine whether the response received matches the service given in the previous parameter. 
+    The format is like Perl, with the syntax being m/[regex]/[opts]. The “m” tells Nmap that a match string is beginning. 
+    The forward slash (/) is a delimiter, which can be substituted by almost any printable character as long as the second slash is also replaced to match. 
+    The regex is a Perl-style regular expression. 
+    This is made possible by the excellent Perl Compatible Regular Expressions (PCRE) library (http://www.pcre.org). 
+    The only options currently supported are 'i', which makes a match case-insensitive and 's' which includes newlines in the '.' specifier. 
+    As you might expect, these two options have the same semantics as in Perl. 
+    Subexpressions to be captured (such as version numbers) are surrounded by parentheses as shown in most of the examples above.
 <versioninfo>
 
-    The <versioninfo> section actually contains several optional fields. Each field begins with an identifying letter (such as h for “hostname”). Next comes a delimiter character which the signature writer chooses. The preferred delimiter is slash (‘/’) unless that is used in the field itself. Next comes the field value, followed by the delimiter character. The following table describes the six fields:
+    The <versioninfo> section actually contains several optional fields. 
+    Each field begins with an identifying letter (such as h for “hostname”). 
+    Next comes a delimiter character which the signature writer chooses. 
+    The preferred delimiter is slash (‘/’) unless that is used in the field itself. 
+    Next comes the field value, followed by the delimiter character.
+    The following table describes the six fields:
 
     Table 7.1. versioninfo field formats and values
     Field format	Value description
     p/vendorproductname/	Includes the vendor and often service name and is of the form “Sun Solaris rexecd”, “ISC BIND named”, or “Apache httpd”.
     v/version/	The application version “number”, which may include non-numeric characters and even multiple words.
-    i/info/	Miscellaneous further information which was immediately available and might be useful. Examples include whether an X server is open to unauthenticated connections, or the protocol number of SSH servers.
-    h/hostname/	The hostname (if any) offered up by a service. This is common for protocols such as SMTP and POP3 and is useful because these hostnames may be for internal networks or otherwise differ from the straightforward reverse DNS responses.
-    o/operatingsystem/	The operating system the service is running on. This may legitimately be different than the OS reported by Nmap IP stack based OS detection. For example, the target IP might be a Linux box which uses network address translation to forward requests to an Microsoft IIS server in the DMZ. In this case, stack OS detection should report the OS as Linux, while service detection reports port 80 as being Windows.
-    d/devicetype/	The type of device the service is running on, a string like “print server” or “webcam”. Some services disclose this information, and it can be inferred in many more cases. For example, the HP-ChaiServer web server only runs on printers. For a full list of device types, see the section called “Device Types”.
-    cpe:/cpename/[a]	A CPE name for some aspect of the service. This may be used multiple times; it's conceivable to be able to identify not only the service (cpe:/a names) but also the operating system (cpe:/o names) and hardware platform (cpe:/h names) as well. The trailing slash is not part of CPE syntax but is included to match the format of other fields. See the section called “Common Platform Enumeration (CPE)” for more information about CPE.
+    i/info/	Miscellaneous further information which was immediately available and might be useful. 
+    Examples include whether an X server is open to unauthenticated connections, or the protocol number of SSH servers.
+    h/hostname/	The hostname (if any) offered up by a service. 
+    This is common for protocols such as SMTP and POP3 and is useful because these hostnames may be for internal networks or otherwise differ from the straightforward reverse DNS responses.
+    o/operatingsystem/	The operating system the service is running on. 
+    This may legitimately be different than the OS reported by Nmap IP stack based OS detection. 
+    For example, the target IP might be a Linux box which uses network address translation to forward requests to an Microsoft IIS server in the DMZ. 
+    In this case, stack OS detection should report the OS as Linux, while service detection reports port 80 as being Windows.
+    d/devicetype/	The type of device the service is running on, a string like “print server” or “webcam”. 
+    Some services disclose this information, and it can be inferred in many more cases. 
+    For example, the HP-ChaiServer web server only runs on printers. 
+    For a full list of device types, see the section called “Device Types”.
+    cpe:/cpename/[a]	A CPE name for some aspect of the service. 
+    This may be used multiple times; it's conceivable to be able to identify not only the service (cpe:/a names) but also the operating system (cpe:/o names) and hardware platform (cpe:/h names) as well. 
+    The trailing slash is not part of CPE syntax but is included to match the format of other fields. 
+    See the section called “Common Platform Enumeration (CPE)” for more information about CPE.
 
-    Any of the fields can be omitted. In fact, all of the fields can be omitted if no further information on the service is available. Any of the version fields can include numbered strings such as $1 or $2, which are replaced (in a Perl-like fashion) with the corresponding parenthesized substring in the <pattern>. Within cpe:// templates, such substitutions are transformed as follows: certain characters such as the colon are escaped; spaces are converted to underscores, and all characters are made lower case.
+    Any of the fields can be omitted. 
+    In fact, all of the fields can be omitted if no further information on the service is available. 
+    Any of the version fields can include numbered strings such as $1 or $2, which are replaced (in a Perl-like fashion) with the corresponding parenthesized substring in the <pattern>. 
+    Within cpe:// templates, such substitutions are transformed as follows: certain characters such as the colon are escaped; spaces are converted to underscores, and all characters are made lower case.
 
-    In rare cases, a helper function can be applied to the replacement text before insertion. The $P() helper function will filter out unprintable characters. This is useful for converting Unicode UTF-16 encoded strings such as W\0O\0R\0K\0G\0R\0O\0U\0P\0 into the ASCII approximation WORKGROUP. It can be used in any versioninfo field by passing it the number of the match you want to make printable, like this: i/$P(3)/.
+    In rare cases, a helper function can be applied to the replacement text before insertion. 
+    The $P() helper function will filter out unprintable characters. 
+    This is useful for converting Unicode UTF-16 encoded strings such as W\0O\0R\0K\0G\0R\0O\0U\0P\0 into the ASCII approximation WORKGROUP.
+    It can be used in any versioninfo field by passing it the number of the match you want to make printable, like this: i/$P(3)/.
 
-    Another helper function is $SUBST(). This is used for making substitutions in matches before they are printed. It takes three arguments. The first is the substitution number in the pattern, just as you would use in a normal replacement variable such as $1 or $3. The second and third arguments specify a substring you wish to find and replace, respectively. All instances of the match string found in the substring are replaced, not just the first one. For example, the VanDyke VShell sshd gives its version number in a format such as 2_2_3_578. We use the versioninfo field v/$SUBST(1,"_",".")/ to convert it to the more conventional form 2.2.3.578. 
+    Another helper function is $SUBST(). 
+    This is used for making substitutions in matches before they are printed. 
+    It takes three arguments. 
+    The first is the substitution number in the pattern, just as you would use in a normal replacement variable such as $1 or $3. 
+    The second and third arguments specify a substring you wish to find and replace, respectively. 
+    All instances of the match string found in the substring are replaced, not just the first one. 
+    For example, the VanDyke VShell sshd gives its version number in a format such as 2_2_3_578. We use the versioninfo field v/$SUBST(1,"_",".")/ to convert it to the more conventional form 2.2.3.578. 
 
 softmatch Directive
 
@@ -511,7 +759,12 @@ softmatch ftp m/^220 [-.\w ]+ftp.*\r\n$/i
 softmatch smtp m|^220 [-.\w ]+SMTP.*\r\n|
 softmatch pop3 m|^\+OK [-\[\]\(\)!,/+:<>@.\w ]+\r\n$|
 
-The softmatch directive is similar in format to the match directive discussed above. The main difference is that scanning continues after a softmatch, but it is limited to probes that are known to match the given service. This allows for a normal (“hard”) match to be found later, which may provide useful version information. See the section called “Technique Described” for more details on how this works. Arguments are not defined here because they are the same as for match above, except that there is never a <versioninfo> argument. Also as with match, many softmatch statements can exist within a single Probe section.
+The softmatch directive is similar in format to the match directive discussed above. 
+The main difference is that scanning continues after a softmatch, but it is limited to probes that are known to match the given service. 
+This allows for a normal (“hard”) match to be found later, which may provide useful version information.
+See the section called “Technique Described” for more details on how this works.
+Arguments are not defined here because they are the same as for match above, except that there is never a <versioninfo> argument.
+Also as with match, many softmatch statements can exist within a single Probe section.
 ports and sslports Directives
 
 Syntax: ports <portlist>
@@ -521,7 +774,10 @@ Examples:
 ports 21,43,110,113,199,505,540,1248,5432,30444
 ports 111,4045,32750-32810,38978
 
-This line tells Nmap what ports the services identified by this probe are commonly found on. It should only be used once within each Probe section. The syntax is a slightly simplified version of that taken by the Nmap -p option. See the examples above. More details on how this works are in the section called “Technique Described”.
+This line tells Nmap what ports the services identified by this probe are commonly found on. 
+It should only be used once within each Probe section. 
+The syntax is a slightly simplified version of that taken by the Nmap -p option. 
+See the examples above. More details on how this works are in the section called “Technique Described”.
 
 Syntax: sslports <portlist>
 
@@ -529,7 +785,10 @@ Example:
 
 sslports 443
 
-This is the same as 'ports' directive described above, except that these ports are often used to wrap a service in SSL. For example, the HTTP probe declares “sslports 443” and SMTP-detecting probes have an “sslports 465” line because those are the standard ports for HTTPS and SMTPS respectively. The <portlist> format is the same as with ports. This optional directive cannot appear more than once per Probe.
+This is the same as 'ports' directive described above, except that these ports are often used to wrap a service in SSL. 
+For example, the HTTP probe declares “sslports 443” and SMTP-detecting probes have an “sslports 465” line because those are the standard ports for HTTPS and SMTPS respectively. 
+The <portlist> format is the same as with ports. 
+This optional directive cannot appear more than once per Probe.
 totalwaitms Directive
 
 Syntax: totalwaitms <milliseconds>
@@ -538,7 +797,8 @@ Example:
 
 totalwaitms 5000
 
-This rarely necessary directive specifies the amount of time Nmap should wait before giving up on the most recently defined Probe against a particular service. The Nmap default is usually fine.
+This rarely necessary directive specifies the amount of time Nmap should wait before giving up on the most recently defined Probe against a particular service. 
+The Nmap default is usually fine.
 rarity Directive
 
 Syntax: rarity <value between 1 and 9>
@@ -547,7 +807,9 @@ Example:
 
 rarity 6
 
-The rarity directive roughly corresponds to how infrequently this probe can be expected to return useful results. The higher the number, the more rare the probe is considered and the less likely it is to be tried against a service. More details can be found in the section called “Probe Selection and Rarity”.
+The rarity directive roughly corresponds to how infrequently this probe can be expected to return useful results. 
+The higher the number, the more rare the probe is considered and the less likely it is to be tried against a service. 
+More details can be found in the section called “Probe Selection and Rarity”.
 fallback Directive
 
 Syntax: fallback <Comma separated list of probes>
@@ -556,10 +818,15 @@ Example:
 
 fallback GetRequest,GenericLines
 
-This optional directive specifies which probes should be used as fallbacks for if there are no matches in the current Probe section. For more information on fallbacks see the section called “Cheats and Fallbacks”. For TCP probes without a fallback directive, Nmap first tries match lines in the probe itself and then does an implicit fallback to the NULL probe. If the fallback directive is present, Nmap first tries match lines from the probe itself, then those from the probes specified in the fallback directive (from left to right). Finally, Nmap will try the NULL probe. For UDP the behavior is identical except that the NULL probe is never tried.
+This optional directive specifies which probes should be used as fallbacks for if there are no matches in the current Probe section. 
+For more information on fallbacks see the section called “Cheats and Fallbacks”. 
+For TCP probes without a fallback directive, Nmap first tries match lines in the probe itself and then does an implicit fallback to the NULL probe. 
+If the fallback directive is present, Nmap first tries match lines from the probe itself, then those from the probes specified in the fallback directive (from left to right). 
+Finally, Nmap will try the NULL probe. For UDP the behavior is identical except that the NULL probe is never tried.
 Putting It All Together
 
-Here are some examples from nmap-service-probes which put this all together (to save space many lines have been skipped). After reading this far into the section, the following should be understood.
+Here are some examples from nmap-service-probes which put this all together (to save space many lines have been skipped). 
+After reading this far into the section, the following should be understood.
 
 # The Exclude directive takes a comma separated list of ports.
 # The format is exactly the same as the -p switch.
@@ -591,7 +858,14 @@ match echo m|^help\r\n\r\n$|
 
 Community Contributions
 
-No matter how technically advanced a service detection framework is, it would be nearly useless without a comprehensive database of services against which to match. This is where the open source nature of Nmap really shines. The Insecure.Org lab is pretty substantial by geek standards, but it can never hope to run more than a tiny percentage of machine types and services that are out there. Fortunately experience with OS detection fingerprints has shown that Nmap users together run all of the common stuff, plus a staggering array of bizarre equipment as well. The Nmap OS fingerprint database contains more than a thousand entries, including all sorts of switches, WAPs, VoIP phones, game consoles, Unix boxes, Windows hosts, printers, routers, PDAs, firewalls, etc. Version detection also supports user submissions. Nmap users have contributed thousands of services. There are three primary ways that the Nmap community helps to make this an exceptional database: submitting service fingerprints, database corrections, and new probes.
+No matter how technically advanced a service detection framework is, it would be nearly useless without a comprehensive database of services against which to match. 
+This is where the open source nature of Nmap really shines. 
+The Insecure.Org lab is pretty substantial by geek standards, but it can never hope to run more than a tiny percentage of machine types and services that are out there. 
+Fortunately experience with OS detection fingerprints has shown that Nmap users together run all of the common stuff, plus a staggering array of bizarre equipment as well.
+The Nmap OS fingerprint database contains more than a thousand entries, including all sorts of switches, WAPs, VoIP phones, game consoles, Unix boxes, Windows hosts, printers, routers, PDAs, firewalls, etc. 
+Version detection also supports user submissions.
+Nmap users have contributed thousands of services. 
+There are three primary ways that the Nmap community helps to make this an exceptional database: submitting service fingerprints, database corrections, and new probes.
 Submit Service Fingerprints
 
 If a service responds to one or more of Nmap's probes and yet Nmap is unable to identify that service, Nmap prints a service fingerprint like this one:
@@ -603,37 +877,68 @@ SF:202\.1WU\(1\)\+SCO-2\.6\.1\+-sec\)\x20ready\.\r\n500\x20'':\x20command\
 SF:x20not\x20understood\.\r\n500\x20'':\x20command\x20not\x20understood\.\
 SF:r\n");
 
-If you receive such a fingerprint, and are sure you know what daemon version is running on the target host, please submit the fingerprint at the URL Nmap gives you. The whole submission process is anonymous (unless you choose to provide identifying info) and should not take more than a couple minutes. If you are feeling particularly helpful, scan the system again using -d (Nmap sometimes gives longer fingerprints that way) and paste both fingerprints into the fingerprint box on the submission form. Sometimes people read the file format section and submit their own working match lines. This is OK, but please submit the service fingerprint(s) as well because existing scripts make integrating and testing them relatively easy.
+If you receive such a fingerprint, and are sure you know what daemon version is running on the target host, please submit the fingerprint at the URL Nmap gives you. 
+The whole submission process is anonymous (unless you choose to provide identifying info) and should not take more than a couple minutes. 
+If you are feeling particularly helpful, scan the system again using -d (Nmap sometimes gives longer fingerprints that way) and paste both fingerprints into the fingerprint box on the submission form. 
+Sometimes people read the file format section and submit their own working match lines. 
+This is OK, but please submit the service fingerprint(s) as well because existing scripts make integrating and testing them relatively easy.
 
 For those who care, the information in the fingerprint above is port number (21), protocol (TCP), Nmap version (3.40PVT16), date (September 6), Unix time in hex, and a sequence of probe responses in the form r({<probename>}, {<responselength>}, "{<responsestring>}").
 Submit Database Corrections
 
-This is another easy way to help improve the database. When integrating a service fingerprint submitted for “chargen on Windows XP” or “FooBar FTP server 3.9.213”, it is difficult to determine how general the match is. Will it also match chargen on Solaris or FooBar FTP 2.7? Since there is no good way to tell, a very specific name is used in the hope that people will report when the match needs to be generalized. The only reason the Nmap DB is so comprehensive is that thousands of users have spent a few minutes each to submit new information. If you scan a host and the service fingerprint gives an incorrect OS, version number, application name, or even service type, please let us know as described below:
+This is another easy way to help improve the database. When integrating a service fingerprint submitted for “chargen on Windows XP” or “FooBar FTP server 3.9.213”, it is difficult to determine how general the match is. 
+Will it also match chargen on Solaris or FooBar FTP 2.7? Since there is no good way to tell, a very specific name is used in the hope that people will report when the match needs to be generalized. 
+The only reason the Nmap DB is so comprehensive is that thousands of users have spent a few minutes each to submit new information. 
+If you scan a host and the service fingerprint gives an incorrect OS, version number, application name, or even service type, please let us know as described below:
 
 Upgrade to the latest Nmap (Optional)
 
-    Many Linux distributions and other operating systems ship with ancient versions of Nmap. The Nmap version detection database is improved with almost every release, so check your version number by running nmap -V and then compare that to the latest available from http://nmap.org/download.html. The problem you are seeing may have already been corrected. Installing the newest version takes only a few minutes on most platforms, and is valuable regardless of whether the version detection flaw you are reporting still exists. But even if you don't have time to upgrade right now, submissions from older releases are still valuable.
+    Many Linux distributions and other operating systems ship with ancient versions of Nmap. 
+    The Nmap version detection database is improved with almost every release, so check your version number by running nmap -V and then compare that to the latest available from http://nmap.org/download.html. 
+    The problem you are seeing may have already been corrected. 
+    Installing the newest version takes only a few minutes on most platforms, and is valuable regardless of whether the version detection flaw you are reporting still exists. 
+    But even if you don't have time to upgrade right now, submissions from older releases are still valuable.
 Be absolutely certain you know what is running
 
-    Invalid “corrections” can corrupt the version detection DB. If you aren't certain exactly what is running on the remote machine, please find out before submitting.
+    Invalid “corrections” can corrupt the version detection DB. 
+    If you aren't certain exactly what is running on the remote machine, please find out before submitting.
 Generate a fingerprint
 
-    Run the command nmap -O -Pn -sSV -T4 -d --version-trace -p<port> <target>, where <port> is the port running the misidentified service on the <target> host. If the service is UDP rather than TCP, substitute -sUV for -sSV.
+    Run the command nmap -O -Pn -sSV -T4 -d --version-trace -p<port> <target>, where <port> is the port running the misidentified service on the <target> host. 
+    If the service is UDP rather than TCP, substitute -sUV for -sSV.
 Send us your correction
 
-    Now simply submit your correction to us at http://insecure.org/cgi-bin/submit.cgi?corr-service. Thanks for contributing to the Nmap community and helping to make version detection even better!
+    Now simply submit your correction to us at http://insecure.org/cgi-bin/submit.cgi?corr-service. 
+    Thanks for contributing to the Nmap community and helping to make version detection even better!
 
 Submit New Probes
 
-Suppose Nmap fails to detect a service. If it received a response to any probes at all, it should provide a fingerprint that can be submitted as described above. But what if there is no response and thus a fingerprint is not available? Create and submit your own probe! These are very welcome. The following steps describe the process.
+Suppose Nmap fails to detect a service. 
+If it received a response to any probes at all, it should provide a fingerprint that can be submitted as described above. 
+But what if there is no response and thus a fingerprint is not available? 
+Create and submit your own probe! 
+These are very welcome. The following steps describe the process.
 
 Steps for creating a new version detection probe
 
-    Download the latest version of Nmap from http://nmap.org and try again. You would feel a bit silly spending time developing a new probe just to find out that it has already been added. Make sure no fingerprint is available, as it is better to recognize services using existing probes if possible than to create too many new ones. If the service does not respond to any of the existing probes, there is no other choice.
+    Download the latest version of Nmap from http://nmap.org and try again. 
+    You would feel a bit silly spending time developing a new probe just to find out that it has already been added. 
+    Make sure no fingerprint is available, as it is better to recognize services using existing probes if possible than to create too many new ones. 
+    If the service does not respond to any of the existing probes, there is no other choice.
 
-    Decide on a good probe string for recognizing the service. An ideal probe should elicit a response from as many instances of the service as possible, and ideally the responses should be unique enough to differentiate between them. This step is easiest if you understand the protocol very well, so consider reading the relevant RFCs and product documentation. One simple approach is to simply start a client for the given service and watch what initial handshaking is done by sniffing the network with Wireshark or tcpdump, or connecting to a listening Ncat.
+    Decide on a good probe string for recognizing the service. 
+    An ideal probe should elicit a response from as many instances of the service as possible, and ideally the responses should be unique enough to differentiate between them. 
+    This step is easiest if you understand the protocol very well, so consider reading the relevant RFCs and product documentation. 
+    One simple approach is to simply start a client for the given service and watch what initial handshaking is done by sniffing the network with Wireshark or tcpdump, or connecting to a listening Ncat.
 
-    Once you have decided on the proper string, add the appropriate new Probe line to Nmap (see the section called “Technique Described” and the section called “nmap-service-probes File Format”). Do not put in any match lines at first, although a ports directive to make this new test go first against the registered ports is OK. Then scan the service with Nmap a few times. You should get a fingerprint back showing the service's response to your new probe. Send the new probe line and the fingerprints (against different machines if possible, but even a few against the same daemon helps to note differences) to the Nmap development list at <dev@nmap.org>. It will likely then be integrated into future versions of Nmap. Any details you can provide on the nature of your probe string is helpful as well. For custom services that only appear on your network, it is better to simply add them to your own nmap-service-probes rather than the global Nmap.
+    Once you have decided on the proper string, add the appropriate new Probe line to Nmap (see the section called “Technique Described” and the section called “nmap-service-probes File Format”). 
+    Do not put in any match lines at first, although a ports directive to make this new test go first against the registered ports is OK. 
+    Then scan the service with Nmap a few times. 
+    You should get a fingerprint back showing the service's response to your new probe. 
+    Send the new probe line and the fingerprints (against different machines if possible, but even a few against the same daemon helps to note differences) to the Nmap development list at <dev@nmap.org>. 
+    It will likely then be integrated into future versions of Nmap. 
+    Any details you can provide on the nature of your probe string is helpful as well. 
+    For custom services that only appear on your network, it is better to simply add them to your own nmap-service-probes rather than the global Nmap.
     
     
     SOLUTION: Hack Version Detection to Suit Custom Needs, such as Open Proxy Detection
