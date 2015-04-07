@@ -1,10 +1,17 @@
 
 Introduction
 
-Nmap can often be installed or upgraded with a single command, so don't let the length of this chapter scare you. Most readers will use the table of contents to skip directly to sections that concern them. This chapter describes how to install Nmap on many platforms, including both source code compilation and binary installation methods. Graphical and command-line versions of Nmap are described and contrasted. Nmap removal instructions are also provided in case you change your mind.
+Nmap can often be installed or upgraded with a single command, so don't let the length of this chapter scare you. 
+Most readers will use the table of contents to skip directly to sections that concern them. 
+This chapter describes how to install Nmap on many platforms, including both source code compilation and binary installation methods. 
+Graphical and command-line versions of Nmap are described and contrasted. 
+Nmap removal instructions are also provided in case you change your mind.
 Testing Whether Nmap is Already Installed
 
-The first step toward obtaining Nmap is to check whether you already have it. Many free operating system distributions (including most Linux and BSD systems) come with Nmap packages, although they may not be installed by default. On Unix systems, open a terminal window and try executing the command nmap --version. If Nmap exists and is in your PATH, you should see output similar to that in Example 2.1.
+The first step toward obtaining Nmap is to check whether you already have it. 
+Many free operating system distributions (including most Linux and BSD systems) come with Nmap packages, although they may not be installed by default. 
+On Unix systems, open a terminal window and try executing the command nmap --version. 
+If Nmap exists and is in your PATH, you should see output similar to that in Example 2.1.
 
 Example 2.1. Checking for Nmap and determining its version number
 
@@ -16,22 +23,43 @@ felix~>
 
 If Nmap does not exist on the system (or if your PATH is incorrectly set), an error message such as nmap: Command not found is reported. As the example above shows, Nmap responds to the command by printing its version number (here 4.76).
 
-Even if your system already has a copy of Nmap, you should consider upgrading to the latest version available from http://nmap.org/download.html. Newer versions often run faster, fix important bugs, and feature updated operating system and service version detection databases. A list of changes since the version already on your system can be found at http://nmap.org/changelog.html.
+Even if your system already has a copy of Nmap, you should consider upgrading to the latest version available from http://nmap.org/download.html. Newer versions often run faster, fix important bugs, and feature updated operating system and service version detection databases. 
+A list of changes since the version already on your system can be found at http://nmap.org/changelog.html.
 Command-line and Graphical Interfaces
 
-Nmap has traditionally been a command-line tool run from a Unix shell or (more recently) Windows command prompt. This allows experts to quickly execute a command that does exactly what they want without having to maneuver through a bunch of configuration panels and scattered option fields. This also makes Nmap easier to script and enables easy sharing of useful commands among the user community.
+Nmap has traditionally been a command-line tool run from a Unix shell or (more recently) Windows command prompt. This allows experts to quickly execute a command that does exactly what they want without having to maneuver through a bunch of configuration panels and scattered option fields. 
+This also makes Nmap easier to script and enables easy sharing of useful commands among the user community.
 
-One downside of the command-line approach is that it can be intimidating for new and infrequent users. Nmap offers more than a hundred command-line options, although many are obscure features or debugging controls that most users can ignore. Many graphical frontends have been created for those users who prefer a GUI interface. Nmap has traditionally included a simple GUI for Unix named NmapFE, but that was replaced in 2007 by Zenmap, which we have been developing since 2005. Zenmap is far more powerful and effective than NmapFE, particularly in results viewing. Zenmap's tab-based interface lets you search and sort results, and also browse them in several ways (host details, raw Nmap output, and ports/hosts). It works on Linux, Windows, Mac OS X, and other platforms. Zenmap is covered in depth in Chapter 12, Zenmap GUI Users' Guide. The rest of this book focuses on command-line Nmap invocations. Once you understand how the command-line options work and can interpret the output, using Zenmap or the other available Nmap GUIs is easy. Nmap's options work the same way whether you choose them from radio buttons and menus or type them at a command-line.
+One downside of the command-line approach is that it can be intimidating for new and infrequent users. Nmap offers more than a hundred command-line options, although many are obscure features or debugging controls that most users can ignore. 
+Many graphical frontends have been created for those users who prefer a GUI interface. 
+Nmap has traditionally included a simple GUI for Unix named NmapFE, but that was replaced in 2007 by Zenmap, which we have been developing since 2005. 
+Zenmap is far more powerful and effective than NmapFE, particularly in results viewing. 
+Zenmap's tab-based interface lets you search and sort results, and also browse them in several ways (host details, raw Nmap output, and ports/hosts). 
+It works on Linux, Windows, Mac OS X, and other platforms. 
+Zenmap is covered in depth in Chapter 12, Zenmap GUI Users' Guide. 
+The rest of this book focuses on command-line Nmap invocations. 
+Once you understand how the command-line options work and can interpret the output, using Zenmap or the other available Nmap GUIs is easy. 
+Nmap's options work the same way whether you choose them from radio buttons and menus or type them at a command-line.
 Downloading Nmap
 
-Nmap.Org is the official source for downloading Nmap source code and binaries for Nmap and Zenmap. Source code is distributed in bzip2 and gzip compressed tar files, and binaries are available for Linux (RPM format), Windows (NSIS executable installer) and Mac OS X (.dmg disk image). Find all of this at http://nmap.org/download.html.
+Nmap.Org is the official source for downloading Nmap source code and binaries for Nmap and Zenmap. 
+Source code is distributed in bzip2 and gzip compressed tar files, and binaries are available for Linux (RPM format), Windows (NSIS executable installer) and Mac OS X (.dmg disk image). 
+Find all of this at http://nmap.org/download.html.
 Verifying the Integrity of Nmap Downloads
 
-It often pays to be paranoid about the integrity of files downloaded from the Internet. Popular packages such as Sendmail (example), OpenSSH (example), tcpdump, Libpcap, BitchX, Fragrouter, and many others have been infected with malicious trojans. Software distributions sites at the Free Software Foundation, Debian, and SourceForge have also been successfully compromised. This has never happened to Nmap, but one should always be careful. To verify the authenticity of an Nmap release, consult the PGP detached signatures or cryptographic hashes (including SHA1 and MD5) posted for the release in the Nmap signatures directory at http://nmap.org/dist/sigs/?C=M&O=D.
+It often pays to be paranoid about the integrity of files downloaded from the Internet. 
+Popular packages such as Sendmail (example), OpenSSH (example), tcpdump, Libpcap, BitchX, Fragrouter, and many others have been infected with malicious trojans. 
+Software distributions sites at the Free Software Foundation, Debian, and SourceForge have also been successfully compromised. 
+This has never happened to Nmap, but one should always be careful. 
+To verify the authenticity of an Nmap release, consult the PGP detached signatures or cryptographic hashes (including SHA1 and MD5) posted for the release in the Nmap signatures directory at http://nmap.org/dist/sigs/?C=M&O=D.
 
-The most secure verification mechanism is detached PGP signatures. As the signing key is never stored on production servers, even someone who successfully compromises the web server couldn't forge and properly sign a trojan release. While numerous applications are able to verify PGP signatures, I recommend GNU Privacy Guard (GPG).
+The most secure verification mechanism is detached PGP signatures. 
+As the signing key is never stored on production servers, even someone who successfully compromises the web server couldn't forge and properly sign a trojan release. 
+While numerous applications are able to verify PGP signatures, I recommend GNU Privacy Guard (GPG).
 
-Nmap releases are signed with a special Nmap Project Signing Key, which can be obtained from the major keyservers or https://svn.nmap.org/nmap/docs/nmap_gpgkeys.txt. My key is included in that file too. The keys can be imported with the command gpg --import nmap_gpgkeys.txt. You only need to do this once, then you can verify all future Nmap releases from that machine. Before trusting the keys, verify that the fingerprints match the values shown in Example 2.2.
+Nmap releases are signed with a special Nmap Project Signing Key, which can be obtained from the major keyservers or https://svn.nmap.org/nmap/docs/nmap_gpgkeys.txt. My key is included in that file too. 
+The keys can be imported with the command gpg --import nmap_gpgkeys.txt. You only need to do this once, then you can verify all future Nmap releases from that machine. 
+Before trusting the keys, verify that the fingerprints match the values shown in Example 2.2.
 
 Example 2.2. Verifying the Nmap and Fyodor PGP Key Fingerprints
 
@@ -47,9 +75,13 @@ uid                Nmap Project Signing Key (http://insecure.org/)
 sub 2048g/A50A6A94 2005-04-24
 
 
-For every Nmap package download file (e.g. nmap-4.76.tar.bz2 and nmap-4.76-win32.zip), there is a corresponding file in the sigs directory with .asc appended to the name (e.g. nmap-4.76.tar.bz2.asc). This is the detached signature file.
+For every Nmap package download file (e.g. nmap-4.76.tar.bz2 and nmap-4.76-win32.zip), there is a corresponding file in the sigs directory with .asc appended to the name (e.g. nmap-4.76.tar.bz2.asc). 
+This is the detached signature file.
 
-With the proper PGP key in your keyring and the detached signature file downloaded, verifying an Nmap release takes a single GPG command, as shown in Example 2.3. That example assumes that the verified file can be found in the same directory by simply removing “.asc” from the signature filename. When that isn't the case, simply pass the target filename as the final argument to GPG. If the file has been tampered with, the results will look like Example 2.4.
+With the proper PGP key in your keyring and the detached signature file downloaded, verifying an Nmap release takes a single GPG command, as shown in Example 2.3. 
+That example assumes that the verified file can be found in the same directory by simply removing “.asc” from the signature filename. 
+When that isn't the case, simply pass the target filename as the final argument to GPG. 
+If the file has been tampered with, the results will look like Example 2.4.
 
 Example 2.3. Verifying PGP key fingerprints (Successful)
 
@@ -65,7 +97,12 @@ gpg: Signature made Fri 12 Sep 2008 02:03:59 AM PDT using DSA key ID 6B9355D0
 gpg: BAD signature from "Nmap Project Signing Key (http://www.insecure.org/)"
 
 
-While PGP signatures are the recommended validation technique, SHA2, SHA1, and MD5 (among other) hashes are made available for more casual validation. An attacker who can manipulate your Internet traffic in real time (and is extremely skilled) or who compromises Nmap.Org and replaces both the distribution file and digest file, could defeat this test. However, it can be useful to check the authoritative Nmap.Org hashes if you obtain Nmap from a third party or feel it might have been accidentally corrupted. For every Nmap package download file, there is a corresponding file in the sigs directory with .digest.txt appended to the name (e.g. nmap-4.76.tar.bz2.digest.txt). An example is shown in Example 2.5. This is the detached signature file. The hashes from the digest file can be verified using common tools such as gpg, sha1sum, or md5sum, as shown in Example 2.6, “Verifying Nmap hashes”.
+While PGP signatures are the recommended validation technique, SHA2, SHA1, and MD5 (among other) hashes are made available for more casual validation. 
+An attacker who can manipulate your Internet traffic in real time (and is extremely skilled) or who compromises Nmap.Org and replaces both the distribution file and digest file, could defeat this test. 
+However, it can be useful to check the authoritative Nmap.Org hashes if you obtain Nmap from a third party or feel it might have been accidentally corrupted. 
+For every Nmap package download file, there is a corresponding file in the sigs directory with .digest.txt appended to the name (e.g. nmap-4.76.tar.bz2.digest.txt). 
+An example is shown in Example 2.5. This is the detached signature file. 
+The hashes from the digest file can be verified using common tools such as gpg, sha1sum, or md5sum, as shown in Example 2.6, “Verifying Nmap hashes”.
 
 Example 2.5. A typical Nmap release digest file
 
@@ -95,14 +132,22 @@ flog> md5sum nmap-4.76.tgz
 54b5c9e3f44c1adde17df68170eb7cfe  nmap-4.76.tgz
 
 
-While releases from Nmap.Org are signed as described in this section, certain Nmap add-ons, interfaces, and platform-specific binaries are developed and distributed by other parties. They have different mechanisms for establishing the authenticity of their downloads.
+While releases from Nmap.Org are signed as described in this section, certain Nmap add-ons, interfaces, and platform-specific binaries are developed and distributed by other parties. 
+They have different mechanisms for establishing the authenticity of their downloads.
 Obtaining Nmap from the Subversion (SVN) Repository
 
-In addition to regular stable and development releases, the latest Nmap source code is always available using the Subversion (SVN) revision control system. This delivers new features and version/OS detection database updates immediately as they are developed. The downside is that SVN head revisions aren't always as stable as official releases. So SVN is most useful for Nmap developers and users who need a fix which hasn't yet been formally released.
+In addition to regular stable and development releases, the latest Nmap source code is always available using the Subversion (SVN) revision control system. 
+This delivers new features and version/OS detection database updates immediately as they are developed. 
+The downside is that SVN head revisions aren't always as stable as official releases. 
+So SVN is most useful for Nmap developers and users who need a fix which hasn't yet been formally released.
 
-SVN write access is strictly limited to top Nmap developers, but everyone has read access to the repository. Check out the latest code using the command svn co https://svn.nmap.org/nmap. Then you can later update your source code by typing svn up in your working directory.
+SVN write access is strictly limited to top Nmap developers, but everyone has read access to the repository. 
+Check out the latest code using the command svn co https://svn.nmap.org/nmap. 
+Then you can later update your source code by typing svn up in your working directory.
 
-While most users only follow the /nmap directory in SVN, there is one other interesting directory: /nmap-exp. This directory contains experimental Nmap branches which Nmap developers create when they wish to try new things without destabilizing Nmap proper. When developers feel that an experimental branch is ready for wider-scale testing, they will generally email the location to the nmap-dev mailing list.
+While most users only follow the /nmap directory in SVN, there is one other interesting directory: /nmap-exp. 
+This directory contains experimental Nmap branches which Nmap developers create when they wish to try new things without destabilizing Nmap proper. 
+When developers feel that an experimental branch is ready for wider-scale testing, they will generally email the location to the nmap-dev mailing list.
 
 Once Nmap is checked out, you can build it from source code just as you would with the Nmap tarball (described later in this chapter).
 
@@ -110,9 +155,13 @@ If you would like real-time (or digested) notification and diffs by email when a
 
 Linux/Unix Compilation and Installation from Source Code
 
-While binary packages (discussed in later sections) are available for most platforms, compilation and installation from source code is the traditional and most powerful way to install Nmap. This ensures that the latest version is available and allows Nmap to adapt to the library availability and directory structure of your system. For example, Nmap uses the OpenSSL cryptography libraries for version detection when available, but most binary packages do not include this functionality. On the other hand, binary packages are generally quicker and easier to install, and allow for consistent management (installation, removal, upgrading, etc.) of all packaged software on the system.
+While binary packages (discussed in later sections) are available for most platforms, compilation and installation from source code is the traditional and most powerful way to install Nmap. 
+This ensures that the latest version is available and allows Nmap to adapt to the library availability and directory structure of your system. 
+For example, Nmap uses the OpenSSL cryptography libraries for version detection when available, but most binary packages do not include this functionality. 
+On the other hand, binary packages are generally quicker and easier to install, and allow for consistent management (installation, removal, upgrading, etc.) of all packaged software on the system.
 
-Source installation is usually a painless process—the build system is designed to auto-detect as much as possible. Here are the steps required for a default install:
+Source installation is usually a painless process—the build system is designed to auto-detect as much as possible. 
+Here are the steps required for a default install:
 
     Download the latest version of Nmap in .tar.bz2 (bzip2 compression) or .tgz (gzip compression) format from http://nmap.org/download.html.
 
@@ -120,7 +169,8 @@ Source installation is usually a painless process—the build system is designed
 
     bzip2 -cd nmap-<VERSION>.tar.bz2 | tar xvf -
 
-    With GNU tar, the simpler command tar xvjf nmap-<VERSION>.tar.bz2 does the trick. If you downloaded the .tgz version, replace bzip2 with gzip in the decompression command.
+    With GNU tar, the simpler command tar xvjf nmap-<VERSION>.tar.bz2 does the trick. 
+    If you downloaded the .tgz version, replace bzip2 with gzip in the decompression command.
 
     Change into the newly created directory: cd nmap-<VERSION>
 
@@ -156,87 +206,151 @@ Source installation is usually a painless process—the build system is designed
 
     Build Nmap (and the Zenmap GUI if its requirements are met): make
 
-    Note that GNU Make is required. On BSD-derived Unix systems, this is often installed as gmake. So if make returns a bunch of errors such as “Makefile, line 1: Need an operator”, try running gmake instead.
+    Note that GNU Make is required. On BSD-derived Unix systems, this is often installed as gmake. 
+    So if make returns a bunch of errors such as “Makefile, line 1: Need an operator”, try running gmake instead.
 
     Become a privileged user for system-wide install: su root
 
-    This step may be skipped if you only have an unprivileged shell account on the system. In that case, you will likely need to pass the --prefix option to configure in step four as described in the next section.
+    This step may be skipped if you only have an unprivileged shell account on the system. 
+    In that case, you will likely need to pass the --prefix option to configure in step four as described in the next section.
 
     Install Nmap, support files, docs, etc.: make install
 
-    Congratulations! Nmap is now installed as /usr/local/bin/nmap! Run it with no arguments for a quick help screen.
+    Congratulations! Nmap is now installed as /usr/local/bin/nmap! 
+    Run it with no arguments for a quick help screen.
 
-As you can see above, a simple source compilation and install consists of little more than running ./configure;make;make install as root. However, there are a number of options available to configure that affect the way Nmap is built.
+As you can see above, a simple source compilation and install consists of little more than running ./configure;make;make install as root. 
+However, there are a number of options available to configure that affect the way Nmap is built.
 Configure Directives
 
-Most of the Unix build options are controlled by the configure script, as used in step number four above. There are dozens of command-line parameters and environmental variables which affect the way Nmap is built. Run ./configure --help for a huge list with brief descriptions. These are not applicable to building Nmap on Windows. Here are the options which are either specific to Nmap or particularly important:
+Most of the Unix build options are controlled by the configure script, as used in step number four above. 
+There are dozens of command-line parameters and environmental variables which affect the way Nmap is built. 
+Run ./configure --help for a huge list with brief descriptions. 
+These are not applicable to building Nmap on Windows. 
+Here are the options which are either specific to Nmap or particularly important:
 
 --prefix=<directoryname>
 
-    This option, which is standard to the configure scripts of most software, determines where Nmap and its components are installed. By default, the prefix is /usr/local, meaning that nmap is installed in /usr/local/bin, the man page (nmap.1) is installed in /usr/local/man/man1, and the data files (nmap-os-db, nmap-services, nmap-service-probes, etc.) are installed under /usr/local/share/nmap. If you only wish to change the path of certain components, use the options --bindir, --datadir, and/or --mandir. An example usage of --prefix would be to install Nmap in my account as an unprivileged user. I would run ./configure --prefix=</home/fyodor>. Nmap creates subdirectories like /home/fyodor/man/man1 in the install stage if they do not already exist.
+    This option, which is standard to the configure scripts of most software, determines where Nmap and its components are installed. 
+    By default, the prefix is /usr/local, meaning that nmap is installed in /usr/local/bin, the man page (nmap.1) is installed in /usr/local/man/man1, and the data files (nmap-os-db, nmap-services, nmap-service-probes, etc.) are installed under /usr/local/share/nmap. 
+    If you only wish to change the path of certain components, use the options --bindir, --datadir, and/or --mandir. An example usage of --prefix would be to install Nmap in my account as an unprivileged user. 
+    I would run ./configure --prefix=</home/fyodor>. Nmap creates subdirectories like /home/fyodor/man/man1 in the install stage if they do not already exist.
 --without-zenmap
 
-    This option prevents the Zenmap graphical frontend from being installed. Normally the build system checks your system for requirements such as the Python scripting language and then installs Zenmap if they are all available.
+    This option prevents the Zenmap graphical frontend from being installed. 
+    Normally the build system checks your system for requirements such as the Python scripting language and then installs Zenmap if they are all available.
 --with-openssl=<directoryname>
 
-    The version detection system and Nmap Scripting Engine are able to probe SSL-encrypted services using the free OpenSSL libraries. Normally the Nmap build system looks for these libraries on your system and include this capability if they are found. If they are in a location your compiler does not search for by default, but you still want them to be used, specify --with-openssl=<directoryname>. Nmap then looks in <directoryname>/libs for the OpenSSL libraries themselves and <directoryname>/include for the necessary header files. Specify --without-openssl to disable SSL entirely.
+    The version detection system and Nmap Scripting Engine are able to probe SSL-encrypted services using the free OpenSSL libraries. Normally the Nmap build system looks for these libraries on your system and include this capability if they are found. 
+    If they are in a location your compiler does not search for by default, but you still want them to be used, specify --with-openssl=<directoryname>. 
+    Nmap then looks in <directoryname>/libs for the OpenSSL libraries themselves and <directoryname>/include for the necessary header files. Specify --without-openssl to disable SSL entirely.
 
-    Some distributions ship with user OpenSSL libraries that allow running programs, but not the developer files needed to compile them. Without these developer packages, Nmap will not have OpenSSL support. On Debian-based systems, install the libssl-dev package. On Red Hat–based systems, install openssl-devel. 
+    Some distributions ship with user OpenSSL libraries that allow running programs, but not the developer files needed to compile them. 
+    Without these developer packages, Nmap will not have OpenSSL support. 
+    On Debian-based systems, install the libssl-dev package. On Red Hat–based systems, install openssl-devel. 
 --with-libpcap=<directoryname>
 
-    Nmap uses the Libpcap library for capturing raw IP packets. Nmap normally looks for an existing copy of Libpcap on your system and uses that if the version number and platform is appropriate. Otherwise Nmap includes its own recent copy of Libpcap (with some local modifications described in libpcap/NMAP_MODIFICATIONS in the Nmap source directory). If you wish to force Nmap to link with your own Libpcap, pass the option --with-libpcap=<directoryname> to configure. Nmap then expects the Libpcap library to be in <directoryname>/lib/libpcap.a and the include files to be in <directoryname>/include. Nmap will always use the version of Libpcap included in its tarball if you specify --with-libpcap=included. 
+    Nmap uses the Libpcap library for capturing raw IP packets. 
+    Nmap normally looks for an existing copy of Libpcap on your system and uses that if the version number and platform is appropriate. 
+    Otherwise Nmap includes its own recent copy of Libpcap (with some local modifications described in libpcap/NMAP_MODIFICATIONS in the Nmap source directory). 
+    If you wish to force Nmap to link with your own Libpcap, pass the option --with-libpcap=<directoryname> to configure. 
+    Nmap then expects the Libpcap library to be in <directoryname>/lib/libpcap.a and the include files to be in <directoryname>/include. 
+    Nmap will always use the version of Libpcap included in its tarball if you specify --with-libpcap=included. 
 --with-libpcre=<directoryname>
 
-    PCRE is a Perl-compatible regular expression library available from http://www.pcre.org. Nmap normally looks for a copy on your system, and then falls back to its own copy if that fails. If your PCRE library is not in your compiler's standard search path, Nmap probably will not find it. In that case you can tell Nmap where it can be found by specifying the option --with-libpcre=<directoryname> to configure. Nmap then expects the library files to be in <directoryname>/lib and the include files to be in <directoryname>/include. In some cases, you may wish to use the PCRE libraries included with Nmap in preference to those already on your system. In that case, specify --with-libpcre=included.
+    PCRE is a Perl-compatible regular expression library available from http://www.pcre.org. 
+    Nmap normally looks for a copy on your system, and then falls back to its own copy if that fails. 
+    If your PCRE library is not in your compiler's standard search path, Nmap probably will not find it. 
+    In that case you can tell Nmap where it can be found by specifying the option --with-libpcre=<directoryname> to configure. 
+    Nmap then expects the library files to be in <directoryname>/lib and the include files to be in <directoryname>/include. 
+    In some cases, you may wish to use the PCRE libraries included with Nmap in preference to those already on your system. 
+    In that case, specify --with-libpcre=included.
 --with-libdnet=<directoryname>
 
-    Libdnet is an excellent networking library that Nmap uses for sending raw ethernet frames. The version in the Nmap tree is heavily modified (particularly the Windows code), so the default is to use that included version. If you wish to use a version already installed on your system instead, specify --with-libdnet=<directoryname>. Nmap then expects the library files to be in <directoryname>/lib and the include files to be in <directoryname>/include.
+    Libdnet is an excellent networking library that Nmap uses for sending raw ethernet frames. 
+    The version in the Nmap tree is heavily modified (particularly the Windows code), so the default is to use that included version. 
+    If you wish to use a version already installed on your system instead, specify --with-libdnet=<directoryname>. 
+    Nmap then expects the library files to be in <directoryname>/lib and the include files to be in <directoryname>/include.
 --with-localdirs
 
-    This simple option tells Nmap to look in /usr/local/lib and /usr/local/include for important library and header files. This should never be necessary, except that some people put such libraries in /usr/local without configuring their compiler to find them. If you are one of those people, use this option.
+    This simple option tells Nmap to look in /usr/local/lib and /usr/local/include for important library and header files. 
+    This should never be necessary, except that some people put such libraries in /usr/local without configuring their compiler to find them. 
+    If you are one of those people, use this option.
 
 Environment Variables
 
-The configure script is sensitive to several environment variables. These are some of those variables and their effects.
+The configure script is sensitive to several environment variables. 
+These are some of those variables and their effects.
 
 CFLAGS, CXXFLAGS, LDFLAGS
 
-    Extra options to pass to the C compiler, C++ compiler, and linker, respectively. Because parts of Nmap are written in C and others in C++, it's best to use both CFLAGS and CXXFLAGS if you're going to use one of them.
+    Extra options to pass to the C compiler, C++ compiler, and linker, respectively. 
+    Because parts of Nmap are written in C and others in C++, it's best to use both CFLAGS and CXXFLAGS if you're going to use one of them.
 LINGUAS
 
-    By default, make install will install all the available translations of the Nmap man page in addition to the English one. The LINGUAS environment variable can control which translations are installed. Its value should be a space-separated list of ISO language codes. For example, to install only the French and German translations, you might run LINGUAS="fr de" make install. To disable the installation of all translations, run configure with the --disable-nls option or set LINGUAS to the empty string.
+    By default, make install will install all the available translations of the Nmap man page in addition to the English one. 
+    The LINGUAS environment variable can control which translations are installed. 
+    Its value should be a space-separated list of ISO language codes. 
+    For example, to install only the French and German translations, you might run LINGUAS="fr de" make install. 
+    To disable the installation of all translations, run configure with the --disable-nls option or set LINGUAS to the empty string.
 
 If You Encounter Compilation Problems
 
-In an ideal world, software would always compile perfectly (and quickly) on every system. Unfortunately, society has not yet reached that state of nirvana. Despite all our efforts to make Nmap portable, compilation issues occasionally arise. Here are some suggestions in case the source distribution compilation fails.
+In an ideal world, software would always compile perfectly (and quickly) on every system. 
+Unfortunately, society has not yet reached that state of nirvana. Despite all our efforts to make Nmap portable, compilation issues occasionally arise. 
+Here are some suggestions in case the source distribution compilation fails.
 
 Upgrade to the latest Nmap
 
-    Check http://nmap.org/download.html to make sure you are using the latest version of Nmap. The problem may have already been fixed.
+    Check http://nmap.org/download.html to make sure you are using the latest version of Nmap. 
+    The problem may have already been fixed.
 Read the error message carefully
 
-    Scroll up in the output screen and examine the error messages given when commands fail. It is often best to find the first error message, as that often causes a cascade of further errors. Read the error message carefully, as it could indicate a system problem such as low disk space or a broken compiler. Users with programming skills may be able to resolve a wider range of problems themselves. If you make code changes to fix the problem, please send a patch (created with diff -uw <oldfile> <newfile>) and any details about your problem and platform to nmap-dev as described in the section called “Bugs”. Integrating the change into the base Nmap distribution allows many other users to benefit, and prevents you from having to make the changes with each new Nmap version.
+    Scroll up in the output screen and examine the error messages given when commands fail. 
+    It is often best to find the first error message, as that often causes a cascade of further errors. 
+    Read the error message carefully, as it could indicate a system problem such as low disk space or a broken compiler. 
+    Users with programming skills may be able to resolve a wider range of problems themselves. 
+    If you make code changes to fix the problem, please send a patch (created with diff -uw <oldfile> <newfile>) and any details about your problem and platform to nmap-dev as described in the section called “Bugs”. 
+    Integrating the change into the base Nmap distribution allows many other users to benefit, and prevents you from having to make the changes with each new Nmap version.
 Ask Google and other Internet resources
 
-    Try searching for the exact error message on Google or other search engines. You might also want to browse recent activity on the Nmap development (nmap-dev) list—archives and a search interface are available at http://seclists.org.
+    Try searching for the exact error message on Google or other search engines. 
+    You might also want to browse recent activity on the Nmap development (nmap-dev) list—archives and a search interface are available at http://seclists.org.
 Ask nmap-dev
 
     If none of your research leads to a solution, try sending a report to the Nmap development (nmap-dev) mailing list, as described in the section called “Bugs”.
 Consider binary packages
 
-    Binary packages of Nmap are available on most platforms and are usually easy to install. The downsides are that they may not be as up-to-date and you lose some of the flexibility of self-compilation. Later sections of this chapter describe how to find binary packages on many platforms, and even more are available via Internet searching. Obviously you should only install binary packages from reputable sources.
+    Binary packages of Nmap are available on most platforms and are usually easy to install. 
+    The downsides are that they may not be as up-to-date and you lose some of the flexibility of self-compilation. 
+    Later sections of this chapter describe how to find binary packages on many platforms, and even more are available via Internet searching. 
+    Obviously you should only install binary packages from reputable sources.
     
     
     Linux Distributions
 
-Linux is the most popular platform for running Nmap. In one user survey, 86% said that Linux was at least one of the platforms on which they run Nmap. The first release of Nmap in 1997 only ran on Linux.
+Linux is the most popular platform for running Nmap. 
+In one user survey, 86% said that Linux was at least one of the platforms on which they run Nmap. 
+The first release of Nmap in 1997 only ran on Linux.
 
-Linux users can choose between a source code install or using binary packages provided by their distribution or Insecure.Org. The binary packages are generally quicker and easier to install, and are often slightly customized to use the distribution's standard directory paths and such. These packages also allow for consistent management in terms of upgrading, removing, or surveying software on the system. A downside is that packages created by the distributions are necessarily behind the Nmap.Org source releases. Most Linux distributions keep their Nmap package relatively current, though a few are way out of date. Choosing the source install allows for more flexibility in determining how Nmap is built and optimized for your system. To build Nmap from source, see the section called “Linux/Unix Compilation and Installation from Source Code”. Here are simple package instructions for the most common distributions.
+Linux users can choose between a source code install or using binary packages provided by their distribution or Insecure.Org. 
+The binary packages are generally quicker and easier to install, and are often slightly customized to use the distribution's standard directory paths and such. 
+These packages also allow for consistent management in terms of upgrading, removing, or surveying software on the system. 
+A downside is that packages created by the distributions are necessarily behind the Nmap.Org source releases. 
+Most Linux distributions keep their Nmap package relatively current, though a few are way out of date. 
+Choosing the source install allows for more flexibility in determining how Nmap is built and optimized for your system. 
+To build Nmap from source, see the section called “Linux/Unix Compilation and Installation from Source Code”. 
+Here are simple package instructions for the most common distributions.
 RPM-based Distributions (Red Hat, Mandrake, SUSE, Fedora)
 
-I build RPM packages for every release of Nmap and post them to the Nmap download page at http://nmap.org/download.html. I build two packages: The nmap package contains just the command-line executable and data files, while the zenmap package contains the optional Zenmap graphical frontend (see Chapter 12, Zenmap GUI Users' Guide). The zenmap package requires that the nmap package be installed first.
+I build RPM packages for every release of Nmap and post them to the Nmap download page at http://nmap.org/download.html. 
+I build two packages: The nmap package contains just the command-line executable and data files, while the zenmap package contains the optional Zenmap graphical frontend (see Chapter 12, Zenmap GUI Users' Guide). 
+The zenmap package requires that the nmap package be installed first.
 
-Installing via RPM is quite easy—it even downloads the package for you when given the proper URLs. The following example downloads and installs Nmap 4.68, including the frontend. Of course you should use the latest version at the download site above instead. Any existing RPM-installed versions are upgraded. Example 2.8 demonstrates this installation process.
+Installing via RPM is quite easy—it even downloads the package for you when given the proper URLs. 
+The following example downloads and installs Nmap 4.68, including the frontend. 
+Of course you should use the latest version at the download site above instead. 
+Any existing RPM-installed versions are upgraded. Example 2.8 demonstrates this installation process.
 
 Example 2.8. Installing Nmap from binary RPMs
 
@@ -250,7 +364,16 @@ Preparing...                ########################################### [100%]
    1:zenmap                 ########################################### [100%]
 
 
-As the filenames above imply, these binary RPMs were created for normal PCs (x86 architecture). I also distribute x86_64 binaries for 64-bit Linux users. These binaries won't work for the relatively few Linux users on other platforms such as SPARC, Alpha, or PowerPC. They also may refuse to install if your library versions are sufficiently different from what the RPMs were initially built on. One option in these cases would be to find binary RPMs prepared by your Linux vendor for your specific distribution. The original install CDs or DVD are a good place to start. Unfortunately, those may not be current or available. Another option is to install Nmap from source code as described previously, though you lose the binary package maintenance consistency benefits. A third option is to build and install your own binary RPMs from the source RPMs distributed from the download page above. Example 2.9 demonstrates this technique with Nmap 4.68.
+As the filenames above imply, these binary RPMs were created for normal PCs (x86 architecture). 
+I also distribute x86_64 binaries for 64-bit Linux users. 
+These binaries won't work for the relatively few Linux users on other platforms such as SPARC, Alpha, or PowerPC. 
+They also may refuse to install if your library versions are sufficiently different from what the RPMs were initially built on. 
+One option in these cases would be to find binary RPMs prepared by your Linux vendor for your specific distribution. 
+The original install CDs or DVD are a good place to start. 
+Unfortunately, those may not be current or available. 
+Another option is to install Nmap from source code as described previously, though you lose the binary package maintenance consistency benefits. 
+A third option is to build and install your own binary RPMs from the source RPMs distributed from the download page above. 
+Example 2.9 demonstrates this technique with Nmap 4.68.
 
 Example 2.9. Building and installing Nmap from source RPMs
 
@@ -266,12 +389,24 @@ Preparing...                ########################################### [100%]
 #
 
 
-It is not necessary to rebuild Zenmap in this fashion because the Zenmap RPM is architecture-independent (“noarch”). For that reason there are no Zenmap source RPMs.
+It is not necessary to rebuild Zenmap in this fashion because the Zenmap RPM is architecture-independent (“noarch”). 
+For that reason there are no Zenmap source RPMs.
 
 Removing RPM packages is as easy as rpm -e nmap zenmap.
 Updating Red Hat, Fedora, Mandrake, and Yellow Dog Linux with Yum
 
-The Red Hat, Fedora, Mandrake, and Yellow Dog Linux distributions have an application named Yum which manages software installation and updates from central RPM repositories. This makes software installation and updates trivial. Since distribution-specific Yum repositories are normally used, you know the software has already been tested for compatibility with your particular distribution. Most distributions do maintain Nmap in their Yum repository, but they don't always keep it up to date. This is particularly problematic if you (like most people) don't always quickly update to the latest release of your distribution. If you are running a two-year old Linux release, Yum will often give you a two-year-old version of Nmap. Even the latest version of distributions often take months to update to a new Nmap release. So for the latest version of Nmap on these systems, try the RPMs we distribute as described in the previous section. But if our RPMs aren't compatible with your system or you are in a great hurry, installing Nmap from Yum is usually as simple as executing yum install nmap (run yum install nmap zenmap if you would like the GUI too, though some distributions don't yet package Zenmap). Yum takes care of contacting a repository on the Internet, finding the appropriate package for your architecture, and then installing it along with any necessary dependencies. This is shown (edited for brevity) in Example 2.10. You can later perform yum update to install available updates to Nmap and other packages in the repository.
+The Red Hat, Fedora, Mandrake, and Yellow Dog Linux distributions have an application named Yum which manages software installation and updates from central RPM repositories. 
+This makes software installation and updates trivial. 
+Since distribution-specific Yum repositories are normally used, you know the software has already been tested for compatibility with your particular distribution. 
+Most distributions do maintain Nmap in their Yum repository, but they don't always keep it up to date. 
+This is particularly problematic if you (like most people) don't always quickly update to the latest release of your distribution. 
+If you are running a two-year old Linux release, Yum will often give you a two-year-old version of Nmap. 
+Even the latest version of distributions often take months to update to a new Nmap release. 
+So for the latest version of Nmap on these systems, try the RPMs we distribute as described in the previous section. 
+But if our RPMs aren't compatible with your system or you are in a great hurry, installing Nmap from Yum is usually as simple as executing yum install nmap (run yum install nmap zenmap if you would like the GUI too, though some distributions don't yet package Zenmap). 
+Yum takes care of contacting a repository on the Internet, finding the appropriate package for your architecture, and then installing it along with any necessary dependencies. 
+This is shown (edited for brevity) in Example 2.10. 
+You can later perform yum update to install available updates to Nmap and other packages in the repository.
 
 Example 2.10. Installing Nmap from a system Yum repository
 
@@ -310,15 +445,20 @@ Complete!
 
 Debian Linux and Derivatives such as Ubuntu
 
-LaMont Jones maintaining the Nmap deb packages, including keeping them reasonably up-to-date. The proper upgrade/install command is apt-get install nmap. This works for Debian derivatives such as Ubuntu too. Information on the latest Debian “stable” Nmap package is available at http://packages.debian.org/stable/nmap and the development (“unstable”) Nmap and Zenmap packages are available from http://packages.debian.org/unstable/nmap and http://packages.debian.org/unstable/zenmap.
+LaMont Jones maintaining the Nmap deb packages, including keeping them reasonably up-to-date. 
+The proper upgrade/install command is apt-get install nmap. This works for Debian derivatives such as Ubuntu too. 
+Information on the latest Debian “stable” Nmap package is available at http://packages.debian.org/stable/nmap and the development (“unstable”) Nmap and Zenmap packages are available from http://packages.debian.org/unstable/nmap and http://packages.debian.org/unstable/zenmap.
 
-Sometimes Debian's Nmap releases are a year or more behind the current Nmap version. One option for obtaining the latest release is to compile from source code, as described in the section called “Linux/Unix Compilation and Installation from Source Code”. Another option is to download the RPM-format binaries from the Nmap download page, convert them to deb packages using the alien command, and then install them using dpkg, as described in the following list:
+Sometimes Debian's Nmap releases are a year or more behind the current Nmap version. 
+One option for obtaining the latest release is to compile from source code, as described in the section called “Linux/Unix Compilation and Installation from Source Code”. 
+Another option is to download the RPM-format binaries from the Nmap download page, convert them to deb packages using the alien command, and then install them using dpkg, as described in the following list:
 
 Steps for converting Nmap RPM files to Debian/Ubuntu deb format for installation on Debian/Ubuntu
 
     If you don't have the alien command, install it with a command such as sudo apt-get install alien
 
-    Download the Nmap RPMs for your platform (x86 or x86-64) from http://nmap.org/download.html. This description will use nmap-5.21-1.x86_64.rpm
+    Download the Nmap RPMs for your platform (x86 or x86-64) from http://nmap.org/download.html. 
+    This description will use nmap-5.21-1.x86_64.rpm
 
     Verify the download integrity as described in the section called “Verifying the Integrity of Nmap Downloads”.
 
@@ -330,18 +470,30 @@ Steps for converting Nmap RPM files to Debian/Ubuntu deb format for installation
 
 Other Linux Distributions
 
-There are far too many Linux distributions available to list here, but even many of the obscure ones include Nmap in their package tree. If they don't, you can simply compile from source code as described in the section called “Linux/Unix Compilation and Installation from Source Code”. 
+There are far too many Linux distributions available to list here, but even many of the obscure ones include Nmap in their package tree. 
+If they don't, you can simply compile from source code as described in the section called “Linux/Unix Compilation and Installation from Source Code”. 
 
 
 Windows
 
-While Nmap was once a Unix-only tool, a Windows version was released in 2000 and has since become the second most popular Nmap platform (behind Linux). Because of this popularity and the fact that many Windows users do not have a compiler, binary executables are distributed for each major Nmap release. Nmap supports Windows 7, Windows Server 2008 and 2003, Windows Vista, and Windows XP SP1 and later. We also have a help page for users who must run Nmap on earlier versions of Windows. While it has improved dramatically, the Windows port is not quite as efficient as on Unix. Here are the known limitations:
+While Nmap was once a Unix-only tool, a Windows version was released in 2000 and has since become the second most popular Nmap platform (behind Linux). 
+Because of this popularity and the fact that many Windows users do not have a compiler, binary executables are distributed for each major Nmap release. 
+Nmap supports Windows 7, Windows Server 2008 and 2003, Windows Vista, and Windows XP SP1 and later. 
+We also have a help page for users who must run Nmap on earlier versions of Windows. 
+While it has improved dramatically, the Windows port is not quite as efficient as on Unix. 
+Here are the known limitations:
 
-    You cannot generally scan your own machine from itself (using a loopback IP such as 127.0.0.1 or any of its registered IP addresses). This is a Windows limitation that we haven't yet worked around. If you really want to do this, use a TCP connect scan without pinging (-sT -Pn) as that uses the high level socket API rather than sending raw packets.
+    You cannot generally scan your own machine from itself (using a loopback IP such as 127.0.0.1 or any of its registered IP addresses). 
+    This is a Windows limitation that we haven't yet worked around. 
+    If you really want to do this, use a TCP connect scan without pinging (-sT -Pn) as that uses the high level socket API rather than sending raw packets.
 
-    Nmap only supports ethernet interfaces (including most 802.11 wireless cards and many VPN clients) for raw packet scans. Unless you use the -sT -Pn options, RAS connections (such as PPP dialups) and certain VPN clients are not supported. This support was dropped when Microsoft removed raw TCP/IP socket support in Windows XP SP2. Now Nmap must send lower-level ethernet frames instead.
+    Nmap only supports ethernet interfaces (including most 802.11 wireless cards and many VPN clients) for raw packet scans. 
+    Unless you use the -sT -Pn options, RAS connections (such as PPP dialups) and certain VPN clients are not supported. 
+    This support was dropped when Microsoft removed raw TCP/IP socket support in Windows XP SP2. 
+    Now Nmap must send lower-level ethernet frames instead.
 
-Scan speeds on Windows are generally comparable to those on Unix, though the latter often has a slight performance edge. One exception to this is connect scan (-sT), which is often much slower on Windows because of deficiencies in the Windows networking API. This is a shame, since that is the one TCP scan that works against localhost and over all networking types (not just ethernet, like the raw packet scans). Connect scan performance can be improved substantially by applying the Registry changes in the nmap_performance.reg file included with Nmap. By default these changes are applied for you by the Nmap executable installer. This registry file is in the nmap-<version> directory of the Windows binary zip file, and nmap-<version>/mswin32 in the source tarball (where <version> is the version number of the specific release). These changes increase the number of ephemeral ports reserved for user applications (such as Nmap) and reduce the time delay before a closed connection can be reused. Most people simply check the box to apply these changes in the executable Nmap installer, but you can also apply them by double-clicking on nmap_performance.reg, or by running the command regedt32 nmap_performance.reg. To make the changes by hand, add these three Registry DWORD values to HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters:
+Scan speeds on Windows are generally comparable to those on Unix, though the latter often has a slight performance edge. 
+One exception to this is connect scan (-sT), which is often much slower on Windows because of deficiencies in the Windows networking API. This is a shame, since that is the one TCP scan that works against localhost and over all networking types (not just ethernet, like the raw packet scans). Connect scan performance can be improved substantially by applying the Registry changes in the nmap_performance.reg file included with Nmap. By default these changes are applied for you by the Nmap executable installer. This registry file is in the nmap-<version> directory of the Windows binary zip file, and nmap-<version>/mswin32 in the source tarball (where <version> is the version number of the specific release). These changes increase the number of ephemeral ports reserved for user applications (such as Nmap) and reduce the time delay before a closed connection can be reused. Most people simply check the box to apply these changes in the executable Nmap installer, but you can also apply them by double-clicking on nmap_performance.reg, or by running the command regedt32 nmap_performance.reg. To make the changes by hand, add these three Registry DWORD values to HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters:
 
 MaxUserPort
 
@@ -355,84 +507,128 @@ StrictTimeWaitSeqCheck
 
 [Note]	Note
 
-I would like to thank Ryan Permeh of eEye, Andy Lutomirski, and Jens Vogt for their hard work on the Nmap Windows port. For many years, Nmap was a Unix-only tool, and it would likely still be that way if not for their efforts.
+I would like to thank Ryan Permeh of eEye, Andy Lutomirski, and Jens Vogt for their hard work on the Nmap Windows port. 
+For many years, Nmap was a Unix-only tool, and it would likely still be that way if not for their efforts.
 
 Windows users have three choices for installing Nmap, all of which are available from the download page at http://nmap.org/download.html.
 Windows Self-installer
 
-Every Nmap release includes a Windows self-installer named nmap-<version>-setup.exe (where <version> is the version number of the specific release). Most Nmap users choose this option since it is so easy. Another advantage of the self-installer is that it provides the option to install the Zenmap GUI and other tools. Simply run the installer file and let it walk you through panels for choosing an install path and installing WinPcap. The installer was created with the open-source Nullsoft Scriptable Install System. After it completes, read the section called “Executing Nmap on Windows” for instructions on executing Nmap on the command-line or through Zenmap.
+Every Nmap release includes a Windows self-installer named nmap-<version>-setup.exe (where <version> is the version number of the specific release). 
+Most Nmap users choose this option since it is so easy. Another advantage of the self-installer is that it provides the option to install the Zenmap GUI and other tools. 
+Simply run the installer file and let it walk you through panels for choosing an install path and installing WinPcap. 
+The installer was created with the open-source Nullsoft Scriptable Install System. 
+After it completes, read the section called “Executing Nmap on Windows” for instructions on executing Nmap on the command-line or through Zenmap.
 Command-line Zip Binaries
 [Note]	Note
 
 Most users prefer installing Nmap with the self-installer discussed previously.
 
-Every stable Nmap release comes with Windows command-line binaries and associated files in a Zip archive. No graphical interface is included, so you need to run nmap.exe from a DOS/command window. Or you can download and install a superior command shell such as those included with the free Cygwin system available from http://www.cygwin.com. Here are the step-by-step instructions for installing and executing the Nmap .zip binaries.
+Every stable Nmap release comes with Windows command-line binaries and associated files in a Zip archive. 
+No graphical interface is included, so you need to run nmap.exe from a DOS/command window. 
+Or you can download and install a superior command shell such as those included with the free Cygwin system available from http://www.cygwin.com. Here are the step-by-step instructions for installing and executing the Nmap .zip binaries.
 Installing the Nmap zip binaries
 
     Download the .zip binaries from http://nmap.org/download.html.
 
-    Uncompress the zip file into the directory you want Nmap to reside in. An example would be C:\Program Files. A directory called nmap-<version> should be created, which includes the Nmap executable and data files. Microsoft Windows XP and Vista include zip extraction—just right-click on the file in Explorer. If you do not have a Zip decompression program, there is one (called unzip) in Cygwin described above, or you can download the open-source and free 7-Zip utility. Commercial alternatives are WinZip and PKZIP.
+    Uncompress the zip file into the directory you want Nmap to reside in. An example would be C:\Program Files. 
+    A directory called nmap-<version> should be created, which includes the Nmap executable and data files. Microsoft Windows XP and Vista include zip extraction—just right-click on the file in Explorer. 
+    If you do not have a Zip decompression program, there is one (called unzip) in Cygwin described above, or you can download the open-source and free 7-Zip utility. 
+    Commercial alternatives are WinZip and PKZIP.
 
     For improved performance, apply the Nmap Registry changes discussed previously.
 
-    Nmap requires the free WinPcap packet capture library. We build our own WinPcap installer which is available in the zip file as winpcap-nmap-<version>.exe, where <version> is the WinPcap version rather than the Nmap version. Alternatively, you can obtain and install the latest version from http://www.winpcap.org. You must install version 4.0 or later.
+    Nmap requires the free WinPcap packet capture library. 
+    We build our own WinPcap installer which is available in the zip file as winpcap-nmap-<version>.exe, where <version> is the WinPcap version rather than the Nmap version. 
+    Alternatively, you can obtain and install the latest version from http://www.winpcap.org. 
+    You must install version 4.0 or later.
 
-    Due to the way Nmap is compiled, it requires the Microsoft Visual C++ 2010 Redistributable Package of runtime components. Many systems already have this installed from other packages, but you should run vcredist_x86.exe from the zip file just in case you need it. Some systems may also require the 2008 Redistributable Package as well, so it is included as vcredist2008_x86.exe. Pass the /q option to run these installers in quiet (non interactive) mode.
+    Due to the way Nmap is compiled, it requires the Microsoft Visual C++ 2010 Redistributable Package of runtime components. 
+    Many systems already have this installed from other packages, but you should run vcredist_x86.exe from the zip file just in case you need it. Some systems may also require the 2008 Redistributable Package as well, so it is included as vcredist2008_x86.exe. Pass the /q option to run these installers in quiet (non interactive) mode.
 
     Instructions for executing your compiled Nmap are given in the section called “Executing Nmap on Windows”.
 
 Compile from Source Code
 
-Most Windows users prefer to use the Nmap binary self-installer, but compilation from source code is an option, particularly if you plan to help with Nmap development. Compilation requires Microsoft Visual C++ 2010, which is part of their commercial Visual Studio suite. Any of the Visual Studio 2010 editions should work, including the free Visual C++ 2010 Express SP1.
+Most Windows users prefer to use the Nmap binary self-installer, but compilation from source code is an option, particularly if you plan to help with Nmap development. 
+Compilation requires Microsoft Visual C++ 2010, which is part of their commercial Visual Studio suite. 
+Any of the Visual Studio 2010 editions should work, including the free Visual C++ 2010 Express SP1.
 
-Some of Nmap's dependencies on Windows are inconvenient to build. For this reason, precompiled binaries of the dependencies are stored in Subversion, in the directory /nmap-mswin32-aux. When building from source, whether from a source code release or from Subversion, check out /nmap-mswin32-aux as described below.
+Some of Nmap's dependencies on Windows are inconvenient to build. 
+For this reason, precompiled binaries of the dependencies are stored in Subversion, in the directory /nmap-mswin32-aux. 
+When building from source, whether from a source code release or from Subversion, check out /nmap-mswin32-aux as described below.
 
 Compiling Nmap on Windows from Source
 
-    Download the Windows dependencies from Subversion with the command svn checkout https://svn.nmap.org/nmap-mswin32-aux. The build files are configured to look for dependencies in this checked-out directory. If you want to build the dependencies yourself instead, you will have to reconfigure the Visual Studio project files to point to the alternate directory.
+    Download the Windows dependencies from Subversion with the command svn checkout https://svn.nmap.org/nmap-mswin32-aux. 
+    The build files are configured to look for dependencies in this checked-out directory. 
+    If you want to build the dependencies yourself instead, you will have to reconfigure the Visual Studio project files to point to the alternate directory.
 
-    Decide whether to obtain the Nmap source code by downloading the latest release from nmap.org, or using a Subversion client to retrieve even newer (but less tested) code from our repository. These instructions are for the web download approach, but using Subversion instead is straightforward (see the section called “Obtaining Nmap from the Subversion (SVN) Repository”).
+    Decide whether to obtain the Nmap source code by downloading the latest release from nmap.org, or using a Subversion client to retrieve even newer (but less tested) code from our repository. 
+    These instructions are for the web download approach, but using Subversion instead is straightforward (see the section called “Obtaining Nmap from the Subversion (SVN) Repository”).
 
-    Download the latest Nmap source distribution from http://nmap.org/download.html. It has the name nmap-<version>.tar.bz2 or nmap-<version>.tgz. Those are the same tar file compressed using bzip2 or gzip, respectively. The bzip2-compressed version is smaller.
+    Download the latest Nmap source distribution from http://nmap.org/download.html. 
+    It has the name nmap-<version>.tar.bz2 or nmap-<version>.tgz. 
+    Those are the same tar file compressed using bzip2 or gzip, respectively. 
+    The bzip2-compressed version is smaller.
 
-    Uncompress the source code file you just downloaded. The source code directory and the nmap-mswin32-aux must be in the same parent directory. Recent releases of the free Cygwin distribution can handle both the .tar.bz2 and .tgz formats. Use the command tar xvjf nmap-version.tar.bz2 or tar xvzf nmap-version.tgz, respectively. Alternatively, the common WinZip application can decompress these files.
+    Uncompress the source code file you just downloaded. 
+    The source code directory and the nmap-mswin32-aux must be in the same parent directory. 
+    Recent releases of the free Cygwin distribution can handle both the .tar.bz2 and .tgz formats. 
+    Use the command tar xvjf nmap-version.tar.bz2 or tar xvzf nmap-version.tgz, respectively. 
+    Alternatively, the common WinZip application can decompress these files.
 
     Open Visual Studio and the Nmap solution file (nmap-<version>/mswin32/nmap.sln).
 
-    Right click on Solution 'nmap' in the Solution Explorer sidebar and choose “Configuration Manager”. Ensure that the active solution configuration is Release and then close the Configuration Manager.
+    Right click on Solution 'nmap' in the Solution Explorer sidebar and choose “Configuration Manager”. 
+    Ensure that the active solution configuration is Release and then close the Configuration Manager.
 
-    Build Nmap by pressing F7 or choosing “Build Solution” from the GUI. Nmap should begin compiling, and end with the line “-- Done --” saying that all projects built successfully and there were zero failures.
+    Build Nmap by pressing F7 or choosing “Build Solution” from the GUI. 
+    Nmap should begin compiling, and end with the line “-- Done --” saying that all projects built successfully and there were zero failures.
 
-    The executable and data files can be found in nmap-<version>/mswin32/Release/. You can copy them to a preferred directory as long as they are all kept together.
+    The executable and data files can be found in nmap-<version>/mswin32/Release/. 
+    You can copy them to a preferred directory as long as they are all kept together.
 
-    Ensure that you have WinPcap installed. You can obtain it by installing our binary self-installer or executing winpcap-nmap-<version>.exe from our zip package. Alternatively, you can obtain the official installer at http://www.winpcap.org.
+    Ensure that you have WinPcap installed. You can obtain it by installing our binary self-installer or executing winpcap-nmap-<version>.exe from our zip package. 
+    Alternatively, you can obtain the official installer at http://www.winpcap.org.
 
     Instructions for executing your compiled Nmap are given in the next section.
 
 If you wish to build an Nmap executable Windows installer or Zenmap executable, see docs/win32-installer-zenmap-buildguide.txt in the Nmap SVN repository.
 
-Many people have asked whether Nmap can be compiled with the gcc/g++ included with Cygwin or other compilers. Some users have reported success with this, but we don't maintain instructions for building Nmap under Cygwin.
+Many people have asked whether Nmap can be compiled with the gcc/g++ included with Cygwin or other compilers. 
+Some users have reported success with this, but we don't maintain instructions for building Nmap under Cygwin.
 Executing Nmap on Windows
 
-Nmap releases now include the Zenmap graphical user interface for Nmap. If you used the Nmap installer and left the Zenmap field checked, there should be a new Zenmap entry on your desktop and Start Menu. Click this to get started. Zenmap is fully documented in Chapter 12, Zenmap GUI Users' Guide. While many users love Zenmap, others prefer the traditional command-line approach to executing Nmap. Here are detailed instructions for users who are unfamiliar with command-line interfaces:
+Nmap releases now include the Zenmap graphical user interface for Nmap. 
+If you used the Nmap installer and left the Zenmap field checked, there should be a new Zenmap entry on your desktop and Start Menu. 
+Click this to get started. 
+Zenmap is fully documented in Chapter 12, Zenmap GUI Users' Guide. While many users love Zenmap, others prefer the traditional command-line approach to executing Nmap. 
+Here are detailed instructions for users who are unfamiliar with command-line interfaces:
 
     Make sure the user you are logged in as has administrative privileges on the computer (user should be a member of the administrators group).
 
-    Open a command/DOS Window. Though it can be found in the program menu tree, the simplest approach is to choose “Start” -> “Run” and type cmd<enter>. Opening a Cygwin window (if you installed it) by clicking on the Cygwin icon on the desktop works too, although the necessary commands differ slightly from those shown here.
+    Open a command/DOS Window. 
+    Though it can be found in the program menu tree, the simplest approach is to choose “Start” -> “Run” and type cmd<enter>. 
+    Opening a Cygwin window (if you installed it) by clicking on the Cygwin icon on the desktop works too, although the necessary commands differ slightly from those shown here.
 
-    Change to the directory you installed Nmap into. You can skip this step if Nmap is already in your command path (the Zenmap isntaller adds it there by default). Otherwise, type the following commands.
+    Change to the directory you installed Nmap into. 
+    You can skip this step if Nmap is already in your command path (the Zenmap isntaller adds it there by default). 
+    Otherwise, type the following commands.
 
     c:
     cd "\Program Files (x86)\Nmap"
 
-    On Windows releases prior to Windows 7, specify \Program Files\Nmap instead. The directory will also be different if you chose to install Nmap in a non-default location.
+    On Windows releases prior to Windows 7, specify \Program Files\Nmap instead. 
+    The directory will also be different if you chose to install Nmap in a non-default location.
 
     Execute nmap.exe. Figure 2.1 is a screen shot showing a simple example.
 
 Figure 2.1. Executing Nmap from a Windows command shell
 Executing Nmap from a Windows command shell
 
-If you execute Nmap frequently, you can add the Nmap directory (c:\Program Files (x86)\Nmap by default on Windows 7) to your command execution path. The exact place to set this varies by Windows platform. On my Windows XP box, which installs Nmap in c:\Program Files\Nmap, I do the following:
+If you execute Nmap frequently, you can add the Nmap directory (c:\Program Files (x86)\Nmap by default on Windows 7) to your command execution path. 
+The exact place to set this varies by Windows platform. 
+On my Windows XP box, which installs Nmap in c:\Program Files\Nmap, I do the following:
 
     From the desktop, right click on My Computer and then click “properties”.
 
@@ -449,14 +645,19 @@ If you execute Nmap frequently, you can add the Nmap directory (c:\Program Files
     
     Apple Mac OS X
 
-Nmap has supported Mac OS X since 2001, and our support has only improved over time. While Mac users can compile Nmap themselves, we also offer an executable installer. Nmap is also available through systems such as MacPorts and Fink which package Unix software for Mac OS X.
+Nmap has supported Mac OS X since 2001, and our support has only improved over time. While Mac users can compile Nmap themselves, we also offer an executable installer. 
+Nmap is also available through systems such as MacPorts and Fink which package Unix software for Mac OS X.
 Executable Installer
 
-The easiest way to install Nmap and Zenmap on Mac OS X is to use our installer. The Mac OS X section of the Nmap download page provides a file named nmap-<version>.dmg, where <version> is the version number of the most recent release. The .dmg file is known as a “disk image”. Installation instructions follow:
+The easiest way to install Nmap and Zenmap on Mac OS X is to use our installer. 
+The Mac OS X section of the Nmap download page provides a file named nmap-<version>.dmg, where <version> is the version number of the most recent release. 
+The .dmg file is known as a “disk image”. Installation instructions follow:
 
-    Download the file nmap-<version>.dmg. Double-click the icon to open it. (Depending on how you downloaded the file, it may be opened automatically.)
+    Download the file nmap-<version>.dmg. 
+    Double-click the icon to open it. (Depending on how you downloaded the file, it may be opened automatically.)
 
-    The contents of the disk image will be displayed. One of the files will be a Mac meta-package file named nmap-<version>.mpkg. Open it to start the installer.
+    The contents of the disk image will be displayed. One of the files will be a Mac meta-package file named nmap-<version>.mpkg. 
+    Open it to start the installer.
 
     On OS X 10.8 and later, you may see a dialog like Figure 2.2.
 
@@ -470,7 +671,8 @@ The easiest way to install Nmap and Zenmap on Mac OS X is to use our installer. 
     Apple Gatekeeper Open menu
 
 
-    A dialog similar to the first will appear, this time having an “Open” button (shown in Figure 2.4). Click the button to continue.
+    A dialog similar to the first will appear, this time having an “Open” button (shown in Figure 2.4). 
+    Click the button to continue.
 
     Figure 2.4. Apple Gatekeeper Open screen
     Apple Gatekeeper Open screen
@@ -478,61 +680,93 @@ The easiest way to install Nmap and Zenmap on Mac OS X is to use our installer. 
 
     Follow the instructions in the installer. You will be asked for your password since Nmap installs in a system directory.
 
-    Once the installer is finished, eject the disk image by control-clicking on its icon and selecting “Eject”. The disk image may now be placed in the trash.
+    Once the installer is finished, eject the disk image by control-clicking on its icon and selecting “Eject”. 
+    The disk image may now be placed in the trash.
 
 See the instructions in the section called “Executing Nmap on Mac OS X” for help on running Nmap and Zenmap after they are installed.
 
-The programs installed by the installer will run on Intel Mac OS X 10.5 (Leopard) or later. Users of earlier versions will have to compile from source or use a third-party package. Instructions for PowerPC (PPC) Mac systems (which Apple ceased selling in 2006) are available on our wiki.
+The programs installed by the installer will run on Intel Mac OS X 10.5 (Leopard) or later. 
+Users of earlier versions will have to compile from source or use a third-party package. 
+Instructions for PowerPC (PPC) Mac systems (which Apple ceased selling in 2006) are available on our wiki.
 Compile from Source Code
 
 Compiling Nmap from source on Mac OS X is no more difficult than on other platforms once a proper build environment is in place.
 Compile Nmap from source code
 
-Compiling Nmap on Mac OS X requires Xcode, Apple's developer tools that include GCC and the rest of the usual build system. Xcode is not installed by default, but can be downloaded free of charge from the Mac App Store. After installing Xcode, open “Preferences”, select the “Downloads” tab, and click the “Install” next to “Command Line Tools”.
+Compiling Nmap on Mac OS X requires Xcode, Apple's developer tools that include GCC and the rest of the usual build system. 
+Xcode is not installed by default, but can be downloaded free of charge from the Mac App Store. 
+After installing Xcode, open “Preferences”, select the “Downloads” tab, and click the “Install” next to “Command Line Tools”.
 
-Xcode installations don't always include the command line tools. You can install them by opening Xcode from the Applications folder, opening Preferencechoosing the Download header icon and clicking the Install button next to “Command Line Tools”.
+Xcode installations don't always include the command line tools. 
+You can install them by opening Xcode from the Applications folder, opening Preferencechoosing the Download header icon and clicking the Install button next to “Command Line Tools”.
 
-Once you have installed Xcode and the command-line tools, follow the compilation instructions found in the section called “Linux/Unix Compilation and Installation from Source Code”. Note that on some older versions of Mac OS X, you may have to replace the command ./configure with ./configure CPP=/usr/bin/cpp.
+Once you have installed Xcode and the command-line tools, follow the compilation instructions found in the section called “Linux/Unix Compilation and Installation from Source Code”. 
+Note that on some older versions of Mac OS X, you may have to replace the command ./configure with ./configure CPP=/usr/bin/cpp.
 Compile Zenmap from source code
 
-Zenmap depends on some external libraries that do not come with Mac OS X, including GTK+ and PyGTK. These libraries have many dependencies of their own. A convenient way to install all of them is to use a third-party packaging system as described in Section . Once the dependencies are installed, follow the instructions in the section called “Linux/Unix Compilation and Installation from Source Code” to install Zenmap as usual.
+Zenmap depends on some external libraries that do not come with Mac OS X, including GTK+ and PyGTK. 
+These libraries have many dependencies of their own. 
+A convenient way to install all of them is to use a third-party packaging system as described in Section . 
+Once the dependencies are installed, follow the instructions in the section called “Linux/Unix Compilation and Installation from Source Code” to install Zenmap as usual.
 Third-party Packages
 
-Another option for installing Nmap is to use a system which packages Unix software for Mac OS X. The two discussed here are Fink and MacPorts. See the respective projects' web sites for how to install the package managers.
+Another option for installing Nmap is to use a system which packages Unix software for Mac OS X. 
+The two discussed here are Fink and MacPorts. See the respective projects' web sites for how to install the package managers.
 
-To install using Fink, run the command fink install nmap. Nmap will be installed as /sw/bin/nmap. To uninstall use the command fink remove nmap.
+To install using Fink, run the command fink install nmap. Nmap will be installed as /sw/bin/nmap. 
+To uninstall use the command fink remove nmap.
 
-To install using MacPorts, run sudo port install nmap. Nmap will be installed as /opt/local/bin/nmap. To uninstall, run sudo port uninstall nmap.
+To install using MacPorts, run sudo port install nmap. Nmap will be installed as /opt/local/bin/nmap. 
+To uninstall, run sudo port uninstall nmap.
 
-These systems install the nmap executable outside the global PATH. To enable Zenmap to find it, set the nmap_command_path variable in zenmap.conf to /sw/bin/nmap or /opt/local/bin/nmap as described in the section called “The nmap Executable”.
+These systems install the nmap executable outside the global PATH. 
+To enable Zenmap to find it, set the nmap_command_path variable in zenmap.conf to /sw/bin/nmap or /opt/local/bin/nmap as described in the section called “The nmap Executable”.
 Executing Nmap on Mac OS X
 
-The terminal emulator in Mac OS X is called Terminal, and is located in the directory /Applications/Utilities. Open it and a terminal window appears. This is where you will type your commands.
+The terminal emulator in Mac OS X is called Terminal, and is located in the directory /Applications/Utilities. 
+Open it and a terminal window appears. 
+This is where you will type your commands.
 
-By default the root user is disabled on Mac OS X. To run a scan with root privileges prefix the command name with sudo, as in sudo nmap -sS <target>. You will be asked for a password, which is just your normal login password. Only users with administrator privileges can do this.
+By default the root user is disabled on Mac OS X. 
+To run a scan with root privileges prefix the command name with sudo, as in sudo nmap -sS <target>. 
+You will be asked for a password, which is just your normal login password. 
+Only users with administrator privileges can do this.
 
-Zenmap requires the X11 application to be installed. If it was not installed by default it may be available as an optional install on the Mac OS X installation discs.
+Zenmap requires the X11 application to be installed. 
+If it was not installed by default it may be available as an optional install on the Mac OS X installation discs.
 
-When Zenmap is started, a dialog is displayed requesting that you type your password. Users with administrator privileges may enter their password to allow Zenmap to run as the root user and run more advanced scans. To run Zenmap in unprivileged mode, select the “Cancel” button on this authentication dialog.
+When Zenmap is started, a dialog is displayed requesting that you type your password. 
+Users with administrator privileges may enter their password to allow Zenmap to run as the root user and run more advanced scans. 
+To run Zenmap in unprivileged mode, select the “Cancel” button on this authentication dialog.
 
 
 Other Platforms (BSD, Solaris, AIX, AmigaOS)
 
-Most Nmap users run the software on Linux, Windows, or Mac OS X. We consider those our top priority platforms and we maintain build and test machines to ensure that each build supports them well.
+Most Nmap users run the software on Linux, Windows, or Mac OS X. 
+We consider those our top priority platforms and we maintain build and test machines to ensure that each build supports them well.
 
-Nmap also runs on many other platforms that we don't have the resources to personally test or build binaries packages for as frequently. We rely on a passionate user community to help Nmap maintain top-notch support for the platforms on this page, and we're always happy to see Nmap expand onto other platforms.
+Nmap also runs on many other platforms that we don't have the resources to personally test or build binaries packages for as frequently. 
+We rely on a passionate user community to help Nmap maintain top-notch support for the platforms on this page, and we're always happy to see Nmap expand onto other platforms.
 
 The following sections provide tips for running Nmap on specific platforms.
 FreeBSD / OpenBSD / NetBSD
 
-The BSD flavors are well supported by Nmap, so you can simply compile it from source as described in the section called “Linux/Unix Compilation and Installation from Source Code”. This provides the normal advantages of always having the latest version and a flexible build process. If you prefer binary packages, these *BSD variants each maintain their own Nmap packages. Many BSD systems also have a ports tree which standardizes the compilation of popular applications. Instructions for installing Nmap on the most popular *BSD variants follow.
+The BSD flavors are well supported by Nmap, so you can simply compile it from source as described in the section called “Linux/Unix Compilation and Installation from Source Code”. 
+This provides the normal advantages of always having the latest version and a flexible build process. 
+If you prefer binary packages, these *BSD variants each maintain their own Nmap packages. 
+Many BSD systems also have a ports tree which standardizes the compilation of popular applications. 
+Instructions for installing Nmap on the most popular *BSD variants follow.
 OpenBSD Binary Packages and Source Ports Instructions
 
-According to the OpenBSD FAQ, users “are HIGHLY advised to use packages over building an application from ports. The OpenBSD ports team considers packages to be the goal of their porting work, not the ports themselves.” That same FAQ contains detailed instructions for each method. Here is a summary:
+According to the OpenBSD FAQ, users “are HIGHLY advised to use packages over building an application from ports. 
+The OpenBSD ports team considers packages to be the goal of their porting work, not the ports themselves.” 
+That same FAQ contains detailed instructions for each method. 
+Here is a summary:
 
 Installation using binary packages
 
-    Choose a mirror from http://www.openbsd.org/ftp.html, then FTP in and grab the Nmap package from /pub/OpenBSD/<version>/packages/<platform>/nmap-<version>.tgz. Or obtain it from the OpenBSD distribution CD-ROM.
+    Choose a mirror from http://www.openbsd.org/ftp.html, then FTP in and grab the Nmap package from /pub/OpenBSD/<version>/packages/<platform>/nmap-<version>.tgz. 
+    Or obtain it from the OpenBSD distribution CD-ROM.
 
     As root, execute: pkg_add -v nmap-<version>.tgz
 
@@ -546,13 +780,17 @@ Installation using the source ports tree
 
 FreeBSD Binary Package and Source Ports Instructions
 
-The FreeBSD project has a whole chapter in their Handbook describing the package and port installation processes. A brief summary of the process follows.
+The FreeBSD project has a whole chapter in their Handbook describing the package and port installation processes. 
+A brief summary of the process follows.
 Installation of the binary package
 
-The easiest way to install the binary Nmap package is to run pkg_add -r nmap. You can then run the same command with the zenmap argument if you want the X-Window front-end. If you wish to obtain the package manually instead, retrieve it from http://freshports.org/security/nmap and http://freshports.org/security/zenmap or the CDROM and run pkg_add <packagename.tgz>.
+The easiest way to install the binary Nmap package is to run pkg_add -r nmap. 
+You can then run the same command with the zenmap argument if you want the X-Window front-end. 
+If you wish to obtain the package manually instead, retrieve it from http://freshports.org/security/nmap and http://freshports.org/security/zenmap or the CDROM and run pkg_add <packagename.tgz>.
 Installation using the source ports tree
 
-    The ports tree is often installed with the system itself (usually in /usr/ports). If you do not already have it, specific installation instructions are provided in the FreeBSD Handbook chapter referenced above.
+    The ports tree is often installed with the system itself (usually in /usr/ports). 
+    If you do not already have it, specific installation instructions are provided in the FreeBSD Handbook chapter referenced above.
 
     As root, execute the following command (replace /usr/ports with your local ports directory if it differs):
 
@@ -560,17 +798,24 @@ Installation using the source ports tree
 
 NetBSD Binary Package Instructions
 
-NetBSD has packaged Nmap for an enormous number of platforms, from the normal i386 to PlayStation 2, PowerPC, VAX, SPARC, MIPS, Amiga, ARM, and several platforms that I have never even heard of! A list of NetBSD Nmap packages is available from ftp://ftp.netbsd.org/pub/NetBSD/packages/pkgsrc/net/nmap/README.html and a description of using their package system to install applications is available at http://netbsd.org/Documentation/pkgsrc/using.html.
+NetBSD has packaged Nmap for an enormous number of platforms, from the normal i386 to PlayStation 2, PowerPC, VAX, SPARC, MIPS, Amiga, ARM, and several platforms that I have never even heard of! 
+A list of NetBSD Nmap packages is available from ftp://ftp.netbsd.org/pub/NetBSD/packages/pkgsrc/net/nmap/README.html and a description of using their package system to install applications is available at http://netbsd.org/Documentation/pkgsrc/using.html.
 Oracle/Sun Solaris
 
-Solaris has long been well-supported by Nmap, though we rely heavily on the Nmap community to help keep it that way. We recommend compiling and installing Nmap from source as described in the section called “Linux/Unix Compilation and Installation from Source Code”. If you have trouble, try sending a report with full details to the nmap-dev mailing list, as described in the section called “Bugs”. Also let us know if you develop a patch which improves Solaris support so we can incorporate it into Nmap for the benefit of other Solaris users.
+Solaris has long been well-supported by Nmap, though we rely heavily on the Nmap community to help keep it that way. 
+We recommend compiling and installing Nmap from source as described in the section called “Linux/Unix Compilation and Installation from Source Code”. 
+If you have trouble, try sending a report with full details to the nmap-dev mailing list, as described in the section called “Bugs”. 
+Also let us know if you develop a patch which improves Solaris support so we can incorporate it into Nmap for the benefit of other Solaris users.
 IBM AIX
 
-Nmap can be installed from source on IBM AIX by following the instructions in the section called “Linux/Unix Compilation and Installation from Source Code”. You need only pay attention to a few details.
+Nmap can be installed from source on IBM AIX by following the instructions in the section called “Linux/Unix Compilation and Installation from Source Code”. 
+You need only pay attention to a few details.
 
-You must use the gcc compiler, not xlc. Nmap's configure script will automatically find gcc if it is somewhere in the PATH environment variable.
+You must use the gcc compiler, not xlc. 
+Nmap's configure script will automatically find gcc if it is somewhere in the PATH environment variable.
 
-Some editions of the default as assembler either crash or produce object files that can't be linked. This is what's happening if you see compiler output like this:
+Some editions of the default as assembler either crash or produce object files that can't be linked. 
+This is what's happening if you see compiler output like this:
 
 g++: internal compiler error: Segmentation fault (program as)
 Please submit a full bug report,
@@ -581,7 +826,8 @@ ld: 0711-596 SEVERE ERROR: Object ../nsock/src/libnsock.a[nsock_core.o]
         An RLD for section 2 (.data) refers to symbol 1794,
         but the storage class of the symbol is not C_EXT or C_HIDEXT.
 
-You can work around this problem by installing the as from GNU binutils. (But not ld; you want to continue using the default ld.) These instructions were tested on AIX 7.1 with binutils-2.22 from http://ftp.gnu.org/gnu/binutils.
+You can work around this problem by installing the as from GNU binutils. 
+(But not ld; you want to continue using the default ld.) These instructions were tested on AIX 7.1 with binutils-2.22 from http://ftp.gnu.org/gnu/binutils.
 
 $ bzip2 -dc binutils-2.22.tar.bz2 | tar -xvf -
 $ cd binutils-2.22
@@ -591,35 +837,59 @@ $ cd gas
 $ su
 # gmake install
 
-This will install as in /usr/local/bin. The custom CFLAGS omit -g, which would otherwise cause one of the as errors you are trying to work around. You must make sure that /usr/local/bin appears before /usr/bin in PATH while building and configuring Nmap.
+This will install as in /usr/local/bin. 
+The custom CFLAGS omit -g, which would otherwise cause one of the as errors you are trying to work around. 
+You must make sure that /usr/local/bin appears before /usr/bin in PATH while building and configuring Nmap.
 
 $ export PATH="/usr/local/bin:$PATH"
 
-In some cases GCC is configured to use an absolute path to the assembler. In this case you will have to temporarily move the default assembler out of the way. You can test whether this is the case by passing the -print-prog-name=as option to gcc:
+In some cases GCC is configured to use an absolute path to the assembler. 
+In this case you will have to temporarily move the default assembler out of the way. 
+You can test whether this is the case by passing the -print-prog-name=as option to gcc:
 
 $ gcc -print-prog-name=as
 /usr/bin/as
 
-If you see the output /usr/bin/as, then you must disable the system as with a command like mv /usr/bin/as /usr/bin/as.backup. If you see the output as, then no other changes should be required.
+If you see the output /usr/bin/as, then you must disable the system as with a command like mv /usr/bin/as /usr/bin/as.backup. 
+If you see the output as, then no other changes should be required.
 
 Now follow the instructions in the section called “Linux/Unix Compilation and Installation from Source Code”.
 AmigaOS
 
-One of the wonders of open source development is that resources are often directed towards what people find exciting rather than having an exclusive focus on profits as most corporations do. It is along those lines that the Amiga port came about. Diego Casorran performed most of the work and sent in a clean patch which was integrated into the main Nmap distribution. In general, AmigaOS users should be able to simply follow the source compilation instructions in the section called “Linux/Unix Compilation and Installation from Source Code”. You may encounter a few hurdles on some systems, but I presume that must be part of the fun for Amiga fanatics.
+One of the wonders of open source development is that resources are often directed towards what people find exciting rather than having an exclusive focus on profits as most corporations do. 
+It is along those lines that the Amiga port came about. 
+Diego Casorran performed most of the work and sent in a clean patch which was integrated into the main Nmap distribution. 
+In general, AmigaOS users should be able to simply follow the source compilation instructions in the section called “Linux/Unix Compilation and Installation from Source Code”. 
+You may encounter a few hurdles on some systems, but I presume that must be part of the fun for Amiga fanatics.
 Other proprietary UNIX (HP-UX, IRIX, etc.)
 
-Nmap has in the past supported many proprietary Unix flavors such as HP-UX and SGI IRIX. We depend heavily on the user community to maintain adequate support for these systems. If you have trouble, try sending a report with full details to the nmap-dev mailing list, as described in the section called “Bugs”. Also let us know if you develop a patch which improves support on your platform so we can incorporate it into Nmap.
+Nmap has in the past supported many proprietary Unix flavors such as HP-UX and SGI IRIX. We depend heavily on the user community to maintain adequate support for these systems. 
+If you have trouble, try sending a report with full details to the nmap-dev mailing list, as described in the section called “Bugs”. 
+Also let us know if you develop a patch which improves support on your platform so we can incorporate it into Nmap.
 
 
 Removing Nmap
 
-If your purpose for removing Nmap is simply to upgrade to the latest version, you can usually use the upgrade option provided by most binary package managers. Similarly, installing the latest source code (as described in the section called “Linux/Unix Compilation and Installation from Source Code”) generally overwrites any previous from-source installations. Removing Nmap is a good idea if you are changing install methods (such as from source to RPM or vice versa) or if you are not using Nmap anymore and you care about the few megabytes of disk space it consumes.
+If your purpose for removing Nmap is simply to upgrade to the latest version, you can usually use the upgrade option provided by most binary package managers. 
+Similarly, installing the latest source code (as described in the section called “Linux/Unix Compilation and Installation from Source Code”) generally overwrites any previous from-source installations. 
+Removing Nmap is a good idea if you are changing install methods (such as from source to RPM or vice versa) or if you are not using Nmap anymore and you care about the few megabytes of disk space it consumes.
 
-How to remove Nmap depends on how you installed it initially (see previous sections). Ease of removal (and other maintenance) is a major advantage of most binary packages. For example, when Nmap is installed using the RPM system common on Linux distributions, it can be removed by running the command rpm -e nmap zenmap as root. Analogous options are offered by most other package managers—consult their documentation for further information.
+How to remove Nmap depends on how you installed it initially (see previous sections). 
+Ease of removal (and other maintenance) is a major advantage of most binary packages. 
+For example, when Nmap is installed using the RPM system common on Linux distributions, it can be removed by running the command rpm -e nmap zenmap as root. 
+Analogous options are offered by most other package managers—consult their documentation for further information.
 
-If you installed Nmap from the Windows installer, simply open the Control Panel, select “Add or Remove Programs” and select the “Remove” button for Nmap. You can also remove WinPcap unless you need it for other applications such as Wireshark.
+If you installed Nmap from the Windows installer, simply open the Control Panel, select “Add or Remove Programs” and select the “Remove” button for Nmap. 
+You can also remove WinPcap unless you need it for other applications such as Wireshark.
 
-If you installed Nmap from source code, removal is slightly more difficult. If you still have the build directory available (where you initially ran make install), you can remove Nmap by running make uninstall. If you no longer have that build directory, type nmap -V to obtain the Nmap version number. Then download that source tarball for that version of Nmap from http://nmap.org/dist/ or http://nmap.org/dist-old/. Uncompress the tarball and change into the newly created directory (nmap-<version>). Run ./configure, including any install-path options that you specified the first time (such as --prefix or --datadir). Then run make uninstall. Alternatively, you can simply delete all the Nmap-related files. If you used a default source install of Nmap versions 4.50 or higher, the following commands remove it.
+If you installed Nmap from source code, removal is slightly more difficult. 
+If you still have the build directory available (where you initially ran make install), you can remove Nmap by running make uninstall. 
+If you no longer have that build directory, type nmap -V to obtain the Nmap version number. 
+Then download that source tarball for that version of Nmap from http://nmap.org/dist/ or http://nmap.org/dist-old/. 
+Uncompress the tarball and change into the newly created directory (nmap-<version>). 
+Run ./configure, including any install-path options that you specified the first time (such as --prefix or --datadir). 
+Then run make uninstall. Alternatively, you can simply delete all the Nmap-related files. 
+If you used a default source install of Nmap versions 4.50 or higher, the following commands remove it.
 
 # cd /usr/local
 # rm -f bin/nmap bin/nmapfe bin/xnmap
@@ -627,5 +897,6 @@ If you installed Nmap from source code, removal is slightly more difficult. If y
 # rm -rf share/nmap
 # ./bin/uninstall_zenmap
 
-You may have to adjust the above commands slightly if you specified --prefix or other install-path option when first installing Nmap. The files relating to zenmap, nmapfe, and xnmap do not exist if you did not install the Zenmap frontend.
+You may have to adjust the above commands slightly if you specified --prefix or other install-path option when first installing Nmap. 
+The files relating to zenmap, nmapfe, and xnmap do not exist if you did not install the Zenmap frontend.
 
