@@ -21,16 +21,20 @@ Nmap version 4.76 ( http://nmap.org )
 felix~>
 
 
-If Nmap does not exist on the system (or if your PATH is incorrectly set), an error message such as nmap: Command not found is reported. As the example above shows, Nmap responds to the command by printing its version number (here 4.76).
+If Nmap does not exist on the system (or if your PATH is incorrectly set), an error message such as nmap: Command not found is reported. 
+As the example above shows, Nmap responds to the command by printing its version number (here 4.76).
 
-Even if your system already has a copy of Nmap, you should consider upgrading to the latest version available from http://nmap.org/download.html. Newer versions often run faster, fix important bugs, and feature updated operating system and service version detection databases. 
+Even if your system already has a copy of Nmap, you should consider upgrading to the latest version available from http://nmap.org/download.html. 
+Newer versions often run faster, fix important bugs, and feature updated operating system and service version detection databases. 
 A list of changes since the version already on your system can be found at http://nmap.org/changelog.html.
 Command-line and Graphical Interfaces
 
-Nmap has traditionally been a command-line tool run from a Unix shell or (more recently) Windows command prompt. This allows experts to quickly execute a command that does exactly what they want without having to maneuver through a bunch of configuration panels and scattered option fields. 
+Nmap has traditionally been a command-line tool run from a Unix shell or (more recently) Windows command prompt. 
+This allows experts to quickly execute a command that does exactly what they want without having to maneuver through a bunch of configuration panels and scattered option fields. 
 This also makes Nmap easier to script and enables easy sharing of useful commands among the user community.
 
-One downside of the command-line approach is that it can be intimidating for new and infrequent users. Nmap offers more than a hundred command-line options, although many are obscure features or debugging controls that most users can ignore. 
+One downside of the command-line approach is that it can be intimidating for new and infrequent users. 
+Nmap offers more than a hundred command-line options, although many are obscure features or debugging controls that most users can ignore. 
 Many graphical frontends have been created for those users who prefer a GUI interface. 
 Nmap has traditionally included a simple GUI for Unix named NmapFE, but that was replaced in 2007 by Zenmap, which we have been developing since 2005. 
 Zenmap is far more powerful and effective than NmapFE, particularly in results viewing. 
@@ -57,8 +61,10 @@ The most secure verification mechanism is detached PGP signatures.
 As the signing key is never stored on production servers, even someone who successfully compromises the web server couldn't forge and properly sign a trojan release. 
 While numerous applications are able to verify PGP signatures, I recommend GNU Privacy Guard (GPG).
 
-Nmap releases are signed with a special Nmap Project Signing Key, which can be obtained from the major keyservers or https://svn.nmap.org/nmap/docs/nmap_gpgkeys.txt. My key is included in that file too. 
-The keys can be imported with the command gpg --import nmap_gpgkeys.txt. You only need to do this once, then you can verify all future Nmap releases from that machine. 
+Nmap releases are signed with a special Nmap Project Signing Key, which can be obtained from the major keyservers or https://svn.nmap.org/nmap/docs/nmap_gpgkeys.txt. 
+My key is included in that file too. 
+The keys can be imported with the command gpg --import nmap_gpgkeys.txt. 
+You only need to do this once, then you can verify all future Nmap releases from that machine. 
 Before trusting the keys, verify that the fingerprints match the values shown in Example 2.2.
 
 Example 2.2. Verifying the Nmap and Fyodor PGP Key Fingerprints
@@ -241,13 +247,16 @@ Here are the options which are either specific to Nmap or particularly important
     Normally the build system checks your system for requirements such as the Python scripting language and then installs Zenmap if they are all available.
 --with-openssl=<directoryname>
 
-    The version detection system and Nmap Scripting Engine are able to probe SSL-encrypted services using the free OpenSSL libraries. Normally the Nmap build system looks for these libraries on your system and include this capability if they are found. 
+    The version detection system and Nmap Scripting Engine are able to probe SSL-encrypted services using the free OpenSSL libraries. 
+    Normally the Nmap build system looks for these libraries on your system and include this capability if they are found. 
     If they are in a location your compiler does not search for by default, but you still want them to be used, specify --with-openssl=<directoryname>. 
-    Nmap then looks in <directoryname>/libs for the OpenSSL libraries themselves and <directoryname>/include for the necessary header files. Specify --without-openssl to disable SSL entirely.
+    Nmap then looks in <directoryname>/libs for the OpenSSL libraries themselves and <directoryname>/include for the necessary header files. 
+    Specify --without-openssl to disable SSL entirely.
 
     Some distributions ship with user OpenSSL libraries that allow running programs, but not the developer files needed to compile them. 
     Without these developer packages, Nmap will not have OpenSSL support. 
-    On Debian-based systems, install the libssl-dev package. On Red Hat–based systems, install openssl-devel. 
+    On Debian-based systems, install the libssl-dev package. 
+    On Red Hat–based systems, install openssl-devel. 
 --with-libpcap=<directoryname>
 
     Nmap uses the Libpcap library for capturing raw IP packets. 
@@ -297,7 +306,8 @@ LINGUAS
 If You Encounter Compilation Problems
 
 In an ideal world, software would always compile perfectly (and quickly) on every system. 
-Unfortunately, society has not yet reached that state of nirvana. Despite all our efforts to make Nmap portable, compilation issues occasionally arise. 
+Unfortunately, society has not yet reached that state of nirvana. 
+Despite all our efforts to make Nmap portable, compilation issues occasionally arise. 
 Here are some suggestions in case the source distribution compilation fails.
 
 Upgrade to the latest Nmap
@@ -350,7 +360,8 @@ The zenmap package requires that the nmap package be installed first.
 Installing via RPM is quite easy—it even downloads the package for you when given the proper URLs. 
 The following example downloads and installs Nmap 4.68, including the frontend. 
 Of course you should use the latest version at the download site above instead. 
-Any existing RPM-installed versions are upgraded. Example 2.8 demonstrates this installation process.
+Any existing RPM-installed versions are upgraded. 
+Example 2.8 demonstrates this installation process.
 
 Example 2.8. Installing Nmap from binary RPMs
 
@@ -493,7 +504,14 @@ Here are the known limitations:
     Now Nmap must send lower-level ethernet frames instead.
 
 Scan speeds on Windows are generally comparable to those on Unix, though the latter often has a slight performance edge. 
-One exception to this is connect scan (-sT), which is often much slower on Windows because of deficiencies in the Windows networking API. This is a shame, since that is the one TCP scan that works against localhost and over all networking types (not just ethernet, like the raw packet scans). Connect scan performance can be improved substantially by applying the Registry changes in the nmap_performance.reg file included with Nmap. By default these changes are applied for you by the Nmap executable installer. This registry file is in the nmap-<version> directory of the Windows binary zip file, and nmap-<version>/mswin32 in the source tarball (where <version> is the version number of the specific release). These changes increase the number of ephemeral ports reserved for user applications (such as Nmap) and reduce the time delay before a closed connection can be reused. Most people simply check the box to apply these changes in the executable Nmap installer, but you can also apply them by double-clicking on nmap_performance.reg, or by running the command regedt32 nmap_performance.reg. To make the changes by hand, add these three Registry DWORD values to HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters:
+One exception to this is connect scan (-sT), which is often much slower on Windows because of deficiencies in the Windows networking API. 
+This is a shame, since that is the one TCP scan that works against localhost and over all networking types (not just ethernet, like the raw packet scans). 
+Connect scan performance can be improved substantially by applying the Registry changes in the nmap_performance.reg file included with Nmap. 
+By default these changes are applied for you by the Nmap executable installer. 
+This registry file is in the nmap-<version> directory of the Windows binary zip file, and nmap-<version>/mswin32 in the source tarball (where <version> is the version number of the specific release). 
+These changes increase the number of ephemeral ports reserved for user applications (such as Nmap) and reduce the time delay before a closed connection can be reused. 
+Most people simply check the box to apply these changes in the executable Nmap installer, but you can also apply them by double-clicking on nmap_performance.reg, or by running the command regedt32 nmap_performance.reg. 
+To make the changes by hand, add these three Registry DWORD values to HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters:
 
 MaxUserPort
 
@@ -543,7 +561,9 @@ Installing the Nmap zip binaries
     You must install version 4.0 or later.
 
     Due to the way Nmap is compiled, it requires the Microsoft Visual C++ 2010 Redistributable Package of runtime components. 
-    Many systems already have this installed from other packages, but you should run vcredist_x86.exe from the zip file just in case you need it. Some systems may also require the 2008 Redistributable Package as well, so it is included as vcredist2008_x86.exe. Pass the /q option to run these installers in quiet (non interactive) mode.
+    Many systems already have this installed from other packages, but you should run vcredist_x86.exe from the zip file just in case you need it. 
+    Some systems may also require the 2008 Redistributable Package as well, so it is included as vcredist2008_x86.exe. 
+    Pass the /q option to run these installers in quiet (non interactive) mode.
 
     Instructions for executing your compiled Nmap are given in the section called “Executing Nmap on Windows”.
 
@@ -645,7 +665,8 @@ On my Windows XP box, which installs Nmap in c:\Program Files\Nmap, I do the fol
     
     Apple Mac OS X
 
-Nmap has supported Mac OS X since 2001, and our support has only improved over time. While Mac users can compile Nmap themselves, we also offer an executable installer. 
+Nmap has supported Mac OS X since 2001, and our support has only improved over time. 
+While Mac users can compile Nmap themselves, we also offer an executable installer. 
 Nmap is also available through systems such as MacPorts and Fink which package Unix software for Mac OS X.
 Executable Installer
 
@@ -656,7 +677,8 @@ The .dmg file is known as a “disk image”. Installation instructions follow:
     Download the file nmap-<version>.dmg. 
     Double-click the icon to open it. (Depending on how you downloaded the file, it may be opened automatically.)
 
-    The contents of the disk image will be displayed. One of the files will be a Mac meta-package file named nmap-<version>.mpkg. 
+    The contents of the disk image will be displayed. 
+    One of the files will be a Mac meta-package file named nmap-<version>.mpkg. 
     Open it to start the installer.
 
     On OS X 10.8 and later, you may see a dialog like Figure 2.2.
@@ -711,7 +733,8 @@ Once the dependencies are installed, follow the instructions in the section call
 Third-party Packages
 
 Another option for installing Nmap is to use a system which packages Unix software for Mac OS X. 
-The two discussed here are Fink and MacPorts. See the respective projects' web sites for how to install the package managers.
+The two discussed here are Fink and MacPorts. 
+See the respective projects' web sites for how to install the package managers.
 
 To install using Fink, run the command fink install nmap. Nmap will be installed as /sw/bin/nmap. 
 To uninstall use the command fink remove nmap.
