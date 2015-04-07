@@ -14,15 +14,25 @@ TCP Idle Scan (-sI)
 
 Volunteers have translated this section into Spanish and Portuguese (Brazil)
 
-In 1998, security researcher Antirez (who also wrote the hping2 tool used in parts of this book) posted to the Bugtraq mailing list an ingenious new port scanning technique. Idle scan, as it has become known, allows for completely blind port scanning. Attackers can actually scan a target without sending a single packet to the target from their own IP address! Instead, a clever side-channel attack allows for the scan to be bounced off a dumb “zombie host”. Intrusion detection system (IDS) reports will finger the innocent zombie as the attacker. Besides being extraordinarily stealthy, this scan type permits discovery of IP-based trust relationships between machines.
+In 1998, security researcher Antirez (who also wrote the hping2 tool used in parts of this book) posted to the Bugtraq mailing list an ingenious new port scanning technique. 
+Idle scan, as it has become known, allows for completely blind port scanning. 
+Attackers can actually scan a target without sending a single packet to the target from their own IP address! 
+Instead, a clever side-channel attack allows for the scan to be bounced off a dumb “zombie host”. 
+Intrusion detection system (IDS) reports will finger the innocent zombie as the attacker.
+Besides being extraordinarily stealthy, this scan type permits discovery of IP-based trust relationships between machines.
 
-While idle scanning is more complex than any of the techniques discussed so far, you don't need to be a TCP/IP expert to understand it. It can be put together from these basic facts:
+While idle scanning is more complex than any of the techniques discussed so far, you don't need to be a TCP/IP expert to understand it. 
+It can be put together from these basic facts:
 
-    One way to determine whether a TCP port is open is to send a SYN (session establishment) packet to the port. The target machine will respond with a SYN/ACK (session request acknowledgment) packet if the port is open, and RST (reset) if the port is closed. This is the basis of the previously discussed SYN scan.
+    One way to determine whether a TCP port is open is to send a SYN (session establishment) packet to the port. 
+    The target machine will respond with a SYN/ACK (session request acknowledgment) packet if the port is open, and RST (reset) if the port is closed. 
+    This is the basis of the previously discussed SYN scan.
 
-    A machine that receives an unsolicited SYN/ACK packet will respond with a RST. An unsolicited RST will be ignored.
+    A machine that receives an unsolicited SYN/ACK packet will respond with a RST. 
+    An unsolicited RST will be ignored.
 
-    Every IP packet on the Internet has a fragment identification number (IP ID). Since many operating systems simply increment this number for each packet they send, probing for the IPID can tell an attacker how many packets have been sent since the last probe.
+    Every IP packet on the Internet has a fragment identification number (IP ID). 
+    Since many operating systems simply increment this number for each packet they send, probing for the IPID can tell an attacker how many packets have been sent since the last probe.
 
 By combining these traits, it is possible to scan a target network while forging your identity so that it looks like an innocent zombie machine did the scanning.
 Idle Scan Step by Step
@@ -31,56 +41,113 @@ Fundamentally, an idle scan consists of three steps that are repeated for each p
 
     Probe the zombie's IP ID and record it.
 
-    Forge a SYN packet from the zombie and send it to the desired port on the target. Depending on the port state, the target's reaction may or may not cause the zombie's IP ID to be incremented.
+    Forge a SYN packet from the zombie and send it to the desired port on the target. 
+    Depending on the port state, the target's reaction may or may not cause the zombie's IP ID to be incremented.
 
-    Probe the zombie's IP ID again. The target port state is then determined by comparing this new IP ID with the one recorded in step 1.
+    Probe the zombie's IP ID again. 
+    The target port state is then determined by comparing this new IP ID with the one recorded in step 1.
 
-After this process, the zombie's IP ID should have increased by either one or two. An increase of one indicates that the zombie hasn't sent out any packets, except for its reply to the attacker's probe. This lack of sent packets means that the port is not open (the target must have sent the zombie either a RST packet, which was ignored, or nothing at all). An increase of two indicates that the zombie sent out a packet between the two probes. This extra packet usually means that the port is open (the target presumably sent the zombie a SYN/ACK packet in response to the forged SYN, which induced a RST packet from the zombie). Increases larger than two usually signify a bad zombie host. It might not have predictable IP ID numbers, or might be engaged in communication unrelated to the idle scan.
+After this process, the zombie's IP ID should have increased by either one or two. 
+An increase of one indicates that the zombie hasn't sent out any packets, except for its reply to the attacker's probe. 
+This lack of sent packets means that the port is not open (the target must have sent the zombie either a RST packet, which was ignored, or nothing at all). 
+An increase of two indicates that the zombie sent out a packet between the two probes. 
+This extra packet usually means that the port is open (the target presumably sent the zombie a SYN/ACK packet in response to the forged SYN, which induced a RST packet from the zombie). 
+Increases larger than two usually signify a bad zombie host. 
+It might not have predictable IP ID numbers, or might be engaged in communication unrelated to the idle scan.
 
-Even though what happens with a closed port is slightly different from what happens with a filtered port, the attacker measures the same result in both cases, namely, an IP ID increase of 1. Therefore it is not possible for the idle scan to distinguish between closed and filtered ports. When Nmap records an IP ID increase of 1 it marks the port closed|filtered.
+Even though what happens with a closed port is slightly different from what happens with a filtered port, the attacker measures the same result in both cases, namely, an IP ID increase of 1. 
+Therefore it is not possible for the idle scan to distinguish between closed and filtered ports.
+When Nmap records an IP ID increase of 1 it marks the port closed|filtered.
 
-For those wanting more detail, the following three diagrams show exactly what happens in the three cases of an open, closed, and filtered port. The actors in each are:
+For those wanting more detail, the following three diagrams show exactly what happens in the three cases of an open, closed, and filtered port. 
+The actors in each are:
 
  the attacker,  the zombie, and  the target.
 
 Figure 5.1. Idle scan of an open port
-Step 1: The attacker sends a SYN/ACK to the zombie. The zombie, not expecting the SYN/ACK, sends back a RST, disclosing its IP ID. Step 2: The target sends a SYN/ACK in response to the SYN that appears to come from the zombie. The zombie, not expecting it, sends back a RST, incrementing its IP ID in the process. The zombie's IP ID has increased by two since step 1, so the port is open!
+Step 1: The attacker sends a SYN/ACK to the zombie. 
+The zombie, not expecting the SYN/ACK, sends back a RST, disclosing its IP ID. Step 2: The target sends a SYN/ACK in response to the SYN that appears to come from the zombie. 
+The zombie, not expecting it, sends back a RST, incrementing its IP ID in the process. 
+The zombie's IP ID has increased by two since step 1, so the port is open!
 
 Figure 5.2. Idle scan of a closed port
-Step 1: The attacker sends a SYN/ACK to the zombie. The zombie, not expecting the SYN/ACK, sends back a RST, disclosing its IP ID. This step is always the same. Step 2: The target sends a RST (the port is closed) in response to the SYN that appears to come from the zombie. The zombie ignores the unsolicited RST, leaving it IP ID unchanged. Step 3: The zombie's IP ID has increased by only one since step 1, so the port is not open.
+Step 1: The attacker sends a SYN/ACK to the zombie. 
+The zombie, not expecting the SYN/ACK, sends back a RST, disclosing its IP ID. 
+This step is always the same. Step 2: The target sends a RST (the port is closed) in response to the SYN that appears to come from the zombie. 
+The zombie ignores the unsolicited RST, leaving it IP ID unchanged. 
+Step 3: The zombie's IP ID has increased by only one since step 1, so the port is not open.
 
 Figure 5.3. Idle scan of a filtered port
-Step 1: Just as in the other two cases, the attacker sends a SYN/ACK to the zombie. The zombie disclosed its IP ID. Step 2: The target, obstinately filtering its port, ignores the SYN that appears to come from the zombie. The zombie, unaware that anything has happened, does not increment its IP ID. Step 3: The zombie's IP ID has increased by only 1 since step 1, so the port is not open. From the attacker's point of view this filtered port is indistinguishable from a closed port.
+Step 1: Just as in the other two cases, the attacker sends a SYN/ACK to the zombie. 
+The zombie disclosed its IP ID. Step 2: The target, obstinately filtering its port, ignores the SYN that appears to come from the zombie. 
+The zombie, unaware that anything has happened, does not increment its IP ID. Step 3: The zombie's IP ID has increased by only 1 since step 1, so the port is not open. 
+From the attacker's point of view this filtered port is indistinguishable from a closed port.
 
-Idle scan is the ultimate stealth scan. Nmap offers decoy scanning (-D) to help users shield their identity, but that (unlike idle scan) still requires an attacker to send some packets to the target from his real IP address in order to get scan results back. One upshot of idle scan is that intrusion detection systems will generally send alerts claiming that the zombie machine has launched a scan against them. So it can be used to frame some other party for a scan. Keep this possibility in mind when reading alerts from your IDS.
+Idle scan is the ultimate stealth scan. 
+Nmap offers decoy scanning (-D) to help users shield their identity, but that (unlike idle scan) still requires an attacker to send some packets to the target from his real IP address in order to get scan results back. 
+One upshot of idle scan is that intrusion detection systems will generally send alerts claiming that the zombie machine has launched a scan against them. 
+So it can be used to frame some other party for a scan. Keep this possibility in mind when reading alerts from your IDS.
 
-A unique advantage of idle scan is that it can be used to defeat certain packet filtering firewalls and routers. IP source address filtering is a common (though weak) security mechanism for limiting machines that may connect to a sensitive host or network. For example, a company database server might only allow connections from the public web server that accesses it. Or a home user might only allow SSH (interactive login) connections from his work machines.
+A unique advantage of idle scan is that it can be used to defeat certain packet filtering firewalls and routers. 
+IP source address filtering is a common (though weak) security mechanism for limiting machines that may connect to a sensitive host or network. 
+For example, a company database server might only allow connections from the public web server that accesses it. 
+Or a home user might only allow SSH (interactive login) connections from his work machines.
 
-A more disturbing scenario occurs when some company bigwig demands that network administrators open a firewall hole so he can access internal network resources from his home IP address. This can happen when executives are unwilling or unable to use secure VPN alternatives.
+A more disturbing scenario occurs when some company bigwig demands that network administrators open a firewall hole so he can access internal network resources from his home IP address. 
+This can happen when executives are unwilling or unable to use secure VPN alternatives.
 
-Idle scanning can sometimes be used to map out these trust relationships. The key factor is that idle scan results list open ports from the zombie host's perspective. A normal scan against the aforementioned database server might show no ports open, but performing an idle scan while using the web server's IP as the zombie could expose the trust relationship by showing the database-related service ports as open.
+Idle scanning can sometimes be used to map out these trust relationships. 
+The key factor is that idle scan results list open ports from the zombie host's perspective.
+A normal scan against the aforementioned database server might show no ports open, but performing an idle scan while using the web server's IP as the zombie could expose the trust relationship by showing the database-related service ports as open.
 
-Mapping out these trust relationships can be very useful to attackers for prioritizing targets. The web server discussed above may seem mundane to an attacker until she notices its special database access.
+Mapping out these trust relationships can be very useful to attackers for prioritizing targets. 
+The web server discussed above may seem mundane to an attacker until she notices its special database access.
 
-A disadvantage to idle scanning is that it takes far longer than most other scan types. Despite the optimized algorithms described in the section called “Idle Scan Implementation Algorithms”, A 15-second SYN scan could take 15 minutes or more as an idle scan. Another issue is that you must be able to spoof packets as if they are coming from the zombie and have them reach the target machine. Many ISPs (particularly dialup and residential broadband providers) now implement egress filtering to prevent this sort of packet spoofing. Higher end providers (such as colocation and T1 services) are much less likely to do this. If this filtering is in effect, Nmap will print a quick error message for every zombie you try. If changing ISPs is not an option, you might try using another IP on the same ISP network. Sometimes the filtering only blocks spoofing of IP addresses that are outside the range used by customers. Another challenge with idle scan is that you must find a working zombie host, as described in the next section.
+A disadvantage to idle scanning is that it takes far longer than most other scan types. 
+Despite the optimized algorithms described in the section called “Idle Scan Implementation Algorithms”, A 15-second SYN scan could take 15 minutes or more as an idle scan.
+Another issue is that you must be able to spoof packets as if they are coming from the zombie and have them reach the target machine.
+Many ISPs (particularly dialup and residential broadband providers) now implement egress filtering to prevent this sort of packet spoofing. 
+Higher end providers (such as colocation and T1 services) are much less likely to do this.
+If this filtering is in effect, Nmap will print a quick error message for every zombie you try. 
+If changing ISPs is not an option, you might try using another IP on the same ISP network. 
+Sometimes the filtering only blocks spoofing of IP addresses that are outside the range used by customers. 
+Another challenge with idle scan is that you must find a working zombie host, as described in the next section.
 Finding a Working Idle Scan Zombie Host
 
-The first step in executing an IP ID idle scan is to find an appropriate zombie. It needs to assign IP ID packets incrementally on a global (rather than per-host it communicates with) basis. It should be idle (hence the scan name), as extraneous traffic will bump up its IP ID sequence, confusing the scan logic. The lower the latency between the attacker and the zombie, and between the zombie and the target, the faster the scan will proceed.
+The first step in executing an IP ID idle scan is to find an appropriate zombie. 
+It needs to assign IP ID packets incrementally on a global (rather than per-host it communicates with) basis. 
+It should be idle (hence the scan name), as extraneous traffic will bump up its IP ID sequence, confusing the scan logic. 
+The lower the latency between the attacker and the zombie, and between the zombie and the target, the faster the scan will proceed.
 
-When an idle scan is attempted, Nmap tests the proposed zombie and reports any problems with it. If one doesn't work, try another. Enough Internet hosts are vulnerable that zombie candidates aren't hard to find. Since the hosts need to be idle, choosing a well-known host such as www.yahoo.com or google.com will almost never work.
+When an idle scan is attempted, Nmap tests the proposed zombie and reports any problems with it. 
+If one doesn't work, try another. 
+Enough Internet hosts are vulnerable that zombie candidates aren't hard to find. 
+Since the hosts need to be idle, choosing a well-known host such as www.yahoo.com or google.com will almost never work.
 
-A common approach is to simply execute a Nmap ping scan of some network. You could use Nmap's random IP selection mode (-iR), but that is likely to result in far away zombies with substantial latency. Choosing a network near your source address, or near the target, produces better results. You can try an idle scan using each available host from the ping scan results until you find one that works. As usual, it is best to ask permission before using someone's machines for unexpected purposes such as idle scanning.
+A common approach is to simply execute a Nmap ping scan of some network. 
+You could use Nmap's random IP selection mode (-iR), but that is likely to result in far away zombies with substantial latency. 
+Choosing a network near your source address, or near the target, produces better results. 
+You can try an idle scan using each available host from the ping scan results until you find one that works. 
+As usual, it is best to ask permission before using someone's machines for unexpected purposes such as idle scanning.
 
 We didn't just choose a printer icon to represent a zombie in our illustrations to be funny—simple network devices often make great zombies because they are commonly both underused (idle) and built with simple network stacks which are vulnerable to IP ID traffic detection.
 
-Performing a port scan and OS identification (-O) on the zombie candidate network rather than just a ping scan helps in selecting a good zombie. As long as verbose mode (-v) is enabled, OS detection will usually determine the IP ID sequence generation method and print a line such as “IP ID Sequence Generation: Incremental”. If the type is given as Incremental or Broken little-endian incremental, the machine is a good zombie candidate. That is still no guarantee that it will work, as Solaris and some other systems create a new IP ID sequence for each host they communicate with. The host could also be too busy. OS detection and the open port list can also help in identifying systems that are likely to be idle.
+Performing a port scan and OS identification (-O) on the zombie candidate network rather than just a ping scan helps in selecting a good zombie. 
+As long as verbose mode (-v) is enabled, OS detection will usually determine the IP ID sequence generation method and print a line such as “IP ID Sequence Generation: Incremental”. 
+If the type is given as Incremental or Broken little-endian incremental, the machine is a good zombie candidate. 
+That is still no guarantee that it will work, as Solaris and some other systems create a new IP ID sequence for each host they communicate with. 
+The host could also be too busy. OS detection and the open port list can also help in identifying systems that are likely to be idle.
 
-Another approach to identifying zombie candidates is the run the ipidseq NSE script against a host. This script probes a host to classify its IP ID generation method, then prints the IP ID classification much like the OS detection does. Like most NSE scripts, ipidseq.nse can be run against many hosts in parallel, making it another good choice when scanning entire networks looking for suitable hosts.
+Another approach to identifying zombie candidates is the run the ipidseq NSE script against a host. 
+This script probes a host to classify its IP ID generation method, then prints the IP ID classification much like the OS detection does. 
+Like most NSE scripts, ipidseq.nse can be run against many hosts in parallel, making it another good choice when scanning entire networks looking for suitable hosts.
 
 While identifying a suitable zombie takes some initial work, you can keep re-using the good ones.
 Executing an Idle Scan
 
-Once a suitable zombie has been found, performing a scan is easy. Simply specify the zombie hostname to the -sI option and Nmap does the rest. Example 5.1 shows an example of Ereet scanning the Recording Industry Association of America by bouncing an idle scan off an Adobe machine named Kiosk.
+Once a suitable zombie has been found, performing a scan is easy. 
+Simply specify the zombie hostname to the -sI option and Nmap does the rest. 
+Example 5.1 shows an example of Ereet scanning the Recording Industry Association of America by bouncing an idle scan off an Adobe machine named Kiosk.
 
 Example 5.1. An idle scan against the RIAA
 
