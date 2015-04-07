@@ -2,39 +2,68 @@
 
 Introduction
 
-When exploring a network for security auditing or inventory/administration, you usually want to know more than the bare IP addresses of identified machines. Your reaction to discovering a printer may be very different than to finding a router, wireless access point, telephone PBX, game console, Windows desktop, or Unix server. Finer grained detection (such as distinguishing Mac OS X 10.4 from 10.3) is useful for determining vulnerability to specific flaws and for tailoring effective exploits for those vulnerabilities.
+When exploring a network for security auditing or inventory/administration, you usually want to know more than the bare IP addresses of identified machines. 
+Your reaction to discovering a printer may be very different than to finding a router, wireless access point, telephone PBX, game console, Windows desktop, or Unix server. 
+Finer grained detection (such as distinguishing Mac OS X 10.4 from 10.3) is useful for determining vulnerability to specific flaws and for tailoring effective exploits for those vulnerabilities.
 
-In part due to its value to attackers, many systems are tight-lipped about their exact nature and operating system configuration. Fortunately, Nmap includes a huge database of heuristics for identifying thousands of different systems based on how they respond to a selection of TCP/IP probes. Another system (part of version detection) interrogates open TCP or UDP ports to determine device type and OS details. Results of these two systems are reported independently so that you can identify combinations such as a Checkpoint firewall forwarding port 80 to a Windows IIS server.
+In part due to its value to attackers, many systems are tight-lipped about their exact nature and operating system configuration. 
+Fortunately, Nmap includes a huge database of heuristics for identifying thousands of different systems based on how they respond to a selection of TCP/IP probes. 
+Another system (part of version detection) interrogates open TCP or UDP ports to determine device type and OS details.
+Results of these two systems are reported independently so that you can identify combinations such as a Checkpoint firewall forwarding port 80 to a Windows IIS server.
 
 While Nmap has supported OS detection since 1998, this chapter describes the 2nd generation system released in 2006.
 Reasons for OS Detection
 
-While some benefits of discovering the underlying OS and device types on a network are obvious, others are more obscure. This section lists the top reasons I hear for discovering this extra information.
+While some benefits of discovering the underlying OS and device types on a network are obvious, others are more obscure. 
+This section lists the top reasons I hear for discovering this extra information.
 Determining vulnerability of target hosts
 
-It is sometimes very difficult to determine remotely whether an available service is susceptible or patched for a certain vulnerability. Even obtaining the application version number doesn't always help, since OS distributors often back-port security fixes without changing the version number. The surest way to verify that a vulnerability is real is to exploit it, but that risks crashing the service and can lead to wasted hours or even days of frustrating exploitation efforts if the service turns out to be patched.
+It is sometimes very difficult to determine remotely whether an available service is susceptible or patched for a certain vulnerability.
+Even obtaining the application version number doesn't always help, since OS distributors often back-port security fixes without changing the version number. 
+The surest way to verify that a vulnerability is real is to exploit it, but that risks crashing the service and can lead to wasted hours or even days of frustrating exploitation efforts if the service turns out to be patched.
 
-OS detection can help reduce these false positives. For example, the Rwho daemon on unpatched Sun Solaris 7 through 9 may be remotely exploitable (Sun alert #57659). Remotely determining vulnerability is difficult, but you can rule it out by finding that a target system is running Solaris 10.
+OS detection can help reduce these false positives. 
+For example, the Rwho daemon on unpatched Sun Solaris 7 through 9 may be remotely exploitable (Sun alert #57659). 
+Remotely determining vulnerability is difficult, but you can rule it out by finding that a target system is running Solaris 10.
 
-Taking this from the perspective of a systems administrator rather than a pen-tester, imagine you run a large Sun shop when alert #57659 comes out. Scan your whole network with OS detection to find machines which need patching before the bad guys do.
+Taking this from the perspective of a systems administrator rather than a pen-tester, imagine you run a large Sun shop when alert #57659 comes out. 
+Scan your whole network with OS detection to find machines which need patching before the bad guys do.
 Tailoring exploits
 
-Even after you discover a vulnerability in a target system, OS detection can be helpful in exploiting it. Buffer overflows, format-string exploits, and many other vulnerabilities often require custom-tailored shellcode with offsets and assembly payloads generated to match the target OS and hardware architecture. In some cases, you only get one try because the service crashes if you get the shellcode wrong. Use OS detection first or you may end up sending Linux shellcode to a FreeBSD server.
+Even after you discover a vulnerability in a target system, OS detection can be helpful in exploiting it. Buffer overflows, format-string exploits, and many other vulnerabilities often require custom-tailored shellcode with offsets and assembly payloads generated to match the target OS and hardware architecture. 
+In some cases, you only get one try because the service crashes if you get the shellcode wrong. 
+Use OS detection first or you may end up sending Linux shellcode to a FreeBSD server.
 Network inventory and support
 
-While it isn't as exciting as busting root through a specially crafted format string exploit, there are many administrative reasons to keep track of what is running on your network. Before you renew that IRIX support contract for another year, scan to see if anyone still uses such machines. An inventory can also be useful for IT budgeting and ensuring that all company equipment is accounted for.
+While it isn't as exciting as busting root through a specially crafted format string exploit, there are many administrative reasons to keep track of what is running on your network. 
+Before you renew that IRIX support contract for another year, scan to see if anyone still uses such machines.
+An inventory can also be useful for IT budgeting and ensuring that all company equipment is accounted for.
 Detecting unauthorized and dangerous devices
 
-With the ubiquity of mobile devices and cheap commodity networking equipment, companies are increasingly finding that employees are extending their networks in undesirable ways. They may install a $20 wireless access point (WAP) in their cubicle without realizing (or caring) that they just opened up the protected corporate network to potential attackers in the parking lot or nearby buildings. WAPs can be so dangerous that Nmap has a special category for detecting them. Users may also cause sysadmins grief by connecting insecure and/or worm-infected laptops to the corporate network. Regular scanning can detect unauthorized devices for investigation and containment.
+With the ubiquity of mobile devices and cheap commodity networking equipment, companies are increasingly finding that employees are extending their networks in undesirable ways. 
+They may install a $20 wireless access point (WAP) in their cubicle without realizing (or caring) that they just opened up the protected corporate network to potential attackers in the parking lot or nearby buildings. 
+WAPs can be so dangerous that Nmap has a special category for detecting them. 
+Users may also cause sysadmins grief by connecting insecure and/or worm-infected laptops to the corporate network. 
+Regular scanning can detect unauthorized devices for investigation and containment.
 Social engineering
 
-Another possible use is social engineering. Lets say that you are scanning a target company and Nmap reports a “Datavoice TxPORT PRISM 3000 T1 CSU/DSU 6.22/2.06”. You could call up the target pretending to be Datavoice support and discuss some issues with their PRISM 3000. Tell them you are about to announce a big security hole, but are first providing the patch to valued customers. Some naive administrators might assume that only an authorized engineer from Datavoice would know so much about their CSU/DSU. Of course the patch you send them is a Trojan horse that gives you remote access to sniff and traipse through their network. Be sure to read the rest of this chapter for detection accuracy and verification advice before trying this. If you guess the target system wrong and they call the police, that will be an embarrassing story to tell your cellmates.
+Another possible use is social engineering. 
+Lets say that you are scanning a target company and Nmap reports a “Datavoice TxPORT PRISM 3000 T1 CSU/DSU 6.22/2.06”. 
+You could call up the target pretending to be Datavoice support and discuss some issues with their PRISM 3000.
+Tell them you are about to announce a big security hole, but are first providing the patch to valued customers. 
+Some naive administrators might assume that only an authorized engineer from Datavoice would know so much about their CSU/DSU.
+Of course the patch you send them is a Trojan horse that gives you remote access to sniff and traipse through their network. 
+Be sure to read the rest of this chapter for detection accuracy and verification advice before trying this. 
+If you guess the target system wrong and they call the police, that will be an embarrassing story to tell your cellmates.
 
 
 
 Usage and Examples
 
-The inner workings of OS detection are quite complex, but it is one of the easiest features to use. Simply add -O to your scan options. You may want to also increase the verbosity with -v for even more OS-related details. This is shown in Example 8.1.
+The inner workings of OS detection are quite complex, but it is one of the easiest features to use. 
+Simply add -O to your scan options. 
+You may want to also increase the verbosity with -v for even more OS-related details. 
+This is shown in Example 8.1.
 
 Example 8.1. OS detection with verbosity (-O -v)
 
@@ -68,38 +97,88 @@ Including the -O -v options caused Nmap to generate the following extra line ite
 
 Device type
 
-    All fingerprints are classified with one or more high-level device types, such as router, printer, firewall, or (as in this case) general purpose. These are further described in the section called “Device and OS classification (Class lines)”. Several device types may be shown, in which case they will be separated with the pipe symbol as in “Device Type: router|firewall”.
+    All fingerprints are classified with one or more high-level device types, such as router, printer, firewall, or (as in this case) general purpose. 
+    These are further described in the section called “Device and OS classification (Class lines)”. 
+    Several device types may be shown, in which case they will be separated with the pipe symbol as in “Device Type: router|firewall”.
 Running
 
-    This field is also related to the OS classification scheme described in the section called “Device and OS classification (Class lines)”. It shows the OS Family (Linux in this case) and OS generation (2.6.X) if available. If there are multiple OS families, they are separated by commas. When Nmap can't narrow down OS generations to one specific choice, options are separated by the pipe symbol ('|') Examples include OpenBSD 3.X, NetBSD 3.X|4.X and Linux 2.4.X|2.5.X|2.6.X.
+    This field is also related to the OS classification scheme described in the section called “Device and OS classification (Class lines)”. 
+    It shows the OS Family (Linux in this case) and OS generation (2.6.X) if available. 
+    If there are multiple OS families, they are separated by commas. When Nmap can't narrow down OS generations to one specific choice, options are separated by the pipe symbol ('|') Examples include OpenBSD 3.X, NetBSD 3.X|4.X and Linux 2.4.X|2.5.X|2.6.X.
 
-    If Nmap finds too many OS families to print concisely, it will omit this line. When there are no perfect matches, Nmap changes the field to Running (JUST GUESSING) and adds an accuracy percentage (100% is a perfect match) in parentheses after each candidate family name. If no fingerprints are close matches, the line is omitted.
+    If Nmap finds too many OS families to print concisely, it will omit this line. 
+    When there are no perfect matches, Nmap changes the field to Running (JUST GUESSING) and adds an accuracy percentage (100% is a perfect match) in parentheses after each candidate family name. 
+    If no fingerprints are close matches, the line is omitted.
 OS CPE
 
-    This shows a Common Platform Enumeration (CPE) representation of the operating system when available. It may also have a CPE representation of the hardware type. OS CPE begins with cpe:/o and hardware CPE begins with cpe:/h. For more about CPE see the section called “Common Platform Enumeration (CPE)”.
+    This shows a Common Platform Enumeration (CPE) representation of the operating system when available. 
+    It may also have a CPE representation of the hardware type. OS CPE begins with cpe:/o and hardware CPE begins with cpe:/h. 
+    For more about CPE see the section called “Common Platform Enumeration (CPE)”.
 OS details
 
-    This line gives the detailed description for each fingerprint that matches. While the Device type and Running lines are from predefined enumerated lists that are easy to parse by a computer, the OS details line contains free-form data which is useful to a human reading the report. This can include more exact version numbers, device models, and architectures specific to a given fingerprint. In this example, the only matching fingerprint was Linux 2.6.20-1 (Fedora Core 5). When there are multiple exact matches, they are comma-separated. If there aren't any perfect matches, but some close guesses, the field is renamed Aggressive OS guesses and fingerprints are shown followed by a percentage in parentheses which specifies how close each match was.
+    This line gives the detailed description for each fingerprint that matches.
+    While the Device type and Running lines are from predefined enumerated lists that are easy to parse by a computer, the OS details line contains free-form data which is useful to a human reading the report.
+    This can include more exact version numbers, device models, and architectures specific to a given fingerprint. 
+    In this example, the only matching fingerprint was Linux 2.6.20-1 (Fedora Core 5). 
+    When there are multiple exact matches, they are comma-separated. If there aren't any perfect matches, but some close guesses, the field is renamed Aggressive OS guesses and fingerprints are shown followed by a percentage in parentheses which specifies how close each match was.
 Uptime guess
 
-    As part of OS detection, Nmap receives several SYN/ACK TCP packets in a row and checks the headers for a timestamp option. Many operating systems use a simple counter for this which starts at zero at boot time then increments at a constant rate such as twice per second. By looking at several responses, Nmap can determine the current values and rate of increase. Simple linear extrapolation determines boot time. The timestamp algorithm is used for OS detection too (see the section called “TCP timestamp option algorithm (TS)”) since the increment rate on different systems varies from 2 Hz to 1,000 Hz.
+    As part of OS detection, Nmap receives several SYN/ACK TCP packets in a row and checks the headers for a timestamp option. 
+    Many operating systems use a simple counter for this which starts at zero at boot time then increments at a constant rate such as twice per second. 
+    By looking at several responses, Nmap can determine the current values and rate of increase. 
+    Simple linear extrapolation determines boot time.
+    The timestamp algorithm is used for OS detection too (see the section called “TCP timestamp option algorithm (TS)”) since the increment rate on different systems varies from 2 Hz to 1,000 Hz.
 
-    The uptime guess is labeled a “guess” because various factors can make it completely inaccurate. Some operating systems do not start the timestamp counter at zero, but initialize it with a random value, making extrapolation to zero meaningless. Even on systems using a simple counter starting at zero, the counter eventually overflows and wraps around. With a 1,000 Hz counter increment rate, the counter resets to zero roughly every 50 days. So a host that has been up for 102 days will appear to have been up only two days. Even with these caveats, the uptime guess is accurate much of the time for most operating systems, so it is printed when available, but only in verbose mode. The uptime guess is omitted if the target gives zeros or no timestamp options in its SYN/ACK packets, or if it does not reply at all. The line is also omitted if Nmap cannot discern the timestamp increment rate or it seems suspicious (like a 30-year uptime).
+    The uptime guess is labeled a “guess” because various factors can make it completely inaccurate.
+    Some operating systems do not start the timestamp counter at zero, but initialize it with a random value, making extrapolation to zero meaningless. 
+    Even on systems using a simple counter starting at zero, the counter eventually overflows and wraps around. 
+	With a 1,000 Hz counter increment rate, the counter resets to zero roughly every 50 days.
+    So a host that has been up for 102 days will appear to have been up only two days. 
+    Even with these caveats, the uptime guess is accurate much of the time for most operating systems, so it is printed when available, but only in verbose mode. 
+    The uptime guess is omitted if the target gives zeros or no timestamp options in its SYN/ACK packets, or if it does not reply at all. 
+	The line is also omitted if Nmap cannot discern the timestamp increment rate or it seems suspicious (like a 30-year uptime).
 Network Distance
 
-    A side effect of one of the OS detection tests allows Nmap to compute how many routers are between it and a target host. The distance is zero when you are scanning localhost, and one for a machine on the same network segment. Each additional router on the path adds one to the hop count. The Network Distance line is not printed in this example, since Nmap omits the line when it cannot be computed (no reply to the relevant probe).
+    A side effect of one of the OS detection tests allows Nmap to compute how many routers are between it and a target host. 
+    The distance is zero when you are scanning localhost, and one for a machine on the same network segment. 
+    Each additional router on the path adds one to the hop count. 
+    The Network Distance line is not printed in this example, since Nmap omits the line when it cannot be computed (no reply to the relevant probe).
 TCP Sequence Prediction
 
-    Systems with poor TCP initial sequence number generation are vulnerable to blind TCP spoofing attacks. In other words, you can make a full connection to those systems and send (but not receive) data while spoofing a different IP address. The target's logs will show the spoofed IP, and you can take advantage of any trust relationship between them. This attack was all the rage in the mid-nineties when people commonly used rlogin to allow logins to their account without any password from trusted IP addresses. Kevin Mitnick is alleged to have used this attack to break into Tsutomu Shimomura's computers in December 1994.
+    Systems with poor TCP initial sequence number generation are vulnerable to blind TCP spoofing attacks. 
+    In other words, you can make a full connection to those systems and send (but not receive) data while spoofing a different IP address.
+    The target's logs will show the spoofed IP, and you can take advantage of any trust relationship between them. 
+    This attack was all the rage in the mid-nineties when people commonly used rlogin to allow logins to their account without any password from trusted IP addresses. 
+    Kevin Mitnick is alleged to have used this attack to break into Tsutomu Shimomura's computers in December 1994.
 
-    The good news is that hardly anyone uses rlogin anymore, and many operating systems have been fixed to use unpredictable initial sequence numbers as proposed by RFC 1948. For these reasons, this line is only printed in verbose mode. Sadly, many vendors still ship vulnerable operating systems and devices. Even the fixed ones often vary in implementation, which leaves them valuable for OS detection purposes. The class describes the ISN generation algorithm used by the target, and difficulty is a rough estimate of how hard the system makes blind IP spoofing (0 is the easiest). The parenthesized comment is based on the difficulty index and ranges from Trivial joke to Easy, Medium, Formidable, Worthy challenge, and finally Good luck! Further details about sequence tests are provided in the section called “TCP ISN greatest common divisor (GCD)”.
+    The good news is that hardly anyone uses rlogin anymore, and many operating systems have been fixed to use unpredictable initial sequence numbers as proposed by RFC 1948. 
+    For these reasons, this line is only printed in verbose mode. 
+	Sadly, many vendors still ship vulnerable operating systems and devices.
+    Even the fixed ones often vary in implementation, which leaves them valuable for OS detection purposes. 
+    The class describes the ISN generation algorithm used by the target, and difficulty is a rough estimate of how hard the system makes blind IP spoofing (0 is the easiest). 
+    The parenthesized comment is based on the difficulty index and ranges from Trivial joke to Easy, Medium, Formidable, Worthy challenge, and finally Good luck! 
+    Further details about sequence tests are provided in the section called “TCP ISN greatest common divisor (GCD)”.
 
-    While the rlogin family is mostly a relic of the past, clever attackers can still find effective uses for blind TCP spoofing. For example, it allows for spoofed HTTP requests. You don't see the results, but just the URL (POST or GET request) can have dramatic side effects. The spoofing allows attackers to hide their identity, frame someone else, or exploit IP address restrictions.
+    While the rlogin family is mostly a relic of the past, clever attackers can still find effective uses for blind TCP spoofing. 
+    For example, it allows for spoofed HTTP requests. 
+    You don't see the results, but just the URL (POST or GET request) can have dramatic side effects. 
+    The spoofing allows attackers to hide their identity, frame someone else, or exploit IP address restrictions.
 IP ID sequence generation
 
-    Many systems unwittingly give away sensitive information about their traffic levels based on how they generate the lowly 16-bit ID field in IP packets. This can be abused to spoof a port scan against other systems and for other mischievous purposes discussed in the section called “TCP Idle Scan (-sI)”. This field describes the ID generation algorithm that Nmap was able to discern. More information on how it classifies them is available in the section called “IP ID sequence generation algorithm (TI, CI, II)”. Note that many systems use a different IP ID space for each host they communicate with. In that case, they may appear vulnerable (such as showing the Incremental class) while still being secure against attacks such as the idle scan. For this reason, and because the issue is rarely critical, the IP ID sequence generation line is only printed in verbose mode. If Nmap does not receive sufficient responses during OS detection, it will omit the whole line. The best way to test whether a host is vulnerable to being an idle scan zombie is to test it with -sI.
+    Many systems unwittingly give away sensitive information about their traffic levels based on how they generate the lowly 16-bit ID field in IP packets. 
+    This can be abused to spoof a port scan against other systems and for other mischievous purposes discussed in the section called “TCP Idle Scan (-sI)”. 
+    This field describes the ID generation algorithm that Nmap was able to discern. 
+    More information on how it classifies them is available in the section called “IP ID sequence generation algorithm (TI, CI, II)”. 
+    Note that many systems use a different IP ID space for each host they communicate with. 
+    In that case, they may appear vulnerable (such as showing the Incremental class) while still being secure against attacks such as the idle scan. 
+    For this reason, and because the issue is rarely critical, the IP ID sequence generation line is only printed in verbose mode.
+    If Nmap does not receive sufficient responses during OS detection, it will omit the whole line. 
+    The best way to test whether a host is vulnerable to being an idle scan zombie is to test it with -sI.
 
-While TCP fingerprinting is a powerful method for OS detection, interrogating open ports for clues is another effective approach. Some applications, such as Microsoft IIS, only run on a single platform (thus giving it away), while many other apps divulge their platform in overly verbose banner messages. Adding the -sV option enables Nmap version detection, which is trained to look for these clues (among others). In Example 8.2, Nmap catches the platform details from an FTP server.
+While TCP fingerprinting is a powerful method for OS detection, interrogating open ports for clues is another effective approach. 
+Some applications, such as Microsoft IIS, only run on a single platform (thus giving it away), while many other apps divulge their platform in overly verbose banner messages. 
+Adding the -sV option enables Nmap version detection, which is trained to look for these clues (among others). 
+In Example 8.2, Nmap catches the platform details from an FTP server.
 
 Example 8.2. Using version scan to detect the OS
 
@@ -122,30 +201,75 @@ IP ID Sequence Generation: Incremental
 Service Info: OS: HP-UX
 
 
-In this example, the line “No exact OS matches for host” means that TCP/IP fingerprinting failed to find an exact match. Fortunately, the Service Info field a few lines down discloses that the OS is HP-UX. If several operating systems were detected (which can happen with NAT gateway boxes that redirect ports to several different machines), the field would be OSs and the values would be comma separated. The Service Info line can also contain hostnames and device types found during the version scan. The focus of this chapter is on TCP/IP fingerprinting though, since version detection was covered in Chapter 7, Service and Application Version Detection.
+In this example, the line “No exact OS matches for host” means that TCP/IP fingerprinting failed to find an exact match. 
+Fortunately, the Service Info field a few lines down discloses that the OS is HP-UX.
+If several operating systems were detected (which can happen with NAT gateway boxes that redirect ports to several different machines), the field would be OSs and the values would be comma separated. 
+The Service Info line can also contain hostnames and device types found during the version scan. 
+The focus of this chapter is on TCP/IP fingerprinting though, since version detection was covered in Chapter 7, Service and Application Version Detection.
 
-With two effective OS detection methods available, which one should you use? The best answer is usually both. In some cases, such as a proxy firewall forwarding to an application on another host, the answers may legitimately differ. TCP/IP fingerprinting will identify the proxy while version scanning will generally detect the server running the proxied application. Even when no proxying or port forwarding is involved, using both techniques is beneficial. If they come out the same, that makes the results more credible. If they come out wildly different, investigate further to determine what is going on before relying on either. Since OS and version detection go together so well, the -A option enables them both.
+With two effective OS detection methods available, which one should you use? The best answer is usually both. 
+In some cases, such as a proxy firewall forwarding to an application on another host, the answers may legitimately differ. 
+TCP/IP fingerprinting will identify the proxy while version scanning will generally detect the server running the proxied application. 
+Even when no proxying or port forwarding is involved, using both techniques is beneficial. 
+If they come out the same, that makes the results more credible. 
+If they come out wildly different, investigate further to determine what is going on before relying on either.
+Since OS and version detection go together so well, the -A option enables them both.
 
-OS detection is far more effective if at least one open and one closed TCP port are found. Set the --osscan-limit option and Nmap will not even try OS detection against hosts which do not meet this criteria. This can save substantial time, particularly on -Pn scans against many hosts. You still need to enable OS detection with -O (or -A) for the --osscan-limit option to have any effect.
+OS detection is far more effective if at least one open and one closed TCP port are found. 
+Set the --osscan-limit option and Nmap will not even try OS detection against hosts which do not meet this criteria. 
+This can save substantial time, particularly on -Pn scans against many hosts. 
+You still need to enable OS detection with -O (or -A) for the --osscan-limit option to have any effect.
 
-Another OS detection option is --osscan-guess. When Nmap is unable to detect a perfect OS match, it sometimes offers up near-matches as possibilities. The match has to be very close for Nmap to do this by default. If you specify this option (or the equivalent --fuzzy option), Nmap will guess more aggressively. Nmap still tells you when an imperfect match is found and display its confidence level (percentage) for each guess.
+Another OS detection option is --osscan-guess. 
+When Nmap is unable to detect a perfect OS match, it sometimes offers up near-matches as possibilities. 
+The match has to be very close for Nmap to do this by default. 
+If you specify this option (or the equivalent --fuzzy option), Nmap will guess more aggressively. 
+Nmap still tells you when an imperfect match is found and display its confidence level (percentage) for each guess.
 
-When Nmap performs OS detection against a target and fails to find a perfect match, it usually repeats the attempt. By default, Nmap tries five times if conditions are favorable for OS fingerprint submission, and twice when conditions aren't so good. The --max-os-tries option lets you change this maximum number of OS detection tries. Lowering it (usually to 1) speeds Nmap up, though you miss out on retries which could potentially identify the OS. Alternatively, a high value may be set to allow even more retries when conditions are favorable. This is rarely done, except to generate better fingerprints for submission and integration into the Nmap OS database.
+When Nmap performs OS detection against a target and fails to find a perfect match, it usually repeats the attempt. 
+By default, Nmap tries five times if conditions are favorable for OS fingerprint submission, and twice when conditions aren't so good. 
+The --max-os-tries option lets you change this maximum number of OS detection tries. 
+Lowering it (usually to 1) speeds Nmap up, though you miss out on retries which could potentially identify the OS. 
+Alternatively, a high value may be set to allow even more retries when conditions are favorable. 
+This is rarely done, except to generate better fingerprints for submission and integration into the Nmap OS database.
 
-Like just about every other part of Nmap, results ultimately come from the target machine itself. While rare, systems are occasionally configured to confuse or mislead Nmap. Several programs have even been developed specifically to trick Nmap OS detection (see the section called “OS Spoofing”). Your best bet is to use numerous reconnaissance methods to explore a network, and don't trust any one of them.
+Like just about every other part of Nmap, results ultimately come from the target machine itself. 
+While rare, systems are occasionally configured to confuse or mislead Nmap. 
+Several programs have even been developed specifically to trick Nmap OS detection (see the section called “OS Spoofing”). 
+Your best bet is to use numerous reconnaissance methods to explore a network, and don't trust any one of them.
 
-TCP/IP fingerprinting requires collecting detailed information about the target's IP stack. The most commonly useful results, such as TTL information, are printed to Nmap output whenever they are obtained. Slightly less pertinent information, such as IP ID sequence generation and TCP sequence prediction difficulty, is only printed in verbose mode. But if you want all of the IP stack details that Nmap collected, you can find it in a compact form called a subject fingerprint. Nmap sometimes prints this (for user submission purposes) when it doesn't recognize a host. You can also force Nmap to print it (in normal, interactive, and XML formats) by enabling debugging with (-d). Then read the section called “Understanding an Nmap Fingerprint” to interpret it.
+TCP/IP fingerprinting requires collecting detailed information about the target's IP stack. 
+The most commonly useful results, such as TTL information, are printed to Nmap output whenever they are obtained. 
+Slightly less pertinent information, such as IP ID sequence generation and TCP sequence prediction difficulty, is only printed in verbose mode.
+But if you want all of the IP stack details that Nmap collected, you can find it in a compact form called a subject fingerprint. 
+Nmap sometimes prints this (for user submission purposes) when it doesn't recognize a host. 
+You can also force Nmap to print it (in normal, interactive, and XML formats) by enabling debugging with (-d). 
+Then read the section called “Understanding an Nmap Fingerprint” to interpret it.
 
 
 
 
 TCP/IP Fingerprinting Methods Supported by Nmap
 
-Nmap OS fingerprinting works by sending up to 16 TCP, UDP, and ICMP probes to known open and closed ports of the target machine. These probes are specially designed to exploit various ambiguities in the standard protocol RFCs. Then Nmap listens for responses. Dozens of attributes in those responses are analyzed and combined to generate a fingerprint. Every probe packet is tracked and resent at least once if there is no response. All of the packets are IPv4 with a random IP ID value. Probes to an open TCP port are skipped if no such port has been found. For closed TCP or UDP ports, Nmap will first check if such a port has been found. If not, Nmap will just pick a port at random and hope for the best.
+Nmap OS fingerprinting works by sending up to 16 TCP, UDP, and ICMP probes to known open and closed ports of the target machine. 
+These probes are specially designed to exploit various ambiguities in the standard protocol RFCs. 
+Then Nmap listens for responses.
+Dozens of attributes in those responses are analyzed and combined to generate a fingerprint. 
+Every probe packet is tracked and resent at least once if there is no response.
+All of the packets are IPv4 with a random IP ID value. 
+Probes to an open TCP port are skipped if no such port has been found. 
+For closed TCP or UDP ports, Nmap will first check if such a port has been found. 
+If not, Nmap will just pick a port at random and hope for the best.
 
-The following sections are highly technical and reveal the hidden workings of Nmap OS detection. Nmap can be used effectively without understanding this, though the material can help you better understand remote networks and also detect and explain certain anomalies. Plus, some of the techniques are pretty cool. Readers in a hurry may skip to the section called “Dealing with Misidentified and Unidentified Hosts”. But for those of you who are ready for a journey through TCP explicit congestion notification, reserved UDP header bits, initial sequence numbers, bogus flags, and Christmas tree packets: read on!
+The following sections are highly technical and reveal the hidden workings of Nmap OS detection. 
+Nmap can be used effectively without understanding this, though the material can help you better understand remote networks and also detect and explain certain anomalies.
+Plus, some of the techniques are pretty cool. 
+Readers in a hurry may skip to the section called “Dealing with Misidentified and Unidentified Hosts”. 
+But for those of you who are ready for a journey through TCP explicit congestion notification, reserved UDP header bits, initial sequence numbers, bogus flags, and Christmas tree packets: read on!
 
-Even the best of us occasionally forget byte offsets for packet header fields and flags. For quick reference, the IPv4, TCP, UDP, and ICMP header layouts can be found in the section called “TCP/IP Reference”. The layout for ICMP echo request and destination unreachable packets are shown in Figure 8.1 and Figure 8.2.
+Even the best of us occasionally forget byte offsets for packet header fields and flags. 
+For quick reference, the IPv4, TCP, UDP, and ICMP header layouts can be found in the section called “TCP/IP Reference”. 
+The layout for ICMP echo request and destination unreachable packets are shown in Figure 8.1 and Figure 8.2.
 
 Figure 8.1. ICMP echo request or reply header layout
 ICMP echo request or reply header layout
@@ -155,14 +279,23 @@ ICMP destination unreachable header layout
 
 Probes Sent
 
-This section describes each IP probe sent by Nmap as part of TCP/IP fingerprinting. It refers to Nmap response tests and TCP options which are explained in the following section.
+This section describes each IP probe sent by Nmap as part of TCP/IP fingerprinting. 
+It refers to Nmap response tests and TCP options which are explained in the following section.
 Sequence generation (SEQ, OPS, WIN, and T1)
 
-A series of six TCP probes is sent to generate these four test response lines. The probes are sent exactly 100 milliseconds apart so the total time taken is 500 ms. Exact timing is important as some of the sequence algorithms we detect (initial sequence numbers, IP IDs, and TCP timestamps) are time dependent. This timing value was chosen to take 500 ms so that we can reliably detect the common 2 Hz TCP timestamp sequences.
+A series of six TCP probes is sent to generate these four test response lines. 
+The probes are sent exactly 100 milliseconds apart so the total time taken is 500 ms. 
+Exact timing is important as some of the sequence algorithms we detect (initial sequence numbers, IP IDs, and TCP timestamps) are time dependent. 
+This timing value was chosen to take 500 ms so that we can reliably detect the common 2 Hz TCP timestamp sequences.
 
-Each probe is a TCP SYN packet to a detected open port on the remote machine. The sequence and acknowledgment numbers are random (but saved so Nmap can differentiate responses). Detection accuracy requires probe consistency, so there is no data payload even if the user requested one with --data-length.
+Each probe is a TCP SYN packet to a detected open port on the remote machine. 
+The sequence and acknowledgment numbers are random (but saved so Nmap can differentiate responses). 
+Detection accuracy requires probe consistency, so there is no data payload even if the user requested one with --data-length.
 
-These packets vary in the TCP options they use and the TCP window field value. The following list provides the options and values for all six packets. The listed window field values do not reflect window scaling. EOL is the end-of-options-list option, which many sniffing tools don't show by default.
+These packets vary in the TCP options they use and the TCP window field value. 
+The following list provides the options and values for all six packets.
+The listed window field values do not reflect window scaling. 
+EOL is the end-of-options-list option, which many sniffing tools don't show by default.
 
     Packet #1: window scale (10), NOP, MSS (1460), timestamp (TSval: 0xFFFFFFFF; TSecr: 0), SACK permitted. The window field is 1.
 
@@ -176,28 +309,47 @@ These packets vary in the TCP options they use and the TCP window field value. T
 
     Packet #6: MSS (265), SACK permitted, Timestamp (TSval: 0xFFFFFFFF; TSecr: 0). The window field is 512.
 
-The results of these tests include four result category lines. The first, SEQ, contains results based on sequence analysis of the probe packets. These test results are GCD, SP, ISR, TI, II, TS, and SS. The next line, OPS contains the TCP options received for each of the probes (the test names are O1 through 06). Similarly, the WIN line contains window sizes for the probe responses (named W1 through W6). The final line related to these probes, T1, contains various test values for packet #1. Those results are for the R, DF, T, TG, W, S, A, F, O, RD, and Q tests. These tests are only reported for the first probe since they are almost always the same for each probe.
+The results of these tests include four result category lines. The first, SEQ, contains results based on sequence analysis of the probe packets. 
+These test results are GCD, SP, ISR, TI, II, TS, and SS. The next line, OPS contains the TCP options received for each of the probes (the test names are O1 through 06). 
+Similarly, the WIN line contains window sizes for the probe responses (named W1 through W6). 
+The final line related to these probes, T1, contains various test values for packet #1. 
+Those results are for the R, DF, T, TG, W, S, A, F, O, RD, and Q tests. 
+These tests are only reported for the first probe since they are almost always the same for each probe.
 ICMP echo (IE)
 
-The IE test involves sending two ICMP echo request packets to the target. The first one has the IP DF bit set, a type-of-service (TOS) byte value of zero, a code of nine (even though it should be zero), the sequence number 295, a random IP ID and ICMP request identifier, and 120 bytes of 0x00 for the data payload.
+The IE test involves sending two ICMP echo request packets to the target. 
+The first one has the IP DF bit set, a type-of-service (TOS) byte value of zero, a code of nine (even though it should be zero), the sequence number 295, a random IP ID and ICMP request identifier, and 120 bytes of 0x00 for the data payload.
 
 The second ping query is similar, except a TOS of four (IP_TOS_RELIABILITY) is used, the code is zero, 150 bytes of data is sent, and the ICMP request ID and sequence numbers are incremented by one from the previous query values.
 
-The results of both of these probes are combined into a IE line containing the R, DFI, T, TG, and CD tests. The R value is only true (Y) if both probes elicit responses. The T, and CD values are for the response to the first probe only, since they are highly unlikely to differ. DFI is a custom test for this special dual-probe ICMP case.
+The results of both of these probes are combined into a IE line containing the R, DFI, T, TG, and CD tests. 
+The R value is only true (Y) if both probes elicit responses.
+The T, and CD values are for the response to the first probe only, since they are highly unlikely to differ. 
+DFI is a custom test for this special dual-probe ICMP case.
 
 These ICMP probes follow immediately after the TCP sequence probes to ensure valid results of the shared IP ID sequence number test (see the section called “Shared IP ID sequence Boolean (SS)”).
 TCP explicit congestion notification (ECN)
 
-This probe tests for explicit congestion notification (ECN) support in the target TCP stack. ECN is a method for improving Internet performance by allowing routers to signal congestion problems before they start having to drop packets. It is documented in RFC 3168. Nmap tests this by sending a SYN packet which also has the ECN CWR and ECE congestion control flags set. For an unrelated (to ECN) test, the urgent field value of 0xF7F5 is used even though the urgent flag is not set. The acknowledgment number is zero, sequence number is random, window size field is three, and the reserved bit which immediately precedes the CWR bit is set. TCP options are WScale (10), NOP, MSS (1460), SACK permitted, NOP, NOP. The probe is sent to an open port.
+This probe tests for explicit congestion notification (ECN) support in the target TCP stack. 
+ECN is a method for improving Internet performance by allowing routers to signal congestion problems before they start having to drop packets. 
+It is documented in RFC 3168. Nmap tests this by sending a SYN packet which also has the ECN CWR and ECE congestion control flags set. 
+For an unrelated (to ECN) test, the urgent field value of 0xF7F5 is used even though the urgent flag is not set. 
+The acknowledgment number is zero, sequence number is random, window size field is three, and the reserved bit which immediately precedes the CWR bit is set. 
+TCP options are WScale (10), NOP, MSS (1460), SACK permitted, NOP, NOP. The probe is sent to an open port.
 
 If a response is received, the R, DF, T, TG, W, O, CC, and Q tests are performed and recorded.
 TCP (T2–T7)
 
-The six T2 through T7 tests each send one TCP probe packet. With one exception, the TCP options data in each case is (in hex) 03030A0102040109080AFFFFFFFF000000000402. Those 20 bytes correspond to window scale (10), NOP, MSS (265), Timestamp (TSval: 0xFFFFFFFF; TSecr: 0), then SACK permitted. The exception is that T7 uses a Window scale value of 15 rather than 10. The variable characteristics of each probe are described below:
+The six T2 through T7 tests each send one TCP probe packet. 
+With one exception, the TCP options data in each case is (in hex) 03030A0102040109080AFFFFFFFF000000000402. 
+Those 20 bytes correspond to window scale (10), NOP, MSS (265), Timestamp (TSval: 0xFFFFFFFF; TSecr: 0), then SACK permitted. 
+The exception is that T7 uses a Window scale value of 15 rather than 10. 
+The variable characteristics of each probe are described below:
 
     T2 sends a TCP null (no flags set) packet with the IP DF bit set and a window field of 128 to an open port.
 
-    T3 sends a TCP packet with the SYN, FIN, URG, and PSH flags set and a window field of 256 to an open port. The IP DF bit is not set.
+    T3 sends a TCP packet with the SYN, FIN, URG, and PSH flags set and a window field of 256 to an open port. 
+    The IP DF bit is not set.
 
     T4 sends a TCP ACK packet with IP DF and a window field of 1024 to an open port.
 
@@ -205,74 +357,139 @@ The six T2 through T7 tests each send one TCP probe packet. With one exception, 
 
     T6 sends a TCP ACK packet with IP DF and a window field of 32768 to a closed port.
 
-    T7 sends a TCP packet with the FIN, PSH, and URG flags set and a window field of 65535 to a closed port. The IP DF bit is not set.
+    T7 sends a TCP packet with the FIN, PSH, and URG flags set and a window field of 65535 to a closed port. 
+    The IP DF bit is not set.
 
 In each of these cases, a line is added to the fingerprint with results for the R, DF, T, TG, W, S, A, F, O, RD, and Q tests.
 UDP (U1)
 
-This probe is a UDP packet sent to a closed port. The character ‘C’ (0x43) is repeated 300 times for the data field. The IP ID value is set to 0x1042 for operating systems which allow us to set this. If the port is truly closed and there is no firewall in place, Nmap expects to receive an ICMP port unreachable message in return. That response is then subjected to the R, DF, T, TG, IPL, UN, RIPL, RID, RIPCK, RUCK, and RUD tests.
+This probe is a UDP packet sent to a closed port. The character ‘C’ (0x43) is repeated 300 times for the data field. 
+The IP ID value is set to 0x1042 for operating systems which allow us to set this. 
+If the port is truly closed and there is no firewall in place, Nmap expects to receive an ICMP port unreachable message in return. 
+That response is then subjected to the R, DF, T, TG, IPL, UN, RIPL, RID, RIPCK, RUCK, and RUD tests.
 Response Tests
 
-The previous section describes probes sent by Nmap, and this one completes the puzzle by describing the barrage of tests performed on responses. The short names (such as DF, R, and RIPCK) are those used in the nmap-os-db fingerprint database to save space. All numerical test values are given in hexadecimal notation, without leading zeros, unless noted otherwise. The tests are documented in roughly the order they appear in fingerprints.
+The previous section describes probes sent by Nmap, and this one completes the puzzle by describing the barrage of tests performed on responses. 
+The short names (such as DF, R, and RIPCK) are those used in the nmap-os-db fingerprint database to save space. 
+All numerical test values are given in hexadecimal notation, without leading zeros, unless noted otherwise. 
+The tests are documented in roughly the order they appear in fingerprints.
 TCP ISN greatest common divisor (GCD)
 
-The SEQ test sends six TCP SYN packets to an open port of the target machine and collects SYN/ACK packets back. Each of these SYN/ACK packets contains a 32-bit initial sequence number (ISN). This test attempts to determine the smallest number by which the target host increments these values. For example, many hosts (especially old ones) always increment the ISN in multiples of 64,000.
+The SEQ test sends six TCP SYN packets to an open port of the target machine and collects SYN/ACK packets back. 
+Each of these SYN/ACK packets contains a 32-bit initial sequence number (ISN). 
+This test attempts to determine the smallest number by which the target host increments these values. 
+For example, many hosts (especially old ones) always increment the ISN in multiples of 64,000.
 
-The first step in calculating this is creating an array of differences between probe responses. The first element is the difference between the 1st and 2nd probe response ISNs. The second element is the difference between the 2nd and 3rd responses. There are five elements if Nmap receives responses to all six probes. Since the next couple of sections reference this array, we will call it diff1. If an ISN is lower than the previous one, Nmap looks at both the number of values it would have to subtract from the first value to obtain the second, and the number of values it would have to count up (including wrapping the 32-bit counter back to zero). The smaller of those two values is stored in diff1. So the difference between 0x20000 followed by 0x15000 is 0xB000. The difference between 0xFFFFFF00 and 0xC000 is 0xC0FF. This test value then records the greatest common divisor of all those elements. This GCD is also used for calculating the SP result.
+The first step in calculating this is creating an array of differences between probe responses. 
+The first element is the difference between the 1st and 2nd probe response ISNs. 
+The second element is the difference between the 2nd and 3rd responses. 
+There are five elements if Nmap receives responses to all six probes. 
+Since the next couple of sections reference this array, we will call it diff1. 
+If an ISN is lower than the previous one, Nmap looks at both the number of values it would have to subtract from the first value to obtain the second, and the number of values it would have to count up (including wrapping the 32-bit counter back to zero). 
+The smaller of those two values is stored in diff1. So the difference between 0x20000 followed by 0x15000 is 0xB000.
+The difference between 0xFFFFFF00 and 0xC000 is 0xC0FF. 
+This test value then records the greatest common divisor of all those elements. 
+This GCD is also used for calculating the SP result.
 TCP ISN counter rate (ISR)
 
-This value reports the average rate of increase for the returned TCP initial sequence number. Recall that a difference is taken between each two consecutive probe responses and stored in the previously discussed diff1 array. Those differences are each divided by the amount of time elapsed (in seconds—will generally be about 0.1) between sending the two probes which generated them. The result is an array, which we'll call seq_rates containing the rates of ISN counter increases per second. The array has one element for each diff1 value. An average is taken of the array values. If that average is less than one (e.g. a constant ISN is used), ISR is zero. Otherwise ISR is eight times the binary logarithm (log base-2) of that average value, rounded to the nearest integer.
+This value reports the average rate of increase for the returned TCP initial sequence number. 
+Recall that a difference is taken between each two consecutive probe responses and stored in the previously discussed diff1 array. 
+Those differences are each divided by the amount of time elapsed (in seconds—will generally be about 0.1) between sending the two probes which generated them. 
+The result is an array, which we'll call seq_rates containing the rates of ISN counter increases per second.
+The array has one element for each diff1 value.
+An average is taken of the array values. 
+If that average is less than one (e.g. a constant ISN is used), ISR is zero. 
+Otherwise ISR is eight times the binary logarithm (log base-2) of that average value, rounded to the nearest integer.
 TCP ISN sequence predictability index (SP)
 
-While the ISR test measures the average rate of initial sequence number increments, this value measures the ISN variability. It roughly estimates how difficult it would be to predict the next ISN from the known sequence of six probe responses. The calculation uses the difference array (seq_rates) and GCD values discussed in the previous section.
+While the ISR test measures the average rate of initial sequence number increments, this value measures the ISN variability.
+It roughly estimates how difficult it would be to predict the next ISN from the known sequence of six probe responses. 
+The calculation uses the difference array (seq_rates) and GCD values discussed in the previous section.
 
-This test is only performed if at least four responses were seen. If the previously computed GCD value is greater than nine, the elements of the previously computed seq_rates array are divided by that value. We don't do the division for smaller GCD values because those are usually caused by chance. A standard deviation of the array of the resultant values is then taken. If the result is one or less, SP is zero. Otherwise the binary logarithm of the result is computed, then it is multiplied by eight, rounded to the nearest integer, and stored as SP.
+This test is only performed if at least four responses were seen. 
+If the previously computed GCD value is greater than nine, the elements of the previously computed seq_rates array are divided by that value.
+We don't do the division for smaller GCD values because those are usually caused by chance.
+A standard deviation of the array of the resultant values is then taken. 
+If the result is one or less, SP is zero. 
+Otherwise the binary logarithm of the result is computed, then it is multiplied by eight, rounded to the nearest integer, and stored as SP.
 
-Please keep in mind that this test is only done for OS detection purposes and is not a full-blown audit of the target ISN generator. There are many algorithm weaknesses that lead to easy predictability even with a high SP value.
+Please keep in mind that this test is only done for OS detection purposes and is not a full-blown audit of the target ISN generator. 
+There are many algorithm weaknesses that lead to easy predictability even with a high SP value.
 IP ID sequence generation algorithm (TI, CI, II)
 
-There are three tests that examine the IP header ID field of responses. TI is based on responses to the TCP SEQ probes. CI is from the responses to the three TCP probes sent to a closed port: T5, T6, and T7. II comes from the ICMP responses to the two IE ping probes. For TI, at least three responses must be received for the test to be included; for CI, at least two responses are required; and for II, both ICMP responses must be received.
+There are three tests that examine the IP header ID field of responses.
+TI is based on responses to the TCP SEQ probes. 
+CI is from the responses to the three TCP probes sent to a closed port: T5, T6, and T7. II comes from the ICMP responses to the two IE ping probes. 
+For TI, at least three responses must be received for the test to be included; for CI, at least two responses are required; and for II, both ICMP responses must be received.
 
-For each of these tests, the target's IP ID generation algorithm is classified based on the algorithm below. Minor differences between tests are noted. Note that difference values assume that the counter can wrap. So the difference between an IP ID of 65,100 followed by a value of 700 is 1,136. The difference between 2,000 followed by 1,100 is 64,636. Here are the calculation details:
+For each of these tests, the target's IP ID generation algorithm is classified based on the algorithm below. 
+Minor differences between tests are noted.
+Note that difference values assume that the counter can wrap. 
+So the difference between an IP ID of 65,100 followed by a value of 700 is 1,136.
+The difference between 2,000 followed by 1,100 is 64,636. Here are the calculation details:
 
     If all of the ID numbers are zero, the value of the test is Z.
 
-    If the IP ID sequence ever increases by at least 20,000, the value is RD (random). This result isn't possible for II because there are not enough samples to support it.
+    If the IP ID sequence ever increases by at least 20,000, the value is RD (random).
+    This result isn't possible for II because there are not enough samples to support it.
 
     If all of the IP IDs are identical, the test is set to that value in hex.
 
-    If any of the differences between two consecutive IDs exceeds 1,000, and is not evenly divisible by 256, the test's value is RI (random positive increments). If the difference is evenly divisible by 256, it must be at least 256,000 to cause this RI result.
+    If any of the differences between two consecutive IDs exceeds 1,000, and is not evenly divisible by 256, the test's value is RI (random positive increments). 
+    If the difference is evenly divisible by 256, it must be at least 256,000 to cause this RI result.
 
-    If all of the differences are divisible by 256 and no greater than 5,120, the test is set to BI (broken increment). This happens on systems like Microsoft Windows where the IP ID is sent in host byte order rather than network byte order. It works fine and isn't any sort of RFC violation, though it does give away host architecture details which can be useful to attackers.
+    If all of the differences are divisible by 256 and no greater than 5,120, the test is set to BI (broken increment). 
+    This happens on systems like Microsoft Windows where the IP ID is sent in host byte order rather than network byte order. 
+    It works fine and isn't any sort of RFC violation, though it does give away host architecture details which can be useful to attackers.
 
-    If all of the differences are less than ten, the value is I (incremental). We allow difference up to ten here (rather than requiring sequential ordering) because traffic from other hosts can cause sequence gaps.
+    If all of the differences are less than ten, the value is I (incremental). 
+    We allow difference up to ten here (rather than requiring sequential ordering) because traffic from other hosts can cause sequence gaps.
 
     If none of the previous steps identify the generation algorithm, the test is omitted from the fingerprint.
 
 Shared IP ID sequence Boolean (SS)
 
-This Boolean value records whether the target shares its IP ID sequence between the TCP and ICMP protocols. If our six TCP IP ID values are 117, 118, 119, 120, 121, and 122, then our ICMP results are 123 and 124, it is clear that not only are both sequences incremental, but they are both part of the same sequence. If, on the other hand, the TCP IP ID values are 117–122 but the ICMP values are 32,917 and 32,918, two different sequences are being used.
+This Boolean value records whether the target shares its IP ID sequence between the TCP and ICMP protocols. 
+If our six TCP IP ID values are 117, 118, 119, 120, 121, and 122, then our ICMP results are 123 and 124, it is clear that not only are both sequences incremental, but they are both part of the same sequence. 
+If, on the other hand, the TCP IP ID values are 117–122 but the ICMP values are 32,917 and 32,918, two different sequences are being used.
 
-This test is only included if II is RI, BI, or I and TI is the same. If SS is included, the result is S if the sequence is shared and O (other) if it is not. That determination is made by the following algorithm:
+This test is only included if II is RI, BI, or I and TI is the same. 
+If SS is included, the result is S if the sequence is shared and O (other) if it is not. 
+That determination is made by the following algorithm:
 
-Let avg be the final TCP sequence response IP ID minus the first TCP sequence response IP ID, divided by the difference in probe numbers. If probe #1 returns an IP ID of 10,000 and probe #6 returns 20,000, avg would be (20,000 − 10,000) / (6 − 1), which equals 2,000.
+Let avg be the final TCP sequence response IP ID minus the first TCP sequence response IP ID, divided by the difference in probe numbers. 
+If probe #1 returns an IP ID of 10,000 and probe #6 returns 20,000, avg would be (20,000 − 10,000) / (6 − 1), which equals 2,000.
 
 If the first ICMP echo response IP ID is less than the final TCP sequence response IP ID plus three times avg, the SS result is S. Otherwise it is O.
 TCP timestamp option algorithm (TS)
 
-TS is another test which attempts to determine target OS characteristics based on how it generates a series of numbers. This one looks at the TCP timestamp option (if any) in responses to the SEQ probes. It examines the TSval (first four bytes of the option) rather than the echoed TSecr (last four bytes) value. It takes the difference between each consecutive TSval and divides that by the amount of time elapsed between Nmap sending the two probes which generated those responses. The resultant value gives a rate of timestamp increments per second. Nmap computes the average increments per second over all consecutive probes and then calculates the TS as follows:
+TS is another test which attempts to determine target OS characteristics based on how it generates a series of numbers. 
+This one looks at the TCP timestamp option (if any) in responses to the SEQ probes.
+It examines the TSval (first four bytes of the option) rather than the echoed TSecr (last four bytes) value. 
+It takes the difference between each consecutive TSval and divides that by the amount of time elapsed between Nmap sending the two probes which generated those responses. 
+The resultant value gives a rate of timestamp increments per second. 
+Nmap computes the average increments per second over all consecutive probes and then calculates the TS as follows:
 
     If any of the responses have no timestamp option, TS is set to U (unsupported).
 
     If any of the timestamp values are zero, TS is set to 0.
 
-    If the average increments per second falls within the ranges 0-5.66, 70-150, or 150-350, TS is set to 1, 7, or 8, respectively. These three ranges get special treatment because they correspond to the 2 Hz, 100 Hz, and 200 Hz frequencies used by many hosts.
+    If the average increments per second falls within the ranges 0-5.66, 70-150, or 150-350, TS is set to 1, 7, or 8, respectively.
+    These three ranges get special treatment because they correspond to the 2 Hz, 100 Hz, and 200 Hz frequencies used by many hosts.
 
-    In all other cases, Nmap records the binary logarithm of the average increments per second, rounded to the nearest integer. Since most hosts use 1,000 Hz frequencies, A is a common result.
+    In all other cases, Nmap records the binary logarithm of the average increments per second, rounded to the nearest integer. 
+    Since most hosts use 1,000 Hz frequencies, A is a common result.
 
 TCP options (O, O1–O6)
 
-This test records the TCP header options in a packet. It preserves the original ordering and also provides some information about option values. Because RFC 793 doesn't require any particular ordering, implementations often come up with unique orderings. Some platforms don't implement all options (they are, of course, optional). When you combine all of those permutations with the number of different option values that implementations use, this test provides a veritable trove of information. The value for this test is a string of characters representing the options being used. Several options take arguments that come immediately after the character. Supported options and arguments are all shown in Table 8.1.
+This test records the TCP header options in a packet. 
+It preserves the original ordering and also provides some information about option values. 
+Because RFC 793 doesn't require any particular ordering, implementations often come up with unique orderings.
+Some platforms don't implement all options (they are, of course, optional). 
+When you combine all of those permutations with the number of different option values that implementations use, this test provides a veritable trove of information. 
+The value for this test is a string of characters representing the options being used.
+Several options take arguments that come immediately after the character. 
+Supported options and arguments are all shown in Table 8.1.
 
 Table 8.1. O test values
 Option Name	Character	Argument (if any)
@@ -280,28 +497,54 @@ End of Options List (EOL)	L
 No operation (NOP)	N	 
 Maximum Segment Size (MSS)	M	The value is appended. Many systems echo the value used in the corresponding probe.
 Window Scale (WS)	W	The actual value is appended.
-Timestamp (TS)	T	The T is followed by two binary characters representing the TSval and TSecr values respectively. The characters are 0 if the field is zero and 1 otherwise.
+Timestamp (TS)	T	The T is followed by two binary characters representing the TSval and TSecr values respectively. 
+The characters are 0 if the field is zero and 1 otherwise.
 Selective ACK permitted (SACK)	S	 
 
-As an example, the string M5B4NW3NNT11 means the packet includes the MSS option (value 0x5B4) followed by a NOP. Next comes a window scale option with a value of three, then two more NOPs. The final option is a timestamp, and neither of its two fields were zero. If there are no TCP options in a response, the test will exist but the value string will be empty. If no probe was returned, the test is omitted.
+As an example, the string M5B4NW3NNT11 means the packet includes the MSS option (value 0x5B4) followed by a NOP. 
+Next comes a window scale option with a value of three, then two more NOPs. 
+The final option is a timestamp, and neither of its two fields were zero.
+If there are no TCP options in a response, the test will exist but the value string will be empty. 
+If no probe was returned, the test is omitted.
 
-While this test is generally named O, the six probes sent for sequence generation purposes are a special case. Those are inserted into the special OPS test line and take the names O1 through O6 to distinguish which probe packet they relate to. The “O” stands for “options”. Despite the different names, each test O1 through O6 is processed exactly the same way as the other O tests.
+While this test is generally named O, the six probes sent for sequence generation purposes are a special case. 
+Those are inserted into the special OPS test line and take the names O1 through O6 to distinguish which probe packet they relate to. 
+The “O” stands for “options”. 
+Despite the different names, each test O1 through O6 is processed exactly the same way as the other O tests.
 TCP initial window size (W, W1–W6)
 
-This test simply records the 16-bit TCP window size of the received packet. It is quite effective, since there are more than 80 values that at least one OS is known to send. A down side is that some operating systems have more than a dozen possible values by themselves. This leads to false negative results until we collect all of the possible window sizes used by an operating system.
+This test simply records the 16-bit TCP window size of the received packet. 
+It is quite effective, since there are more than 80 values that at least one OS is known to send. 
+A down side is that some operating systems have more than a dozen possible values by themselves. 
+This leads to false negative results until we collect all of the possible window sizes used by an operating system.
 
-While this test is generally named W, the six probes sent for sequence generation purposes are a special case. Those are inserted into a special WIN test line and take the names W1 through W6. The window size is recorded for all of the sequence number probes because they differ in TCP MSS option values, which causes some operating systems to advertise a different window size. Despite the different names, each test is processed exactly the same way.
+While this test is generally named W, the six probes sent for sequence generation purposes are a special case.
+Those are inserted into a special WIN test line and take the names W1 through W6. 
+The window size is recorded for all of the sequence number probes because they differ in TCP MSS option values, which causes some operating systems to advertise a different window size.
+Despite the different names, each test is processed exactly the same way.
 Responsiveness (R)
 
-This test simply records whether the target responded to a given probe. Possible values are Y and N. If there is no reply, remaining fields for the test are omitted.
+This test simply records whether the target responded to a given probe.
+Possible values are Y and N. 
+If there is no reply, remaining fields for the test are omitted.
 
-A risk with this test involves probes that are dropped by a firewall. This leads to R=N in the subject fingerprint. Yet the reference fingerprint in nmap-os-db may have R=Y if the target OS usually replies. Thus the firewall could prevent proper OS detection. To reduce this problem, reference fingerprints generally omit the R=Y test from the IE and U1 probes, which are the ones most likely to be dropped. In addition, if Nmap is missing a closed TCP port for a target, it will not set R=N for the T5, T6, or T7 tests even if the port it tries is non-responsive. After all, the lack of a closed port may be because they are all filtered.
+A risk with this test involves probes that are dropped by a firewall. 
+This leads to R=N in the subject fingerprint.
+Yet the reference fingerprint in nmap-os-db may have R=Y if the target OS usually replies. 
+Thus the firewall could prevent proper OS detection. 
+To reduce this problem, reference fingerprints generally omit the R=Y test from the IE and U1 probes, which are the ones most likely to be dropped. 
+In addition, if Nmap is missing a closed TCP port for a target, it will not set R=N for the T5, T6, or T7 tests even if the port it tries is non-responsive. 
+After all, the lack of a closed port may be because they are all filtered.
 IP don't fragment bit (DF)
 
-The IP header contains a single bit which forbids routers from fragmenting a packet. If the packet is too large for routers to handle, they will just have to drop it (and ideally return a “destination unreachable, fragmentation needed” response). This test records Y if the bit is set, and N if it isn't.
+The IP header contains a single bit which forbids routers from fragmenting a packet.
+If the packet is too large for routers to handle, they will just have to drop it (and ideally return a “destination unreachable, fragmentation needed” response). 
+This test records Y if the bit is set, and N if it isn't.
 Don't fragment (ICMP) (DFI)
 
-This is simply a modified version of the DF test that is used for the special IE probes. It compares results of the don't fragment bit for the two ICMP echo request probes sent. It has four possible values, which are enumerated in Table 8.2.
+This is simply a modified version of the DF test that is used for the special IE probes. 
+It compares results of the don't fragment bit for the two ICMP echo request probes sent.
+It has four possible values, which are enumerated in Table 8.2.
 
 Table 8.2. DFI test values
 Value	Description
@@ -312,17 +555,37 @@ O	The one remaining other combination—both responses have the DF bit toggled.
 
 IP initial time-to-live (T)
 
-IP packets contain a field named time-to-live (TTL) which is decremented every time they traverse a router. If the field reaches zero, the packet must be discarded. This prevents packets from looping endlessly. Because operating systems differ on which TTL they start with, it can be used for OS detection. Nmap determines how many hops away it is from the target by examining the ICMP port unreachable response to the U1 probe. That response includes the original IP packet, including the already-decremented TTL field, received by the target. By subtracting that value from our as-sent TTL, we learn how many hops away the machine is. Nmap then adds that hop distance to the probe response TTL to determine what the initial TTL was when that ICMP probe response packet was sent. That initial TTL value is stored in the fingerprint as the T result.
+IP packets contain a field named time-to-live (TTL) which is decremented every time they traverse a router. 
+If the field reaches zero, the packet must be discarded. 
+This prevents packets from looping endlessly. 
+Because operating systems differ on which TTL they start with, it can be used for OS detection. 
+Nmap determines how many hops away it is from the target by examining the ICMP port unreachable response to the U1 probe. 
+That response includes the original IP packet, including the already-decremented TTL field, received by the target. 
+By subtracting that value from our as-sent TTL, we learn how many hops away the machine is.
+Nmap then adds that hop distance to the probe response TTL to determine what the initial TTL was when that ICMP probe response packet was sent. 
+That initial TTL value is stored in the fingerprint as the T result.
 
-Even though an eight-bit field like TTL can never hold values greater than 0xFF, this test occasionally results in values of 0x100 or higher. This occurs when a system (could be the source, a target, or a system in between) corrupts or otherwise fails to correctly decrement the TTL. It can also occur due to asymmetric routes.
+Even though an eight-bit field like TTL can never hold values greater than 0xFF, this test occasionally results in values of 0x100 or higher.
+This occurs when a system (could be the source, a target, or a system in between) corrupts or otherwise fails to correctly decrement the TTL.
+It can also occur due to asymmetric routes.
 
-Nmap can also learn from the system interface and routing tables when the hop distance is zero (localhost scan) or one (on the same network segment). This value is used when Nmap prints the hop distance for the user, but it is not used for T result computation.
+Nmap can also learn from the system interface and routing tables when the hop distance is zero (localhost scan) or one (on the same network segment). 
+This value is used when Nmap prints the hop distance for the user, but it is not used for T result computation.
 IP initial time-to-live guess (TG)
 
-It is not uncommon for Nmap to receive no response to the U1 probe, which prevents Nmap from learning how many hops away a target is. Firewalls and NAT devices love to block unsolicited UDP packets. But since common TTL values are spread well apart and targets are rarely more than 20 hops away, Nmap can make a pretty good guess anyway. Most systems send packets with an initial TTL of 32, 60, 64, 128, or 255. So the TTL value received in the response is rounded up to the next value out of 32, 64, 128, or 255. 60 is not in that list because it cannot be reliably distinguished from 64. It is rarely seen anyway. The resulting guess is stored in the TG field. This TTL guess field is not printed in a subject fingerprint if the actual TTL (T) value was discovered.
+It is not uncommon for Nmap to receive no response to the U1 probe, which prevents Nmap from learning how many hops away a target is. 
+Firewalls and NAT devices love to block unsolicited UDP packets. 
+But since common TTL values are spread well apart and targets are rarely more than 20 hops away, Nmap can make a pretty good guess anyway. 
+Most systems send packets with an initial TTL of 32, 60, 64, 128, or 255. 
+So the TTL value received in the response is rounded up to the next value out of 32, 64, 128, or 255. 60 is not in that list because it cannot be reliably distinguished from 64.
+It is rarely seen anyway. 
+The resulting guess is stored in the TG field. 
+This TTL guess field is not printed in a subject fingerprint if the actual TTL (T) value was discovered.
 Explicit congestion notification (CC)
 
-This test is only used for the ECN probe. That probe is a SYN packet which includes the CWR and ECE congestion control flags. When the response SYN/ACK is received, those flags are examined to set the CC (congestion control) test value as described in Table 8.3.
+This test is only used for the ECN probe. 
+That probe is a SYN packet which includes the CWR and ECE congestion control flags. 
+When the response SYN/ACK is received, those flags are examined to set the CC (congestion control) test value as described in Table 8.3.
 
 Table 8.3. CC test values
 Value	Description
@@ -333,14 +596,22 @@ O	The one remaining combination of these two bits (other).
 
 TCP miscellaneous quirks (Q)
 
-This tests for two quirks that a few implementations have in their TCP stack. The first is that the reserved field in the TCP header (right after the header length) is nonzero. This is particularly likely to happen in response to the ECN test as that one sets a reserved bit in the probe. If this is seen in a packet, an “R” is recorded in the Q string.
+This tests for two quirks that a few implementations have in their TCP stack.
+The first is that the reserved field in the TCP header (right after the header length) is nonzero.
+This is particularly likely to happen in response to the ECN test as that one sets a reserved bit in the probe. 
+If this is seen in a packet, an “R” is recorded in the Q string.
 
-The other quirk Nmap tests for is a nonzero urgent pointer field value when the URG flag is not set. This is also particularly likely to be seen in response to the ECN probe, which sets a non-zero urgent field. A “U” is appended to the Q string when this is seen.
+The other quirk Nmap tests for is a nonzero urgent pointer field value when the URG flag is not set. 
+This is also particularly likely to be seen in response to the ECN probe, which sets a non-zero urgent field. 
+A “U” is appended to the Q string when this is seen.
 
-The Q string must always be generated in alphabetical order. If no quirks are present, the Q test is empty but still shown.
+The Q string must always be generated in alphabetical order.
+If no quirks are present, the Q test is empty but still shown.
 TCP sequence number (S)
 
-This test examines the 32-bit sequence number field in the TCP header. Rather than record the field value as some other tests do, this one examines how it compares to the TCP acknowledgment number from the probe that elicited the response. It then records the appropriate value as shown in Table 8.4.
+This test examines the 32-bit sequence number field in the TCP header. 
+Rather than record the field value as some other tests do, this one examines how it compares to the TCP acknowledgment number from the probe that elicited the response.
+It then records the appropriate value as shown in Table 8.4.
 
 Table 8.4. S test values
 Value	Description
@@ -351,7 +622,8 @@ O	Sequence number is something else (other).
 
 TCP acknowledgment number (A)
 
-This test is the same as S except that it tests how the acknowledgment number in the response compares to the sequence number in the respective probe. The four possible values are given in Table 8.5.
+This test is the same as S except that it tests how the acknowledgment number in the response compares to the sequence number in the respective probe.
+The four possible values are given in Table 8.5.
 
 Table 8.5. A test values
 Value	Description
@@ -362,7 +634,10 @@ O	Acknowledgment number is something else (other).
 
 TCP flags (F)
 
-This field records the TCP flags in the response. Each letter represents one flag, and they occur in the same order as in a TCP packet (from high-bit on the left, to the low ones). So the value AS represents the ACK and SYN bits set, while the value SA is illegal (wrong order). The possible flags are shown in Table 8.6.
+This field records the TCP flags in the response. 
+Each letter represents one flag, and they occur in the same order as in a TCP packet (from high-bit on the left, to the low ones). 
+So the value AS represents the ACK and SYN bits set, while the value SA is illegal (wrong order). 
+The possible flags are shown in Table 8.6.
 
 Table 8.6. F test values
 Character	Flag name	Flag byte value
@@ -376,31 +651,57 @@ F	Final (FIN)	1
 
 TCP RST data checksum (RD)
 
-Some operating systems return ASCII data such as error messages in reset packets. This is explicitly allowed by section 4.2.2.12 of RFC 1122. When Nmap encounters such data, it performs a CRC32 checksum and reports the results. When there is no data, RD is set to zero. Some of the few operating systems that may return data in their reset packets are HP-UX and versions of Mac OS prior to Mac OS X.
+Some operating systems return ASCII data such as error messages in reset packets. 
+This is explicitly allowed by section 4.2.2.12 of RFC 1122. 
+When Nmap encounters such data, it performs a CRC32 checksum and reports the results.
+When there is no data, RD is set to zero. 
+Some of the few operating systems that may return data in their reset packets are HP-UX and versions of Mac OS prior to Mac OS X.
 IP total length (IPL)
 
-This test records the total length (in octets) of an IP packet. It is only used for the port unreachable response elicited by the U1 test. That length varies by implementation because they are allowed to choose how much data from the original probe to include, as long as they meet the minimum RFC 1122 requirement. That requirement is to include the original IP header and at least eight bytes of data.
+This test records the total length (in octets) of an IP packet. 
+It is only used for the port unreachable response elicited by the U1 test. 
+That length varies by implementation because they are allowed to choose how much data from the original probe to include, as long as they meet the minimum RFC 1122 requirement. 
+That requirement is to include the original IP header and at least eight bytes of data.
 Unused port unreachable field nonzero (UN)
 
-An ICMP port unreachable message header is eight bytes long, but only the first four are used. RFC 792 states that the last four bytes must be zero. A few implementations (mostly ethernet switches and some specialized embedded devices) set it anyway. The value of those last four bytes is recorded in this field.
+An ICMP port unreachable message header is eight bytes long, but only the first four are used. 
+RFC 792 states that the last four bytes must be zero. 
+A few implementations (mostly ethernet switches and some specialized embedded devices) set it anyway. 
+The value of those last four bytes is recorded in this field.
 Returned probe IP total length value (RIPL)
 
-ICMP port unreachable messages (as are sent in response to the U1 probe) are required to include the IP header which generated them. This header should be returned just as they received it, but some implementations send back a corrupted version due to changes they made during IP processing. This test simply records the returned IP total length value. If the correct value of 0x148 (328) is returned, the value G (for good) is stored instead of the actual value.
+ICMP port unreachable messages (as are sent in response to the U1 probe) are required to include the IP header which generated them. 
+This header should be returned just as they received it, but some implementations send back a corrupted version due to changes they made during IP processing. 
+This test simply records the returned IP total length value. 
+If the correct value of 0x148 (328) is returned, the value G (for good) is stored instead of the actual value.
 Returned probe IP ID value (RID)
 
-The U1 probe has a static IP ID value of 0x1042. If that value is returned in the port unreachable message, the value G is stored for this test. Otherwise the exact value returned is stored. Some systems, such as Solaris, manipulate IP ID values for raw IP packets that Nmap sends. In such cases, this test is skipped. We have found that some systems, particularly HP and Xerox printers, flip the bytes and return 0x4210 instead.
+The U1 probe has a static IP ID value of 0x1042. 
+If that value is returned in the port unreachable message, the value G is stored for this test. 
+Otherwise the exact value returned is stored. 
+Some systems, such as Solaris, manipulate IP ID values for raw IP packets that Nmap sends. 
+In such cases, this test is skipped. 
+We have found that some systems, particularly HP and Xerox printers, flip the bytes and return 0x4210 instead.
 Integrity of returned probe IP checksum value (RIPCK)
 
-The IP checksum is one value that we don't expect to remain the same when returned in a port unreachable message. After all, each network hop during transit changes the checksum as the TTL is decremented. However, the checksum we receive should match the enclosing IP packet. If it does, the value G (good) is stored for this test. If the returned value is zero, then Z is stored. Otherwise the result is I (invalid).
+The IP checksum is one value that we don't expect to remain the same when returned in a port unreachable message.
+After all, each network hop during transit changes the checksum as the TTL is decremented. 
+However, the checksum we receive should match the enclosing IP packet.
+If it does, the value G (good) is stored for this test. If the returned value is zero, then Z is stored. 
+Otherwise the result is I (invalid).
 Integrity of returned probe UDP checksum (RUCK)
 
-The UDP header checksum value should be returned exactly as it was sent. If it is, G is recorded for this test. Otherwise the value actually returned is recorded.
+The UDP header checksum value should be returned exactly as it was sent. If it is, G is recorded for this test. 
+Otherwise the value actually returned is recorded.
 Integrity of returned UDP data (RUD)
 
-This test checks the integrity of the (possibly truncated) returned UDP payload. If all the payload bytes are the expected ‘C’ (0x43), or if the payload was truncated to zero length, G is recorded; otherwise, I (invalid) is recorded.
+This test checks the integrity of the (possibly truncated) returned UDP payload.
+If all the payload bytes are the expected ‘C’ (0x43), or if the payload was truncated to zero length, G is recorded; otherwise, I (invalid) is recorded.
 ICMP response code (CD)
 
-The code value of an ICMP echo reply (type zero) packet is supposed to be zero. But some implementations wrongly send other values, particularly if the echo request has a nonzero code (as one of the IE tests does). The response code values for the two probes are combined into a CD value as described in Table 8.7.
+The code value of an ICMP echo reply (type zero) packet is supposed to be zero. 
+But some implementations wrongly send other values, particularly if the echo request has a nonzero code (as one of the IE tests does). 
+The response code values for the two probes are combined into a CD value as described in Table 8.7.
 
 Table 8.7. CD test values
 Value	Description
@@ -414,64 +715,102 @@ O	Any other combination.
 
 IPv6 fingerprinting
 
-Nmap has a similar but separate OS detection engine specialized for IPv6. At a high level, the technique is the same: send probes, collect responses, and match the set of responses against a database. The differences are in the specific probes used, and in the way they are matched.
+Nmap has a similar but separate OS detection engine specialized for IPv6.
+At a high level, the technique is the same: send probes, collect responses, and match the set of responses against a database.
+The differences are in the specific probes used, and in the way they are matched.
 
-IPv6 OS detection is used just like IPv4. Just use the -6 and -O options together. For example, nmap -6 -O <target>.
+IPv6 OS detection is used just like IPv4. Just use the -6 and -O options together. 
+For example, nmap -6 -O <target>.
 Probes Sent
 
-IPv6 OS detection uses many of the same probes that IPv4 OS detection does. Most of the power to distinguish operating systems comes from higher-layer protocols like TCP, though there are a few new IPv6-specific detection features.
+IPv6 OS detection uses many of the same probes that IPv4 OS detection does. 
+Most of the power to distinguish operating systems comes from higher-layer protocols like TCP, though there are a few new IPv6-specific detection features.
 
-In all cases, the IPv6 flow label is 0x12345, on platforms that allow us to set it. On platforms that do not (which includes non-Linux Unix platforms when not using Ethernet to send), the flow label will be 0. Because this can affect the responses, the value of the flow label is recorded in the EXTRA field of OS fingerprints. Except for the NS probe, hop limits are set randomly.
+In all cases, the IPv6 flow label is 0x12345, on platforms that allow us to set it. 
+On platforms that do not (which includes non-Linux Unix platforms when not using Ethernet to send), the flow label will be 0.
+Because this can affect the responses, the value of the flow label is recorded in the EXTRA field of OS fingerprints. 
+Except for the NS probe, hop limits are set randomly.
 
 In all, up to 18 probes may be sent. They are sent in the following order.
 Sequence generation (S1–S6)
 
-These are the same six probes as the T1 collection of probes sent in IPv4 detection. See the section called “Sequence generation (SEQ, OPS, WIN, and T1)” for documentation of the packet contents. These six probes are sent 100 ms apart for timing measurements.
+These are the same six probes as the T1 collection of probes sent in IPv4 detection. 
+See the section called “Sequence generation (SEQ, OPS, WIN, and T1)” for documentation of the packet contents. 
+These six probes are sent 100 ms apart for timing measurements.
 
 The S1–S6 probes are skipped if the target lacks an open port.
 ICMPv6 echo (IE1)
 
-This is more or less an ordinary ICMPv6 echo request. The type is 128 (Echo Request) and the code is 9, though it should be 0. The ICMPv6 ID is 0xabcd and the sequence number is 0. The data payload is 120 zero bytes. There is one Hop-By-Hop extension header containing only padding.
+This is more or less an ordinary ICMPv6 echo request. 
+The type is 128 (Echo Request) and the code is 9, though it should be 0. 
+The ICMPv6 ID is 0xabcd and the sequence number is 0. 
+The data payload is 120 zero bytes. 
+There is one Hop-By-Hop extension header containing only padding.
 ICMPv6 echo (IE2)
 
-This is an echo request with a type of 128 (Echo Request) and a code of 0. The ICMPv6 ID is 0xabcd and the sequence is 1. There is no data payload.
+This is an echo request with a type of 128 (Echo Request) and a code of 0. 
+The ICMPv6 ID is 0xabcd and the sequence is 1. There is no data payload.
 
-What makes this probe interesting are the erroneous extension headers it includes. There are four of them in all, in this order:
+What makes this probe interesting are the erroneous extension headers it includes. 
+There are four of them in all, in this order:
 Hop-By-Hop
 Destination Options
 Routing
 Hop-By-Hop
 
-These headers are erroneous: no header other than Destination Options is supposed to appear more than once, and Hop-by-hop options are only supposed to appear in the first position. In our tests, no operating systems treat this as a legitimate echo request. They do, however, respond with different ICMPv6 errors.
+These headers are erroneous: no header other than Destination Options is supposed to appear more than once, and Hop-by-hop options are only supposed to appear in the first position.
+In our tests, no operating systems treat this as a legitimate echo request. 
+They do, however, respond with different ICMPv6 errors.
 Node Information Query (NI)
 
-RFC 4620 defines ICMPv6 messages called Node Information Queries that allow asking a target for its hostnames, IPv4 addresses, and IPv6 addresses. The NI probe has type 139 (ICMP Node Information Query) and code 0 (indicating that the subject is an IPv6 address). The qtype is 4 (IPv4 Addresses). The A flag (return all unicast addresses) flag is set, and no others. The nonce is set to the fixed string "\x01\x02\x03\x04\x05\x06\x07\x0a".
+RFC 4620 defines ICMPv6 messages called Node Information Queries that allow asking a target for its hostnames, IPv4 addresses, and IPv6 addresses.
+The NI probe has type 139 (ICMP Node Information Query) and code 0 (indicating that the subject is an IPv6 address). 
+The qtype is 4 (IPv4 Addresses). 
+The A flag (return all unicast addresses) flag is set, and no others. 
+The nonce is set to the fixed string "\x01\x02\x03\x04\x05\x06\x07\x0a".
 
 Despite being asked for IPv4 addresses, some operating systems return a DNS name instead.
 Neighbor Solicitation (NS)
 
-The NS probe sends a Neighbor Solicitation query, as if asking for the target's hardware address. The type is 135 and the code is 0. The hop limit is always set to 255, no matter the setting of --ttl; RFC 2461 forbids hosts to reply otherwise. All flags are set to 0.
+The NS probe sends a Neighbor Solicitation query, as if asking for the target's hardware address. 
+The type is 135 and the code is 0. 
+The hop limit is always set to 255, no matter the setting of --ttl; RFC 2461 forbids hosts to reply otherwise. 
+All flags are set to 0.
 
 This probe is only sent to hosts on the same subnet.
 UDP (U1)
 
-A UDP packet is sent to a a closed port, if available. The data payload is set to 300 'C' (0x43) bytes. This probe is designed to elicit an ICMPv6 Port Unreachable message.
+A UDP packet is sent to a a closed port, if available. 
+The data payload is set to 300 'C' (0x43) bytes.
+This probe is designed to elicit an ICMPv6 Port Unreachable message.
 TCP explicit congestion notification (TECN)
 
-This is the same as the ECN probe from IPv4. It is a SYN packet to an open port, that also has the ECE and CWR flags set. The urgent field value of 0xF7F5 is used even though the urgent flag is not set. The acknowledgment number is zero, sequence number is random, and the window size field is three. TCP options are WScale (10), NOP, MSS (1460), SACK permitted, NOP, NOP.
+This is the same as the ECN probe from IPv4. 
+It is a SYN packet to an open port, that also has the ECE and CWR flags set.
+The urgent field value of 0xF7F5 is used even though the urgent flag is not set. 
+The acknowledgment number is zero, sequence number is random, and the window size field is three. 
+TCP options are WScale (10), NOP, MSS (1460), SACK permitted, NOP, NOP.
 TCP (T2–T7)
 
-These correspond to the T2–T7 probes from IPv4 detection, described in the section called “TCP (T2–T7)”. The numbering starts at 2 rather than 1 because the six sequencing probes are collectively known as “T1” in IPv4 (they were renamed to S1–S6 for IPv6).
+These correspond to the T2–T7 probes from IPv4 detection, described in the section called “TCP (T2–T7)”. 
+The numbering starts at 2 rather than 1 because the six sequencing probes are collectively known as “T1” in IPv4 (they were renamed to S1–S6 for IPv6).
 Feature extraction
 
-After responses are received, various pieces of data are extracted from them. In machine learning literature these pieces of data are known as “features”. Examples of features are: IPv6 hop limit, ICMPv6 type and code, and code of first TCP option. (In Nmap's terminology, these are known as IPV6_HOPLIMIT, ICMPV6_TYPE, and TCP_OPT_0 respectively.) Some features are simply extracted directly from response packets, and some are the result of doing a calculation over several packets (like TCP_ISR, the TCP initial sequence number counter rate).
+After responses are received, various pieces of data are extracted from them. 
+In machine learning literature these pieces of data are known as “features”. 
+Examples of features are: IPv6 hop limit, ICMPv6 type and code, and code of first TCP option.
+(In Nmap's terminology, these are known as IPV6_HOPLIMIT, ICMPV6_TYPE, and TCP_OPT_0 respectively.) 
+Some features are simply extracted directly from response packets, and some are the result of doing a calculation over several packets (like TCP_ISR, the TCP initial sequence number counter rate).
 
-Any features whose value cannot be determined (for example, features from a response that was never received) are set to −1. The features are put in a big one-dimensional feature vector. Then each is scaled and translated to put it approximately into the range [−1, 1], using scale parameters estimated from our training data.
+Any features whose value cannot be determined (for example, features from a response that was never received) are set to −1. 
+The features are put in a big one-dimensional feature vector. 
+Then each is scaled and translated to put it approximately into the range [−1, 1], using scale parameters estimated from our training data.
 List of all features
 
 TCP_ISR
 
-    TCP ISN counter rate. This is derived from the S1–S6 sequence probes, which are sent 100 ms apart. The differences between consecutive sequence responses are added up, then this sum is divided by the time elapsed between the first and last probe. 
+    TCP ISN counter rate. This is derived from the S1–S6 sequence probes, which are sent 100 ms apart. 
+    The differences between consecutive sequence responses are added up, then this sum is divided by the time elapsed between the first and last probe. 
 
 The following features are repeated for each response, so for example a fully qualified feature name might be S1.PLEN.
 
@@ -482,7 +821,8 @@ TC
 
     IPv6 Traffic Class field
 
-The following features are repeated for each TCP response. A full feature name might be T2.TCP_WINDOW.
+The following features are repeated for each TCP response. 
+A full feature name might be T2.TCP_WINDOW.
 
 TCP_WINDOW
 
@@ -492,7 +832,8 @@ TCP_FLAG_F, TCP_FLAG_S, TCP_FLAG_R, TCP_FLAG_P, TCP_FLAG_A, TCP_FLAG_U, TCP_FLAG
     TCP flags. Each flag becomes a feature with the value 0 or 1.
 TCP_FLAG_RES8, TCP_FLAG_RES9, TCP_FLAG_RES10, TCP_FLAG_RES11
 
-    These are the four bits of the reserved part of the TCP header. RFC 3540 defines TCP_FLAG_RES8 as the nonce sum (NS) bit.
+    These are the four bits of the reserved part of the TCP header.
+    RFC 3540 defines TCP_FLAG_RES8 as the nonce sum (NS) bit.
 TCP_OPT_0, <...>, TCP_OPT_16
 
     Type codes for the first 16 TCP options.
@@ -511,59 +852,127 @@ TCP_WSCALE
 
 Differences from IPv4
 
-IPv6 fingerprints look somewhat different from IPv4 fingerprints. Instead of a broken-down list of packet features, they consist of a hex dump of packet contents along with send and receive times. See the section called “Understanding an Nmap Fingerprint” for details.
+IPv6 fingerprints look somewhat different from IPv4 fingerprints. 
+Instead of a broken-down list of packet features, they consist of a hex dump of packet contents along with send and receive times. 
+See the section called “Understanding an Nmap Fingerprint” for details.
 
-The IPv6 matching algorithm is quite different. It uses a machine learning algorithm called logistic regression rather than simple comparison against a list of fingerprints. the section called “IPv6 matching” has a description of the algorithm. 
+The IPv6 matching algorithm is quite different. 
+It uses a machine learning algorithm called logistic regression rather than simple comparison against a list of fingerprints. 
+the section called “IPv6 matching” has a description of the algorithm. 
 
 
 
 Fingerprinting Methods Avoided by Nmap
 
-Nmap supports many more OS detection techniques than any other program, and we are always interested in hearing about new ideas. Please send them to the Nmap development list (nmap-dev) for discussion. However there are some methods that just aren't a good fit. This section details some of the most interesting ones. While they aren't supported by Nmap, some are useful in combination with Nmap to verify findings or learn further details.
+Nmap supports many more OS detection techniques than any other program, and we are always interested in hearing about new ideas. 
+Please send them to the Nmap development list (nmap-dev) for discussion. 
+However there are some methods that just aren't a good fit. 
+This section details some of the most interesting ones. 
+While they aren't supported by Nmap, some are useful in combination with Nmap to verify findings or learn further details.
 Passive Fingerprinting
 
-Passive fingerprinting uses most of the same techniques as the active fingerprinting performed by Nmap. The difference is that a passive system simply sniffs the network, opportunistically classifying hosts as it observes their traffic. This is more difficult than active fingerprinting, since you have to accept whatever communication happens rather than designing your own custom probes. It is a valuable technique, but doesn't belong in a fundamentally active tool such as Nmap. Fortunately, Michal Zalewski has written the excellent p0f passive OS fingerprinting tool. He also devised a couple of the current Nmap OS fingerprinting tests. Another option is SinFP by GomoR, which supports both active and passive fingerprinting.
+Passive fingerprinting uses most of the same techniques as the active fingerprinting performed by Nmap. 
+The difference is that a passive system simply sniffs the network, opportunistically classifying hosts as it observes their traffic.
+This is more difficult than active fingerprinting, since you have to accept whatever communication happens rather than designing your own custom probes. 
+It is a valuable technique, but doesn't belong in a fundamentally active tool such as Nmap. 
+Fortunately, Michal Zalewski has written the excellent p0f passive OS fingerprinting tool.
+He also devised a couple of the current Nmap OS fingerprinting tests. 
+Another option is SinFP by GomoR, which supports both active and passive fingerprinting.
 Exploit Chronology
 
-TCP/IP fingerprinting works well for distinguishing different operating systems, but detecting different versions of the same operating system can be troublesome. The company must change their stack in some way we can differentiate. Fortunately, many OS vendors regularly update their systems to comply with the latest standards. But what about those who don't? Most of them at least get around to fixing exploitable stack bugs eventually. And those fixes are easy to detect remotely. First send the exploit payload, be it a land attack, teardrop, ping of death, SYN flood, or WinNuke. Send one attack at a time, then immediately try to contact the system again. If it is suddenly non-responsive, you have narrowed down the OS to versions which didn't ship with the fix.
+TCP/IP fingerprinting works well for distinguishing different operating systems, but detecting different versions of the same operating system can be troublesome. 
+The company must change their stack in some way we can differentiate. 
+Fortunately, many OS vendors regularly update their systems to comply with the latest standards.
+But what about those who don't? 
+Most of them at least get around to fixing exploitable stack bugs eventually.
+And those fixes are easy to detect remotely. 
+First send the exploit payload, be it a land attack, teardrop, ping of death, SYN flood, or WinNuke.
+Send one attack at a time, then immediately try to contact the system again.
+If it is suddenly non-responsive, you have narrowed down the OS to versions which didn't ship with the fix.
 [Warning]	Warning
 
 If you use denial of service (DoS) exploits as part of your OS detection suite, remember to perform those tests last.
 Retransmission Times
 
-TCP implementations have significant leeway in exactly how long they wait before retransmitting packets. The proof-of-concept tools Ring and Cron-OS are available to exploit this. They send a SYN packet to an open port, then ignore the SYN/ACK they receive rather than acknowledging it with an ACK (to complete the connection) or a RST (to kill it). The target host will resend the SYN/ACK several more times, and these tools track every subsecond of the wait. While some information can indeed be gleaned from this technique, there are several reasons that I haven't incorporated the patch into Nmap:
+TCP implementations have significant leeway in exactly how long they wait before retransmitting packets. 
+The proof-of-concept tools Ring and Cron-OS are available to exploit this. 
+They send a SYN packet to an open port, then ignore the SYN/ACK they receive rather than acknowledging it with an ACK (to complete the connection) or a RST (to kill it).
+The target host will resend the SYN/ACK several more times, and these tools track every subsecond of the wait. 
+While some information can indeed be gleaned from this technique, there are several reasons that I haven't incorporated the patch into Nmap:
 
-    It usually requires modifying the source host firewall rules to prevent your system from replying with a RST packet to the SYN/ACK it receives. That is hard to do in a portable way. And even if it was easy, many users don't appreciate applications mucking with their firewall rules.
+    It usually requires modifying the source host firewall rules to prevent your system from replying with a RST packet to the SYN/ACK it receives. 
+    That is hard to do in a portable way. 
+    And even if it was easy, many users don't appreciate applications mucking with their firewall rules.
 
-    It can be very slow. The retransmissions can go on for several minutes. That is a long time to wait for a test that doesn't give all that much information in the first place.
+    It can be very slow. The retransmissions can go on for several minutes. 
+    That is a long time to wait for a test that doesn't give all that much information in the first place.
 
     It can be inaccurate because packet drops and latency (which you have to expect in real-world environments) can lead to bogus results.
 
-I have enumerated these reasons here because they also apply to some other proposed OS detection methods. I would love to add new tests, but they must be quick and require few packets. Messing with host firewall is unacceptable. I try to avoid making full TCP connections for stack fingerprinting, though that is done for OS detection as part of the version scanning system.
+I have enumerated these reasons here because they also apply to some other proposed OS detection methods. 
+I would love to add new tests, but they must be quick and require few packets. 
+Messing with host firewall is unacceptable. 
+I try to avoid making full TCP connections for stack fingerprinting, though that is done for OS detection as part of the version scanning system.
 IP Fragmentation
 
-IP fragmentation is a complex system and implementations are riddled with bugs and inconsistencies. Possible tests could examine how overlapping fragments are assembled or time the defragmentation timeouts. These tests are avoided for Nmap because many firewalls and other inline devices defragment traffic at gateways. Thus Nmap may end up fingerprinting the firewall rather than the true destination host. In addition, fragments are difficult to send on some operating systems. Linux 2.6 kernels have a tendency to queue the fragments you are trying to send and assemble them itself before transmission.
+IP fragmentation is a complex system and implementations are riddled with bugs and inconsistencies. 
+Possible tests could examine how overlapping fragments are assembled or time the defragmentation timeouts. 
+These tests are avoided for Nmap because many firewalls and other inline devices defragment traffic at gateways. 
+Thus Nmap may end up fingerprinting the firewall rather than the true destination host.
+In addition, fragments are difficult to send on some operating systems. 
+Linux 2.6 kernels have a tendency to queue the fragments you are trying to send and assemble them itself before transmission.
 Open Port Patterns
 
-The target host OS can often be guessed simply by looking at the ports which are open. Microsoft Windows machines often have TCP ports 135 and 139 open. Windows 2000 and newer also listen on port 445. Meanwhile, a machine running services on port 22 (ssh) and 631 (Internet Printing Protocol) is likely running Unix.
+The target host OS can often be guessed simply by looking at the ports which are open.
+Microsoft Windows machines often have TCP ports 135 and 139 open. 
+Windows 2000 and newer also listen on port 445. 
+Meanwhile, a machine running services on port 22 (ssh) and 631 (Internet Printing Protocol) is likely running Unix.
 
-While this heuristic is often useful, it just isn't reliable enough for Nmap. Combinations of ports can be obscured by firewall rules, and most mainstream protocols are available on multiple platforms. OpenSSH servers can be run on Windows, and the “Windows SMB” ports can be serviced by Samba running on a Unix machine. Port forwarding clouds the issue even further. A machine which appears to be running Microsoft IIS might be a Unix firewall simply forwarding port 80 to a Windows machine.
+While this heuristic is often useful, it just isn't reliable enough for Nmap. 
+Combinations of ports can be obscured by firewall rules, and most mainstream protocols are available on multiple platforms. 
+OpenSSH servers can be run on Windows, and the “Windows SMB” ports can be serviced by Samba running on a Unix machine.
+Port forwarding clouds the issue even further. 
+A machine which appears to be running Microsoft IIS might be a Unix firewall simply forwarding port 80 to a Windows machine.
 
-For these reasons, Nmap does not consider open port numbers during TCP/IP stack fingerprinting. However, Nmap can use version detection information (see Chapter 7, Service and Application Version Detection) to separately discover operating system and device type information. By keeping the OS detection results discovered by OS detection and version detection separate, Nmap can gracefully handle a Checkpoint firewall which uses TCP port forwarding to a Windows web server. The stack fingerprinting results should be “Checkpoint Firewall-1” while version detection should suggest that the OS is Windows. Keep in mind that only a small fraction of version detection signatures include OS and device type information—we can only populate these fields when the application divulges the information or when it only runs on one OS or device type.
+For these reasons, Nmap does not consider open port numbers during TCP/IP stack fingerprinting. 
+However, Nmap can use version detection information (see Chapter 7, Service and Application Version Detection) to separately discover operating system and device type information. 
+By keeping the OS detection results discovered by OS detection and version detection separate, Nmap can gracefully handle a Checkpoint firewall which uses TCP port forwarding to a Windows web server. 
+The stack fingerprinting results should be “Checkpoint Firewall-1” while version detection should suggest that the OS is Windows. 
+Keep in mind that only a small fraction of version detection signatures include OS and device type information—we can only populate these fields when the application divulges the information or when it only runs on one OS or device type.
 Retired Tests
 
-There are some tests that were once performed by Nmap, but which have been retired because they were found not to help in distinguishing operating systems and only took up space in the database. Two tests in the IE line were removed: DLI checked the length of the data payload in returned packets and SI checked the ICMP sequence numbers. They were never found to vary from the values sent. In the U1 line, the RUL test checked the length of the UDP packet returned. It was different from what was sent in only one case out of more than 1,700. These tests were removed in March 2009.
+There are some tests that were once performed by Nmap, but which have been retired because they were found not to help in distinguishing operating systems and only took up space in the database. 
+Two tests in the IE line were removed: DLI checked the length of the data payload in returned packets and SI checked the ICMP sequence numbers.
+They were never found to vary from the values sent. 
+In the U1 line, the RUL test checked the length of the UDP packet returned. 
+It was different from what was sent in only one case out of more than 1,700. These tests were removed in March 2009.
 
-Other tests were removed because they were too discriminating; they caused false differences to be measured that harmed detection accuracy. Both of these had to do with the TOS (type of service) field in responses. TOS did this for the U1 probe and TOSI did it for IE. Although the test values did legitimately differ between operating systems, often false differences were recorded because the TOS was modified by an intermediate host. Better results were had overall when these tests were removed in October 2008. 
+Other tests were removed because they were too discriminating; they caused false differences to be measured that harmed detection accuracy. 
+Both of these had to do with the TOS (type of service) field in responses. 
+TOS did this for the U1 probe and TOSI did it for IE.
+Although the test values did legitimately differ between operating systems, often false differences were recorded because the TOS was modified by an intermediate host.
+Better results were had overall when these tests were removed in October 2008. 
 
 
 
 Understanding an Nmap Fingerprint
 
-When Nmap stores a fingerprint in memory, Nmap uses a tree of attributes and values in data structures that users need not even be aware of. But there is also a special ASCII-encoded version which Nmap can print for users when a machine is unidentified. Thousands of these serialized fingerprints are also read back every time Nmap runs (with OS detection enabled) from the nmap-os-db database. The fingerprint format is a compromise between human comprehension and brevity. The format is so terse that it looks like line noise to many inexperienced users, but those who read this document should be able to decipher fingerprints with ease. There are actually two types of fingerprints, though they have the same general structure. The fingerprints of known operating systems that Nmap reads in are called reference fingerprints, while the fingerprint Nmap displays after scanning a system is a subject fingerprint. The reference fingerprints are a bit more complex since they can be tailored to match a whole class of operating systems by adding leeway to (or omitting) tests that aren't so reliable while allowing only a single possible value for other tests. The reference fingerprints also have OS details and classifications. Since the subject tests are simpler, we describe them first.
+When Nmap stores a fingerprint in memory, Nmap uses a tree of attributes and values in data structures that users need not even be aware of. 
+But there is also a special ASCII-encoded version which Nmap can print for users when a machine is unidentified. 
+Thousands of these serialized fingerprints are also read back every time Nmap runs (with OS detection enabled) from the nmap-os-db database.
+The fingerprint format is a compromise between human comprehension and brevity. 
+The format is so terse that it looks like line noise to many inexperienced users, but those who read this document should be able to decipher fingerprints with ease.
+There are actually two types of fingerprints, though they have the same general structure.
+The fingerprints of known operating systems that Nmap reads in are called reference fingerprints, while the fingerprint Nmap displays after scanning a system is a subject fingerprint. 
+The reference fingerprints are a bit more complex since they can be tailored to match a whole class of operating systems by adding leeway to (or omitting) tests that aren't so reliable while allowing only a single possible value for other tests. 
+The reference fingerprints also have OS details and classifications. 
+Since the subject tests are simpler, we describe them first.
 Decoding the Subject Fingerprint Format
 
-If Nmap performs OS fingerprinting on a host and doesn't get a perfect OS matches despite promising conditions (such as finding both open and closed ports accessible on the target), Nmap prints a subject fingerprint that shows all of the test results that Nmap deems relevant, then asks the user to submit the data to Nmap.Org. Tests aren't shown when Nmap has no useful results, such as when the relevant probe responses weren't received. A special line named SCAN gives extra details about the scan (such as Nmap version number) that provide useful context for integrating fingerprint submissions into nmap-os-db. A typical subject fingerprint is shown in Example 8.3.
+If Nmap performs OS fingerprinting on a host and doesn't get a perfect OS matches despite promising conditions (such as finding both open and closed ports accessible on the target), Nmap prints a subject fingerprint that shows all of the test results that Nmap deems relevant, then asks the user to submit the data to Nmap.Org.
+Tests aren't shown when Nmap has no useful results, such as when the relevant probe responses weren't received.
+A special line named SCAN gives extra details about the scan (such as Nmap version number) that provide useful context for integrating fingerprint submissions into nmap-os-db. 
+A typical subject fingerprint is shown in Example 8.3.
 
 Example 8.3. A typical subject fingerprint
 
@@ -579,7 +988,15 @@ OS:T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%U
 OS:N=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
 
 
-Now you may look at this fingerprint and immediately understand what everything means. If so, you can simply skip this section. But I have never seen such a reaction. Many people probably think some sort of buffer overflow or unterminated string error is causing Nmap to spew garbage data at them. This section helps you decode the information so you can immediately tell that blind TCP sequence prediction attacks against this machine are moderately hard, but it may make a good idle scan (-sI) zombie. The first step in understanding this fingerprint is to fix the line wrapping. The tests are all squished together, with each line wrapped at 71 characters. Then OS: is prepended to each line, raising the length to 74 characters. This makes fingerprints easy to cut and paste into the Nmap fingerprint submission form (see the section called “When Nmap Fails to Find a Match and Prints a Fingerprint”). Removing the prefix and fixing the word wrapping (each line should end with a right parenthesis) leads to the cleaned-up version in Example 8.4.
+Now you may look at this fingerprint and immediately understand what everything means. 
+If so, you can simply skip this section. But I have never seen such a reaction.
+Many people probably think some sort of buffer overflow or unterminated string error is causing Nmap to spew garbage data at them. 
+This section helps you decode the information so you can immediately tell that blind TCP sequence prediction attacks against this machine are moderately hard, but it may make a good idle scan (-sI) zombie. 
+The first step in understanding this fingerprint is to fix the line wrapping. 
+The tests are all squished together, with each line wrapped at 71 characters. 
+Then OS: is prepended to each line, raising the length to 74 characters. 
+This makes fingerprints easy to cut and paste into the Nmap fingerprint submission form (see the section called “When Nmap Fails to Find a Match and Prints a Fingerprint”).
+Removing the prefix and fixing the word wrapping (each line should end with a right parenthesis) leads to the cleaned-up version in Example 8.4.
 
 Example 8.4. A cleaned-up subject fingerprint
 
@@ -601,32 +1018,57 @@ U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
 IE(R=Y%DFI=N%T=40%CD=S)
 
 
-While this still isn't the world's most intuitive format (we had to keep it short), the format is much clearer now. Every line is a category, such as SEQ for the sequence generation tests, T3 for the results from that particular TCP probe, and IE for tests related to the two ICMP echo probes.
+While this still isn't the world's most intuitive format (we had to keep it short), the format is much clearer now. 
+Every line is a category, such as SEQ for the sequence generation tests, T3 for the results from that particular TCP probe, and IE for tests related to the two ICMP echo probes.
 
-Following each test name is a pair of parentheses which enclose results for individual tests. The tests take the format <testname>=<value>. All of the possible categories, tests, and values are described in the section called “TCP/IP Fingerprinting Methods Supported by Nmap”. Each pair of tests are separated by a percentage symbol (%). Tests values can be empty, leading to a percentage symbol or category-terminating right-parenthesis immediately following the equal sign. The string “O=%RD=0%Q=)” in T4 of our example shows two of these empty tests. A blank test value must match another blank value, so this empty TCP quirks Q value wouldn't match a fingerprint with Q set to RU.
+Following each test name is a pair of parentheses which enclose results for individual tests. 
+The tests take the format <testname>=<value>. 
+All of the possible categories, tests, and values are described in the section called “TCP/IP Fingerprinting Methods Supported by Nmap”.
+Each pair of tests are separated by a percentage symbol (%).
+Tests values can be empty, leading to a percentage symbol or category-terminating right-parenthesis immediately following the equal sign. 
+The string “O=%RD=0%Q=)” in T4 of our example shows two of these empty tests.
+A blank test value must match another blank value, so this empty TCP quirks Q value wouldn't match a fingerprint with Q set to RU.
 
-In some cases, a whole test is missing rather than just its value. For example, T2 of our sample fingerprint has no W (TCP window), S (sequence number), A (acknowledgment number), T (TTL), or TG (TTL guess) tests. This is because the one test and value it does include, R=N, means that no response was returned for the T2 probe. So including a window value or sequence number would make little sense. Similarly, tests which aren't well supported on the system running Nmap are skipped. An example is the RID (IP ID field returned in ICMP packet) test, which doesn't work well on Solaris because that system tends to corrupt the ID field Nmap sends out. Tests which are inconclusive (such as failing to detect the IP ID sequence for the TI, CI, and II tests) are also omitted.
+In some cases, a whole test is missing rather than just its value.
+For example, T2 of our sample fingerprint has no W (TCP window), S (sequence number), A (acknowledgment number), T (TTL), or TG (TTL guess) tests. 
+This is because the one test and value it does include, R=N, means that no response was returned for the T2 probe. 
+So including a window value or sequence number would make little sense. Similarly, tests which aren't well supported on the system running Nmap are skipped. 
+An example is the RID (IP ID field returned in ICMP packet) test, which doesn't work well on Solaris because that system tends to corrupt the ID field Nmap sends out. 
+Tests which are inconclusive (such as failing to detect the IP ID sequence for the TI, CI, and II tests) are also omitted.
 Decoding the SCAN line of a subject fingerprint
 
-The SCAN line is a special case in a subject fingerprint. Rather than describe the target system, these tests describe various conditions of the scan. These help us integrate fingerprints submitted to Nmap.Org. The tests in this line are:
+The SCAN line is a special case in a subject fingerprint. 
+Rather than describe the target system, these tests describe various conditions of the scan. 
+These help us integrate fingerprints submitted to Nmap.Org. 
+The tests in this line are:
 
     Nmap version number (V).
 
     Date of scan (D) in the form month/day.
 
-    Open and closed TCP ports (on target) used for scan (OT and CT). Unlike most tests, these are printed in decimal format. If Nmap was unable to find an open or a closed port, the test is included with an empty value (even when Nmap guesses a possibly closed port and sends a probe there).
+    Open and closed TCP ports (on target) used for scan (OT and CT). 
+    Unlike most tests, these are printed in decimal format. 
+    If Nmap was unable to find an open or a closed port, the test is included with an empty value (even when Nmap guesses a possibly closed port and sends a probe there).
 
-    Closed UDP port (CU). This is the same as CT, but for UDP. Since the majority of scans don't include UDP, this test's value is usually empty.
+    Closed UDP port (CU). This is the same as CT, but for UDP. 
+    Since the majority of scans don't include UDP, this test's value is usually empty.
 
     Private IP space (PV) is Y if the target is on the 10.0.0.0/8, 172.16.0.0/12, or 192.168.0.0/16 private networks (RFC 1918). Otherwise it is N.
 
-    Network distance (DS) is the network hop distance from the target. It is 0 if the target is localhost, 1 if directly connected on an ethernet network, or the exact distance if discovered by Nmap. If the distance is unknown, this test is omitted.
+    Network distance (DS) is the network hop distance from the target. 
+	It is 0 if the target is localhost, 1 if directly connected on an ethernet network, or the exact distance if discovered by Nmap. 
+    If the distance is unknown, this test is omitted.
 
-    The distance calculation method (DC) indicates how the network distance (DS) was calculated. It can take on these values: L for localhost (DS=0); D for a direct subnet connection (DS=1); I for a TTL calculation based on an ICMP response to the U1 OS detection probe; and T for a count of traceroute hops. This test exists because it is possible for the ICMP TTL calculation to be incorrect when intermediate machines change the TTL; it distinguishes between a host that is truly directly connected and what may be just a miscalculation.
+    The distance calculation method (DC) indicates how the network distance (DS) was calculated.
+    It can take on these values: L for localhost (DS=0); D for a direct subnet connection (DS=1); I for a TTL calculation based on an ICMP response to the U1 OS detection probe; and T for a count of traceroute hops. 
+    This test exists because it is possible for the ICMP TTL calculation to be incorrect when intermediate machines change the TTL; it distinguishes between a host that is truly directly connected and what may be just a miscalculation.
 
-    Good results (G) is Y if conditions and results seem good enough to submit this fingerprint to Nmap.Org. It is N otherwise. Unless you force them by enabling debugging (-d) or extreme verbosity (-vv), G=N fingerprints aren't printed by Nmap.
+    Good results (G) is Y if conditions and results seem good enough to submit this fingerprint to Nmap.Org. It is N otherwise. 
+    Unless you force them by enabling debugging (-d) or extreme verbosity (-vv), G=N fingerprints aren't printed by Nmap.
 
-    Target MAC prefix (M) is the first six hex digits of the target MAC address, which correspond to the vendor name. Leading zeros are not included. This field is omitted unless the target is on the same ethernet network (DS=1).
+    Target MAC prefix (M) is the first six hex digits of the target MAC address, which correspond to the vendor name.
+    Leading zeros are not included. 
+    This field is omitted unless the target is on the same ethernet network (DS=1).
 
     The OS scan time (TM) is provided in Unix time_t format (in hexadecimal).
 
@@ -634,7 +1076,10 @@ The SCAN line is a special case in a subject fingerprint. Rather than describe t
 
 Decoding the Reference Fingerprint Format
 
-When Nmap scans a target to create a subject fingerprint, it then tries to match that data against the thousands of reference fingerprints in the nmap-os-db database. Reference fingerprints are initially formed from one or more subject fingerprints and thus have much in common. They do have a bit of extra information to facilitate matching and of course to describe the operating systems they represent. For example, the subject fingerprint we just looked at might form the basis for the reference fingerprint in Example 8.5.
+When Nmap scans a target to create a subject fingerprint, it then tries to match that data against the thousands of reference fingerprints in the nmap-os-db database.
+Reference fingerprints are initially formed from one or more subject fingerprints and thus have much in common. 
+They do have a bit of extra information to facilitate matching and of course to describe the operating systems they represent. 
+For example, the subject fingerprint we just looked at might form the basis for the reference fingerprint in Example 8.5.
 
 Example 8.5. A typical reference fingerprint
 
@@ -656,12 +1101,21 @@ U1(DF=N%T=3B-45%TG=40%IPL=38%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=0%RUD=G)
 IE(DFI=S%T=3B-45%TG=40%CD=S)
 
 
-Some differences are immediately obvious. Line wrapping is not done because that is only important for the submission process. The SCAN line is also removed, since that information describes a specific scan instance rather than general target OS characteristics.
+Some differences are immediately obvious. 
+Line wrapping is not done because that is only important for the submission process. 
+The SCAN line is also removed, since that information describes a specific scan instance rather than general target OS characteristics.
 
-You probably also noticed the new lines, Fingerprint, Class, and CPE, which are new to this reference fingerprint. A more subtle change is that some of the individual test results have been removed while others have been enhanced with logical expressions.
+You probably also noticed the new lines, Fingerprint, Class, and CPE, which are new to this reference fingerprint. 
+A more subtle change is that some of the individual test results have been removed while others have been enhanced with logical expressions.
 Free-form OS description (Fingerprint line)
 
-The Fingerprint line first serves as a token so Nmap knows to start loading a new fingerprint. Each fingerprint only has one such line. Immediately after the Fingerprint token (and a space) comes a textual description of the operating system(s) represented by this fingerprint. These are in free-form English text, designed for human interpretation rather than a machine parser. Nevertheless, Nmap tries to stick with a consistent format including the vendor, product name, and then version number. Version number ranges and comma-separated alternatives discussed previously can be found in this field. Here are some examples:
+The Fingerprint line first serves as a token so Nmap knows to start loading a new fingerprint. 
+Each fingerprint only has one such line. 
+Immediately after the Fingerprint token (and a space) comes a textual description of the operating system(s) represented by this fingerprint.
+These are in free-form English text, designed for human interpretation rather than a machine parser. 
+Nevertheless, Nmap tries to stick with a consistent format including the vendor, product name, and then version number. 
+Version number ranges and comma-separated alternatives discussed previously can be found in this field. 
+Here are some examples:
 
 Fingerprint HP LaserJet printer (4050, 4100, 4200, or 8150)
 Fingerprint Sun Solaris 9 or 10 (SPARC)
@@ -670,33 +1124,66 @@ Fingerprint Microsoft Windows Server 2003 SP1
 Fingerprint Microsoft Windows XP Professional SP1
 Fingerprint Minolta Di550 laser printer
 
-In an ideal world, every different OS would correspond to exactly one unique fingerprint. Unfortunately, OS vendors don't make life so easy for us. The same OS release may fingerprint differently based on what network drivers are in use, user-configurable options, patch levels, processor architecture, amount of RAM available, firewall settings, and more. Sometimes the fingerprints differ for no discernible reason. While the reference fingerprint format has an expression syntax for coping with slight variations, creating multiple fingerprints for the same OS is often preferable when major differences are discovered.
+In an ideal world, every different OS would correspond to exactly one unique fingerprint.
+Unfortunately, OS vendors don't make life so easy for us. The same OS release may fingerprint differently based on what network drivers are in use, user-configurable options, patch levels, processor architecture, amount of RAM available, firewall settings, and more. 
+Sometimes the fingerprints differ for no discernible reason. 
+While the reference fingerprint format has an expression syntax for coping with slight variations, creating multiple fingerprints for the same OS is often preferable when major differences are discovered.
 
-Just as multiple fingerprints are often needed for one OS, sometimes a single fingerprint describes several systems. If two systems give the exact same results for every single test, Nmap has little choice but to offer up both as possibilities. This commonly occurs for several reasons. One is that vendors may release a new version of their OS without any significant changes to their IP stack. Maybe they made important changes elsewhere in the system, or perhaps they did little but want to make a bunch of money selling “upgrades”. In these cases, Nmap often prints a range such as Apple Mac OS X 10.4.8 - 10.4.11 or Sun Solaris 9 or 10.
+Just as multiple fingerprints are often needed for one OS, sometimes a single fingerprint describes several systems.
+If two systems give the exact same results for every single test, Nmap has little choice but to offer up both as possibilities. 
+This commonly occurs for several reasons. 
+One is that vendors may release a new version of their OS without any significant changes to their IP stack.
+Maybe they made important changes elsewhere in the system, or perhaps they did little but want to make a bunch of money selling “upgrades”. 
+In these cases, Nmap often prints a range such as Apple Mac OS X 10.4.8 - 10.4.11 or Sun Solaris 9 or 10.
 
-Another cause of duplicate fingerprints is embedded devices which share a common OS. For example, a printer from one vendor and an ethernet switch from another may actually share an embedded OS from a third vendor. In many cases, subtle differences between the devices still allow them to be distinguished. But sometimes Nmap must simply list a group of possibilities such as Cisco 1200-series WAP, HP ProCurve 2650 switch, or Xerox Phaser 7400N or 8550DT printer.
+Another cause of duplicate fingerprints is embedded devices which share a common OS. 
+For example, a printer from one vendor and an ethernet switch from another may actually share an embedded OS from a third vendor. 
+In many cases, subtle differences between the devices still allow them to be distinguished. 
+But sometimes Nmap must simply list a group of possibilities such as Cisco 1200-series WAP, HP ProCurve 2650 switch, or Xerox Phaser 7400N or 8550DT printer.
 
-There are also cases where numerous vendors private label the exact same OEM device with their own brand name and model number. Here again, Nmap must simply list the possibilities. But distinguishing these is less important because they are all fundamentally the same device.
+There are also cases where numerous vendors private label the exact same OEM device with their own brand name and model number. 
+Here again, Nmap must simply list the possibilities. 
+But distinguishing these is less important because they are all fundamentally the same device.
 [Tip]	Tip
 
-If the description printed by Nmap (which comes from the Fingerprint line) isn't informative enough for you, more detailed information may be available in comments above the fingerprint itself in nmap-os-db. You can find it installed on your system or look up the latest version at https://svn.nmap.org/nmap/nmap-os-db. Search for the exact OS description that Nmap gives you. Keep in mind that there may be several Fingerprint lines with exactly the same description, so you may have to examine them all. Or use the Nmap XML output, which shows the line number of each match.
+If the description printed by Nmap (which comes from the Fingerprint line) isn't informative enough for you, more detailed information may be available in comments above the fingerprint itself in nmap-os-db. 
+You can find it installed on your system or look up the latest version at https://svn.nmap.org/nmap/nmap-os-db. 
+Search for the exact OS description that Nmap gives you. 
+Keep in mind that there may be several Fingerprint lines with exactly the same description, so you may have to examine them all.
+Or use the Nmap XML output, which shows the line number of each match.
 Device and OS classification (Class lines)
 
-While the Fingerprint description works great for analysts reading Nmap output directly, many people run Nmap from other scripts and applications. Those applications might use the OS information to check for OS-specific vulnerabilities or just create a pretty graph or report.
+While the Fingerprint description works great for analysts reading Nmap output directly, many people run Nmap from other scripts and applications.
+Those applications might use the OS information to check for OS-specific vulnerabilities or just create a pretty graph or report.
 
-A more structured OS classification system exists for these purposes. It is also useful when there are multiple matches. If you only get a partial fingerprint (maybe no open ports were found on the target so many tests had to be skipped), it might match dozens of different fingerprints in the nmap-os-db database. Printing the details for all of those fingerprints would be a mess. But thanks to OS classification, Nmap can find commonality. If all of the matches are classified as Linux, Nmap will simply print that the target is a Linux box.
+A more structured OS classification system exists for these purposes.
+It is also useful when there are multiple matches. 
+If you only get a partial fingerprint (maybe no open ports were found on the target so many tests had to be skipped), it might match dozens of different fingerprints in the nmap-os-db database. 
+Printing the details for all of those fingerprints would be a mess.
+But thanks to OS classification, Nmap can find commonality. 
+If all of the matches are classified as Linux, Nmap will simply print that the target is a Linux box.
 
-Every fingerprint has one or more Class lines. Each contains four well-defined fields: vendor, OS family, OS generation, and device type. The fields are separated by the pipe symbol (|).
+Every fingerprint has one or more Class lines.
+Each contains four well-defined fields: vendor, OS family, OS generation, and device type. 
+The fields are separated by the pipe symbol (|).
 
-The vendor is the company which makes an OS or device. Examples are Apple, Cisco, Microsoft, and Linksys. For community projects such as OpenBSD and Linux without a controlling vendor, the OS family name is repeated for the vendor column.
+The vendor is the company which makes an OS or device. Examples are Apple, Cisco, Microsoft, and Linksys.
+For community projects such as OpenBSD and Linux without a controlling vendor, the OS family name is repeated for the vendor column.
 
-OS family includes products such as Windows, Linux, IOS (for Cisco routers), Solaris, and OpenBSD. There are also hundreds of devices such as switches, broadband routers, and printers which use undisclosed operating systems. When the underlying OS isn't clear, embedded is used.
+OS family includes products such as Windows, Linux, IOS (for Cisco routers), Solaris, and OpenBSD. 
+There are also hundreds of devices such as switches, broadband routers, and printers which use undisclosed operating systems.
+When the underlying OS isn't clear, embedded is used.
 
-OS generation is a more granular description of the OS. Generations of Linux include 2.4.X and 2.6.X, while Windows generations include 95, 98, Me, 2000, XP, and Vista. FreeBSD uses generations such as 4.X and 5.X. For obscure operating systems which we haven't subdivided into generations (or whenever the OS is listed simply as embedded), this field is left blank.
+OS generation is a more granular description of the OS. Generations of Linux include 2.4.X and 2.6.X, while Windows generations include 95, 98, Me, 2000, XP, and Vista.
+FreeBSD uses generations such as 4.X and 5.X. 
+For obscure operating systems which we haven't subdivided into generations (or whenever the OS is listed simply as embedded), this field is left blank.
 
-The device type is a broad classification such as router, printer, or game console and was discussed previously in this chapter. General-purpose operating systems such as Linux and Windows which can be used for just about anything are classified as general purpose.
+The device type is a broad classification such as router, printer, or game console and was discussed previously in this chapter.
+General-purpose operating systems such as Linux and Windows which can be used for just about anything are classified as general purpose.
 
-Each field may contain just one value. When a fingerprint represents more than one possible combination of these four fields, multiple Class lines are used. Example 8.6 provides some example Fingerprint lines followed by their corresponding classifications.
+Each field may contain just one value. 
+When a fingerprint represents more than one possible combination of these four fields, multiple Class lines are used. 
+Example 8.6 provides some example Fingerprint lines followed by their corresponding classifications.
 
 Example 8.6. Some typical fingerprint descriptions and corresponding classifications
 
@@ -718,7 +1205,10 @@ Class Sony | embedded || game console
 If these examples aren't enough, a listing of classifications recognized by the latest version of Nmap is maintained at http://nmap.org/data/os-classes.txt.
 CPE name (CPE lines)
 
-CPE lines give Common Platform Enumeration equivalents of Class lines. Each Class may be followed by several CPE lines (CPE lines always “belong” to the Class line that immediately precedes them). It's common for one CPE name to describe the operating system and another to describe the hardware platform. A description of CPE syntax and meaning can be found in the section called “Common Platform Enumeration (CPE)”.
+CPE lines give Common Platform Enumeration equivalents of Class lines. 
+Each Class may be followed by several CPE lines (CPE lines always “belong” to the Class line that immediately precedes them). 
+It's common for one CPE name to describe the operating system and another to describe the hardware platform. 
+A description of CPE syntax and meaning can be found in the section called “Common Platform Enumeration (CPE)”.
 
 Example 8.7. Typical CPE classifications
 
@@ -735,17 +1225,29 @@ CPE cpe:/o:linux:linux_kernel:2.0.33
 The auto flag that follows some CPE names is not part of CPE; it is only used internally by maintenance scripts to indicate that a CPE name was automatically generated from other information rather than inserted manually.
 Test expressions
 
-The test expressions don't have to change between a subject and reference fingerprint, but they almost always do. The reference fingerprint often needs to be generalized a little bit to match all instances of a particular OS, rather than just the machine you are scanning. For example, some Windows XP machines return a Window size of F424 to the T1 probe, while others return FAF0. This may be due to the particular ethernet device driver in use, or maybe how much memory is available. In any case, we would like to detect Windows XP no matter which window size is used.
+The test expressions don't have to change between a subject and reference fingerprint, but they almost always do. 
+The reference fingerprint often needs to be generalized a little bit to match all instances of a particular OS, rather than just the machine you are scanning. 
+For example, some Windows XP machines return a Window size of F424 to the T1 probe, while others return FAF0. 
+This may be due to the particular ethernet device driver in use, or maybe how much memory is available. 
+In any case, we would like to detect Windows XP no matter which window size is used.
 
-One way to generalize a fingerprint is to simply remove tests that produce inconsistent results. Remove all of the window size tests from a reference fingerprint, and systems will match that print no matter what size they use. The downside is that you can lose a lot of important information this way. If the only Window sizes that a particular system ever sends are F424 and FAF0, you really only want to allow those two values, not all 65,536 possibilities.
+One way to generalize a fingerprint is to simply remove tests that produce inconsistent results. 
+Remove all of the window size tests from a reference fingerprint, and systems will match that print no matter what size they use. 
+The downside is that you can lose a lot of important information this way.
+If the only Window sizes that a particular system ever sends are F424 and FAF0, you really only want to allow those two values, not all 65,536 possibilities.
 
-While removing tests is overkill in some situations, it is useful in others. The R=Y test value, meaning there was a response, is usually removed from the U1 and IE tests before they are added to nmap-os-db. These probes are often blocked by a firewall, so the lack of a response should not count against the OS match.
+While removing tests is overkill in some situations, it is useful in others. 
+The R=Y test value, meaning there was a response, is usually removed from the U1 and IE tests before they are added to nmap-os-db. 
+These probes are often blocked by a firewall, so the lack of a response should not count against the OS match.
 
-When removing tests is undesirable, Nmap offers an expression syntax for allowing a test to match multiple values. For example, W=F424|FAF0 would allow those two Windows XP window values without allowing any others. Table 8.8 shows the permitted operators in test values.
+When removing tests is undesirable, Nmap offers an expression syntax for allowing a test to match multiple values. 
+For example, W=F424|FAF0 would allow those two Windows XP window values without allowing any others.
+Table 8.8 shows the permitted operators in test values.
 
 Table 8.8. Reference fingerprint test expression operators
 Op Name	Symbol	Example	Description
-Or	|	O=|ME|MNNTNW	Matches if the corresponding subject fingerprint test takes the value of any of the clauses. In this example, the initial pipe symbol means that an empty options list will match too.
+Or	|	O=|ME|MNNTNW	Matches if the corresponding subject fingerprint test takes the value of any of the clauses. 
+In this example, the initial pipe symbol means that an empty options list will match too.
 Range	-	SP=7-A	Matches if the subject fingerprint's corresponding test produces a numeric value which falls within the range specified.
 Greater than	>	SP=>8	Matches if the subject fingerprint's corresponding test produces a numeric value which is greater than the one specified.
 Less than	<	GCD=<5	Matches if the subject fingerprint's corresponding test produces a numeric value which is less than the one specified.
@@ -753,7 +1255,9 @@ Less than	<	GCD=<5	Matches if the subject fingerprint's corresponding test produ
 Expressions can combine operators, as in GCD=1-6|64|256|>1024, which matches if the GCD is between one and six, exactly 64, exactly 256, or greater than 1024.
 IPv6 fingerprints
 
-Because the IPv6 classification engine works differently, it has different fingerprints. There are no reference fingerprints; instead a set of previously identified training examples is run through a training algorithm, which outputs a large matrix of coefficients, one for each feature and OS class. Subject fingerprints use the same ASCII-armored format as IPv4, as shown in Example 8.8, “An IPv6 fingerprint”.
+Because the IPv6 classification engine works differently, it has different fingerprints. 
+There are no reference fingerprints; instead a set of previously identified training examples is run through a training algorithm, which outputs a large matrix of coefficients, one for each feature and OS class. 
+Subject fingerprints use the same ASCII-armored format as IPv4, as shown in Example 8.8, “An IPv6 fingerprint”.
 
 Example 8.8. An IPv6 fingerprint
 
@@ -786,7 +1290,8 @@ OS:32}c1bc01bbc5756300095eb241a029ffffec59000003030f0102040109080aff{4}00{
 OS:4}0402%ST=1.06173%RT=1.07961)EXTRA(FL=12345)
 
 
-Example 8.9, “A cleaned-up IPv6 fingerprint” shows what this fingerprint looks like unwrapped. Most of the probes are omitted because they all have the same format.
+Example 8.9, “A cleaned-up IPv6 fingerprint” shows what this fingerprint looks like unwrapped. 
+Most of the probes are omitted because they all have the same format.
 
 Example 8.9. A cleaned-up IPv6 fingerprint
 
@@ -797,13 +1302,18 @@ S1(P=6000{4}28063cXX{32}0016c1b002bbd213c57562f5a01212e0f8880000020404c4040208
 EXTRA(FL=12345)
 
 
-The SCAN line has the same meaning as in IPv4 fingerprints. The pseudo-test E=6 indicates that this is an IPv6 fingerprint.
+The SCAN line has the same meaning as in IPv4 fingerprints.
+The pseudo-test E=6 indicates that this is an IPv6 fingerprint.
 
-Then there is one line for each probe that received a response. Within each of these there are three keys:
+Then there is one line for each probe that received a response. 
+Within each of these there are three keys:
 
 P
 
-    The contents of the packet, hex- and run-length–encoded. Whenever two digits are followed by a number in curly brackets, it means to repeat that byte the given number of times. For example, 00{4} is short for 00000000. The characters XX are put in place of source and destination addresses, which are private and anyway not useful for training the classifier. 
+    The contents of the packet, hex- and run-length–encoded. 
+    Whenever two digits are followed by a number in curly brackets, it means to repeat that byte the given number of times. 
+    For example, 00{4} is short for 00000000. 
+    The characters XX are put in place of source and destination addresses, which are private and anyway not useful for training the classifier. 
 ST
 
     The time when the packet was sent, in seconds, relative to when OS detection began. 
@@ -811,9 +1321,13 @@ RT
 
     The time when the packet was received. 
 
-The EXTRA line stores any other information that can't be determined purely from the packet contents. The FL key stores the flow label that was sent during the scan. This would always be 12345, except that some operating systems don't allow setting the flow label and always send 00000 instead.
+The EXTRA line stores any other information that can't be determined purely from the packet contents. 
+The FL key stores the flow label that was sent during the scan. 
+This would always be 12345, except that some operating systems don't allow setting the flow label and always send 00000 instead.
 
-When a fingerprint like the one above is processed, it is converted to an internal representation as shown below. Each value is one element of the feature vector that is passed to the classifier. They correspond to the features listed in the section called “List of all features”.
+When a fingerprint like the one above is processed, it is converted to an internal representation as shown below. 
+Each value is one element of the feature vector that is passed to the classifier.
+They correspond to the features listed in the section called “List of all features”.
 
         40  S1.PLEN
          0  S1.TC
@@ -837,32 +1351,42 @@ When a fingerprint like the one above is processed, it is converted to an intern
          0  U1.TC
 <Many more lines omitted.>
 
-UNKNOWN values usually mean that no response was received to the relevant probe. UNKNOWN values are mapped to −1 before classification. 
+UNKNOWN values usually mean that no response was received to the relevant probe.
+UNKNOWN values are mapped to −1 before classification. 
 
 
 
 Device Types
 
-As stated in the section called “Device and OS classification (Class lines)”, every reference fingerprint is classified with one or more device types. This list contains the device types used by Nmap and the criteria for classifying a device as each type. These same rules are used to classify the device types in version detection; see the description of the d// field in the section called “match Directive”.
+As stated in the section called “Device and OS classification (Class lines)”, every reference fingerprint is classified with one or more device types. 
+This list contains the device types used by Nmap and the criteria for classifying a device as each type. 
+These same rules are used to classify the device types in version detection; see the description of the d// field in the section called “match Directive”.
 
 general purpose
 
-    This category contains general-purpose operating systems like Linux and Windows. In the nmap-service-probes file this class is indicated by a lack of a d// field. 
+    This category contains general-purpose operating systems like Linux and Windows. 
+    In the nmap-service-probes file this class is indicated by a lack of a d// field. 
 bridge
 
-    A bridge combines two or more subnetworks into one. With a bridge this happens at a lower level than with a router. This category also includes things like Ethernet-to-serial bridges. 
+    A bridge combines two or more subnetworks into one. 
+    With a bridge this happens at a lower level than with a router. 
+    This category also includes things like Ethernet-to-serial bridges. 
 broadband router
 
-    Devices in this category connect a network to the Internet via cable, ADSL, fiber optics, etc. Some of these devices provide network address translation, a firewall, port forwarding, or other services. 
+    Devices in this category connect a network to the Internet via cable, ADSL, fiber optics, etc. 
+    Some of these devices provide network address translation, a firewall, port forwarding, or other services. 
 firewall
 
-    A firewall controls what traffic is allowed into or out of a network. Some also have additional capabilities. This category doesn't include general-purpose operating systems that happen to come with a firewall, but it does include OS distributions purpose-built to work only as a firewall. 
+    A firewall controls what traffic is allowed into or out of a network. 
+    Some also have additional capabilities. 
+    This category doesn't include general-purpose operating systems that happen to come with a firewall, but it does include OS distributions purpose-built to work only as a firewall. 
 game console
 
     A video game console like the Xbox or PlayStation. 
 hub
 
-    A hub joins network segments by re-broadcasting all traffic. Hubs are distinct from switches, which selectively transmit packets only to relevant destinations. 
+    A hub joins network segments by re-broadcasting all traffic. 
+    Hubs are distinct from switches, which selectively transmit packets only to relevant destinations. 
 load balancer
 
     A device that distributes inbound traffic to multiple devices to ease the load on those devices. 
@@ -895,19 +1419,24 @@ remote management
     Devices that allow servers or other equipment to be monitored or managed remotely. 
 router
 
-    Routers connect multiple networks. They are distinct from hubs and switches because they route packets between different networks as opposed to extending one network. 
+    Routers connect multiple networks. 
+    They are distinct from hubs and switches because they route packets between different networks as opposed to extending one network. 
 security-misc
 
-    Any security device that doesn't fall into the “firewall” category belongs in this category. This includes intrusion detection and prevention systems. 
+    Any security device that doesn't fall into the “firewall” category belongs in this category. 
+    This includes intrusion detection and prevention systems. 
 specialized
 
-    The catch-all category. If a device doesn't fall into one of the other categories, it is specialized. Examples in this category are diverse and include such things as clocks, oscilloscopes, climate sensors, and more. 
+    The catch-all category. 
+    If a device doesn't fall into one of the other categories, it is specialized. 
+    Examples in this category are diverse and include such things as clocks, oscilloscopes, climate sensors, and more. 
 storage-misc
 
     Data storage devices like tape decks and network-attached storage appliances. 
 switch
 
-    A device that extends a network by selectively re-broadcasting packets. Switches are distinct from hubs, which broadcast all packets. 
+    A device that extends a network by selectively re-broadcasting packets. 
+    Switches are distinct from hubs, which broadcast all packets. 
 telecom-misc
 
     Devices used by telephone systems that aren't PBXs, like voicemail and ISDN systems. 
@@ -919,31 +1448,52 @@ terminal server
     A device providing terminal facilities to clients over a network. 
 VoIP adapter
 
-    A device that converts between voice over IP (VoIP) protocols and normal telephone traffic. Also may convert different VoIP protocols. 
+    A device that converts between voice over IP (VoIP) protocols and normal telephone traffic. 
+    Also may convert different VoIP protocols. 
 VoIP phone
 
     A phone capable of a VoIP protocol. 
 WAP
 
-    Wireless access points offer a wireless connection to a network. Most work with radio technology like 802.11b but some use infra-red or something else. Devices that could also be put in another category, like wireless broadband routers, are put in the WAP category because WAPs require special network considerations. 
+    Wireless access points offer a wireless connection to a network. 
+    Most work with radio technology like 802.11b but some use infra-red or something else. 
+    Devices that could also be put in another category, like wireless broadband routers, are put in the WAP category because WAPs require special network considerations. 
 webcam
 
-    Any kind of camera that stores or transmits pictures or video. This includes everything from consumer webcams to security system cameras. 
+    Any kind of camera that stores or transmits pictures or video. 
+    This includes everything from consumer webcams to security system cameras. 
     
     
     
     OS Matching Algorithms
 IPv4 matching
 
-Nmap's algorithm for detecting matches is relatively simple. It takes a subject fingerprint and tests it against every single reference fingerprint in nmap-os-db.
+Nmap's algorithm for detecting matches is relatively simple. 
+It takes a subject fingerprint and tests it against every single reference fingerprint in nmap-os-db.
 
-When testing against a reference fingerprint, Nmap looks at each probe category line from the subject fingerprint (such as SEQ or T1) in turn. Any probe lines which do not exist in the reference fingerprint are skipped. When the reference fingerprint does have a matching line, they are compared.
+When testing against a reference fingerprint, Nmap looks at each probe category line from the subject fingerprint (such as SEQ or T1) in turn. 
+Any probe lines which do not exist in the reference fingerprint are skipped. 
+When the reference fingerprint does have a matching line, they are compared.
 
-For a probe line comparison, Nmap examines every individual test (R, DF, W, etc.) from the subject category line in turn. Any tests which do not exist in the reference line are skipped. Whenever a matching test is found, Nmap increments the PossiblePoints accumulator by the number of points assigned to this test. Then the test values are compared. If the reference test has an empty value, the subject test only matches if its value is empty too. If the reference test is just a plain string or number (no operators), the subject test must match it exactly. If the reference string contains operators (|, -, >, or <), the subject must match as described in the section called “Test expressions”. If a test matches, the NumMatchPoints accumulator is incremented by the test's point value.
+For a probe line comparison, Nmap examines every individual test (R, DF, W, etc.) from the subject category line in turn.
+Any tests which do not exist in the reference line are skipped. 
+Whenever a matching test is found, Nmap increments the PossiblePoints accumulator by the number of points assigned to this test. 
+Then the test values are compared. 
+If the reference test has an empty value, the subject test only matches if its value is empty too.
+If the reference test is just a plain string or number (no operators), the subject test must match it exactly. 
+If the reference string contains operators (|, -, >, or <), the subject must match as described in the section called “Test expressions”. 
+If a test matches, the NumMatchPoints accumulator is incremented by the test's point value.
 
-Once all of the probe lines are tested for a fingerprint, Nmap divides NumMatchPoints by PossiblePoints. The result is a confidence factor describing the probability that the subject fingerprint matches that particular reference fingerprint. For example, 1.00 is a perfect match while 0.95 is very close (95%).
+Once all of the probe lines are tested for a fingerprint, Nmap divides NumMatchPoints by PossiblePoints. 
+The result is a confidence factor describing the probability that the subject fingerprint matches that particular reference fingerprint. 
+For example, 1.00 is a perfect match while 0.95 is very close (95%).
 
-Test point values are assigned by a special MatchPoints entry (which may only appear once) in nmap-os-db. This entry looks much like a normal fingerprint, but instead of providing results for each test, it provides point values (non-negative integers) for each test. Tests listed in the MatchPoints structure only apply when found in the same test they are listed in. So a value given for the W (Window size) test in T1 doesn't affect the W test in T3. A test can be effectively disabled by assigning it a point value of 0. An example MatchPoints structure is given in Example 8.10.
+Test point values are assigned by a special MatchPoints entry (which may only appear once) in nmap-os-db. 
+This entry looks much like a normal fingerprint, but instead of providing results for each test, it provides point values (non-negative integers) for each test. 
+Tests listed in the MatchPoints structure only apply when found in the same test they are listed in. 
+So a value given for the W (Window size) test in T1 doesn't affect the W test in T3.
+A test can be effectively disabled by assigning it a point value of 0. 
+An example MatchPoints structure is given in Example 8.10.
 
 Example 8.10. The MatchPoints structure
 
@@ -963,16 +1513,32 @@ U1(R=50%DF=20%T=15%TG=15%TOS=0%IPL=100%UN=100%RIPL=100%RID=100%RIPCK=100%RUCK=10
 IE(R=50%DFI=40%T=15%TG=15%TOSI=0%CD=100%SI=100%DLI=100)
 
 
-Once all of the reference fingerprints have been evaluated, Nmap orders them and prints the perfect matches (if there aren't too many). If there are no perfect matches, but some are very close, Nmap may print those. Guesses are more likely to be printed if the --osscan-guess option is given.
+Once all of the reference fingerprints have been evaluated, Nmap orders them and prints the perfect matches (if there aren't too many). 
+If there are no perfect matches, but some are very close, Nmap may print those.
+Guesses are more likely to be printed if the --osscan-guess option is given.
 IPv6 matching
 
-IPv6 OS classification uses a machine learning technique called logistic regression. Nmap uses the LIBLINEAR library to do this classification. The process starts with a large corpus of training examples, which are fingerprints submitted by Nmap users and carefully labeled with their OS. Each training example is represented by a feature vector, which can be thought of as the “coordinates” of that OS in a multi-dimensional space. The training algorithm calculates an optimal boundary between members of each OS class and members of every other class. It then encodes each of these boundaries as a vector. There is a different vector for each OS class.
+IPv6 OS classification uses a machine learning technique called logistic regression.
+Nmap uses the LIBLINEAR library to do this classification. 
+The process starts with a large corpus of training examples, which are fingerprints submitted by Nmap users and carefully labeled with their OS. 
+Each training example is represented by a feature vector, which can be thought of as the “coordinates” of that OS in a multi-dimensional space. 
+The training algorithm calculates an optimal boundary between members of each OS class and members of every other class.
+It then encodes each of these boundaries as a vector. 
+There is a different vector for each OS class.
 
-When matching, the engine takes each of these boundary vectors in turn and calculates a dot product between it and the feature vector. The result is a single real number. The higher (more positive) the number, the more likely the match. Negative numbers are unlikely matches. A number x is mapped from the range [−∞, ∞] to [0, 100] using the logistic formula 100 × 1 / 1 + ex. (This is the source of the name “logistic regression”.)
+When matching, the engine takes each of these boundary vectors in turn and calculates a dot product between it and the feature vector. 
+The result is a single real number. 
+The higher (more positive) the number, the more likely the match. 
+Negative numbers are unlikely matches. A number x is mapped from the range [−∞, ∞] to [0, 100] using the logistic formula 100 × 1 / 1 + ex. (This is the source of the name “logistic regression”.)
 
-In general, the OS class with the highest score is the most likely match, but in the case of a never-before-seen operating system, it's possible to have a very high score but an inaccurate match nevertheless. Therefore a second “novelty detection” algorithm checks whether the observed fingerprint is very unlike the other representatives of the class. The algorithm finds the Euclidean distance from the observed feature vector to the mean of the feature vectors of the members of the class, scaled in each dimension by the inverse of that feature's dimension. Feature vectors similar to those already seen will have low novelty, and those that are different will have high novelty.
+In general, the OS class with the highest score is the most likely match, but in the case of a never-before-seen operating system, it's possible to have a very high score but an inaccurate match nevertheless. 
+Therefore a second “novelty detection” algorithm checks whether the observed fingerprint is very unlike the other representatives of the class. 
+The algorithm finds the Euclidean distance from the observed feature vector to the mean of the feature vectors of the members of the class, scaled in each dimension by the inverse of that feature's dimension. 
+Feature vectors similar to those already seen will have low novelty, and those that are different will have high novelty.
 
-The OS class with the highest score is reported as a match, but only if the novelty is below 15. Also, if the two highest OS classes have scores that differ by less than 10%, the classification is considered ambiguous and not a successful match. Sample logistic and novelty scores from a run against Mac OS X 10.6.8 are shown in Table 8.9, “OS guesses against Mac OS X”.
+The OS class with the highest score is reported as a match, but only if the novelty is below 15. 
+Also, if the two highest OS classes have scores that differ by less than 10%, the classification is considered ambiguous and not a successful match. 
+Sample logistic and novelty scores from a run against Mac OS X 10.6.8 are shown in Table 8.9, “OS guesses against Mac OS X”.
 
 Table 8.9. OS guesses against Mac OS X
 Score	Novelty	OS class
@@ -989,54 +1555,90 @@ e)
 2.03%	68.55	Apple Mac OS X 10.6.8 (Snow Leopard) (Darwin 10.8.0)
 0.59%	79.61	FreeBSD 6.1-RELEASE
 
-There isn't a separate data file containing the IPv6 OS database as there is with IPv4. The database is stored in C++ source code file FPModel.cc. This file contains scaling constants (used to put feature values roughly into the range [−1, 1]), and the boundary vectors described above. 
+There isn't a separate data file containing the IPv6 OS database as there is with IPv4. 
+The database is stored in C++ source code file FPModel.cc.
+This file contains scaling constants (used to put feature values roughly into the range [−1, 1]), and the boundary vectors described above. 
 
 
 
 
 Dealing with Misidentified and Unidentified Hosts
 
-While Nmap has a huge database, it cannot detect everything. Nmap has no chance to detect most toasters, refrigerators, chairs, or automobiles because they have no IP stack. Yet I wouldn't rule any of these out, given the ever-expanding list of connected devices. The Nmap fingerprint DB includes plenty of game consoles, phones, thermometers, cameras, interactive toys, and media players.
+While Nmap has a huge database, it cannot detect everything. 
+Nmap has no chance to detect most toasters, refrigerators, chairs, or automobiles because they have no IP stack. 
+Yet I wouldn't rule any of these out, given the ever-expanding list of connected devices.
+The Nmap fingerprint DB includes plenty of game consoles, phones, thermometers, cameras, interactive toys, and media players.
 
-Having an IP address is necessary but not sufficient to guarantee a proper fingerprint. Nmap may still guess wrong or fail to produce any guess at all. Here are some suggestions for improving your results:
+Having an IP address is necessary but not sufficient to guarantee a proper fingerprint.
+Nmap may still guess wrong or fail to produce any guess at all. Here are some suggestions for improving your results:
 
 Upgrade to the latest Nmap
 
-    Many Linux distributions and other operating systems ship with ancient versions of Nmap. The Nmap OS database is improved with almost every release, so check your version number by running nmap -V and then compare that to the latest available from http://nmap.org/download.html. Installing the newest version takes only a few minutes on most platforms.
+    Many Linux distributions and other operating systems ship with ancient versions of Nmap. 
+    The Nmap OS database is improved with almost every release, so check your version number by running nmap -V and then compare that to the latest available from http://nmap.org/download.html.
+    Installing the newest version takes only a few minutes on most platforms.
 Scan all ports
 
-    When Nmap detects OS detection problems against a certain host, it will issue warnings. One of the most common is: “Warning: OS detection will be MUCH less reliable because we did not find at least 1 open and 1 closed TCP port”. It is possible that such ports really are unavailable on the machine, but retrying your scan with -p- to scan all ports may find some that are responsive for OS detection. Doing a UDP scan (-sU) too can help even more, though it will slow the scan substantially.
+    When Nmap detects OS detection problems against a certain host, it will issue warnings. 
+    One of the most common is: “Warning: OS detection will be MUCH less reliable because we did not find at least 1 open and 1 closed TCP port”. 
+    It is possible that such ports really are unavailable on the machine, but retrying your scan with -p- to scan all ports may find some that are responsive for OS detection.
+    Doing a UDP scan (-sU) too can help even more, though it will slow the scan substantially.
 Try a more aggressive guess
 
-    If Nmap says there are no matches close enough to print, something is probably wrong. Maybe a firewall or NAT box in the way is modifying the probe or response packets. This can cause a hybrid situation where one group of tests look like they are from one OS, while another set look completely different. Adding the --osscan-guess may give more clues as to what is running.
+    If Nmap says there are no matches close enough to print, something is probably wrong. 
+    Maybe a firewall or NAT box in the way is modifying the probe or response packets. 
+    This can cause a hybrid situation where one group of tests look like they are from one OS, while another set look completely different. 
+    Adding the --osscan-guess may give more clues as to what is running.
 Scan from a different location
 
-    The more network hops your packet has to go through to reach its target, the greater the chances that a network device will modify (or drop) the probe or response. NAT gateways, firewalls, and especially port forwarding can confuse OS detection. If you are scanning the IP of a load balancing device which simply redirects packets to a diverse network of servers, it isn't even clear what the “correct” OS detection result would be.
+    The more network hops your packet has to go through to reach its target, the greater the chances that a network device will modify (or drop) the probe or response. 
+    NAT gateways, firewalls, and especially port forwarding can confuse OS detection. 
+    If you are scanning the IP of a load balancing device which simply redirects packets to a diverse network of servers, it isn't even clear what the “correct” OS detection result would be.
 
-    Many ISPs filter traffic to “bad” ports, and others use transparent proxies to redirect certain ports to their own servers. The port 25 or 80 you think are open on your target may actually be spoofed from your ISP to connect to ISP proxy servers. Another behavior which can confuse OS detection is when firewalls spoof TCP reset packets as if they are coming from the destination host. This is particularly common from port 113 (identd). Both the reset spoofing and transparent proxies can often be detected by noticing that every machine on a target network seems to exhibit the behavior—even those which otherwise seem to be down. If you detect any such nonsense, be sure to exclude these ports from your scan so they don't taint your results. You may also want to try from a completely different network location. The closer you are to the target, the more accurate the results will be. In a perfect case, you would always scan the target from the same network segment it resides on.
+    Many ISPs filter traffic to “bad” ports, and others use transparent proxies to redirect certain ports to their own servers.
+    The port 25 or 80 you think are open on your target may actually be spoofed from your ISP to connect to ISP proxy servers. 
+    Another behavior which can confuse OS detection is when firewalls spoof TCP reset packets as if they are coming from the destination host. 
+    This is particularly common from port 113 (identd). 
+	Both the reset spoofing and transparent proxies can often be detected by noticing that every machine on a target network seems to exhibit the behavior—even those which otherwise seem to be down. 
+    If you detect any such nonsense, be sure to exclude these ports from your scan so they don't taint your results. 
+    You may also want to try from a completely different network location. 
+    The closer you are to the target, the more accurate the results will be.
+    In a perfect case, you would always scan the target from the same network segment it resides on.
 
 When Nmap Guesses Wrong
 
-Occasionally Nmap will report an OS guess which you know is wrong. The errors are usually minor (such as reporting a machine running Linux 2.4.16 as “Linux kernel 2.4.8 - 2.4.15”), but there have been reports of Nmap being completely off (such as reporting your web server as an AppleWriter printer). When you encounter such problems (minor or major), please report them so everyone can benefit. The only reason the Nmap DB is so comprehensive is that thousands of users have spent a few minutes each to submit new information. Please follow these instructions:
+Occasionally Nmap will report an OS guess which you know is wrong. 
+The errors are usually minor (such as reporting a machine running Linux 2.4.16 as “Linux kernel 2.4.8 - 2.4.15”), but there have been reports of Nmap being completely off (such as reporting your web server as an AppleWriter printer). 
+When you encounter such problems (minor or major), please report them so everyone can benefit. 
+The only reason the Nmap DB is so comprehensive is that thousands of users have spent a few minutes each to submit new information. 
+Please follow these instructions:
 
 Have a recent version of Nmap
 
-    Run nmap -V to determine which version of Nmap you have. You don't need to be running the absolute latest version of Nmap (though that would be ideal), but make sure your version is 4.20 or higher because we only need second generation OS fingerprints, not the old style produced by previous versions. You can determine the latest available version of Nmap by visiting http://nmap.org/download.html. If you upgrade, you might find that the mis-identification has already been fixed.
+    Run nmap -V to determine which version of Nmap you have.
+    You don't need to be running the absolute latest version of Nmap (though that would be ideal), but make sure your version is 4.20 or higher because we only need second generation OS fingerprints, not the old style produced by previous versions. You can determine the latest available version of Nmap by visiting http://nmap.org/download.html. If you upgrade, you might find that the mis-identification has already been fixed.
 Be absolutely certain you know what is running
 
-    Invalid “corrections” can corrupt the OS DB. If you aren't certain exactly what is running on the remote machine, please find out before submitting.
+    Invalid “corrections” can corrupt the OS DB. 
+    If you aren't certain exactly what is running on the remote machine, please find out before submitting.
 Generate a fingerprint
 
-    Run the command nmap -O -sV -T4 -d <target>, where <target> is the misidentified system in question. Look at the OS detection results to ensure that the misidentification is still present. If you are scanning the target system over IPv6, add the -6 option as well.
+    Run the command nmap -O -sV -T4 -d <target>, where <target> is the misidentified system in question.
+    Look at the OS detection results to ensure that the misidentification is still present. 
+    If you are scanning the target system over IPv6, add the -6 option as well.
 
-    If the Nmap output for the host OS results says (JUST GUESSING), it is expected that results may be a little off. Don't submit a correction in this case.
+    If the Nmap output for the host OS results says (JUST GUESSING), it is expected that results may be a little off. 
+    Don't submit a correction in this case.
 
-    Otherwise, the map command should have produced results including the line OS fingerprint:. Below that is the fingerprint (a series of lines which each start with OS:).
+    Otherwise, the map command should have produced results including the line OS fingerprint:.
+    Below that is the fingerprint (a series of lines which each start with OS:).
 Check that OS detection works against other hosts
 
-    Try scanning a couple other hosts on the target network which you know have a different OS. If they aren't detected properly, maybe there is some network obstruction between the systems which is corrupting the packets.
+    Try scanning a couple other hosts on the target network which you know have a different OS. 
+    If they aren't detected properly, maybe there is some network obstruction between the systems which is corrupting the packets.
 
-If you have gotten this far and are still able to submit, good for you! Please submit the information at http://insecure.org/cgi-bin/submit.cgi?corr-os
+If you have gotten this far and are still able to submit, good for you! 
+Please submit the information at http://insecure.org/cgi-bin/submit.cgi?corr-os
 When Nmap Fails to Find a Match and Prints a Fingerprint
 
 When Nmap detects that OS detection conditions seem ideal and yet it finds no exact matches, it will print out a message like this:
@@ -1055,12 +1657,15 @@ OS:=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
 OS:T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%U
 OS:N=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
 
-Please consider submitting the fingerprint so that all Nmap users can benefit. It only takes a minute or two and it may mean you don't need to see that ugly message again when you scan the host with the next Nmap version! Simply visit the URL Nmap provides for instructions.
+Please consider submitting the fingerprint so that all Nmap users can benefit. 
+It only takes a minute or two and it may mean you don't need to see that ugly message again when you scan the host with the next Nmap version!
+Simply visit the URL Nmap provides for instructions.
 
-If Nmap finds no matches and yet prints no fingerprint, conditions were not ideal. Even if you obtain the fingerprint through debug mode or XML output, please don't submit it unless Nmap asks you to (as in the previous example).
+If Nmap finds no matches and yet prints no fingerprint, conditions were not ideal. 
+Even if you obtain the fingerprint through debug mode or XML output, please don't submit it unless Nmap asks you to (as in the previous example).
 Modifying the nmap-os-db Database Yourself
 
-People often ask about integrating a fingerprint themselves rather than (or in addition to) submitting it to Nmap.Org. While we don't offer detailed instructions or scripts for this, it is certainly possible after you become intimately familiar with the section called “Understanding an Nmap Fingerprint”. I hope this is useful for your purposes, but there is no need to send your own reference fingerprint creations to us. We can only integrate raw subject fingerprint submissions from the web form.
-
-
-
+People often ask about integrating a fingerprint themselves rather than (or in addition to) submitting it to Nmap.Org. 
+While we don't offer detailed instructions or scripts for this, it is certainly possible after you become intimately familiar with the section called “Understanding an Nmap Fingerprint”. 
+I hope this is useful for your purposes, but there is no need to send your own reference fingerprint creations to us. 
+We can only integrate raw subject fingerprint submissions from the web form.
