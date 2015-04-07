@@ -1,33 +1,54 @@
 
 Introduction
 
-The Nmap Scripting Engine (NSE) is one of Nmap's most powerful and flexible features. It allows users to write (and share) simple scripts to automate a wide variety of networking tasks. Those scripts are then executed in parallel with the speed and efficiency you expect from Nmap. Users can rely on the growing and diverse set of scripts distributed with Nmap, or write their own to meet custom needs.
+The Nmap Scripting Engine (NSE) is one of Nmap's most powerful and flexible features. 
+It allows users to write (and share) simple scripts to automate a wide variety of networking tasks. 
+Those scripts are then executed in parallel with the speed and efficiency you expect from Nmap. 
+Users can rely on the growing and diverse set of scripts distributed with Nmap, or write their own to meet custom needs.
 
 We designed NSE to be versatile, with the following tasks in mind:
 
 Network discovery
 
-    This is Nmap's bread and butter. Examples include looking up whois data based on the target domain, querying ARIN, RIPE, or APNIC for the target IP to determine ownership, performing identd lookups on open ports, SNMP queries, and listing available NFS/SMB/RPC shares and services.
+    This is Nmap's bread and butter. 
+    Examples include looking up whois data based on the target domain, querying ARIN, RIPE, or APNIC for the target IP to determine ownership, performing identd lookups on open ports, SNMP queries, and listing available NFS/SMB/RPC shares and services.
 More sophisticated version detection
 
-    The Nmap version detection system (Chapter 7, Service and Application Version Detection) is able to recognize thousands of different services through its probe and regular expression signature based matching system, but it cannot recognize everything. For example, identifying the Skype v2 service requires two independent probes, which version detection isn't flexible enough to handle. Nmap could also recognize more SNMP services if it tried a few hundred different community names by brute force. Neither of these tasks are well suited to traditional Nmap version detection, but both are easily accomplished with NSE. For these reasons, version detection now calls NSE by default to handle some tricky services. This is described in the section called “Version Detection Using NSE”.
+    The Nmap version detection system (Chapter 7, Service and Application Version Detection) is able to recognize thousands of different services through its probe and regular expression signature based matching system, but it cannot recognize everything. 
+    For example, identifying the Skype v2 service requires two independent probes, which version detection isn't flexible enough to handle. 
+    Nmap could also recognize more SNMP services if it tried a few hundred different community names by brute force. 
+    Neither of these tasks are well suited to traditional Nmap version detection, but both are easily accomplished with NSE. 
+    For these reasons, version detection now calls NSE by default to handle some tricky services. 
+    This is described in the section called “Version Detection Using NSE”.
 Vulnerability detection
 
-    When a new vulnerability is discovered, you often want to scan your networks quickly to identify vulnerable systems before the bad guys do. While Nmap isn't a comprehensive vulnerability scanner, NSE is powerful enough to handle even demanding vulnerability checks. Many vulnerability detection scripts are already available and we plan to distribute more as they are written. 
+    When a new vulnerability is discovered, you often want to scan your networks quickly to identify vulnerable systems before the bad guys do. 
+    While Nmap isn't a comprehensive vulnerability scanner, NSE is powerful enough to handle even demanding vulnerability checks. 
+    Many vulnerability detection scripts are already available and we plan to distribute more as they are written. 
 Backdoor detection
 
-    Many attackers and some automated worms leave backdoors to enable later reentry. Some of these can be detected by Nmap's regular expression based version detection. For example, within hours of the MyDoom worm hitting the Internet, Jay Moran posted an Nmap version detection probe and signature so that others could quickly scan their networks for MyDoom infections. NSE is needed to reliably detect more complex worms and backdoors. 
+    Many attackers and some automated worms leave backdoors to enable later reentry. 
+    Some of these can be detected by Nmap's regular expression based version detection. 
+    For example, within hours of the MyDoom worm hitting the Internet, Jay Moran posted an Nmap version detection probe and signature so that others could quickly scan their networks for MyDoom infections. 
+    NSE is needed to reliably detect more complex worms and backdoors. 
 Vulnerability exploitation
 
-    As a general scripting language, NSE can even be used to exploit vulnerabilities rather than just find them. The capability to add custom exploit scripts may be valuable for some people (particularly penetration testers), though we aren't planning to turn Nmap into an exploitation framework such as Metasploit. 
+    As a general scripting language, NSE can even be used to exploit vulnerabilities rather than just find them. 
+    The capability to add custom exploit scripts may be valuable for some people (particularly penetration testers), though we aren't planning to turn Nmap into an exploitation framework such as Metasploit. 
 
 These listed items were our initial goals, and we expect Nmap users to come up with even more inventive uses for NSE.
 
-Scripts are written in the embedded Lua programming language, version 5.2. The language itself is well documented in the books Programming in Lua, Second Edition and Lua 5.1 Reference Manual. The reference manual, updated for Lua 5.2, is also freely available online, as is the first edition of Programming in Lua. Given the availability of these excellent general Lua programming references, this document only covers aspects and extensions specific to Nmap's scripting engine.
+Scripts are written in the embedded Lua programming language, version 5.2. 
+The language itself is well documented in the books Programming in Lua, Second Edition and Lua 5.1 Reference Manual. 
+The reference manual, updated for Lua 5.2, is also freely available online, as is the first edition of Programming in Lua. 
+Given the availability of these excellent general Lua programming references, this document only covers aspects and extensions specific to Nmap's scripting engine.
 
 NSE is activated with the -sC option (or --script if you wish to specify a custom set of scripts) and results are integrated into Nmap normal and XML output.
 
-A typical script scan is shown in the Example 9.1. Service scripts producing output in this example are ssh-hostkey, which provides the system's RSA and DSA SSH keys, and rpcinfo, which queries portmapper to enumerate available services. The only host script producing output in this example is smb-os-discovery, which collects a variety of information from SMB servers. Nmap discovered all of this information in a third of a second.
+A typical script scan is shown in the Example 9.1. 
+Service scripts producing output in this example are ssh-hostkey, which provides the system's RSA and DSA SSH keys, and rpcinfo, which queries portmapper to enumerate available services. 
+The only host script producing output in this example is smb-os-discovery, which collects a variety of information from SMB servers. 
+Nmap discovered all of this information in a third of a second.
 
 Example 9.1. Typical NSE output
 
@@ -54,102 +75,173 @@ Host script results:
 Nmap done: 1 IP address (1 host up) scanned in 0.33 seconds
 
 
-A 38-minute video introduction to NSE is available at http://nmap.org/presentations/BHDC10/. This presentation was given by Fyodor and David Fifield at Defcon and the Black Hat Briefings in 2010.
+A 38-minute video introduction to NSE is available at http://nmap.org/presentations/BHDC10/. 
+This presentation was given by Fyodor and David Fifield at Defcon and the Black Hat Briefings in 2010.
 
 
 Usage and Examples
 
-While NSE has a complex implementation for efficiency, it is strikingly easy to use. Simply specify -sC to enable the most common scripts. Or specify the --script option to choose your own scripts to execute by providing categories, script file names, or the name of directories full of scripts you wish to execute. You can customize some scripts by providing arguments to them via the --script-args and --script-args-file options. The --script-help shows a description of what each selected script does. The two remaining options, --script-trace and --script-updatedb, are generally only used for script debugging and development. Script scanning is also included as part of the -A (aggressive scan) option.
+While NSE has a complex implementation for efficiency, it is strikingly easy to use. 
+Simply specify -sC to enable the most common scripts. 
+Or specify the --script option to choose your own scripts to execute by providing categories, script file names, or the name of directories full of scripts you wish to execute. 
+You can customize some scripts by providing arguments to them via the --script-args and --script-args-file options. 
+The --script-help shows a description of what each selected script does. 
+The two remaining options, --script-trace and --script-updatedb, are generally only used for script debugging and development. 
+Script scanning is also included as part of the -A (aggressive scan) option.
 
-Script scanning is normally done in combination with a port scan, because scripts may be run or not run depending on the port states found by the scan. With the -sn option it is possible to run a script scan without a port scan, only host discovery. In this case only host scripts will be eligible to run. To run a script scan with neither a host discovery nor a port scan, use the -Pn -sn options together with -sC or --script. Every host will be assumed up and still only host scripts will be run. This technique is useful for scripts like whois that only use the remote system's address and don't require it to be up.
+Script scanning is normally done in combination with a port scan, because scripts may be run or not run depending on the port states found by the scan. 
+With the -sn option it is possible to run a script scan without a port scan, only host discovery. 
+In this case only host scripts will be eligible to run. 
+To run a script scan with neither a host discovery nor a port scan, use the -Pn -sn options together with -sC or --script. 
+Every host will be assumed up and still only host scripts will be run. 
+This technique is useful for scripts like whois that only use the remote system's address and don't require it to be up.
 
-Scripts are not run in a sandbox and thus could accidentally or maliciously damage your system or invade your privacy. Never run scripts from third parties unless you trust the authors or have carefully audited the scripts yourself.
+Scripts are not run in a sandbox and thus could accidentally or maliciously damage your system or invade your privacy. 
+Never run scripts from third parties unless you trust the authors or have carefully audited the scripts yourself.
 Script Categories
 
-NSE scripts define a list of categories they belong to. Currently defined categories are auth, broadcast, brute, default. discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln. Category names are not case sensitive. The following list describes each category.
+NSE scripts define a list of categories they belong to. 
+Currently defined categories are auth, broadcast, brute, default. discovery, dos, exploit, external, fuzzer, intrusive, malware, safe, version, and vuln. 
+Category names are not case sensitive. 
+The following list describes each category.
 
 auth
 
-    These scripts deal with authentication credentials (or bypassing them) on the target system. Examples include x11-access, ftp-anon, and oracle-enum-users. Scripts which use brute force attacks to determine credentials are placed in the brute category instead.
+    These scripts deal with authentication credentials (or bypassing them) on the target system. 
+    Examples include x11-access, ftp-anon, and oracle-enum-users. 
+    Scripts which use brute force attacks to determine credentials are placed in the brute category instead.
 broadcast
 
-    Scripts in this category typically do discovery of hosts not listed on the command line by broadcasting on the local network. Use the newtargets script argument to allow these scripts to automatically add the hosts they discover to the Nmap scanning queue.
+    Scripts in this category typically do discovery of hosts not listed on the command line by broadcasting on the local network. 
+    Use the newtargets script argument to allow these scripts to automatically add the hosts they discover to the Nmap scanning queue.
 brute
 
-    These scripts use brute force attacks to guess authentication credentials of a remote server. Nmap contains scripts for brute forcing dozens of protocols, including http-brute, oracle-brute, snmp-brute, etc.
+    These scripts use brute force attacks to guess authentication credentials of a remote server. 
+    Nmap contains scripts for brute forcing dozens of protocols, including http-brute, oracle-brute, snmp-brute, etc.
 default
 
-    These scripts are the default set and are run when using the -sC or -A options rather than listing scripts with --script. This category can also be specified explicitly like any other using --script=default. Many factors are considered in deciding whether a script should be run by default:
+    These scripts are the default set and are run when using the -sC or -A options rather than listing scripts with --script. 
+    This category can also be specified explicitly like any other using --script=default. 
+    Many factors are considered in deciding whether a script should be run by default:
 
     Speed
 
         A default scan must finish quickly, which excludes brute force authentication crackers, web spiders, and any other scripts which can take minutes or hours to scan a single service.
     Usefulness
 
-        Default scans need to produce valuable and actionable information. If even the script author has trouble explaining why an average networking or security professional would find the output valuable, the script should not run by default.
+        Default scans need to produce valuable and actionable information. 
+        If even the script author has trouble explaining why an average networking or security professional would find the output valuable, the script should not run by default.
     Verbosity
 
-        Nmap output is used for a wide variety of purposes and needs to be readable and concise. A script which frequently produces pages full of output should not be added to the default category. When there is no important information to report, NSE scripts (particularly default ones) should return nothing. Checking for an obscure vulnerability may be OK by default as long as it only produces output when that vulnerability is discovered.
+        Nmap output is used for a wide variety of purposes and needs to be readable and concise. 
+        A script which frequently produces pages full of output should not be added to the default category. 
+        When there is no important information to report, NSE scripts (particularly default ones) should return nothing. 
+        Checking for an obscure vulnerability may be OK by default as long as it only produces output when that vulnerability is discovered.
     Reliability
 
-        Many scripts use heuristics and fuzzy signature matching to reach conclusions about the target host or service. Examples include sniffer-detect and sql-injection. If the script is often wrong, it doesn't belong in the default category where it may confuse or mislead casual users. Users who specify a script or category directly are generally more advanced and likely know how the script works or at least where to find its documentation.
+        Many scripts use heuristics and fuzzy signature matching to reach conclusions about the target host or service. 
+        Examples include sniffer-detect and sql-injection. 
+        If the script is often wrong, it doesn't belong in the default category where it may confuse or mislead casual users. 
+        Users who specify a script or category directly are generally more advanced and likely know how the script works or at least where to find its documentation.
     Intrusiveness
 
-        Some scripts are very intrusive because they use significant resources on the remote system, are likely to crash the system or service, or are likely to be perceived as an attack by the remote administrators. The more intrusive a script is, the less suitable it is for the default category. Default scripts are almost always in the safe category too, though we occasionally allow intrusive scripts by default when they are only mildly intrusive and score well in the other factors.
+        Some scripts are very intrusive because they use significant resources on the remote system, are likely to crash the system or service, or are likely to be perceived as an attack by the remote administrators. 
+        The more intrusive a script is, the less suitable it is for the default category. 
+        Default scripts are almost always in the safe category too, though we occasionally allow intrusive scripts by default when they are only mildly intrusive and score well in the other factors.
     Privacy
 
-        Some scripts, particularly those in the external category described later, divulge information to third parties by their very nature. For example, the whois script must divulge the target IP address to regional whois registries. We have also considered (and decided against) adding scripts which check target SSH and SSL key fingerprints against Internet weak key databases. The more privacy-invasive a script is, the less suitable it is for default category inclusion.
+        Some scripts, particularly those in the external category described later, divulge information to third parties by their very nature. 
+        For example, the whois script must divulge the target IP address to regional whois registries. 
+        We have also considered (and decided against) adding scripts which check target SSH and SSL key fingerprints against Internet weak key databases. 
+        The more privacy-invasive a script is, the less suitable it is for default category inclusion.
 
-    We don't have exact thresholds for each of these criteria, and many of them are subjective. All of these factors are considered together when making a decision whether to promote a script into the default category. A few default scripts are identd-owners (determines the username running remote services using identd), http-auth (obtains authentication scheme and realm of web sites requiring authentication), and ftp-anon (tests whether an FTP server allows anonymous access).
+    We don't have exact thresholds for each of these criteria, and many of them are subjective. 
+    All of these factors are considered together when making a decision whether to promote a script into the default category. 
+    A few default scripts are identd-owners (determines the username running remote services using identd), http-auth (obtains authentication scheme and realm of web sites requiring authentication), and ftp-anon (tests whether an FTP server allows anonymous access).
 discovery
 
-    These scripts try to actively discover more about the network by querying public registries, SNMP-enabled devices, directory services, and the like. Examples include html-title (obtains the title of the root path of web sites), smb-enum-shares (enumerates Windows shares), and snmp-sysdescr (extracts system details via SNMP).
+    These scripts try to actively discover more about the network by querying public registries, SNMP-enabled devices, directory services, and the like. 
+    Examples include html-title (obtains the title of the root path of web sites), smb-enum-shares (enumerates Windows shares), and snmp-sysdescr (extracts system details via SNMP).
 dos
 
-    Scripts in this category may cause a denial of service. Sometimes this is done to test vulnerability to a denial of service method, but more commonly it is an undesired by necessary side effect of testing for a traditional vulnerability. These tests sometimes crash vulnerable services.
+    Scripts in this category may cause a denial of service. 
+    Sometimes this is done to test vulnerability to a denial of service method, but more commonly it is an undesired by necessary side effect of testing for a traditional vulnerability. 
+    These tests sometimes crash vulnerable services.
 exploit
 
     These scripts aim to actively exploit some vulnerability.
 external
 
-    Scripts in this category may send data to a third-party database or other network resource. An example of this is whois, which makes a connection to whois servers to learn about the address of the target. There is always the possibility that operators of the third-party database will record anything you send to them, which in many cases will include your IP address and the address of the target. Most scripts involve traffic strictly between the scanning computer and the client; any that do not are placed in this category.
+    Scripts in this category may send data to a third-party database or other network resource. 
+    An example of this is whois, which makes a connection to whois servers to learn about the address of the target. 
+    There is always the possibility that operators of the third-party database will record anything you send to them, which in many cases will include your IP address and the address of the target. 
+    Most scripts involve traffic strictly between the scanning computer and the client; any that do not are placed in this category.
 fuzzer
 
-    This category contains scripts which are designed to send server software unexpected or randomized fields in each packet. While this technique can useful for finding undiscovered bugs and vulnerabilities in software, it is both a slow process and bandwidth intensive. An example of a script in this category is dns-fuzz, which bombards a DNS server with slightly flawed domain requests until either the server crashes or a user specified time limit elapses.
+    This category contains scripts which are designed to send server software unexpected or randomized fields in each packet. 
+    While this technique can useful for finding undiscovered bugs and vulnerabilities in software, it is both a slow process and bandwidth intensive. 
+    An example of a script in this category is dns-fuzz, which bombards a DNS server with slightly flawed domain requests until either the server crashes or a user specified time limit elapses.
 intrusive
 
-    These are scripts that cannot be classified in the safe category because the risks are too high that they will crash the target system, use up significant resources on the target host (such as bandwidth or CPU time), or otherwise be perceived as malicious by the target's system administrators. Examples are http-open-proxy (which attempts to use the target server as an HTTP proxy) and snmp-brute (which tries to guess a device's SNMP community string by sending common values such as public, private, and cisco). Unless a script is in the special version category, it should be categorized as either safe or intrusive.
+    These are scripts that cannot be classified in the safe category because the risks are too high that they will crash the target system, use up significant resources on the target host (such as bandwidth or CPU time), or otherwise be perceived as malicious by the target's system administrators. 
+    Examples are http-open-proxy (which attempts to use the target server as an HTTP proxy) and snmp-brute (which tries to guess a device's SNMP community string by sending common values such as public, private, and cisco). 
+    Unless a script is in the special version category, it should be categorized as either safe or intrusive.
 malware
 
-    These scripts test whether the target platform is infected by malware or backdoors. Examples include smtp-strangeport, which watches for SMTP servers running on unusual port numbers, and auth-spoof, which detects identd spoofing daemons which provide a fake answer before even receiving a query. Both of these behaviors are commonly associated with malware infections.
+    These scripts test whether the target platform is infected by malware or backdoors. 
+    Examples include smtp-strangeport, which watches for SMTP servers running on unusual port numbers, and auth-spoof, which detects identd spoofing daemons which provide a fake answer before even receiving a query. 
+    Both of these behaviors are commonly associated with malware infections.
 safe
 
-    Scripts which weren't designed to crash services, use large amounts of network bandwidth or other resources, or exploit security holes are categorized as safe. These are less likely to offend remote administrators, though (as with all other Nmap features) we cannot guarantee that they won't ever cause adverse reactions. Most of these perform general network discovery. Examples are ssh-hostkey (retrieves an SSH host key) and html-title (grabs the title from a web page). Scripts in the version category are not categorized by safety, but any other scripts which aren't in safe should be placed in intrusive.
+    Scripts which weren't designed to crash services, use large amounts of network bandwidth or other resources, or exploit security holes are categorized as safe. 
+    These are less likely to offend remote administrators, though (as with all other Nmap features) we cannot guarantee that they won't ever cause adverse reactions. 
+    Most of these perform general network discovery. 
+    Examples are ssh-hostkey (retrieves an SSH host key) and html-title (grabs the title from a web page). 
+    Scripts in the version category are not categorized by safety, but any other scripts which aren't in safe should be placed in intrusive.
 version
 
-    The scripts in this special category are an extension to the version detection feature and cannot be selected explicitly. They are selected to run only if version detection (-sV) was requested. Their output cannot be distinguished from version detection output and they do not produce service or host script results. Examples are skypev2-version, pptp-version, and iax2-version.
+    The scripts in this special category are an extension to the version detection feature and cannot be selected explicitly. 
+    They are selected to run only if version detection (-sV) was requested. 
+    Their output cannot be distinguished from version detection output and they do not produce service or host script results. 
+    Examples are skypev2-version, pptp-version, and iax2-version.
 vuln
 
-    These scripts check for specific known vulnerabilities and generally only report results if they are found. Examples include realvnc-auth-bypass and afp-path-vuln.
+    These scripts check for specific known vulnerabilities and generally only report results if they are found. 
+    Examples include realvnc-auth-bypass and afp-path-vuln.
 
 Script Types and Phases
 
-NSE supports four types of scripts, which are distinguished by the kind of targets they take and the scanning phase in which they are run. Individual scripts may support multiple types of operation.
+NSE supports four types of scripts, which are distinguished by the kind of targets they take and the scanning phase in which they are run. 
+Individual scripts may support multiple types of operation.
 
 Prerule scripts
 
-    These scripts run before any of Nmap's scan phases, so Nmap has not collected any information about its targets yet. They can be useful for tasks which don't depend on specific scan targets, such as performing network broadcast requests to query DHCP and DNS SD servers. Some of these scripts can generate new targets for Nmap to scan (only if you specify the newtargets NSE argument). For example, dns-zone-transfer can obtain a list of IPs in a domain using a zone transfer request and then automatically add them to Nmap's scan target list. Prerule scripts can be identified by containing a prerule function (see the section called “Rules”). 
+    These scripts run before any of Nmap's scan phases, so Nmap has not collected any information about its targets yet. 
+    They can be useful for tasks which don't depend on specific scan targets, such as performing network broadcast requests to query DHCP and DNS SD servers. 
+    Some of these scripts can generate new targets for Nmap to scan (only if you specify the newtargets NSE argument). 
+    For example, dns-zone-transfer can obtain a list of IPs in a domain using a zone transfer request and then automatically add them to Nmap's scan target list. 
+    Prerule scripts can be identified by containing a prerule function (see the section called “Rules”). 
 Host scripts
 
-    Scripts in this phase run during Nmap's normal scanning process after Nmap has performed host discovery, port scanning, version detection, and OS detection against the target host. This type of script is invoked once against each target host which matches its hostrule function. Examples are whois, which looks up ownership information for a target IP, and path-mtu which tries to determine the maximum IP packet size which can reach the target without requiring fragmentation. 
+    Scripts in this phase run during Nmap's normal scanning process after Nmap has performed host discovery, port scanning, version detection, and OS detection against the target host. 
+    This type of script is invoked once against each target host which matches its hostrule function. 
+    Examples are whois, which looks up ownership information for a target IP, and path-mtu which tries to determine the maximum IP packet size which can reach the target without requiring fragmentation. 
 Service scripts
 
-    These scripts run against specific services listening on a target host. For example, Nmap includes more than 15 http service scripts to run against web servers. If a host has web servers running on multiple ports, those scripts may run multiple times (one for each port). These are the most commong Nmap script type, and they are distinguished by containing a portrule function for deciding which detected services a script should run against. 
+    These scripts run against specific services listening on a target host. 
+    For example, Nmap includes more than 15 http service scripts to run against web servers. 
+    If a host has web servers running on multiple ports, those scripts may run multiple times (one for each port). 
+    These are the most commong Nmap script type, and they are distinguished by containing a portrule function for deciding which detected services a script should run against. 
 Postrule scripts
 
-    These scripts run after Nmap has scanned all of its targets. They can be useful for formatting and presenting Nmap output. For example, ssh-hostkey is best known for its service (portrule) script which connects to SSH servers, discovers their public keys, and prints them. But it also includes a postrule which checks for duplicate keys amongst all of the hosts scanned, then prints any that are found. Another potential use for a postrule script is printing a reverse-index of the Nmap output—showing which hosts run a particular service rather than just listing the services on each host. Postrule scripts are identified by containing a postrule function.
+    These scripts run after Nmap has scanned all of its targets. 
+    They can be useful for formatting and presenting Nmap output. 
+    For example, ssh-hostkey is best known for its service (portrule) script which connects to SSH servers, discovers their public keys, and prints them. 
+    But it also includes a postrule which checks for duplicate keys amongst all of the hosts scanned, then prints any that are found. Another potential use for a postrule script is printing a reverse-index of the Nmap output—showing which hosts run a particular service rather than just listing the services on each host. 
+    Postrule scripts are identified by containing a postrule function.
 
-    Many scripts could potentially run as either a prerule or postrule script. In those cases, we recommend using a prerule for consistency.
+    Many scripts could potentially run as either a prerule or postrule script. 
+    In those cases, we recommend using a prerule for consistency.
 
 Command-line Arguments
 
@@ -157,14 +249,23 @@ These are the five command-line arguments specific to script scanning:
 
 -sC
 
-    Performs a script scan using the default set of scripts. It is equivalent to --script=default. Some of the scripts in this default category are considered intrusive and should not be run against a target network without permission. 
+    Performs a script scan using the default set of scripts. 
+    It is equivalent to --script=default. Some of the scripts in this default category are considered intrusive and should not be run against a target network without permission. 
 --script <filename>|<category>|<directory>|<expression>[,...]
 
-    Runs a script scan using the comma-separated list of filenames, script categories, and directories. Each element in the list may also be a Boolean expression describing a more complex set of scripts. Each element is interpreted first as an expression, then as a category, and finally as a file or directory name. The special argument all makes every script in Nmap's script database eligible to run. The all argument should be used with caution as NSE may contain dangerous scripts including exploits, brute force authentication crackers, and denial of service attacks.
+    Runs a script scan using the comma-separated list of filenames, script categories, and directories. 
+    Each element in the list may also be a Boolean expression describing a more complex set of scripts. 
+    Each element is interpreted first as an expression, then as a category, and finally as a file or directory name. 
+    The special argument all makes every script in Nmap's script database eligible to run. 
+    The all argument should be used with caution as NSE may contain dangerous scripts including exploits, brute force authentication crackers, and denial of service attacks.
 
-    Each element in the script expression list may be prefixed with a + character to force the given script(s) to run regardless of the conditions in their portrule or hostrule functions. This is generally only done by advanced users in special cases. For example, you might want to do a configuration review on a bunch of MS SQL servers, some of which are running on nonstandard ports. Rather than slow the Nmap scan by running extensive version detection (-sV --version-all) so that Nmap will recognize the ms-sql service, you can force the ms-sql-config script to run against all the targetted hosts and ports by specifying --script +ms-sql-config.
+    Each element in the script expression list may be prefixed with a + character to force the given script(s) to run regardless of the conditions in their portrule or hostrule functions. 
+    This is generally only done by advanced users in special cases. 
+    For example, you might want to do a configuration review on a bunch of MS SQL servers, some of which are running on nonstandard ports. 
+    Rather than slow the Nmap scan by running extensive version detection (-sV --version-all) so that Nmap will recognize the ms-sql service, you can force the ms-sql-config script to run against all the targetted hosts and ports by specifying --script +ms-sql-config.
 
-    File and directory names may be relative or absolute. Absolute names are used directly. Relative paths are searched for in the scripts subdirectory of each of the following places until found:
+    File and directory names may be relative or absolute. Absolute names are used directly. 
+    Relative paths are searched for in the scripts subdirectory of each of the following places until found:
     --datadir
     $NMAPDIR
     ~/.nmap (not searched on Windows)
@@ -173,20 +274,26 @@ These are the five command-line arguments specific to script scanning:
     NMAPDATADIR
     the current directory.
 
-    When a directory name is given, Nmap loads every file in the directory whose name ends with .nse. All other files are ignored and directories are not searched recursively. When a filename is given, it does not have to have the .nse extension; it will be added automatically if necessary.
+    When a directory name is given, Nmap loads every file in the directory whose name ends with .nse. 
+    All other files are ignored and directories are not searched recursively. 
+    When a filename is given, it does not have to have the .nse extension; it will be added automatically if necessary.
 
     See the section called “Script Selection” for examples and a full explanation of the --script option.
 
-    Nmap scripts are stored in a scripts subdirectory of the Nmap data directory by default (see Chapter 14, Understanding and Customizing Nmap Data Files). For efficiency, scripts are indexed in a database stored in scripts/script.db, which lists the category or categories in which each script belongs. The argument all will execute all scripts in the Nmap script database, but should be used cautiously since Nmap may contain exploits, denial of service attacks, and other dangerous scripts.
+    Nmap scripts are stored in a scripts subdirectory of the Nmap data directory by default (see Chapter 14, Understanding and Customizing Nmap Data Files). 
+    For efficiency, scripts are indexed in a database stored in scripts/script.db, which lists the category or categories in which each script belongs. 
+    The argument all will execute all scripts in the Nmap script database, but should be used cautiously since Nmap may contain exploits, denial of service attacks, and other dangerous scripts.
 --script-args <args>
 
     Provides arguments to the scripts. See the section called “Arguments to Scripts” for a detailed explanation.
 --script-args-file <filename>
 
-    This option is the same as --script-args except that you pass the arguments in a file rather than on the command-line. See the section called “Arguments to Scripts” for a detailed explanation.
+    This option is the same as --script-args except that you pass the arguments in a file rather than on the command-line. 
+    See the section called “Arguments to Scripts” for a detailed explanation.
 --script-help <filename>|<category>|<directory>|<expression>|all[,...]
 
-    Shows help about scripts. For each script matching the given specification, Nmap prints the script name, its categories, and its description. The specifications are the same as those accepted by --script; so for example if you want help about the ftp-anon script, you would run nmap --script-help ftp-anon. A sample of script help is shown in Example 9.2, “Script help”.
+    Shows help about scripts. For each script matching the given specification, Nmap prints the script name, its categories, and its description. 
+    The specifications are the same as those accepted by --script; so for example if you want help about the ftp-anon script, you would run nmap --script-help ftp-anon. A sample of script help is shown in Example 9.2, “Script help”.
 
     Example 9.2. Script help
 
