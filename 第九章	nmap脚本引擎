@@ -519,14 +519,31 @@ This is an example of a debug code that uses the previous environment variables,
 
 Script Language
 
-The core of the Nmap Scripting Engine is an embeddable Lua interpreter. Lua is a lightweight language designed for extensibility. It offers a powerful and well-documented API for interfacing with other software such as Nmap.
+The core of the Nmap Scripting Engine is an embeddable Lua interpreter. 
+Lua is a lightweight language designed for extensibility. It offers a powerful and well-documented API for interfacing with other software such as Nmap.
 
-The second part of the Nmap Scripting Engine is the NSE Library, which connects Lua and Nmap. This layer handles issues such as initialization of the Lua interpreter, scheduling of parallel script execution, script retrieval and more. It is also the heart of the NSE network I/O framework and the exception handling mechanism. It also includes utility libraries to make scripts more powerful and convenient. The utility library modules and extensions are described in the section called “NSE Libraries”.
+The second part of the Nmap Scripting Engine is the NSE Library, which connects Lua and Nmap. 
+This layer handles issues such as initialization of the Lua interpreter, scheduling of parallel script execution, script retrieval and more. 
+It is also the heart of the NSE network I/O framework and the exception handling mechanism. 
+It also includes utility libraries to make scripts more powerful and convenient. 
+The utility library modules and extensions are described in the section called “NSE Libraries”.
 Lua Base Language
 
-The Nmap scripting language is an embedded Lua interpreter which is extended with libraries for interfacing with Nmap. The Nmap API is in the Lua namespace nmap. This means that all calls to resources provided by Nmap have an nmap prefix. nmap.new_socket(), for example, returns a new socket wrapper object. The Nmap library layer also takes care of initializing the Lua context, scheduling parallel scripts and collecting the output produced by completed scripts.
+The Nmap scripting language is an embedded Lua interpreter which is extended with libraries for interfacing with Nmap. 
+The Nmap API is in the Lua namespace nmap. 
+This means that all calls to resources provided by Nmap have an nmap prefix. nmap.new_socket(), for example, returns a new socket wrapper object. 
+The Nmap library layer also takes care of initializing the Lua context, scheduling parallel scripts and collecting the output produced by completed scripts.
 
-During the planning stages, we considered several programming languages as the base for Nmap scripting. Another option was to implement a completely new programming language. Our criteria were strict: NSE had to be easy to use, small in size, compatible with the Nmap license, scalable, fast and parallelizable. Several previous efforts (by other projects) to design their own security auditing language from scratch resulted in awkward solutions, so we decided early not to follow that route. First the Guile Scheme interpreter was considered, but the preference drifted towards the Elk interpreter due to its more favorable license. But parallelizing Elk scripts would have been difficult. In addition, we expect that most Nmap users prefer procedural programming over functional languages such as Scheme. Larger interpreters such as Perl, Python, and Ruby are well-known and loved, but are difficult to embed efficiently. In the end, Lua excelled in all of our criteria. It is small, distributed under the liberal MIT open source license, has coroutines for efficient parallel script execution, was designed with embeddability in mind, has excellent documentation, and is actively developed by a large and committed community. Lua is now even embedded in other popular open source security tools including the Wireshark sniffer and Snort IDS. 
+During the planning stages, we considered several programming languages as the base for Nmap scripting. 
+Another option was to implement a completely new programming language. 
+Our criteria were strict: NSE had to be easy to use, small in size, compatible with the Nmap license, scalable, fast and parallelizable. 
+Several previous efforts (by other projects) to design their own security auditing language from scratch resulted in awkward solutions, so we decided early not to follow that route. 
+First the Guile Scheme interpreter was considered, but the preference drifted towards the Elk interpreter due to its more favorable license. 
+But parallelizing Elk scripts would have been difficult. 
+In addition, we expect that most Nmap users prefer procedural programming over functional languages such as Scheme. 
+Larger interpreters such as Perl, Python, and Ruby are well-known and loved, but are difficult to embed efficiently. 
+In the end, Lua excelled in all of our criteria. It is small, distributed under the liberal MIT open source license, has coroutines for efficient parallel script execution, was designed with embeddability in mind, has excellent documentation, and is actively developed by a large and committed community. 
+Lua is now even embedded in other popular open source security tools including the Wireshark sniffer and Snort IDS. 
 
 
 
@@ -538,14 +555,19 @@ This section (a long list of NSE scripts with brief summaries) is only provided 
 
 NSE Libraries
 
-In addition to the significant built-in capabilities of Lua, we have written or integrated many extension libraries which make script writing more powerful and convenient. These libraries (sometimes called modules) are compiled if necessary and installed along with Nmap. They have their own directory, nselib, which is installed in the configured Nmap data directory. Scripts need only require the default libraries in order to use them.
+In addition to the significant built-in capabilities of Lua, we have written or integrated many extension libraries which make script writing more powerful and convenient. 
+These libraries (sometimes called modules) are compiled if necessary and installed along with Nmap. 
+They have their own directory, nselib, which is installed in the configured Nmap data directory. 
+Scripts need only require the default libraries in order to use them.
 List of All Libraries
 
-This list is just an overview to give an idea of what libraries are available. Developers will want to consult the complete documentation at http://nmap.org/nsedoc/.
+This list is just an overview to give an idea of what libraries are available. 
+Developers will want to consult the complete documentation at http://nmap.org/nsedoc/.
 
 afp
 
-    This library was written by Patrik Karlsson <patrik@cqure.net> to facilitate communication with the Apple AFP Service. It is not feature complete and still missing several functions.
+    This library was written by Patrik Karlsson <patrik@cqure.net> to facilitate communication with the Apple AFP Service. 
+    It is not feature complete and still missing several functions.
 ajp
 
     A basic AJP 1.3 implementation based on documentation available from Apache mod_proxy_ajp; http://httpd.apache.org/docs/2.2/mod/mod_proxy_ajp.html
@@ -617,7 +639,8 @@ dns
     Simple DNS library supporting packet creation, encoding, decoding, and querying.
 dnsbl
 
-    A minimalistic DNS BlackList library implemented to facilitate querying various DNSBL services. The current list of services has been implemented based on the following compilations of services:
+    A minimalistic DNS BlackList library implemented to facilitate querying various DNSBL services. 
+    The current list of services has been implemented based on the following compilations of services:
 
         http://en.wikipedia.org/wiki/Comparison_of_DNS_blacklists
         http://www.robtex.com
@@ -700,13 +723,17 @@ mongodb
     Library methods for handling MongoDB, creating and parsing packets.
 msrpc
 
-    By making heavy use of the smb library, this library will call various MSRPC functions. The functions used here can be accessed over TCP ports 445 and 139, with an established session. A NULL session (the default) will work for some functions and operating systems (or configurations), but not for others.
+    By making heavy use of the smb library, this library will call various MSRPC functions. 
+    The functions used here can be accessed over TCP ports 445 and 139, with an established session. 
+    A NULL session (the default) will work for some functions and operating systems (or configurations), but not for others.
 msrpcperformance
 
     This module is designed to parse the PERF_DATA_BLOCK structure, which is stored in the registry under HKEY_PERFORMANCE_DATA. By querying this structure, you can get a whole lot of information about what's going on.
 msrpctypes
 
-    This module was written to marshall parameters for Microsoft RPC (MSRPC) calls. The values passed in and out are based on structs defined by the protocol, and documented by Samba developers. For detailed breakdowns of the types, take a look at Samba 4.0's .idl files.
+    This module was written to marshall parameters for Microsoft RPC (MSRPC) calls. 
+    The values passed in and out are based on structs defined by the protocol, and documented by Samba developers. 
+    For detailed breakdowns of the types, take a look at Samba 4.0's .idl files.
 mssql
 
     MSSQL Library supporting a very limited subset of operations.
@@ -751,19 +778,23 @@ pcre
     Perl Compatible Regular Expressions.
 pgsql
 
-    PostgreSQL library supporting both version 2 and version 3 of the protocol. The library currently contains the bare minimum to perform authentication. Authentication is supported with or without SSL enabled and using the plain-text or MD5 authentication mechanisms.
+    PostgreSQL library supporting both version 2 and version 3 of the protocol. 
+    The library currently contains the bare minimum to perform authentication. 
+    Authentication is supported with or without SSL enabled and using the plain-text or MD5 authentication mechanisms.
 pop3
 
     POP3 functions.
 pppoe
 
-    A minimalistic PPPoE (Point-to-point protocol over Ethernet) library, implementing basic support for PPPoE Discovery and Configuration requests. The PPPoE protocol is ethernet based and hence does not use any IPs or port numbers.
+    A minimalistic PPPoE (Point-to-point protocol over Ethernet) library, implementing basic support for PPPoE Discovery and Configuration requests. 
+    The PPPoE protocol is ethernet based and hence does not use any IPs or port numbers.
 proxy
 
     Functions for proxy testing.
 rdp
 
-    A minimal RDP (Remote Desktop Protocol) library. Currently has functionality to determine encryption and cipher support.
+    A minimal RDP (Remote Desktop Protocol) library. 
+    Currently has functionality to determine encryption and cipher support.
 redis
 
     A minimalistic Redis (in-memory key-value data store) library.
@@ -775,7 +806,9 @@ rpc
     RPC Library supporting a very limited subset of operations.
 rpcap
 
-    This library implements the fundamentals needed to communicate with the WinPcap Remote Capture Deamon. It currently supports authenticating to the service using either NULL-, or Password-based authentication. In addition it has the capabilities to list the interfaces that may be used for sniffing.
+    This library implements the fundamentals needed to communicate with the WinPcap Remote Capture Deamon. 
+    It currently supports authenticating to the service using either NULL-, or Password-based authentication. 
+    In addition it has the capabilities to list the interfaces that may be used for sniffing.
 rsync
 
     A minimalist RSYNC (remote file sync) library
@@ -808,10 +841,12 @@ socks
     A smallish SOCKS version 5 proxy protocol implementation
 srvloc
 
-    A relatively small implementation of the Service Location Protocol. It was initially designed to support requests for discovering Novell NCP servers, but should work for any other service as well.
+    A relatively small implementation of the Service Location Protocol. 
+    It was initially designed to support requests for discovering Novell NCP servers, but should work for any other service as well.
 ssh1
 
-    Functions for the SSH-1 protocol. This module also contains functions for formatting key fingerprints.
+    Functions for the SSH-1 protocol. 
+    This module also contains functions for formatting key fingerprints.
 ssh2
 
     Functions for the SSH-2 protocol.
@@ -820,16 +855,19 @@ sslcert
     A library providing functions for collecting SSL certificates and storing them in the host-based registry.
 stdnse
 
-    Standard Nmap Scripting Engine functions. This module contains various handy functions that are too small to justify modules of their own.
+    Standard Nmap Scripting Engine functions. 
+    This module contains various handy functions that are too small to justify modules of their own.
 strbuf
 
     String buffer facilities.
 strict
 
-    Strict declared global library. Checks for undeclared global variables during runtime execution.
+    Strict declared global library. 
+    Checks for undeclared global variables during runtime execution.
 stun
 
-    A library that implements the basics of the STUN protocol (Session Traversal Utilities for NAT) per RFC3489 and RFC5389. A protocol overview is available at http://en.wikipedia.org/wiki/STUN.
+    A library that implements the basics of the STUN protocol (Session Traversal Utilities for NAT) per RFC3489 and RFC5389. 
+    A protocol overview is available at http://en.wikipedia.org/wiki/STUN.
 tab
 
     Arrange output into tables.
@@ -847,13 +885,15 @@ unpwdb
     Username/password database library.
 upnp
 
-    A UPNP library based on code from upnp-info initially written by Thomas Buchanan. The code was factored out from upnp-info and partly re-written by Patrik Karlsson <patrik@cqure.net> in order to support multicast requests.
+    A UPNP library based on code from upnp-info initially written by Thomas Buchanan. 
+    The code was factored out from upnp-info and partly re-written by Patrik Karlsson <patrik@cqure.net> in order to support multicast requests.
 url
 
     URI parsing, composition, and relative URL resolution.
 versant
 
-    A tiny library allowing some basic information enumeration from Versant object database software (see http://en.wikipedia.org/wiki/Versant_Corporation). The code is entirely based on packet dumps captured when using the Versant Management Center administration application.
+    A tiny library allowing some basic information enumeration from Versant object database software (see http://en.wikipedia.org/wiki/Versant_Corporation). 
+    The code is entirely based on packet dumps captured when using the Versant Management Center administration application.
 vnc
 
     The VNC library provides some basic functionality needed in order to communicate with VNC servers, and derivates such as Tight- or Ultra- VNC.
@@ -865,7 +905,8 @@ vuzedht
     A Vuze DHT protocol implementation based on the following documentation: o http://wiki.vuze.com/w/Distributed_hash_table
 wsdd
 
-    A library that enables scripts to send Web Service Dynamic Discovery probes and perform some very basic decoding of responses. The library is in no way a full WSDD implementation it's rather the result of some packet captures and some creative coding.
+    A library that enables scripts to send Web Service Dynamic Discovery probes and perform some very basic decoding of responses. 
+    The library is in no way a full WSDD implementation it's rather the result of some packet captures and some creative coding.
 xdmcp
 
     Implementation of the XDMCP (X Display Manager Control Protocol) based on: x http://www.xfree86.org/current/xdmcp.pdf
@@ -875,54 +916,89 @@ xmpp
 
 Hacking NSE Libraries
 
-A common mistake when editing libraries is to accidentally use a global variable instead of a local one. Different libraries using the same global variable can be the cause of mysterious bugs. Lua's scope assignment is global by default, so this mistake is easy to make.
+A common mistake when editing libraries is to accidentally use a global variable instead of a local one. 
+Different libraries using the same global variable can be the cause of mysterious bugs. 
+Lua's scope assignment is global by default, so this mistake is easy to make.
 
-To help correct this problem, NSE uses a library adapted from the standard Lua distribution called strict.lua. The library will raise a runtime error on any access or modification of a global variable which was undeclared in the file scope. A global variable is considered declared if the library makes an assignment to the global name (even nil) in the file scope.
+To help correct this problem, NSE uses a library adapted from the standard Lua distribution called strict.lua. 
+The library will raise a runtime error on any access or modification of a global variable which was undeclared in the file scope. A global variable is considered declared if the library makes an assignment to the global name (even nil) in the file scope.
 Adding C Modules to Nselib
 
-A few of the modules included in nselib are written in C or C++ rather than Lua. Two examples are bit and pcre. We recommend that modules be written in Lua if possible, but C and C++ may be more appropriate if performance is critical or (as with the pcre and openssl modules) you are linking to an existing C library. This section describes how to write your own compiled extensions to nselib.
+A few of the modules included in nselib are written in C or C++ rather than Lua. 
+Two examples are bit and pcre. 
+We recommend that modules be written in Lua if possible, but C and C++ may be more appropriate if performance is critical or (as with the pcre and openssl modules) you are linking to an existing C library. 
+This section describes how to write your own compiled extensions to nselib.
 
-The Lua C API is described at length in Programming in Lua, Second Edition, so this is a short summary. C modules consist of functions that follow the protocol of the lua_CFunction type. The functions are registered with Lua and assembled into a library by calling the luaL_newlib function. A special initialization function provides the interface between the module and the rest of the NSE code. By convention the initialization function is named in the form luaopen_<module>.
+The Lua C API is described at length in Programming in Lua, Second Edition, so this is a short summary. 
+C modules consist of functions that follow the protocol of the lua_CFunction type. 
+The functions are registered with Lua and assembled into a library by calling the luaL_newlib function. 
+A special initialization function provides the interface between the module and the rest of the NSE code. 
+By convention the initialization function is named in the form luaopen_<module>.
 
-The smallest compiled module that comes with NSE is bit, and one of the most straightforward is openssl. These modules serve as good examples for a beginning module writer. The source code for bit is found in nse_bit.cc and nse_bit.h, while the openssl source is in nse_openssl.cc and nse_openssl.h. Most of the other compiled modules follow this nse_<module name>.cc naming convention.
+The smallest compiled module that comes with NSE is bit, and one of the most straightforward is openssl. 
+These modules serve as good examples for a beginning module writer. 
+The source code for bit is found in nse_bit.cc and nse_bit.h, while the openssl source is in nse_openssl.cc and nse_openssl.h. 
+Most of the other compiled modules follow this nse_<module name>.cc naming convention.
 
-Reviewing the openssl module shows that one of the functions in nse_openssl.cc is l_md5, which calculates an MD5 digest. Its function prototype is:
+Reviewing the openssl module shows that one of the functions in nse_openssl.cc is l_md5, which calculates an MD5 digest. 
+Its function prototype is:
 
 static int l_md5(lua_State *L);
 
-The prototype shows that l_md5 matches the lua_CFunction type. The function is static because it does not have to be visible to other compiled code. Only an address is required to register it with Lua. Later in the file, l_md5 is entered into an array of type luaL_Reg and associated with the name md5:
+The prototype shows that l_md5 matches the lua_CFunction type. 
+The function is static because it does not have to be visible to other compiled code. 
+Only an address is required to register it with Lua. 
+Later in the file, l_md5 is entered into an array of type luaL_Reg and associated with the name md5:
 
 static const struct luaL_Reg openssllib[] = {
   { "md5", l_md5 },
   { NULL, NULL }
 };
 
-This function will now be known as md5 to NSE. Next the library is registered with a call to luaL_newlib inside the initialization function luaopen_openssl, as shown next. Some lines relating to the registration of OpenSSL BIGNUM types have been omitted:
+This function will now be known as md5 to NSE. 
+Next the library is registered with a call to luaL_newlib inside the initialization function luaopen_openssl, as shown next. 
+Some lines relating to the registration of OpenSSL BIGNUM types have been omitted:
 
 LUALIB_API int luaopen_openssl(lua_State *L) {
   luaL_newlib(L, openssllib);
   return 1;
 }
 
-The function luaopen_openssl is the only function in the file that is exposed in nse_openssl.h. OPENSSLLIBNAME is simply the string "openssl".
+The function luaopen_openssl is the only function in the file that is exposed in nse_openssl.h. 
+OPENSSLLIBNAME is simply the string "openssl".
 
-After a compiled module is written, it must be added to NSE by including it in the list of standard libraries in nse_main.cc. Then the module's source file names must be added to Makefile.in in the appropriate places. For both these tasks you can simply follow the example of the other C modules. For the Windows build, the new source files must be added to the mswin32/nmap.vcproj project file using MS Visual Studio (see the section called “Compile from Source Code”). 
+After a compiled module is written, it must be added to NSE by including it in the list of standard libraries in nse_main.cc. 
+Then the module's source file names must be added to Makefile.in in the appropriate places. 
+For both these tasks you can simply follow the example of the other C modules. 
+For the Windows build, the new source files must be added to the mswin32/nmap.vcproj project file using MS Visual Studio (see the section called “Compile from Source Code”). 
 
 
 
 Nmap API
 
-NSE scripts have access to several Nmap facilities for writing flexible and elegant scripts. The API provides target host details such as port states and version detection results. It also offers an interface to the Nsock library for efficient network I/O.
+NSE scripts have access to several Nmap facilities for writing flexible and elegant scripts. 
+The API provides target host details such as port states and version detection results. 
+It also offers an interface to the Nsock library for efficient network I/O.
 Information Passed to a Script
 
-An effective Nmap scripting engine requires more than just a Lua interpreter. Users need easy access to the information Nmap has learned about the target hosts. This data is passed as arguments to the NSE script's action method. The arguments, host and port, are Lua tables which contain information on the target against which the script is executed. If a script matched a hostrule, it gets only the host table, and if it matched a portrule it gets both host and port. The following list describes each variable in these two tables.
+An effective Nmap scripting engine requires more than just a Lua interpreter. 
+Users need easy access to the information Nmap has learned about the target hosts. 
+This data is passed as arguments to the NSE script's action method. 
+The arguments, host and port, are Lua tables which contain information on the target against which the script is executed. 
+If a script matched a hostrule, it gets only the host table, and if it matched a portrule it gets both host and port. 
+The following list describes each variable in these two tables.
 
 host
 
-    This table is passed as a parameter to the rule and action functions. It contains information on the operating system run by the host (if the -O switch was supplied), the IP address and the host name of the scanned target. 
+    This table is passed as a parameter to the rule and action functions. 
+    It contains information on the operating system run by the host (if the -O switch was supplied), the IP address and the host name of the scanned target. 
 host.os
 
-    An array of OS match tables. An OS match consists of a human-readable name and an array of OS classes. Each OS class consists of a vendor, OS family, OS generation, device type, and an array of CPE entries for the class. (See the section called “Decoding the Reference Fingerprint Format” for a description of OS match fields.) Fields may be nil if they are not defined. The host.os table has this overall structure:
+    An array of OS match tables. 
+    An OS match consists of a human-readable name and an array of OS classes. 
+    Each OS class consists of a vendor, OS family, OS generation, device type, and an array of CPE entries for the class. 
+    (See the section called “Decoding the Reference Fingerprint Format” for a description of OS match fields.) Fields may be nil if they are not defined. 
+    The host.os table has this overall structure:
 
     host.os = {
       {
@@ -976,28 +1052,36 @@ host.os
       }
     }
 
-    Only entries corresponding to perfect OS matches are put in the host.os table. If Nmap was run without the -O option, then host.os is nil. 
+    Only entries corresponding to perfect OS matches are put in the host.os table. 
+    If Nmap was run without the -O option, then host.os is nil. 
 host.ip
 
-    Contains a string representation of the IP address of the target host. If the scan was run against a host name and its DNS lookup returned more than one IP addresses, then the same IP address is used as the one chosen for the scan. 
+    Contains a string representation of the IP address of the target host. 
+    If the scan was run against a host name and its DNS lookup returned more than one IP addresses, then the same IP address is used as the one chosen for the scan. 
 host.name
 
-    Contains the reverse DNS entry of the scanned target host represented as a string. If the host has no reverse DNS entry, the value of the field is an empty string. 
+    Contains the reverse DNS entry of the scanned target host represented as a string. 
+    If the host has no reverse DNS entry, the value of the field is an empty string. 
 host.targetname
 
-    Contains the name of the host as specified on the command line. If the target given on the command line contains a netmask or is an IP address the value of the field is nil. 
+    Contains the name of the host as specified on the command line. 
+    If the target given on the command line contains a netmask or is an IP address the value of the field is nil. 
 host.reason
 
-    Contains a string representation of the reason why the target host is in its current state. The reason is given by the type of the packet that determined the state. For example, an echo-reply from an alive host. 
+    Contains a string representation of the reason why the target host is in its current state. 
+    The reason is given by the type of the packet that determined the state. 
+    For example, an echo-reply from an alive host. 
 host.reason_ttl
 
-    Contains the TTL value of the response packet, that was used to determine the status of the target host, when it arrived. This response packet is the packet that is also used to set host.reason. 
+    Contains the TTL value of the response packet, that was used to determine the status of the target host, when it arrived. 
+    This response packet is the packet that is also used to set host.reason. 
 host.directly_connected
 
     A Boolean value indicating whether or not the target host is directly connected to (i.e. on the same network segment as) the host running Nmap. 
 host.mac_addr
 
-    MAC address of the destination host (six-byte-long binary string) if available, otherwise nil. The MAC address is generally only available for hosts directly connected on a LAN and only if Nmap is doing a raw packet scan such as SYN scan. 
+    MAC address of the destination host (six-byte-long binary string) if available, otherwise nil. 
+    The MAC address is generally only available for hosts directly connected on a LAN and only if Nmap is doing a raw packet scan such as SYN scan. 
 host.mac_addr_next_hop
 
     MAC address of the first hop in the route to the host, or nil if not available. 
@@ -1018,13 +1102,19 @@ host.bin_ip_src
     Our host's (running Nmap) source IP address as a 4-byte (IPv4) or 16-byte (IPv6) string. 
 host.times
 
-    This table contains Nmap's timing data for the host (see the section called “Round Trip Time Estimation”). Its keys are srtt (smoothed round trip time), rttvar (round trip time variance), and timeout (the probe timeout), all given in floating-point seconds. 
+    This table contains Nmap's timing data for the host (see the section called “Round Trip Time Estimation”). 
+    Its keys are srtt (smoothed round trip time), rttvar (round trip time variance), and timeout (the probe timeout), all given in floating-point seconds. 
 host.traceroute
 
-    This is an array of traceroute hops, present when the --traceroute option was used. Each entry is a host table with fields name, ip and times.srtt (round trip time). The TTL for an entry is implicit given its position in the table. An empty table represents a timed-out hop. 
+    This is an array of traceroute hops, present when the --traceroute option was used. 
+    Each entry is a host table with fields name, ip and times.srtt (round trip time). 
+    The TTL for an entry is implicit given its position in the table. 
+    An empty table represents a timed-out hop. 
 port
 
-    The port table is passed to an NSE service script (i.e. only those with a portrule rather than a hostrule) in the same fashion as the host table. It contains information about the port against which the script is running. While this table is not passed to host scripts, port states on the target can still be requested from Nmap using the nmap.get_port_state() and nmap.get_ports() calls. 
+    The port table is passed to an NSE service script (i.e. only those with a portrule rather than a hostrule) in the same fashion as the host table. 
+    It contains information about the port against which the script is running. 
+    While this table is not passed to host scripts, port states on the target can still be requested from Nmap using the nmap.get_port_state() and nmap.get_ports() calls. 
 port.number
 
     Contains the port number of the target port. 
@@ -1033,16 +1123,24 @@ port.protocol
     Defines the protocol of the target port. Valid values are "tcp" and "udp". 
 port.service
 
-    Contains a string representation of the service running on port.number as detected by the Nmap service detection. If the port.version field is nil, Nmap has guessed the service based on the port number. Otherwise version detection was able to determine the listening service and this field is equal to port.version.name. 
+    Contains a string representation of the service running on port.number as detected by the Nmap service detection. 
+    If the port.version field is nil, Nmap has guessed the service based on the port number. 
+    Otherwise version detection was able to determine the listening service and this field is equal to port.version.name. 
 port.reason
 
-    Contains a string representation of the reason why the target port is in its current state (given by port.state). The reason is given by the type of the packet that determined the state. For example, a RST packet from a closed port or SYN-ACK from an open port. 
+    Contains a string representation of the reason why the target port is in its current state (given by port.state). 
+    The reason is given by the type of the packet that determined the state. 
+    For example, a RST packet from a closed port or SYN-ACK from an open port. 
 port.reason_ttl
 
-    Contains the TTL value of the response packet, that was used to determine the status of the target port, when it arrived. This response packet is the packet that is also used to set port.reason. 
+    Contains the TTL value of the response packet, that was used to determine the status of the target port, when it arrived. 
+    This response packet is the packet that is also used to set port.reason. 
 port.version
 
-    This entry is a table which contains information retrieved by the Nmap version scanning engine. Some of the values (such as service name, service type confidence, and the RPC-related values) may be retrieved by Nmap even if a version scan was not performed. Values which were not determined default to nil. The meaning of each value is given in the following table:
+    This entry is a table which contains information retrieved by the Nmap version scanning engine. 
+    Some of the values (such as service name, service type confidence, and the RPC-related values) may be retrieved by Nmap even if a version scan was not performed. 
+    Values which were not determined default to nil. 
+    The meaning of each value is given in the following table:
 
     Table 9.1. port.version values
     Name	Description
@@ -1055,16 +1153,31 @@ port.version
 
 port.state
 
-    Contains information on the state of the port. Service scripts are only run against ports in the open or open|filtered states, so port.state generally contains one of those values. Other values might appear if the port table is a result of the get_port_state or get_ports functions. You can adjust the port state using the nmap.set_port_state() call. This is normally done when an open|filtered port is determined to be open. 
+    Contains information on the state of the port. 
+    Service scripts are only run against ports in the open or open|filtered states, so port.state generally contains one of those values. 
+    Other values might appear if the port table is a result of the get_port_state or get_ports functions.
+    You can adjust the port state using the nmap.set_port_state() call. 
+    This is normally done when an open|filtered port is determined to be open. 
 
 Network I/O API
 
-To allow for efficient and parallelizable network I/O, NSE provides an interface to Nsock, the Nmap socket library. The smart callback mechanism Nsock uses is fully transparent to NSE scripts. The main benefit of NSE's sockets is that they never block on I/O operations, allowing many scripts to be run in parallel. The I/O parallelism is fully transparent to authors of NSE scripts. In NSE you can either program as if you were using a single non-blocking socket or you can program as if your connection is blocking. Even blocking I/O calls return once a specified timeout has been exceeded. Two flavors of Network I/O are supported: connect-style and raw packet.
+To allow for efficient and parallelizable network I/O, NSE provides an interface to Nsock, the Nmap socket library. 
+The smart callback mechanism Nsock uses is fully transparent to NSE scripts. 
+The main benefit of NSE's sockets is that they never block on I/O operations, allowing many scripts to be run in parallel. 
+The I/O parallelism is fully transparent to authors of NSE scripts. 
+In NSE you can either program as if you were using a single non-blocking socket or you can program as if your connection is blocking. 
+Even blocking I/O calls return once a specified timeout has been exceeded. 
+Two flavors of Network I/O are supported: connect-style and raw packet.
 Connect-style network I/O
 
-This part of the network API should be suitable for most classical network uses: Users create a socket, connect it to a remote address, send and receive data and finally close the socket. Everything up to the Transport layer (which is either TCP, UDP or SSL) is handled by the library.
+This part of the network API should be suitable for most classical network uses: Users create a socket, connect it to a remote address, send and receive data and finally close the socket. 
+Everything up to the Transport layer (which is either TCP, UDP or SSL) is handled by the library.
 
-An NSE socket is created by calling nmap.new_socket, which returns a socket object. The socket object supports the usual connect, send, receive, and close methods. Additionally the functions receive_bytes, receive_lines, and receive_buf allow greater control over data reception. Example 9.3 shows the use of connect-style network operations. The try function is used for error handling, as described in the section called “Exception Handling”.
+An NSE socket is created by calling nmap.new_socket, which returns a socket object. 
+The socket object supports the usual connect, send, receive, and close methods. 
+Additionally the functions receive_bytes, receive_lines, and receive_buf allow greater control over data reception. 
+Example 9.3 shows the use of connect-style network operations. 
+The try function is used for error handling, as described in the section called “Exception Handling”.
 
 Example 9.3. Connect-style I/O
 
@@ -1083,28 +1196,50 @@ Raw packet network I/O
 
 For those cases where the connection-oriented approach is too high-level, NSE provides script developers with the option of raw packet network I/O.
 
-Raw packet reception is handled through a Libpcap wrapper inside the Nsock library. The steps are to open a capture device, register listeners with the device, and then process packets as they are received.
+Raw packet reception is handled through a Libpcap wrapper inside the Nsock library. 
+The steps are to open a capture device, register listeners with the device, and then process packets as they are received.
 
-The pcap_open method creates a handle for raw socket reads from an ordinary socket object. This method takes a callback function, which computes a packet hash from a packet (including its headers). This hash can return any binary string, which is later compared to the strings registered with the pcap_register function. The packet hash callback will normally extract some portion of the packet, such as its source address.
+The pcap_open method creates a handle for raw socket reads from an ordinary socket object. 
+This method takes a callback function, which computes a packet hash from a packet (including its headers). 
+This hash can return any binary string, which is later compared to the strings registered with the pcap_register function. 
+The packet hash callback will normally extract some portion of the packet, such as its source address.
 
-The pcap reader is instructed to listen for certain packets using the pcap_register function. The function takes a binary string which is compared against the hash value of every packet received. Those packets whose hashes match any registered strings will be returned by the pcap_receive method. Register the empty string to receive all packets.
+The pcap reader is instructed to listen for certain packets using the pcap_register function. 
+The function takes a binary string which is compared against the hash value of every packet received. 
+Those packets whose hashes match any registered strings will be returned by the pcap_receive method. 
+Register the empty string to receive all packets.
 
-A script receives all packets for which a listener has been registered by calling the pcap_receive method. The method blocks until a packet is received or a timeout occurs.
+A script receives all packets for which a listener has been registered by calling the pcap_receive method. 
+The method blocks until a packet is received or a timeout occurs.
 
-The more general the packet hash computing function is kept, the more scripts may receive the packet and proceed with their execution. To handle packet capture inside your script you first have to create a socket with nmap.new_socket and later close the socket with socket_object:close—just like with the connection-based network I/O.
+The more general the packet hash computing function is kept, the more scripts may receive the packet and proceed with their execution. 
+To handle packet capture inside your script you first have to create a socket with nmap.new_socket and later close the socket with socket_object:close—just like with the connection-based network I/O.
 
-While receiving packets is important, sending them is certainly a key feature as well. To accomplish this, NSE provides access to sending at the IP and Ethernet layers. Raw packet writes do not use the same socket object as raw packet reads, so the nmap.new_dnet function is called to create the required object for sending. After this, a raw socket or Ethernet interface handle can be opened for use.
+While receiving packets is important, sending them is certainly a key feature as well. 
+To accomplish this, NSE provides access to sending at the IP and Ethernet layers. 
+Raw packet writes do not use the same socket object as raw packet reads, so the nmap.new_dnet function is called to create the required object for sending. 
+After this, a raw socket or Ethernet interface handle can be opened for use.
 
-Once the dnet object is created, the function ip_open can be called to initialize the object for IP sending. ip_send sends the actual raw packet, which must start with the IP header. The dnet object places no restrictions on which IP hosts may be sent to, so the same object may be used to send to many different hosts while it is open. To close the raw socket, call ip_close.
+Once the dnet object is created, the function ip_open can be called to initialize the object for IP sending. ip_send sends the actual raw packet, which must start with the IP header. 
+The dnet object places no restrictions on which IP hosts may be sent to, so the same object may be used to send to many different hosts while it is open. 
+To close the raw socket, call ip_close.
 
-For sending at a lower level than IP, NSE provides functions for writing Ethernet frames. ethernet_open initializes the dnet object for sending by opening an Ethernet interface. The raw frame is sent with ethernet_send. To close the handle, call ethernet_close.
+For sending at a lower level than IP, NSE provides functions for writing Ethernet frames. ethernet_open initializes the dnet object for sending by opening an Ethernet interface. 
+The raw frame is sent with ethernet_send. To close the handle, call ethernet_close.
 
-Sometimes the easiest ways to understand complex APIs is by example. The ipidseq script included with Nmap uses raw IP packets to test hosts for suitability for Nmap's Idle Scan (-sI). The sniffer-detect script also included with Nmap uses raw Ethernet frames in an attempt to detect promiscuous-mode machines on the network (those running sniffers).
+Sometimes the easiest ways to understand complex APIs is by example. 
+The ipidseq script included with Nmap uses raw IP packets to test hosts for suitability for Nmap's Idle Scan (-sI). 
+The sniffer-detect script also included with Nmap uses raw Ethernet frames in an attempt to detect promiscuous-mode machines on the network (those running sniffers).
 Structured and Unstructured Output
 
-NSE scripts should usually return a table representing their output, one that is nicely organized and has thoughtfully chosen keys. Such a table will be automatically formatted for screen output and will be stored as nested elements in XML output. Having XML output broken down logically into keys and values makes it easier for other tools to make use of script output. It is possible for a script to return only a string, but doing so is deprecated. In the past, scripts could only return a string, and their output was simply copied to the XML as a blob of text–this is now known as “unstructured output”.
+NSE scripts should usually return a table representing their output, one that is nicely organized and has thoughtfully chosen keys. 
+Such a table will be automatically formatted for screen output and will be stored as nested elements in XML output. 
+Having XML output broken down logically into keys and values makes it easier for other tools to make use of script output. 
+It is possible for a script to return only a string, but doing so is deprecated. 
+In the past, scripts could only return a string, and their output was simply copied to the XML as a blob of text–this is now known as “unstructured output”.
 
-Suppose a script called user-list returns a table as shown in this code sample. The following paragraphs show how it appears in normal and XML output.
+Suppose a script called user-list returns a table as shown in this code sample. 
+The following paragraphs show how it appears in normal and XML output.
 
 local output = stdnse.output_table()
 output.hostname = "slimer"
@@ -1114,7 +1249,11 @@ output.users[#output.users + 1] = "foo"
 output.users[#output.users + 1] = "bar"
 return output
 
-A Lua table is converted to a string for normal output. The way this works is: each nested table gets a new level of indentation. Table entries with string keys are preceded by the key and a colon; entries with integer keys simply appear in order. Unlike normal Lua tables, which are unordered, a table that comes from stdnse.output_table will keep its keys in the order they were inserted. Example 9.4, “Automatic formatting of NSE structured output” shows how the example table appears in normal output.
+A Lua table is converted to a string for normal output. 
+The way this works is: each nested table gets a new level of indentation. 
+Table entries with string keys are preceded by the key and a colon; entries with integer keys simply appear in order. 
+Unlike normal Lua tables, which are unordered, a table that comes from stdnse.output_table will keep its keys in the order they were inserted. 
+Example 9.4, “Automatic formatting of NSE structured output” shows how the example table appears in normal output.
 
 Example 9.4. Automatic formatting of NSE structured output
 
@@ -1128,7 +1267,10 @@ PORT     STATE SERVICE
 |_    bar
 
 
-The XML representation of a Lua table is constructed as follows. Nested table become table elements. Entries of tables that are not themselves tables become elem elements. Entries (whether table or elem) with string keys get a key attribute (e.g. <elem key="username">foo</elem>); entries with integer keys have no key element and their key is implicit in the order in which they appear.
+The XML representation of a Lua table is constructed as follows. 
+Nested table become table elements. 
+Entries of tables that are not themselves tables become elem elements. 
+Entries (whether table or elem) with string keys get a key attribute (e.g. <elem key="username">foo</elem>); entries with integer keys have no key element and their key is implicit in the order in which they appear.
 
 In addition to the above, whatever normal output the script produces (even if automatically generated) is copied to the output attribute of the script element. Newlines and other special characters will be encoded as XML character entities, for example &#xa;. Example 9.5, “NSE structured output in XML” shows how the example table appears in XML.
 
