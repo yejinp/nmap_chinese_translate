@@ -237,7 +237,8 @@ Postrule scripts
     These scripts run after Nmap has scanned all of its targets. 
     They can be useful for formatting and presenting Nmap output. 
     For example, ssh-hostkey is best known for its service (portrule) script which connects to SSH servers, discovers their public keys, and prints them. 
-    But it also includes a postrule which checks for duplicate keys amongst all of the hosts scanned, then prints any that are found. Another potential use for a postrule script is printing a reverse-index of the Nmap output—showing which hosts run a particular service rather than just listing the services on each host. 
+    But it also includes a postrule which checks for duplicate keys amongst all of the hosts scanned, then prints any that are found. 
+	Another potential use for a postrule script is printing a reverse-index of the Nmap output—showing which hosts run a particular service rather than just listing the services on each host. 
     Postrule scripts are identified by containing a postrule function.
 
     Many scripts could potentially run as either a prerule or postrule script. 
@@ -264,7 +265,8 @@ These are the five command-line arguments specific to script scanning:
     For example, you might want to do a configuration review on a bunch of MS SQL servers, some of which are running on nonstandard ports. 
     Rather than slow the Nmap scan by running extensive version detection (-sV --version-all) so that Nmap will recognize the ms-sql service, you can force the ms-sql-config script to run against all the targetted hosts and ports by specifying --script +ms-sql-config.
 
-    File and directory names may be relative or absolute. Absolute names are used directly. 
+    File and directory names may be relative or absolute. 
+	Absolute names are used directly. 
     Relative paths are searched for in the scripts subdirectory of each of the following places until found:
     --datadir
     $NMAPDIR
@@ -293,7 +295,8 @@ These are the five command-line arguments specific to script scanning:
 --script-help <filename>|<category>|<directory>|<expression>|all[,...]
 
     Shows help about scripts. For each script matching the given specification, Nmap prints the script name, its categories, and its description. 
-    The specifications are the same as those accepted by --script; so for example if you want help about the ftp-anon script, you would run nmap --script-help ftp-anon. A sample of script help is shown in Example 9.2, “Script help”.
+    The specifications are the same as those accepted by --script; so for example if you want help about the ftp-anon script, you would run nmap --script-help ftp-anon. 
+	A sample of script help is shown in Example 9.2, “Script help”.
 
     Example 9.2. Script help
 
@@ -317,25 +320,36 @@ These are the five command-line arguments specific to script scanning:
     If the -oX option is used, an XML representation of the script help will be written to the given file. 
 --script-trace
 
-    This option is similar to --packet-trace, but works at the application level rather than packet by packet. If this option is specified, all incoming and outgoing communication performed by scripts is printed. The displayed information includes the communication protocol, source and target addresses, and the transmitted data. If more than 5% of transmitted data is unprintable, hex dumps are given instead. Specifying --packet-trace enables script tracing too. 
+    This option is similar to --packet-trace, but works at the application level rather than packet by packet. 
+    If this option is specified, all incoming and outgoing communication performed by scripts is printed. 
+    The displayed information includes the communication protocol, source and target addresses, and the transmitted data. 
+    If more than 5% of transmitted data is unprintable, hex dumps are given instead. Specifying --packet-trace enables script tracing too. 
 --script-updatedb
 
-    This option updates the script database found in scripts/script.db which is used by Nmap to determine the available default scripts and categories. It is only necessary to update the database if you have added or removed NSE scripts from the default scripts directory or if you have changed the categories of any script. This option is used by itself without arguments: nmap --script-updatedb.
+    This option updates the script database found in scripts/script.db which is used by Nmap to determine the available default scripts and categories. 
+	It is only necessary to update the database if you have added or removed NSE scripts from the default scripts directory or if you have changed the categories of any script. 
+	This option is used by itself without arguments: nmap --script-updatedb.
 
-Some other Nmap options have effects on script scans. The most prominent of these is -sV. A version scan automatically executes the scripts in the version category. The scripts in this category are slightly different from other scripts because their output blends in with the version scan results and they do not produce any script scan output.
+Some other Nmap options have effects on script scans. 
+The most prominent of these is -sV. 
+A version scan automatically executes the scripts in the version category. 
+The scripts in this category are slightly different from other scripts because their output blends in with the version scan results and they do not produce any script scan output.
 
-Another option which affects the scripting engine is -A. The aggressive Nmap mode implies the -sC option.
+Another option which affects the scripting engine is -A. 
+The aggressive Nmap mode implies the -sC option.
 
 Script Selection
 
-The --script option takes a comma-separated list of categories, filenames, and directory names. Some simple examples of its use:
+The --script option takes a comma-separated list of categories, filenames, and directory names. 
+Some simple examples of its use:
 
 nmap --script default,safe
 
     Loads all scripts in the default and safe categories.
 nmap --script smb-os-discovery
 
-    Loads only the smb-os-discovery script. Note that the .nse extension is optional.
+    Loads only the smb-os-discovery script. 
+	Note that the .nse extension is optional.
 nmap --script default,banner,/home/user/customscripts
 
     Loads the script in the default category, the banner script, and all .nse files in the directory /home/user/customscripts.
@@ -344,16 +358,20 @@ When referring to scripts from script.db by name, you can use a shell-style ‘*
 
 nmap --script "http-*"
 
-    Loads all scripts whose name starts with http-, such as http-auth and http-open-proxy. The argument to --script had to be in quotes to protect the wildcard from the shell.
+    Loads all scripts whose name starts with http-, such as http-auth and http-open-proxy. 
+	The argument to --script had to be in quotes to protect the wildcard from the shell.
 
-More complicated script selection can be done using the and, or, and not operators to build Boolean expressions. The operators have the same precedence as in Lua: not is the highest, followed by and and then or. You can alter precedence by using parentheses. Because expressions contain space characters it is necessary to quote them.
+More complicated script selection can be done using the and, or, and not operators to build Boolean expressions. 
+The operators have the same precedence as in Lua: not is the highest, followed by and and then or. 
+You can alter precedence by using parentheses. Because expressions contain space characters it is necessary to quote them.
 
 nmap --script "not intrusive"
 
     Loads every script except for those in the intrusive category.
 nmap --script "default or safe"
 
-    This is functionally equivalent to nmap --script "default,safe". It loads all scripts that are in the default category or the safe category or both.
+    This is functionally equivalent to nmap --script "default,safe". 
+	It loads all scripts that are in the default category or the safe category or both.
 nmap --script "default and safe"
 
     Loads those scripts that are in both the default and safe categories.
@@ -361,25 +379,47 @@ nmap --script "(default or safe or intrusive) and not http-*"
 
     Loads scripts in the default, safe, or intrusive categories, except for those whose names start with http-.
 
-Names in a Boolean expression may be a category, a filename from script.db, or all. A name is any sequence of characters not containing ‘ ’, ‘,’, ‘(’, ‘)’, or ‘;’, except for the sequences and, or, and not, which are operators.
+Names in a Boolean expression may be a category, a filename from script.db, or all. 
+A name is any sequence of characters not containing ‘ ’, ‘,’, ‘(’, ‘)’, or ‘;’, except for the sequences and, or, and not, which are operators.
 Arguments to Scripts
 
-Arguments may be passed to NSE scripts using the --script-args option. The arguments describe a table of key-value pairs and possibly array values. The arguments are provided to scripts as a table in the registry called nmap.registry.args, though they are normally accessed through the stdnse.get_script_args function.
+Arguments may be passed to NSE scripts using the --script-args option. 
+The arguments describe a table of key-value pairs and possibly array values. 
+The arguments are provided to scripts as a table in the registry called nmap.registry.args, though they are normally accessed through the stdnse.get_script_args function.
 
-The syntax for script arguments is similar to Lua's table constructor syntax. Arguments are a comma-separated list of name=value pairs. Names and values may be strings not containing whitespace or the characters ‘{’, ‘}’, ‘=’, or ‘,’. To include one of these characters in a string, enclose the string in single or double quotes. Within a quoted string, ‘\’ escapes a quote. A backslash is only used to escape quotation marks in this special case; in all other cases a backslash is interpreted literally.
+The syntax for script arguments is similar to Lua's table constructor syntax. 
+Arguments are a comma-separated list of name=value pairs. 
+Names and values may be strings not containing whitespace or the characters ‘{’, ‘}’, ‘=’, or ‘,’. 
+To include one of these characters in a string, enclose the string in single or double quotes. 
+Within a quoted string, ‘\’ escapes a quote. 
+A backslash is only used to escape quotation marks in this special case; in all other cases a backslash is interpreted literally.
 
-Values may also be tables enclosed in {}, just as in Lua. A table may contain simple string values, for example a list of proxy hosts; or more name-value pairs, including nested tables. Nested subtables are commonly used to pass arguments specific to one script, in a table named after the script. That is what is happening with the whois table in the example below.
+Values may also be tables enclosed in {}, just as in Lua. 
+A table may contain simple string values, for example a list of proxy hosts; or more name-value pairs, including nested tables. 
+Nested subtables are commonly used to pass arguments specific to one script, in a table named after the script. 
+That is what is happening with the whois table in the example below.
 
-Script arguments are often qualified with the relevant script name so that a user doesn't unintentionally affect multiple scripts with a single generic name. For example, you can set the timeout for responses to the broadcast-ping script (and only that script) by setting broadcast-ping.timeout to the number of milliseconds you're willing to wait. Sometimes, however, you want a script argument applied more widely. If you remove the qualification and specify just timeout=250, you will be setting the value for more than a dozen scripts in addition to broadcast-ping. You can even combine qualified and unqualified arguments, and the most specific match takes precedence. For example, you could specify rlogin-brute.timeout=20000,timeout=250. In that case, the timeout will be 20,000 for the rlogin-brute scripts, and 250 for all other scripts which support this variable (broadcast-ping, lltd-discovery, etc.)
+Script arguments are often qualified with the relevant script name so that a user doesn't unintentionally affect multiple scripts with a single generic name. 
+For example, you can set the timeout for responses to the broadcast-ping script (and only that script) by setting broadcast-ping.timeout to the number of milliseconds you're willing to wait. 
+Sometimes, however, you want a script argument applied more widely. 
+If you remove the qualification and specify just timeout=250, you will be setting the value for more than a dozen scripts in addition to broadcast-ping. 
+You can even combine qualified and unqualified arguments, and the most specific match takes precedence. 
+For example, you could specify rlogin-brute.timeout=20000,timeout=250. 
+In that case, the timeout will be 20,000 for the rlogin-brute scripts, and 250 for all other scripts which support this variable (broadcast-ping, lltd-discovery, etc.)
 
-Rather than pass the arguments on the command line with --script-args, you may store them in a file (separated by commas or newlines) and specify just the file name with --script-args-file. Options specified with --script-args on the command-line take precedence over those given in a file. The filename may be given as an absolute path or relative to Nmap's usual search path (NMAPDIR, etc.)
+Rather than pass the arguments on the command line with --script-args, you may store them in a file (separated by commas or newlines) and specify just the file name with --script-args-file. 
+Options specified with --script-args on the command-line take precedence over those given in a file. 
+The filename may be given as an absolute path or relative to Nmap's usual search path (NMAPDIR, etc.)
 
 Here is a typical Nmap invocation with script arguments:
 
 
 nmap -sC --script-args 'user=foo,pass=",{}=bar",whois={whodb=nofollow+ripe},xmpp-info.server_name=localhost'
 
-Notice that the script arguments are surrounded in single quotes. For the Bash shell, this prevents the shell from interpreting the double quotes and doing automatic string concatenation. Naturally, different shells may require you to escape quotes or to use different quotes. See your relevant manual. The command results in this Lua table:
+Notice that the script arguments are surrounded in single quotes. 
+For the Bash shell, this prevents the shell from interpreting the double quotes and doing automatic string concatenation. 
+Naturally, different shells may require you to escape quotes or to use different quotes. 
+See your relevant manual. The command results in this Lua table:
 
 nmap.registry.args = {
 	user = "foo",
@@ -394,7 +434,11 @@ While you could access the values directly from nmap.registry.args, it is normal
 
 local server_name = stdnse.get_script_args("xmpp-info.server_name")
 
-All script arguments share a global namespace, the nmap.registry.args table. For this reason, short or ambiguous names like user are not recommended. Some scripts prefix their arguments with their script name, like smtp-open-relay.domain. Others, like whois in the example above, take their arguments in a table named after the script. Arguments used by libraries, which can affect many scripts, usually have names beginning with the name of the library, like smbuser and snmpcommunity.
+All script arguments share a global namespace, the nmap.registry.args table. 
+For this reason, short or ambiguous names like user are not recommended. 
+Some scripts prefix their arguments with their script name, like smtp-open-relay.domain. 
+Others, like whois in the example above, take their arguments in a table named after the script. 
+Arguments used by libraries, which can affect many scripts, usually have names beginning with the name of the library, like smbuser and snmpcommunity.
 
 The online NSE Documentation Portal at http://nmap.org/nsedoc/ lists the arguments that each script accepts.
 Complete Examples
@@ -407,7 +451,8 @@ nmap -sn -sC example.com
     A script scan without a port scan; only host scripts are eligible to run.
 nmap -Pn -sn -sC example.com
 
-    A script scan without host discovery or a port scan. All hosts are assumed up and only host scripts are eligible to run.
+    A script scan without host discovery or a port scan. 
+	All hosts are assumed up and only host scripts are eligible to run.
 nmap --script smb-os-discovery --script-trace example.com
 
     Execute a specific script with script tracing.
@@ -422,38 +467,57 @@ nmap --script mycustomscripts,safe example.com
     
     Script Format
 
-NSE scripts consist of a handful of descriptive fields, a rule defining when the script should be executed, and an action function containing the actual script instructions. Values can be assigned to the descriptive fields just as you would assign any other Lua variables. Their names must be lowercase as shown in this section.
+NSE scripts consist of a handful of descriptive fields, a rule defining when the script should be executed, and an action function containing the actual script instructions. 
+Values can be assigned to the descriptive fields just as you would assign any other Lua variables. 
+Their names must be lowercase as shown in this section.
 description Field
 
-The description field describes what a script is testing for and any important notes the user should be aware of. Depending on script complexity, descriptions may vary in length from a few sentences to a few paragraphs. The first paragraph should be a brief synopsis of the script function suitable for stand-alone presentation to the user. Further paragraphs may provide much more script detail.
+The description field describes what a script is testing for and any important notes the user should be aware of. 
+Depending on script complexity, descriptions may vary in length from a few sentences to a few paragraphs. 
+The first paragraph should be a brief synopsis of the script function suitable for stand-alone presentation to the user. 
+Further paragraphs may provide much more script detail.
 categories Field
 
-The categories field defines one or more categories to which a script belongs (see the section called “Script Categories”). The categories are case-insensitive and may be specified in any order. They are listed in an array-style Lua table as in this example:
+The categories field defines one or more categories to which a script belongs (see the section called “Script Categories”). 
+The categories are case-insensitive and may be specified in any order. They are listed in an array-style Lua table as in this example:
 
 categories = {"default", "discovery", "safe"}
 
 author Field
 
-The author field contains the script authors' names and can also contain contact information (such as home page URLs). We no longer recommend including email addresses because spammers might scrape them from the NSEDoc web site. This optional field is not used by NSE, but gives script authors their due credit or blame.
+The author field contains the script authors' names and can also contain contact information (such as home page URLs). 
+We no longer recommend including email addresses because spammers might scrape them from the NSEDoc web site. 
+This optional field is not used by NSE, but gives script authors their due credit or blame.
 license Field
 
-Nmap is a community project and we welcome all sorts of code contributions, including NSE scripts. So if you write a valuable script, don't keep it to yourself! The optional license field helps ensure that we have legal permission to distribute all the scripts which come with Nmap. All of those scripts currently use the standard Nmap license (described in the section called “Nmap Copyright and Licensing”). They include the following line:
+Nmap is a community project and we welcome all sorts of code contributions, including NSE scripts. 
+So if you write a valuable script, don't keep it to yourself! 
+The optional license field helps ensure that we have legal permission to distribute all the scripts which come with Nmap. 
+All of those scripts currently use the standard Nmap license (described in the section called “Nmap Copyright and Licensing”). 
+They include the following line:
 
 license = "Same as Nmap--See http://nmap.org/book/man-legal.html"
 
-The Nmap license is similar to the GNU GPL. Script authors may use a BSD-style license (no advertising clause) instead if they prefer that. For a BSD-style license, please include this line:
+The Nmap license is similar to the GNU GPL. Script authors may use a BSD-style license (no advertising clause) instead if they prefer that. 
+For a BSD-style license, please include this line:
 
 license = "Simplified (2-clause) BSD license--See http://nmap.org/svn/docs/licenses/BSD-simplified"
 
 dependencies Field
 
-The dependencies field is an array containing the names of scripts that should run before this script, if they are also selected. This is used when one script can make use of the results of another. For example, most of the smb-* scripts depend on smb-brute, because the accounts found by smb-brute may allow the other scripts to get more information. Listing a script in dependencies doesn't cause that script to be run; it still has to be selected through the --script option or otherwise. dependencies merely forces an ordering among the scripts that are selected. This is an example of a dependencies table, from smb-os-discovery:
+The dependencies field is an array containing the names of scripts that should run before this script, if they are also selected. 
+This is used when one script can make use of the results of another. 
+For example, most of the smb-* scripts depend on smb-brute, because the accounts found by smb-brute may allow the other scripts to get more information. 
+Listing a script in dependencies doesn't cause that script to be run; it still has to be selected through the --script option or otherwise. dependencies merely forces an ordering among the scripts that are selected. 
+This is an example of a dependencies table, from smb-os-discovery:
 
 dependencies = {"smb-brute"}
 
-The dependencies table is optional. NSE will assume the script has no dependencies if the field is omitted.
+The dependencies table is optional. 
+NSE will assume the script has no dependencies if the field is omitted.
 
-Dependencies establish an internal ordering of scripts, assigning each one a number called a “runlevel”[9]. When running your scripts you will see the runlevel (along with the total number of runlevels) of each grouping of scripts run in NSE's output:
+Dependencies establish an internal ordering of scripts, assigning each one a number called a “runlevel”[9]. 
+When running your scripts you will see the runlevel (along with the total number of runlevels) of each grouping of scripts run in NSE's output:
 
 NSE: Script scanning 127.0.0.1.
 NSE: Starting runlevel 1 (of 3) scan.
@@ -469,7 +533,9 @@ NSE: Script Scanning completed.
 
 Rules
 
-Nmap uses the script rules to determine whether a script should be run against a target. A rule is a Lua function that returns either true or false. The script action function is only performed if the rule evaluates to true.
+Nmap uses the script rules to determine whether a script should be run against a target. 
+A rule is a Lua function that returns either true or false. 
+The script action function is only performed if the rule evaluates to true.
 
 A script must contain one or more of the following functions that determine when the script will be run:
 prerule()
@@ -477,18 +543,31 @@ hostrule(host)
 portrule(host, port)
 postrule()
 
-prerule scripts run once, before any hosts are scanned, during the script pre-scanning phase. hostrule and portrule scripts run after each batch of hosts is scanned. postrule scripts run once after all hosts have been scanned, in the script post-scanning phase. A script may run in more than one phase if it has several rules.
+prerule scripts run once, before any hosts are scanned, during the script pre-scanning phase. 
+hostrule and portrule scripts run after each batch of hosts is scanned. 
+postrule scripts run once after all hosts have been scanned, in the script post-scanning phase. 
+A script may run in more than one phase if it has several rules.
 
-prerule and postrule do not accept arguments. hostrule accepts a host table and may test, for example, the IP address or hostname of the target. portrule accepts both a host table and a port table for any port in the open, open|filtered, or unfiltered port states. Port rules generally test factors such as the port number, port state, or listening service name in deciding whether to run against a port. Example rules are shown in the section called “The Rule”.
+prerule and postrule do not accept arguments. hostrule accepts a host table and may test, for example, the IP address or hostname of the target. 
+portrule accepts both a host table and a port table for any port in the open, open|filtered, or unfiltered port states. 
+Port rules generally test factors such as the port number, port state, or listening service name in deciding whether to run against a port. 
+Example rules are shown in the section called “The Rule”.
 
 Advanced users may force a script to run regardless of the results of these rule functions by prefixing the script name (or category or other expression) with a + in the --script argument.
 
-The current standard to choose between a prerule or a postrule is this: if the script is doing host discovery or any other network operation then the prerule should be used. postrule is reserved for reporting of data and statistics that were gathered during the scan.
+The current standard to choose between a prerule or a postrule is this: if the script is doing host discovery or any other network operation then the prerule should be used. 
+postrule is reserved for reporting of data and statistics that were gathered during the scan.
 Action
 
-The action is the heart of an NSE script. It contains all of the instructions to be executed when the script's prerule, portrule, hostrule or postrule triggers. It is a Lua function which accepts the same arguments as the rule. The return value of the action value may be a table of name–value pairs, a string, or nil. For an example of an NSE action refer to the section called “The Action”.
+The action is the heart of an NSE script. 
+It contains all of the instructions to be executed when the script's prerule, portrule, hostrule or postrule triggers. 
+It is a Lua function which accepts the same arguments as the rule. 
+The return value of the action value may be a table of name–value pairs, a string, or nil. 
+For an example of an NSE action refer to the section called “The Action”.
 
-If the output of the action is a table, it is automatically formatted in a structured fashion for inclusion in the normal (-oN) and XML (-oX) output formats. If a string, the text is displayed directly in normal output, and written as an XML attribute in XML output, No output is produced if the script returns nil. See the section called “Structured and Unstructured Output” for details of how different return values are handled.
+If the output of the action is a table, it is automatically formatted in a structured fashion for inclusion in the normal (-oN) and XML (-oX) output formats. 
+If a string, the text is displayed directly in normal output, and written as an XML attribute in XML output, No output is produced if the script returns nil. 
+See the section called “Structured and Unstructured Output” for details of how different return values are handled.
 Environment Variables
 
 Each script has its own set of environment variables:
@@ -501,7 +580,9 @@ SCRIPT_NAME
     The script name. This variable can be used in debug output. 
 SCRIPT_TYPE
 
-    Since a script can have multiple rule functions, this environment variable will show which rule has activated the script, this would be useful if the script wants to share some code between different Script Scan phases. It will take one of these four string values: "prerule", "hostrule", "portrule" or "postrule". This variable is only available during and after the evaluation of the rule functions. 
+    Since a script can have multiple rule functions, this environment variable will show which rule has activated the script, this would be useful if the script wants to share some code between different Script Scan phases. 
+	It will take one of these four string values: "prerule", "hostrule", "portrule" or "postrule". 
+	This variable is only available during and after the evaluation of the rule functions. 
 
 This is an example of a debug code that uses the previous environment variables, followed by the output message, from dns-zone-transfer:
 
@@ -520,7 +601,8 @@ This is an example of a debug code that uses the previous environment variables,
 Script Language
 
 The core of the Nmap Scripting Engine is an embeddable Lua interpreter. 
-Lua is a lightweight language designed for extensibility. It offers a powerful and well-documented API for interfacing with other software such as Nmap.
+Lua is a lightweight language designed for extensibility. 
+It offers a powerful and well-documented API for interfacing with other software such as Nmap.
 
 The second part of the Nmap Scripting Engine is the NSE Library, which connects Lua and Nmap. 
 This layer handles issues such as initialization of the Lua interpreter, scheduling of parallel script execution, script retrieval and more. 
@@ -542,7 +624,8 @@ First the Guile Scheme interpreter was considered, but the preference drifted to
 But parallelizing Elk scripts would have been difficult. 
 In addition, we expect that most Nmap users prefer procedural programming over functional languages such as Scheme. 
 Larger interpreters such as Perl, Python, and Ruby are well-known and loved, but are difficult to embed efficiently. 
-In the end, Lua excelled in all of our criteria. It is small, distributed under the liberal MIT open source license, has coroutines for efficient parallel script execution, was designed with embeddability in mind, has excellent documentation, and is actively developed by a large and committed community. 
+In the end, Lua excelled in all of our criteria. 
+It is small, distributed under the liberal MIT open source license, has coroutines for efficient parallel script execution, was designed with embeddability in mind, has excellent documentation, and is actively developed by a large and committed community. 
 Lua is now even embedded in other popular open source security tools including the Wireshark sniffer and Snort IDS. 
 
 
@@ -606,7 +689,8 @@ cassandra
     Library methods for handling Cassandra Thrift communication as client
 citrixxml
 
-    This module was written by Patrik Karlsson and facilitates communication with the Citrix XML Service. It is not feature complete and is missing several functions and parameters.
+    This module was written by Patrik Karlsson and facilitates communication with the Citrix XML Service. 
+	It is not feature complete and is missing several functions and parameters.
 comm
 
     Common communication functions for network discovery tasks like banner grabbing and data exchange.
@@ -675,10 +759,12 @@ httpspider
     A smallish httpspider library providing basic spidering capabilities It consists of the following classes:
 iax2
 
-    A minimalistic Asterisk IAX2 (Inter-Asterisk eXchange v2) VoIP protocol implementation. The library implements the minimum needed to perform brute force password guessing.
+    A minimalistic Asterisk IAX2 (Inter-Asterisk eXchange v2) VoIP protocol implementation. 
+	The library implements the minimum needed to perform brute force password guessing.
 imap
 
-    A library implementing a minor subset of the IMAP protocol, currently the CAPABILITY, LOGIN and AUTHENTICATE functions. The library was initially written by Brandon Enright and later extended and converted to OO-form by Patrik Karlsson <patrik@cqure.net>
+    A library implementing a minor subset of the IMAP protocol, currently the CAPABILITY, LOGIN and AUTHENTICATE functions. 
+	The library was initially written by Brandon Enright and later extended and converted to OO-form by Patrik Karlsson <patrik@cqure.net>
 informix
 
     Informix Library supporting a very limited subset of Informix operations
@@ -699,7 +785,8 @@ jdwp
     JDWP (Java Debug Wire Protocol) library implementing a set of commands needed to use remote debugging port and inject java bytecode.
 json
 
-    Library methods for handling JSON data. It handles JSON encoding and decoding according to RFC 4627.
+    Library methods for handling JSON data. 
+	It handles JSON encoding and decoding according to RFC 4627.
 ldap
 
     Library methods for handling LDAP.
@@ -728,7 +815,8 @@ msrpc
     A NULL session (the default) will work for some functions and operating systems (or configurations), but not for others.
 msrpcperformance
 
-    This module is designed to parse the PERF_DATA_BLOCK structure, which is stored in the registry under HKEY_PERFORMANCE_DATA. By querying this structure, you can get a whole lot of information about what's going on.
+    This module is designed to parse the PERF_DATA_BLOCK structure, which is stored in the registry under HKEY_PERFORMANCE_DATA. 
+    By querying this structure, you can get a whole lot of information about what's going on.
 msrpctypes
 
     This module was written to marshall parameters for Microsoft RPC (MSRPC) calls. 
@@ -745,13 +833,15 @@ natpmp
     This library implements the basics of NAT-PMP as described in the NAT Port Mapping Protocol (NAT-PMP) draft: o http://tools.ietf.org/html/draft-cheshire-nat-pmp-03
 ncp
 
-    A tiny implementation of the Netware Core Protocol (NCP). While NCP was originally a Netware only protocol it's now present on both Linux and Windows platforms running Novell eDirectory.
+    A tiny implementation of the Netware Core Protocol (NCP). 
+	While NCP was originally a Netware only protocol it's now present on both Linux and Windows platforms running Novell eDirectory.
 ndmp
 
     A minimalistic NDMP (Network Data Management Protocol) library
 netbios
 
-    Creates and parses NetBIOS traffic. The primary use for this is to send NetBIOS name requests.
+    Creates and parses NetBIOS traffic. 
+	The primary use for this is to send NetBIOS name requests.
 nmap
 
     Interface with Nmap internals.
@@ -921,7 +1011,8 @@ Different libraries using the same global variable can be the cause of mysteriou
 Lua's scope assignment is global by default, so this mistake is easy to make.
 
 To help correct this problem, NSE uses a library adapted from the standard Lua distribution called strict.lua. 
-The library will raise a runtime error on any access or modification of a global variable which was undeclared in the file scope. A global variable is considered declared if the library makes an assignment to the global name (even nil) in the file scope.
+The library will raise a runtime error on any access or modification of a global variable which was undeclared in the file scope. 
+A global variable is considered declared if the library makes an assignment to the global name (even nil) in the file scope.
 Adding C Modules to Nselib
 
 A few of the modules included in nselib are written in C or C++ rather than Lua. 
@@ -1148,8 +1239,10 @@ port.version
     name_confidence	Evaluates how confident Nmap is about the accuracy of name, from 1 (least confident) to 10.
     product, version, extrainfo, hostname, ostype, devicetype	These five variables are the same as those described under <versioninfo> in the section called “match Directive”.
     service_tunnel	Contains the string "none" or "ssl" based on whether or not Nmap used SSL tunneling to detect the service.
-    service_fp	The service fingerprint, if any, is provided in this value. This is described in the section called “Community Contributions”.
-    cpe	List of CPE codes for the detected service. As described in the official CPE specification these strings all start with the cpe:/ prefix.
+    service_fp	The service fingerprint, if any, is provided in this value. 
+	This is described in the section called “Community Contributions”.
+    cpe	List of CPE codes for the detected service. 
+	As described in the official CPE specification these strings all start with the cpe:/ prefix.
 
 port.state
 
@@ -1272,7 +1365,9 @@ Nested table become table elements.
 Entries of tables that are not themselves tables become elem elements. 
 Entries (whether table or elem) with string keys get a key attribute (e.g. <elem key="username">foo</elem>); entries with integer keys have no key element and their key is implicit in the order in which they appear.
 
-In addition to the above, whatever normal output the script produces (even if automatically generated) is copied to the output attribute of the script element. Newlines and other special characters will be encoded as XML character entities, for example &#xa;. Example 9.5, “NSE structured output in XML” shows how the example table appears in XML.
+In addition to the above, whatever normal output the script produces (even if automatically generated) is copied to the output attribute of the script element. 
+Newlines and other special characters will be encoded as XML character entities, for example &#xa;. 
+Example 9.5, “NSE structured output in XML” shows how the example table appears in XML.
 
 Example 9.5. NSE structured output in XML
 
@@ -1286,11 +1381,14 @@ Example 9.5. NSE structured output in XML
 </script>
 
 
-Some scripts need more control their normal output. This is the case, for example, with scripts that need to display complex tables. For complete control over the output, these scripts may do either of these things:
+Some scripts need more control their normal output. 
+This is the case, for example, with scripts that need to display complex tables. 
+For complete control over the output, these scripts may do either of these things:
 return a string as second return value, or
 set the __tostring metamethod on the returned table.
 
-The resulting string will be used in normal output, and the table will be used in XML as usual. The formatted string may contain newline characters to appear as multiple lines.
+The resulting string will be used in normal output, and the table will be used in XML as usual. 
+The formatted string may contain newline characters to appear as multiple lines.
 
 If the above code example were modified in this way to return a formatted string,
 
@@ -1312,13 +1410,15 @@ PORT     STATE SERVICE
 |   hostname: slimer
 |_  users: root, foo, bar
 
-There are conventions regarding the formatting of certain kinds of data in structured output. Users of NSE output benefit by being able to assume that some kinds of data, for instance dates and times, are formatted the same way, even in different scripts.
+There are conventions regarding the formatting of certain kinds of data in structured output. 
+Users of NSE output benefit by being able to assume that some kinds of data, for instance dates and times, are formatted the same way, even in different scripts.
 
 Network addresses, for example IPv4, IPv6, and MAC, are represented as strings.
 
 Long hexadecimal strings such as public key fingerprints should be written using lower-case alphabetical characters and without separators such as colons.
 
-Dates and times are formatted according to RFC 3339. If the time zone offset is known, they should appear like these examples:
+Dates and times are formatted according to RFC 3339. 
+If the time zone offset is known, they should appear like these examples:
 
 2012-09-07T23:37:42+00:00
 2012-09-07T23:37:42+02:00
@@ -1327,15 +1427,27 @@ If the time zone offset is not known (representing some unspecified local time),
 
 2012-09-07T23:37:42
 
-The standard library function stdnse.format_timestamp code exists to format times for structured output. It takes an optional time zone offset in seconds and automatically shifts the date to be correct within that offset.
+The standard library function stdnse.format_timestamp code exists to format times for structured output. 
+It takes an optional time zone offset in seconds and automatically shifts the date to be correct within that offset.
 
 stdnse.format_timestamp(os.time(), 0) --> "2012-09-07T23:37:42+00:00"
 
 Exception Handling
 
-NSE provides an exception handling mechanism which is not present in the base Lua language. It is tailored specifically for network I/O operations, and follows a functional programming paradigm rather than an object-oriented one. The nmap.new_try API method is used to create an exception handler. This method returns a function which takes a variable number of arguments that are assumed to be the return values of another function. If an exception is detected in the return values (the first return value is false), then the script execution is aborted and no output is produced. Optionally, you can pass a function to new_try which will be called if an exception is caught. The function would generally perform any required cleanup operations.
+NSE provides an exception handling mechanism which is not present in the base Lua language. 
+It is tailored specifically for network I/O operations, and follows a functional programming paradigm rather than an object-oriented one. 
+The nmap.new_try API method is used to create an exception handler. 
+This method returns a function which takes a variable number of arguments that are assumed to be the return values of another function. 
+If an exception is detected in the return values (the first return value is false), then the script execution is aborted and no output is produced. 
+Optionally, you can pass a function to new_try which will be called if an exception is caught. 
+The function would generally perform any required cleanup operations.
 
-Example 9.6 shows cleanup exception handling at work. A new function named catch is defined to simply close the newly created socket in case of an error. It is then used to protect connection and communication attempts on that socket. If no catch function is specified, execution of the script aborts without further ado—open sockets will remain open until the next run of Lua's garbage collector. If the verbosity level is at least one or if the scan is performed in debugging mode, a description of the uncaught error condition is printed on standard output. Note that it is currently not easily possible to group several statements in one try block.
+Example 9.6 shows cleanup exception handling at work. 
+A new function named catch is defined to simply close the newly created socket in case of an error. 
+It is then used to protect connection and communication attempts on that socket. 
+If no catch function is specified, execution of the script aborts without further ado—open sockets will remain open until the next run of Lua's garbage collector. 
+If the verbosity level is at least one or if the scan is performed in debugging mode, a description of the uncaught error condition is printed on standard output. 
+Note that it is currently not easily possible to group several statements in one try block.
 
 Example 9.6. Exception handling example
 
@@ -1353,12 +1465,23 @@ result = try(socket:receive_lines(1))
 try(socket:send(result))
 
 
-Writing a function which is treated properly by the try/catch mechanism is straightforward. The function should return multiple values. The first value should be a Boolean which is true upon successful completion of the function and false (or nil) otherwise. If the function completed successfully, the try construct consumes the indicator value and returns the remaining values. If the function failed then the second returned value must be a string describing the error condition. Note that if the value is not nil or false it is treated as true so you can return your value in the normal case and return nil, <error description> if an error occurs.
+Writing a function which is treated properly by the try/catch mechanism is straightforward. 
+The function should return multiple values. 
+The first value should be a Boolean which is true upon successful completion of the function and false (or nil) otherwise. 
+If the function completed successfully, the try construct consumes the indicator value and returns the remaining values. 
+If the function failed then the second returned value must be a string describing the error condition. 
+Note that if the value is not nil or false it is treated as true so you can return your value in the normal case and return nil, <error description> if an error occurs.
 The Registry
 
-Scripts can share information by storing values in a register, which is a special table that can be accessed by all scripts. There is a global registry with the name nmap.registry, shared by all scripts. Each host additionally has its own registry called host.registry, where host is the host table passed to a script. Information in the registries is not stored between Nmap executions.
+Scripts can share information by storing values in a register, which is a special table that can be accessed by all scripts. 
+There is a global registry with the name nmap.registry, shared by all scripts. 
+Each host additionally has its own registry called host.registry, where host is the host table passed to a script. 
+Information in the registries is not stored between Nmap executions.
 
-The global registry persists throughout an entire scan session. Scripts can use it, for example, to store values that will later be displayed by a postrule script. The per-host registries, on the other hand, only exist while a host is being scanned. They can be used to send information from one script to another one that runs against the same host. When possible, use the per-host registry; this not only saves you from having to make key names unique across hosts, but also allows the memory used by the registry to be reclaimed when it is no longer needed.
+The global registry persists throughout an entire scan session. Scripts can use it, for example, to store values that will later be displayed by a postrule script. 
+The per-host registries, on the other hand, only exist while a host is being scanned. 
+They can be used to send information from one script to another one that runs against the same host. 
+When possible, use the per-host registry; this not only saves you from having to make key names unique across hosts, but also allows the memory used by the registry to be reclaimed when it is no longer needed.
 
 Here are examples of using both registries:
 The portrule of the ssh-hostkey script collects SSH key fingerprints and stores them in the global nmap.registry so they can be printed later by the postrule.
@@ -1372,21 +1495,41 @@ Scripts that use the results of another script must declare it using the depende
 
 Script Writing Tutorial
 
-Suppose that you are convinced of the power of NSE. How do you go about writing your own script? Let's say that you want to extract information from an identification server to determine the owner of the process listening on a TCP port. This is not really the purpose of identd (it is meant for querying the owner of outgoing connections, not listening daemons), but many identd servers allow it anyway. Nmap used to have this functionality (called ident scan), but it was removed while transitioning to a new scan engine architecture. The protocol identd uses is pretty simple, but still too complicated to handle with Nmap's version detection language. First, you connect to the identification server and send a query of the form <port-on-server>, <port-on-client> and terminated with a newline character. The server should then respond with a string containing the server port, client port, response type, and address information. The address information is omitted if there is an error. More details are available in RFC 1413, but this description is sufficient for our purposes. The protocol cannot be modeled in Nmap's version detection language for two reasons. The first is that you need to know both the local and the remote port of a connection. Version detection does not provide this data. The second, more severe obstacle, is that you need two open connections to the target—one to the identification server and one to the listening port you wish to query. Both obstacles are easily overcome with NSE.
+Suppose that you are convinced of the power of NSE. 
+How do you go about writing your own script? 
+Let's say that you want to extract information from an identification server to determine the owner of the process listening on a TCP port. 
+This is not really the purpose of identd (it is meant for querying the owner of outgoing connections, not listening daemons), but many identd servers allow it anyway. 
+Nmap used to have this functionality (called ident scan), but it was removed while transitioning to a new scan engine architecture. 
+The protocol identd uses is pretty simple, but still too complicated to handle with Nmap's version detection language. 
+First, you connect to the identification server and send a query of the form <port-on-server>, <port-on-client> and terminated with a newline character. 
+The server should then respond with a string containing the server port, client port, response type, and address information. 
+The address information is omitted if there is an error.
+More details are available in RFC 1413, but this description is sufficient for our purposes. 
+The protocol cannot be modeled in Nmap's version detection language for two reasons. 
+The first is that you need to know both the local and the remote port of a connection. 
+Version detection does not provide this data. 
+The second, more severe obstacle, is that you need two open connections to the target—one to the identification server and one to the listening port you wish to query. 
+Both obstacles are easily overcome with NSE.
 
 The anatomy of a script is described in the section called “Script Format”. In this section we will show how the described structure is utilized.
 The Head
 
-The head of the script is essentially its meta information. This includes the fields: description, categories, dependencies, author, and license as well as initial NSEDoc information such as usage, args, and output tags (see the section called “Writing Script Documentation (NSEDoc)”).
+The head of the script is essentially its meta information. 
+This includes the fields: description, categories, dependencies, author, and license as well as initial NSEDoc information such as usage, args, and output tags (see the section called “Writing Script Documentation (NSEDoc)”).
 
-The description field should contain a paragraph or more describing what the script does. If anything about the script results might confuse or mislead users, and you can't eliminate the issue by improving the script or results text, it should be documented in the description. If there are multiple paragraphs, the first is used as a short summary where necessary. Make sure that first paragraph can serve as a stand alone abstract. This description is short because it is such a simple script:
+The description field should contain a paragraph or more describing what the script does. 
+If anything about the script results might confuse or mislead users, and you can't eliminate the issue by improving the script or results text, it should be documented in the description. 
+If there are multiple paragraphs, the first is used as a short summary where necessary. 
+Make sure that first paragraph can serve as a stand alone abstract. 
+This description is short because it is such a simple script:
 
 description = [[
 Attempts to find the owner of an open TCP port by querying an auth
 (identd - port 113) daemon which must also be open on the target system.
 ]]
 
-Next comes NSEDoc information. This script is missing the common @usage and @args tags since it is so simple, but it does have an NSEDoc @output tag:
+Next comes NSEDoc information. 
+This script is missing the common @usage and @args tags since it is so simple, but it does have an NSEDoc @output tag:
 
 ---
 --@output
@@ -1405,7 +1548,10 @@ Next comes NSEDoc information. This script is missing the common @usage and @arg
 -- 5666/tcp open     unknown
 -- |_ auth-owners: root
 
-Next come the author, license, and categories tags. This script belongs to the safe because we are not using the service for anything it was not intended for. Because this script is one that should run by default it is also in the default category. Here are the variables in context:
+Next come the author, license, and categories tags. 
+This script belongs to the safe because we are not using the service for anything it was not intended for. 
+Because this script is one that should run by default it is also in the default category. 
+Here are the variables in context:
 
 author = "Diman Todorov"
 
@@ -1415,9 +1561,20 @@ categories = {"default", "safe"}
 
 The Rule
 
-The rule section is a Lua method which decides whether to skip or execute the script's action. This decision is usually based on the type of the rule and the host and port information passed to it. A prerule or a postrule will always evaluate to true. In the case of the identification script, it is slightly more complicated than that. To decide whether to run the identification script against a given port we need to know if there is an auth server running on the target machine. In other words, the script should be run only if the currently scanned TCP port is open and TCP port 113 is also open. For now we will rely on the fact that identification servers listen on TCP port 113. Unfortunately NSE only gives us information about the currently scanned port.
+The rule section is a Lua method which decides whether to skip or execute the script's action. 
+This decision is usually based on the type of the rule and the host and port information passed to it.
+A prerule or a postrule will always evaluate to true. 
+In the case of the identification script, it is slightly more complicated than that. 
+To decide whether to run the identification script against a given port we need to know if there is an auth server running on the target machine. 
+In other words, the script should be run only if the currently scanned TCP port is open and TCP port 113 is also open. 
+For now we will rely on the fact that identification servers listen on TCP port 113. 
+Unfortunately NSE only gives us information about the currently scanned port.
 
-To find out if port 113 is open, we use the nmap.get_port_state function. If the auth port was not scanned, the get_port_state function returns nil. So we check that the table is not nil. We also check that both ports are in the open state. If this is the case, the action is executed, otherwise we skip the action.
+To find out if port 113 is open, we use the nmap.get_port_state function. 
+If the auth port was not scanned, the get_port_state function returns nil. 
+So we check that the table is not nil. 
+We also check that both ports are in the open state. 
+If this is the case, the action is executed, otherwise we skip the action.
 
 portrule = function(host, port)
 	local auth_port = { number=113, protocol="tcp" }
@@ -1431,9 +1588,17 @@ end
 
 The Action
 
-At last we implement the actual functionality! The script first connects to the port on which we expect to find the identification server, then it will connect to the port we want information about. Doing so involves first creating two socket options by calling nmap.new_socket. Next we define an error-handling catch function which closes those sockets if failure is detected. At this point we can safely use object methods such as open, close, send and receive to operate on the network socket. In this case we call connect to make the connections. NSE's exception handling mechanism is used to avoid excessive error-handling code. We simply wrap the networking calls in a try call which will in turn call our catch function if anything goes wrong.
+At last we implement the actual functionality! 
+The script first connects to the port on which we expect to find the identification server, then it will connect to the port we want information about. 
+Doing so involves first creating two socket options by calling nmap.new_socket. 
+Next we define an error-handling catch function which closes those sockets if failure is detected. 
+At this point we can safely use object methods such as open, close, send and receive to operate on the network socket. 
+In this case we call connect to make the connections. 
+NSE's exception handling mechanism is used to avoid excessive error-handling code. 
+We simply wrap the networking calls in a try call which will in turn call our catch function if anything goes wrong.
 
-If the two connections succeed, we construct a query string and parse the response. If we received a satisfactory response, we return the retrieved information.
+If the two connections succeed, we construct a query string and parse the response. 
+If we received a satisfactory response, we return the retrieved information.
 
 action = function(host, port)
         local owner = ""
@@ -1477,15 +1642,23 @@ Note that because we know that the remote port is stored in port.number, we coul
 
 local localip, localport = try(client_service:get_info())
 
-In this example we exit quietly if the service responds with an error. This is done by assigning nil to the owner variable which will be returned. NSE scripts generally only return messages when they succeed, so they don't flood the user with pointless alerts.
+In this example we exit quietly if the service responds with an error. 
+This is done by assigning nil to the owner variable which will be returned. 
+NSE scripts generally only return messages when they succeed, so they don't flood the user with pointless alerts.
 
 
 
 Writing Script Documentation (NSEDoc)
 
-Scripts are used by more than just their authors, so they require good documentation. NSE modules need documentation so developers can use them in their scripts. NSE's documentation system, described in this section, aims to meet both these needs. While reading this section, you may want to browse NSE's online documentation, which is generated using this system. It is at http://nmap.org/nsedoc/.
+Scripts are used by more than just their authors, so they require good documentation. 
+NSE modules need documentation so developers can use them in their scripts. 
+NSE's documentation system, described in this section, aims to meet both these needs. 
+While reading this section, you may want to browse NSE's online documentation, which is generated using this system. 
+It is at http://nmap.org/nsedoc/.
 
-NSE uses a customized version of the LuaDoc documentation system called NSEDoc. The documentation for scripts and modules is contained in their source code, as comments with a special form. Example 9.7 is an NSEDoc comment taken from the stdnse.print_debug() function.
+NSE uses a customized version of the LuaDoc documentation system called NSEDoc. 
+The documentation for scripts and modules is contained in their source code, as comments with a special form. 
+Example 9.7 is an NSEDoc comment taken from the stdnse.print_debug() function.
 
 Example 9.7. An NSEDoc comment for a function
 
@@ -1503,11 +1676,21 @@ Example 9.7. An NSEDoc comment for a function
 -- @param ... Arguments to format.
 
 
-Documentation comments start with three dashes: ---. The body of the comment is the description of the following code. The first paragraph of the description should be a brief summary, with the following paragraphs providing more detail. Special tags starting with @ mark off other parts of the documentation. In the above example you see @param, which is used to describe each parameter of a function. A complete list of the documentation tags is found in the section called “NSE Documentation Tags”.
+Documentation comments start with three dashes: ---. 
+The body of the comment is the description of the following code. 
+The first paragraph of the description should be a brief summary, with the following paragraphs providing more detail. 
+Special tags starting with @ mark off other parts of the documentation. In the above example you see @param, which is used to describe each parameter of a function. 
+A complete list of the documentation tags is found in the section called “NSE Documentation Tags”.
 
-Text enclosed in the HTML-like <code> and </code> tags will be rendered in a monospace font. This should be used for variable and function names, as well as multi-line code examples. When a sequence of lines start with the characters “* ”, they will be rendered as a bulleted list. Each list item must be entirely on one physical line.
+Text enclosed in the HTML-like <code> and </code> tags will be rendered in a monospace font. 
+This should be used for variable and function names, as well as multi-line code examples. 
+When a sequence of lines start with the characters “* ”, they will be rendered as a bulleted list. 
+Each list item must be entirely on one physical line.
 
-It is good practice to document every public function and table in a script or module. Additionally every script and module should have its own file-level documentation. A documentation comment at the beginning of a file (one that is not followed by a function or table definition) applies to the entire file. File-level documentation can and should be several paragraphs long, with all the high-level information useful to a developer using a module or a user running a script. Example 9.8 shows documentation for the comm module (with a few paragraphs removed to save space).
+It is good practice to document every public function and table in a script or module. 
+Additionally every script and module should have its own file-level documentation. 
+A documentation comment at the beginning of a file (one that is not followed by a function or table definition) applies to the entire file. 
+File-level documentation can and should be several paragraphs long, with all the high-level information useful to a developer using a module or a user running a script. Example 9.8 shows documentation for the comm module (with a few paragraphs removed to save space).
 
 Example 9.8. An NSEDoc comment for a module
 
@@ -1528,7 +1711,12 @@ Example 9.8. An NSEDoc comment for a module
 -- @copyright Same as Nmap--See http://nmap.org/book/man-legal.html
 
 
-There are some special considerations for documenting scripts rather than functions and modules. In particular, scripts have special variables for some information which would otherwise belongs in @-tag comments (script variables are described in the section called “Script Format”). In particular, a script's description belongs in the description variable rather than in a documentation comment, and the information that would go in @author and @copyright belong in the variables author and license instead. NSEDoc knows about these variables and will use them in preference to fields in the comments. Scripts should also have @output and @xmloutput tags showing sample output, as well as @args and @usage where appropriate. Example 9.9 shows proper form for script-level documentation, using a combination of documentation comments and NSE variables.
+There are some special considerations for documenting scripts rather than functions and modules. 
+In particular, scripts have special variables for some information which would otherwise belongs in @-tag comments (script variables are described in the section called “Script Format”). 
+In particular, a script's description belongs in the description variable rather than in a documentation comment, and the information that would go in @author and @copyright belong in the variables author and license instead. 
+NSEDoc knows about these variables and will use them in preference to fields in the comments. 
+Scripts should also have @output and @xmloutput tags showing sample output, as well as @args and @usage where appropriate. 
+Example 9.9 shows proper form for script-level documentation, using a combination of documentation comments and NSE variables.
 
 Example 9.9. An NSEDoc comment for a script
 
@@ -1538,9 +1726,11 @@ Maps IP addresses to autonomous system (AS) numbers.
 The script works by sending DNS TXT queries to a DNS server which in
 turn queries a third-party service provided by Team Cymru
 (team-cymru.org) using an in-addr.arpa style zone set up especially for
-use by Nmap. The responses to these queries contain both Origin and Peer
+use by Nmap. 
+The responses to these queries contain both Origin and Peer
 ASNs and their descriptions, displayed along with the BGP Prefix and
-Country Code. The script caches results to reduce the number of queries
+Country Code. 
+The script caches results to reduce the number of queries
 and should perform a single query for all scanned targets in a BGP
 Prefix present in Team Cymru's database.
 
@@ -1570,14 +1760,19 @@ license = "Same as Nmap--See http://nmap.org/book/man-legal.html"
 categories = {"discovery", "external", "safe"}
 
 
-Compiled NSE modules are also documented with NSEDoc, even though they have no Lua source code. Each compiled module has a file <modulename>.luadoc that is kept in the nselib directory alongside the Lua modules. This file lists and documents the functions and tables in the compiled module as though they were written in Lua. Only the name of each function is required, not its definition (not even end). You must use the @name and @class tags when documenting a table to assist the documentation parser in identifying it. There are several examples of this method of documentation in the Nmap source distribution (including nmap.luadoc, bit.luadoc, and pcre.luadoc).
+Compiled NSE modules are also documented with NSEDoc, even though they have no Lua source code. 
+Each compiled module has a file <modulename>.luadoc that is kept in the nselib directory alongside the Lua modules. 
+This file lists and documents the functions and tables in the compiled module as though they were written in Lua. 
+Only the name of each function is required, not its definition (not even end). You must use the @name and @class tags when documenting a table to assist the documentation parser in identifying it. 
+There are several examples of this method of documentation in the Nmap source distribution (including nmap.luadoc, bit.luadoc, and pcre.luadoc).
 NSE Documentation Tags
 
 The following tags are understood by NSEDoc:
 
 @param
 
-    Describes a function parameter. The first word following @param is the name of the parameter being described. The tag should appear once for each parameter of a function. 
+    Describes a function parameter. 
+	The first word following @param is the name of the parameter being described. The tag should appear once for each parameter of a function. 
 @see
 
     Adds a cross-reference to another function or table. 
@@ -1586,61 +1781,95 @@ The following tags are understood by NSEDoc:
     Describes a return value of a function. @return may be used multiple times for multiple return values. 
 @usage
 
-    Provides a usage example of a function, script, or module. In the case of a function, the example is Lua code; for a script it is an Nmap command line; and for a module it is usually a code sample. @usage may be given more than once. If it is omitted in a script, NSEDoc generates a default standardized usage example. 
+    Provides a usage example of a function, script, or module. 
+	In the case of a function, the example is Lua code; for a script it is an Nmap command line; and for a module it is usually a code sample. @usage may be given more than once. If it is omitted in a script, NSEDoc generates a default standardized usage example. 
 @name
 
-    Defines a name for the function or table being documented. This tag is normally not necessary because NSEDoc infers names through code analysis. 
+    Defines a name for the function or table being documented. 
+	This tag is normally not necessary because NSEDoc infers names through code analysis. 
 @class
 
-    Defines the “class” of the object being documented: function, table, or module. Like @name, this is normally inferred automatically. 
+    Defines the “class” of the object being documented: function, table, or module. 
+	Like @name, this is normally inferred automatically. 
 @field
 
     In the documentation of a table, @field describes the value of a named field. 
 @args
 
-    Describes a script argument, as used with the --script-args option (see the section called “Arguments to Scripts”). The first word after @args is the name of the argument, and everything following that is the description. This tag is special to script-level comments. 
+    Describes a script argument, as used with the --script-args option (see the section called “Arguments to Scripts”). 
+	The first word after @args is the name of the argument, and everything following that is the description. 
+	This tag is special to script-level comments. 
 @output
 
     This tag, which is exclusive to script-level comments, shows sample output from a script. 
 @xmloutput
 
-    Shows what the script's the section called “Structured and Unstructured Output” looks like when written to XML. The XML sample should not include the enclosing <script> and </script> tags and should be indented to show hierarchy. 
+    Shows what the script's the section called “Structured and Unstructured Output” looks like when written to XML. 
+	The XML sample should not include the enclosing <script> and </script> tags and should be indented to show hierarchy. 
 @author
 
-    This tag, which may be given multiple times, lists the authors of an NSE module. For scripts, use the author variable instead. 
+    This tag, which may be given multiple times, lists the authors of an NSE module. 
+	For scripts, use the author variable instead. 
 @copyright
 
-    This tag describes the copyright status of a module. For scripts, use the license variable instead. 
+    This tag describes the copyright status of a module. 
+	For scripts, use the license variable instead. 
     
     
     
     
     Script Parallelism in NSE
 
-In the section called “Network I/O API”, it was mentioned that NSE automatically parallelizes network operations. Usually this process is transparent to a script author, but there are some advanced techniques that require knowledge of how it works. The techniques covered in this section are controlling how multiple scripts interact in a library, using multiple threads in parallel, and disabling parallelism for special cases.
+In the section called “Network I/O API”, it was mentioned that NSE automatically parallelizes network operations. 
+Usually this process is transparent to a script author, but there are some advanced techniques that require knowledge of how it works. 
+The techniques covered in this section are controlling how multiple scripts interact in a library, using multiple threads in parallel, and disabling parallelism for special cases.
 
-The standard mechanism for parallel execution is a thread. A thread encapsulates the execution flow and data of a script. Lua thread may be yielded at arbitrary locations to continue work on another script. Typically, these yield locations are blocking socket operations in the nmap library. The yield back to the script is also transparent, a side effect of the socket operation.
+The standard mechanism for parallel execution is a thread. 
+A thread encapsulates the execution flow and data of a script. 
+Lua thread may be yielded at arbitrary locations to continue work on another script. 
+Typically, these yield locations are blocking socket operations in the nmap library. 
+The yield back to the script is also transparent, a side effect of the socket operation.
 
-Let's go over some common terminology. A script is analogous to a binary executable; it holds the information necessary to execute a script. A thread (a Lua coroutine) is analogous to a process; it runs a script against a host and possibly port. Sometimes we abuse terminology and refer to a running thread as a running “script”, but what this really means is an instantiation of a script, in the same way that a process is the instantiation of an executable.
+Let's go over some common terminology. 
+A script is analogous to a binary executable; it holds the information necessary to execute a script. 
+A thread (a Lua coroutine) is analogous to a process; it runs a script against a host and possibly port. 
+Sometimes we abuse terminology and refer to a running thread as a running “script”, but what this really means is an instantiation of a script, in the same way that a process is the instantiation of an executable.
 
 NSE provides the bare-bone essentials needed to expand parallelism basic model of one thread per script: new independent threads, mutexes, and condition variables.
 Worker Threads
 
-There are several instances where a script needs finer control with respect to parallel execution beyond what is offered by default with a generic script. A common need is to read from multiple sockets concurrently. For example, an HTTP spidering script may want to have multiple Lua threads querying web server resources in parallel. To answer this need, NSE offers the function stdnse.new_thread to create worker threads. These worker threads have all the power of independent scripts with the only restriction that they may not report script output.
+There are several instances where a script needs finer control with respect to parallel execution beyond what is offered by default with a generic script. 
+A common need is to read from multiple sockets concurrently. 
+For example, an HTTP spidering script may want to have multiple Lua threads querying web server resources in parallel. 
+To answer this need, NSE offers the function stdnse.new_thread to create worker threads. These worker threads have all the power of independent scripts with the only restriction that they may not report script output.
 
 Each worker thread launched by a script is given a main function and a variable number of arguments to be passed to the main function by NSE:
 
 worker_thread, status_function = stdnse.new_thread(main, ...)
 
-stdnse.new_thread returns two values: the Lua thread (coroutine) that uniquely identifies your worker thread, and a status query function that queries the status of your new worker. The status query function returns two values:
+stdnse.new_thread returns two values: the Lua thread (coroutine) that uniquely identifies your worker thread, and a status query function that queries the status of your new worker. 
+The status query function returns two values:
 
 status, error_object = status_function()
 
-The first return value is simply the return value of coroutine.status run on the worker thread coroutine. (More precisely, the base coroutine. Read more about base coroutine in the section called “The base thread”.) The second return value contains an error object that caused the termination of the worker thread, or nil if no error was thrown. This object is typically a string, like most Lua errors. However, any Lua type can be an error object, even nil. Therefore inspect the error object, the second return value, only if the status of the worker is "dead".
+The first return value is simply the return value of coroutine.status run on the worker thread coroutine. 
+(More precisely, the base coroutine. 
+Read more about base coroutine in the section called “The base thread”.) 
+The second return value contains an error object that caused the termination of the worker thread, or nil if no error was thrown. 
+This object is typically a string, like most Lua errors. 
+However, any Lua type can be an error object, even nil. 
+Therefore inspect the error object, the second return value, only if the status of the worker is "dead".
 
-NSE discards all return values from the main function when the worker thread finishes execution. You should communicate with your worker through the use of main function parameters, upvalues, or function environments. See Example 9.10 for an example.
+NSE discards all return values from the main function when the worker thread finishes execution. 
+You should communicate with your worker through the use of main function parameters, upvalues, or function environments. 
+See Example 9.10 for an example.
 
-Finally, when using worker threads you should always use condition variables or mutexes to coordinate them. Nmap is single-threaded so there are no memory synchronization issues to worry about; but there is contention for resources. These resources include usually network bandwidth and sockets. Condition variables are also useful if the work for any single thread is dynamic. For example, a web server spider script with a pool of workers will initially have a single root HTML document. Following the retrieval of the root document, the set of resources to be retrieved (the worker's work) may become very large as each new document adds new URLs to fetch.
+Finally, when using worker threads you should always use condition variables or mutexes to coordinate them. 
+Nmap is single-threaded so there are no memory synchronization issues to worry about; but there is contention for resources. 
+These resources include usually network bandwidth and sockets. 
+Condition variables are also useful if the work for any single thread is dynamic. 
+For example, a web server spider script with a pool of workers will initially have a single root HTML document. 
+Following the retrieval of the root document, the set of resources to be retrieved (the worker's work) may become very large as each new document adds new URLs to fetch.
 
 Example 9.10. Worker threads
 
@@ -1682,37 +1911,64 @@ function many_requests (host, port)
 end
 
 
-For brevity, this example omits typical behavior of a traditional web spider. The requests table is assumed to contain enough objects to warrant the use of worker threads. The code in this example dispatches a new thread with as many as 11 relative URLs. Worker threads are cheap, so don't be afraid to create a lot of them. After dispatching all these threads, the code waits on a condition variable until every thread has finished, then finally return the responses table.
+For brevity, this example omits typical behavior of a traditional web spider. 
+The requests table is assumed to contain enough objects to warrant the use of worker threads. 
+The code in this example dispatches a new thread with as many as 11 relative URLs. 
+Worker threads are cheap, so don't be afraid to create a lot of them. 
+After dispatching all these threads, the code waits on a condition variable until every thread has finished, then finally return the responses table.
 
-You may have noticed that we did not use the status function returned by stdnse.new_thread. You will typically use this for debugging or if your program must stop based on the error thrown by one of your worker threads. Our simple example did not require this but a more fault-tolerant library may.
+You may have noticed that we did not use the status function returned by stdnse.new_thread. 
+You will typically use this for debugging or if your program must stop based on the error thrown by one of your worker threads. 
+Our simple example did not require this but a more fault-tolerant library may.
 Mutexes
 
-Recall from the beginning of this section that each script execution thread (e.g. ftp-anon running against an FTP server on a target host) yields to other scripts whenever it makes a call on network objects (sending or receiving data). Some scripts require finer concurrency control over thread execution. An example is the whois script which queries whois servers for each target IP address. Because many concurrent queries can get your IP banned for abuse, and because a single query may return the same information another instance of the script is about to request, it is useful to have other threads pause while one thread performs a query.
+Recall from the beginning of this section that each script execution thread (e.g. ftp-anon running against an FTP server on a target host) yields to other scripts whenever it makes a call on network objects (sending or receiving data). 
+Some scripts require finer concurrency control over thread execution. 
+An example is the whois script which queries whois servers for each target IP address. 
+Because many concurrent queries can get your IP banned for abuse, and because a single query may return the same information another instance of the script is about to request, it is useful to have other threads pause while one thread performs a query.
 
-To solve this problem, NSE includes a mutex function which provides a mutex (mutual exclusion object) usable by scripts. The mutex allows for only one thread to be working on an object at a time. Competing threads waiting to work on this object are put in the waiting queue until they can get a “lock” on the mutex. A solution for the whois problem above is to have each thread block on a mutex using a common string, ensuring that only one thread at a time is querying a server. When finished querying the remote servers, the thread can store results in the NSE registry and unlock the mutex. Other scripts waiting to query the remote server can then obtain a lock, check for the cache for a usable result from a previous query, make their own queries, and unlock the mutex. This is a good example of serializing access to a remote resource.
+To solve this problem, NSE includes a mutex function which provides a mutex (mutual exclusion object) usable by scripts. 
+The mutex allows for only one thread to be working on an object at a time. 
+Competing threads waiting to work on this object are put in the waiting queue until they can get a “lock” on the mutex. 
+A solution for the whois problem above is to have each thread block on a mutex using a common string, ensuring that only one thread at a time is querying a server. 
+When finished querying the remote servers, the thread can store results in the NSE registry and unlock the mutex. 
+Other scripts waiting to query the remote server can then obtain a lock, check for the cache for a usable result from a previous query, make their own queries, and unlock the mutex. 
+This is a good example of serializing access to a remote resource.
 
 The first step in using a mutex is to create one with a call to nmap.mutex.
 
 mutexfn = nmap.mutex(object)
 
-The mutexfn returned is a function which works as a mutex for the object passed in. This object can be any Lua data type except nil, Boolean, and number. The returned function allows you to lock, try to lock, and release the mutex. Its sole argument must be one of the following:
+The mutexfn returned is a function which works as a mutex for the object passed in. 
+This object can be any Lua data type except nil, Boolean, and number. 
+The returned function allows you to lock, try to lock, and release the mutex. 
+Its sole argument must be one of the following:
 
 "lock"
 
-    Makes a blocking lock on the mutex. If the mutex is busy (another thread has a lock on it), then the thread will yield and wait. The function returns with the mutex locked. 
+    Makes a blocking lock on the mutex. 
+	If the mutex is busy (another thread has a lock on it), then the thread will yield and wait. 
+	The function returns with the mutex locked. 
 "trylock"
 
-    Makes a non-blocking lock on the mutex. If the mutex is busy then it immediately returns with a return value of false. Otherwise, locks the mutex and returns true. 
+    Makes a non-blocking lock on the mutex. 
+	If the mutex is busy then it immediately returns with a return value of false. 
+	Otherwise, locks the mutex and returns true. 
 "done"
 
-    Releases the mutex and allows another thread to lock it. If the thread does not have a lock on the mutex, an error will be raised. 
+    Releases the mutex and allows another thread to lock it. 
+	If the thread does not have a lock on the mutex, an error will be raised. 
 "running"
 
-    Returns the thread locked on the mutex or nil if the mutex is not locked. This should only be used for debugging as it interferes with garbage collection of finished threads. 
+    Returns the thread locked on the mutex or nil if the mutex is not locked. 
+	This should only be used for debugging as it interferes with garbage collection of finished threads. 
 
-NSE maintains a weak reference to the mutex so other calls to nmap.mutex with the same object will return the same mutex function. However, if you discard your reference to the mutex then it may be collected and subsequent calls to nmap.mutex with the object will return a different function. Therefore save your mutex to a (local) variable that persists as long as you need it.
+NSE maintains a weak reference to the mutex so other calls to nmap.mutex with the same object will return the same mutex function. 
+However, if you discard your reference to the mutex then it may be collected and subsequent calls to nmap.mutex with the object will return a different function. 
+Therefore save your mutex to a (local) variable that persists as long as you need it.
 
-A simple example of using the API is provided in Example 9.11. For real-life examples, read the asn-query and whois scripts in the Nmap distribution.
+A simple example of using the API is provided in Example 9.11. 
+For real-life examples, read the asn-query and whois scripts in the Nmap distribution.
 
 Example 9.11. Mutex manipulation
 
@@ -1727,38 +1983,72 @@ end
 
 Condition Variables
 
-Condition variables arose out of a need to coordinate with worker threads created by the stdnse.new_thread function. A condition variable allows many threads to wait on one object, and one or all of them to be awakened when some condition is met. Said differently, multiple threads may unconditionally block on the condition variable by waiting. Other threads may use the condition variable to wake up the waiting threads.
+Condition variables arose out of a need to coordinate with worker threads created by the stdnse.new_thread function. 
+A condition variable allows many threads to wait on one object, and one or all of them to be awakened when some condition is met. 
+Said differently, multiple threads may unconditionally block on the condition variable by waiting. 
+Other threads may use the condition variable to wake up the waiting threads.
 
-For example, consider the earlier Example 9.10, “Worker threads”. Until all the workers finish, the master thread must sleep. Note that we cannot poll for results like in a traditional operating system thread because NSE does not preempt Lua threads. Instead, we use a condition variable that the master thread waits on until awakened by a worker. The master will continually wait until all workers have terminated.
+For example, consider the earlier Example 9.10, “Worker threads”. 
+Until all the workers finish, the master thread must sleep. 
+Note that we cannot poll for results like in a traditional operating system thread because NSE does not preempt Lua threads. 
+Instead, we use a condition variable that the master thread waits on until awakened by a worker. 
+The master will continually wait until all workers have terminated.
 
 The first step in using a condition variable is to create one with a call to nmap.condvar.
 
 condvarfn = nmap.condvar(object)
 
-The semantics for condition variables are similar to those of mutexes. The condvarfn returned is a function which works as a condition variable for the object passed in. This object can be any Lua data type except nil, Boolean, and number. The returned function allows you to wait, signal, and broadcast on the condition variable. Its sole argument must be one of the following:
+The semantics for condition variables are similar to those of mutexes. 
+The condvarfn returned is a function which works as a condition variable for the object passed in. 
+This object can be any Lua data type except nil, Boolean, and number. 
+The returned function allows you to wait, signal, and broadcast on the condition variable. 
+Its sole argument must be one of the following:
 
 "wait"
 
-    Wait on the condition variable. This adds the current thread to the waiting queue for the condition variable. It will resume execution when another thread signals or broadcasts on the condition variable. 
+    Wait on the condition variable. 
+	This adds the current thread to the waiting queue for the condition variable. 
+	It will resume execution when another thread signals or broadcasts on the condition variable. 
 "signal"
 
-    Signal the condition variable. One of the threads in the condition variable's waiting queue will be resumed. 
+    Signal the condition variable. 
+	One of the threads in the condition variable's waiting queue will be resumed. 
 "broadcast"
 
     Resume all the threads in the condition variable's waiting queue. 
 
-Like with mutexes, NSE maintains a weak reference to the condition variable so other calls to nmap.condvar with the same object will return the same function. However, if you discard your reference to the condition variable then it may be collected and subsequent calls to nmap.condvar with the object will return a different function. Therefore save your condition variable to a (local) variable that persists as long as you need it.
+Like with mutexes, NSE maintains a weak reference to the condition variable so other calls to nmap.condvar with the same object will return the same function. 
+However, if you discard your reference to the condition variable then it may be collected and subsequent calls to nmap.condvar with the object will return a different function. 
+Therefore save your condition variable to a (local) variable that persists as long as you need it.
 
-When using condition variables, it is important to check the predicate before and after waiting. A predicate is a test on whether to continue doing work within a worker or master thread. For worker threads, this will at the very least include a test to see if the master thread is still alive. You do not want to continue doing work when there's no thread to use your results. A typical test before waiting may be: Check whether the master is still running; if not, then quit. Check if is work to be done; if not, then wait.
+When using condition variables, it is important to check the predicate before and after waiting. 
+A predicate is a test on whether to continue doing work within a worker or master thread. 
+For worker threads, this will at the very least include a test to see if the master thread is still alive. 
+You do not want to continue doing work when there's no thread to use your results. 
+A typical test before waiting may be: Check whether the master is still running; if not, then quit. 
+Check if is work to be done; if not, then wait.
 
-A thread waiting on a condition variable may be resumed without any other thread having called "signal" or "broadcast" on the condition variable (a spurious wakeup). The usual, but not only, reason that this may happen is the termination of one of the threads using the condition variable. This is an important guarantee NSE makes that allows you to avoid deadlock where a worker or master waits for a thread to wake them up that ended without signaling the condition variable.
+A thread waiting on a condition variable may be resumed without any other thread having called "signal" or "broadcast" on the condition variable (a spurious wakeup). 
+The usual, but not only, reason that this may happen is the termination of one of the threads using the condition variable. 
+This is an important guarantee NSE makes that allows you to avoid deadlock where a worker or master waits for a thread to wake them up that ended without signaling the condition variable.
 Collaborative Multithreading
 
-One of Lua's least-known features is collaborative multithreading through coroutines. A coroutine provides an independent execution stack that can be yielded and resumed. The standard coroutine table provides access to the creation and manipulation of coroutines. Lua's online first edition of Programming in Lua contains an excellent introduction to coroutines. What follows is an overview of the use of coroutines here for completeness, but this is no replacement for the definitive reference.
+One of Lua's least-known features is collaborative multithreading through coroutines. 
+A coroutine provides an independent execution stack that can be yielded and resumed. 
+The standard coroutine table provides access to the creation and manipulation of coroutines. 
+Lua's online first edition of Programming in Lua contains an excellent introduction to coroutines. 
+What follows is an overview of the use of coroutines here for completeness, but this is no replacement for the definitive reference.
 
-We have mentioned coroutines throughout this section as threads. This is the type ("thread") of a coroutine in Lua. They are not the preemptive threads that programmers may be expecting. Lua threads provide the basis for parallel scripting but only one thread is ever running at a time.
+We have mentioned coroutines throughout this section as threads. 
+This is the type ("thread") of a coroutine in Lua. 
+They are not the preemptive threads that programmers may be expecting. 
+Lua threads provide the basis for parallel scripting but only one thread is ever running at a time.
 
-A Lua function executes on top of a Lua thread. The thread maintains a stack of active functions, local variables, and the current instruction pointer. We can switch between coroutines by explicitly yielding the running thread. The coroutine which resumed the yielded thread resumes operation. Example 9.12 shows a brief use of coroutines to print numbers.
+A Lua function executes on top of a Lua thread. 
+The thread maintains a stack of active functions, local variables, and the current instruction pointer. 
+We can switch between coroutines by explicitly yielding the running thread. 
+The coroutine which resumed the yielded thread resumes operation. 
+Example 9.12 shows a brief use of coroutines to print numbers.
 
 Example 9.12. Basic Coroutine Use
 
@@ -1776,9 +2066,16 @@ end
 --> true    3
 
 
-Coroutines are the facility that enables NSE to run scripts in parallel. All scripts are run as coroutines that yield whenever they make a blocking socket function call. This enables NSE to run other scripts and later resume the blocked script when its I/O operation has completed.
+Coroutines are the facility that enables NSE to run scripts in parallel. 
+All scripts are run as coroutines that yield whenever they make a blocking socket function call. 
+This enables NSE to run other scripts and later resume the blocked script when its I/O operation has completed.
 
-Sometimes coroutines are the best tool for a job within a single script. One common use in socket programming is filtering data. You may write a function that generates all the links from an HTML document. An iterator using string.gmatch can catches only a single pattern. Because some complex matches may take many different Lua patterns, it is more appropriate to use a coroutine. Example 9.13 shows how to do this.
+Sometimes coroutines are the best tool for a job within a single script. 
+One common use in socket programming is filtering data. 
+You may write a function that generates all the links from an HTML document. 
+An iterator using string.gmatch can catches only a single pattern. 
+Because some complex matches may take many different Lua patterns, it is more appropriate to use a coroutine. 
+Example 9.13 shows how to do this.
 
 Example 9.13. Link Generator
 
@@ -1808,20 +2105,35 @@ end
 
 The base thread
 
-Because scripts may use coroutines for their own multithreading, it is important to be able to identify the owner of a resource or to establish whether the script is still alive. NSE provides the function stdnse.base for this purpose.
+Because scripts may use coroutines for their own multithreading, it is important to be able to identify the owner of a resource or to establish whether the script is still alive. 
+NSE provides the function stdnse.base for this purpose.
 
-Particularly when writing a library that attributes ownership of a cache or socket to a script, you can use the base thread to establish whether the script is still running. coroutine.status on the base thread will give the current state of the script. In cases where the script is "dead", you will want to release the resource. Be careful with keeping references to these threads; NSE may discard a script even though it has not finished executing. The thread will still report a status of "suspended". You should keep a weak reference to the thread in these cases so that it may be collected. 
+Particularly when writing a library that attributes ownership of a cache or socket to a script, you can use the base thread to establish whether the script is still running. coroutine.status on the base thread will give the current state of the script. 
+In cases where the script is "dead", you will want to release the resource. 
+Be careful with keeping references to these threads; NSE may discard a script even though it has not finished executing. 
+The thread will still report a status of "suspended". 
+You should keep a weak reference to the thread in these cases so that it may be collected. 
 
 
 
 
 Version Detection Using NSE
 
-The version detection system built into Nmap was designed to efficiently recognize the vast majority of protocols with a simple probe and pattern matching syntax. Some protocols require more complex communication than version detection can handle. A generalized scripting language as provided by NSE is perfect for these tough cases.
+The version detection system built into Nmap was designed to efficiently recognize the vast majority of protocols with a simple probe and pattern matching syntax. 
+Some protocols require more complex communication than version detection can handle. 
+A generalized scripting language as provided by NSE is perfect for these tough cases.
 
-NSE's version category contains scripts that enhance standard version detection. Scripts in this category are run whenever you request version detection with -sV; you don't need to use -sC to run these. This cuts the other way too: if you use -sC, you won't get version scripts unless you also use -sV.
+NSE's version category contains scripts that enhance standard version detection. 
+Scripts in this category are run whenever you request version detection with -sV; you don't need to use -sC to run these. 
+This cuts the other way too: if you use -sC, you won't get version scripts unless you also use -sV.
 
-One protocol which we were unable to detect with normal version detection is Skype version 2. The protocol was likely designed to frustrate detection out of a fear that telecom-affiliated Internet service providers might consider Skype competition and interfere with the traffic. Yet we did find one way to detect it. If Skype receives an HTTP GET request, it pretends to be a web server and returns a 404 error. But for other requests, it sends back a chunk of random-looking data. Proper identification requires sending two probes and comparing the two responses—an ideal task for NSE. The simple NSE script which accomplishes this is shown in Example 9.14.
+One protocol which we were unable to detect with normal version detection is Skype version 2. 
+The protocol was likely designed to frustrate detection out of a fear that telecom-affiliated Internet service providers might consider Skype competition and interfere with the traffic. 
+Yet we did find one way to detect it. 
+If Skype receives an HTTP GET request, it pretends to be a web server and returns a 404 error. 
+But for other requests, it sends back a chunk of random-looking data. 
+Proper identification requires sending two probes and comparing the two responses—an ideal task for NSE. 
+The simple NSE script which accomplishes this is shown in Example 9.14.
 
 Example 9.14. A typical version detection script (Skype version 2 detection)
 
@@ -1877,9 +2189,13 @@ action = function(host, port)
 end
 
 
-If the script detects Skype, it augments its port table with now-known name and product fields. It then sends this new information to Nmap by calling nmap.set_port_version. Several other version fields are available to be set if they are known, but in this case we only have the name and product. For the full list of version fields, refer to the nmap.set_port_version documentation.
+If the script detects Skype, it augments its port table with now-known name and product fields. 
+It then sends this new information to Nmap by calling nmap.set_port_version. 
+Several other version fields are available to be set if they are known, but in this case we only have the name and product. 
+For the full list of version fields, refer to the nmap.set_port_version documentation.
 
-Notice that this script does nothing unless it detects the protocol. A script shouldn't produce output (other than debug output) just to say it didn't learn anything. 
+Notice that this script does nothing unless it detects the protocol. 
+A script shouldn't produce output (other than debug output) just to say it didn't learn anything. 
 
 
 
@@ -1889,7 +2205,8 @@ Example Script: finger
 
 The finger script is a perfect example of a short and simple NSE script.
 
-First the information fields are assigned. A detailed description of what the script actually does goes in the description field.
+First the information fields are assigned. 
+A detailed description of what the script actually does goes in the description field.
 
 description = [[
 Attempts to get a list of usernames via the finger service.
@@ -1899,7 +2216,8 @@ author = "Eddie Bell"
 
 license = "Same as Nmap--See http://nmap.org/book/man-legal.html"
 
-The categories field is a table containing all the categories the script belongs to. These are used for script selection with the --script option:
+The categories field is a table containing all the categories the script belongs to. 
+These are used for script selection with the --script option:
 
 categories = {"default", "discovery", "safe"}
 
@@ -1919,16 +2237,21 @@ Every good script comes with a sample of its output in an NSEDoc comment.
 -- | Gutek      Ange Gutek           *pts/0       -     Thu 00:41
 -- |_Gutek      Ange Gutek           *pts/4       3     Thu 01:06
 
-You can use the facilities provided by the nselib (the section called “NSE Libraries”) with require. Here we want to use common communication functions and shorter port rules:
+You can use the facilities provided by the nselib (the section called “NSE Libraries”) with require. 
+Here we want to use common communication functions and shorter port rules:
 
 require "comm"
 require "shortport"
 
-We want to run the script against the finger service. So we test whether it is using the well-known finger port (79/tcp), or whether the service is named “finger” based on version detection results or in the port number's listing in nmap-services:
+We want to run the script against the finger service. 
+So we test whether it is using the well-known finger port (79/tcp), or whether the service is named “finger” based on version detection results or in the port number's listing in nmap-services:
 
 portrule = shortport.port_or_service(79, "finger")
 
-First, the script uses nmap.new_try to create an exception handler that will quit the script in case of an error. Next, it passes control to comm.exchange, which handles the network transaction. Here we have asked to wait in the communication exchange until we receive at least 100 lines, wait at least 5 seconds, or until the remote side closes the connection. Any errors are handled by the try exception handler. The script returns a string if the call to comm.exchange() was successful.
+First, the script uses nmap.new_try to create an exception handler that will quit the script in case of an error. 
+Next, it passes control to comm.exchange, which handles the network transaction. 
+Here we have asked to wait in the communication exchange until we receive at least 100 lines, wait at least 5 seconds, or until the remote side closes the connection. 
+Any errors are handled by the try exception handler. The script returns a string if the call to comm.exchange() was successful.
 
 action = function(host, port)
 	local try = nmap.new_try()
@@ -1941,32 +2264,69 @@ end
 
 Implementation Details
 
-Now it is time to explore the NSE implementation details in depth. Understanding how NSE works is useful for designing efficient scripts and libraries. The canonical reference to the NSE implementation is the source code, but this section provides an overview of key details. It should be valuable to folks trying to understand and extend the NSE source code, as well as to script authors who want to better understand how their scripts are executed.
+Now it is time to explore the NSE implementation details in depth. 
+Understanding how NSE works is useful for designing efficient scripts and libraries. 
+The canonical reference to the NSE implementation is the source code, but this section provides an overview of key details. 
+It should be valuable to folks trying to understand and extend the NSE source code, as well as to script authors who want to better understand how their scripts are executed.
 Initialization Phase
 
-NSE is initialized before any scanning when Nmap first starts, by the open_nse function. open_nse creates a fresh Lua state that will persist across host groups, until the program exits. It then loads the standard Lua libraries and compiled NSE libraries. The standard Lua libraries are documented in the Lua Reference Manual. The standard Lua libraries available to NSE are debug, io, math, os, package, string, and table. Compiled NSE libraries are those that are defined in a C++ file instead of a Lua file. They include nmap, pcre, bin, bit, and openssl (if available).
+NSE is initialized before any scanning when Nmap first starts, by the open_nse function. open_nse creates a fresh Lua state that will persist across host groups, until the program exits. 
+It then loads the standard Lua libraries and compiled NSE libraries. 
+The standard Lua libraries are documented in the Lua Reference Manual. 
+The standard Lua libraries available to NSE are debug, io, math, os, package, string, and table. 
+Compiled NSE libraries are those that are defined in a C++ file instead of a Lua file. 
+They include nmap, pcre, bin, bit, and openssl (if available).
 
-After loading the basic libraries, open_nse loads the file nse_main.lua. The NSE core is in this file—Lua code manages scripts and sets up the appropriate environment. In this situation Lua really shines as a glue language. C++ is used to provide the network framework and low-level libraries. Lua is used to structure data, determine which scripts to load, and schedule and execute scripts.
+After loading the basic libraries, open_nse loads the file nse_main.lua. 
+The NSE core is in this file—Lua code manages scripts and sets up the appropriate environment. 
+In this situation Lua really shines as a glue language. C++ is used to provide the network framework and low-level libraries. 
+Lua is used to structure data, determine which scripts to load, and schedule and execute scripts.
 
-nse_main.lua sets up the Lua environment to be ready for script scanning later on. It loads all the scripts the user has chosen and returns a function that does the actual script scanning to open_nse.
+nse_main.lua sets up the Lua environment to be ready for script scanning later on. 
+It loads all the scripts the user has chosen and returns a function that does the actual script scanning to open_nse.
 
-The nselib directory is added to the Lua path to give scripts access to the standard NSE library. NSE loads replacements for the standard coroutine functions so that yields initiated by NSE are caught and propagated back to the NSE scheduler.
+The nselib directory is added to the Lua path to give scripts access to the standard NSE library. 
+NSE loads replacements for the standard coroutine functions so that yields initiated by NSE are caught and propagated back to the NSE scheduler.
 
-nse_main.lua next defines classes and functions to be used during setup. The script arguments (--script-args) are loaded into nmap.registry.args. A script database is created if one doesn't already exist or if this was requested with --script-updatedb.
+nse_main.lua next defines classes and functions to be used during setup. 
+The script arguments (--script-args) are loaded into nmap.registry.args. 
+A script database is created if one doesn't already exist or if this was requested with --script-updatedb.
 
-Finally, the scripts listed on the command line are loaded. The get_chosen_scripts function works to find chosen scripts by comparing categories, filenames, and directory names. The scripts are loaded into memory for later use. get_chosen_scripts works by transforming the argument to --script into a block of Lua code and then executing it. (This is how the and, or, and not operators are supported.) Any specifications that don't directly match a category or a filename from script.db are checked against file and directory names. If the specification is a regular file, it's loaded. If a directory, all the *.nse files within it are loaded. Otherwise, the engine raises an error.
+Finally, the scripts listed on the command line are loaded. 
+The get_chosen_scripts function works to find chosen scripts by comparing categories, filenames, and directory names. 
+The scripts are loaded into memory for later use. get_chosen_scripts works by transforming the argument to --script into a block of Lua code and then executing it. 
+(This is how the and, or, and not operators are supported.) 
+Any specifications that don't directly match a category or a filename from script.db are checked against file and directory names. 
+If the specification is a regular file, it's loaded. 
+If a directory, all the *.nse files within it are loaded. 
+Otherwise, the engine raises an error.
 
-get_chosen_scripts finishes by arranging the selected scripts according to their dependencies (see the section called “dependencies Field”). Scripts that have no dependencies are in runlevel 1. Scripts that directly depend on these are in runlevel 2, and so on. When a script scan is run, each runlevel is run separately and in order.
+get_chosen_scripts finishes by arranging the selected scripts according to their dependencies (see the section called “dependencies Field”). 
+Scripts that have no dependencies are in runlevel 1. 
+Scripts that directly depend on these are in runlevel 2, and so on. 
+When a script scan is run, each runlevel is run separately and in order.
 
-nse_main.lua defines two classes: Script and Thread. These classes are the objects that represent NSE scripts and their script threads. When a script is loaded, Script.new creates a new Script object. The script file is loaded into Lua and saved for later use. These classes and their methods are intended to encapsulate the data needed for each script and its threads. Script.new also contains sanity checks to ensure that the script has required fields such as the action function.
+nse_main.lua defines two classes: Script and Thread. 
+These classes are the objects that represent NSE scripts and their script threads. 
+When a script is loaded, Script.new creates a new Script object. 
+The script file is loaded into Lua and saved for later use. 
+These classes and their methods are intended to encapsulate the data needed for each script and its threads. 
+Script.new also contains sanity checks to ensure that the script has required fields such as the action function.
 Script Scanning
 
-When NSE runs a script scan, script_scan is called in nse_main.cc. Since there are three script scan phases, script_scan accepts two arguments, a script scan type which can be one of these values: SCRIPT_PRE_SCAN (Script Pre-scanning phase) or SCRIPT_SCAN (Script scanning phase) or SCRIPT_POST_SCAN (Script Post-scanning phase), and a second argument which is a list of targets to scan if the script scan phase is SCRIPT_SCAN. These targets will be passed to the nse_main.lua main function for scanning.
+When NSE runs a script scan, script_scan is called in nse_main.cc. 
+Since there are three script scan phases, script_scan accepts two arguments, a script scan type which can be one of these values: SCRIPT_PRE_SCAN (Script Pre-scanning phase) or SCRIPT_SCAN (Script scanning phase) or SCRIPT_POST_SCAN (Script Post-scanning phase), and a second argument which is a list of targets to scan if the script scan phase is SCRIPT_SCAN. 
+These targets will be passed to the nse_main.lua main function for scanning.
 
-The main function for a script scan generates a number of script threads based on whether the rule function returns true. The generated threads are stored in a list of runlevel lists. Each runlevel list of threads is passed separately to the run function. The run function is the main worker function for NSE where all the magic happens.
+The main function for a script scan generates a number of script threads based on whether the rule function returns true. 
+The generated threads are stored in a list of runlevel lists. Each runlevel list of threads is passed separately to the run function. 
+The run function is the main worker function for NSE where all the magic happens.
 
-The run function's purpose is run all the threads in a runlevel until they all finish. Before doing this however, run redefines some Lua registry values that help C code function. One such function, _R[WAITING_TO_RUNNING], allows the network library binding written in C to move a thread from the waiting queue to the running queue. Scripts are run until the running and waiting queues are both empty. Threads that yield are moved to the waiting queue; threads that are ready to continue are moved back to the running queue. The cycle continues until the thread quits or ends in error. Along with the waiting and running queues, there is a pending queue. It serves as a temporary location for threads moving from the waiting queue to the running queue before a new iteration of the running queue begins. 
-
-
-
-
+The run function's purpose is run all the threads in a runlevel until they all finish. 
+Before doing this however, run redefines some Lua registry values that help C code function. 
+One such function, _R[WAITING_TO_RUNNING], allows the network library binding written in C to move a thread from the waiting queue to the running queue. 
+Scripts are run until the running and waiting queues are both empty. 
+Threads that yield are moved to the waiting queue; threads that are ready to continue are moved back to the running queue. 
+The cycle continues until the thread quits or ends in error. 
+Along with the waiting and running queues, there is a pending queue. 
+It serves as a temporary location for threads moving from the waiting queue to the running queue before a new iteration of the running queue begins. 
