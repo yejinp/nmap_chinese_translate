@@ -1,1 +1,686 @@
 
+Table of Contents
+
+Introduction
+Command-line Flags
+Controlling Output Type
+Controlling Verbosity of Output
+Enabling Debugging Output
+Handling Error and Warning Messages
+Enabling Packet Tracing
+Resuming Aborted Scans
+Interactive Output
+Normal Output (-oN)
+$crIpT kIddI3 0uTPut (-oS)
+XML Output (-oX)
+Using XML Output
+Manipulating XML Output with Perl
+Common Platform Enumeration (CPE)
+Structure of a CPE Name
+Output to a Database
+Creating HTML Reports
+Saving a Permanent HTML Report
+Grepable Output (-oG)
+Grepable Output Fields
+Host field
+Status field
+Ports field
+Protocols field
+Ignored State field
+OS field
+Seq Index field
+IP ID Seq field
+Parsing Grepable Output on the Command Line
+Introduction
+
+A common problem with open-source security tools is confusing and disorganized output. They often spew out many lines of irrelevant debugging information, forcing users to dig through pages of output trying to discern important results from the noise. Program authors often devote little effort to organizing and presenting results effectively. The output messages can be difficult to understand and poorly documented. This shouldn't be too surprising—writing clever code to exploit some TCP/IP weakness is usually more gratifying than documentation or UI work. Since open source authors are rarely paid, they do what they enjoy.
+
+At the risk of offending my friend Dan Kaminsky, I'll name his Scanrand port scanner as an example of a program that was clearly developed with far more emphasis on neat technical tricks than a user friendly UI. The sample output in Example 13.1 is from the Scanrand documentation page.
+
+Example 13.1. Scanrand output against a local network
+
+bash-2.05a# scanrand 10.0.1.1-254:quick
+  UP:        10.0.1.38:80    [01]   0.003s
+  UP:       10.0.1.110:443   [01]   0.017s
+  UP:       10.0.1.254:443   [01]   0.021s
+  UP:        10.0.1.57:445   [01]   0.024s
+  UP:        10.0.1.59:445   [01]   0.024s
+  UP:        10.0.1.38:22    [01]   0.047s
+  UP:       10.0.1.110:22    [01]   0.058s
+  UP:       10.0.1.110:23    [01]   0.058s
+  UP:       10.0.1.254:22    [01]   0.077s
+  UP:       10.0.1.254:23    [01]   0.077s
+  UP:        10.0.1.25:135   [01]   0.088s
+  UP:        10.0.1.57:135   [01]   0.089s
+  UP:        10.0.1.59:135   [01]   0.090s
+  UP:        10.0.1.25:139   [01]   0.097s
+  UP:        10.0.1.27:139   [01]   0.098s
+  UP:        10.0.1.57:139   [01]   0.099s
+  UP:        10.0.1.59:139   [01]   0.099s
+  UP:        10.0.1.38:111   [01]   0.127s
+  UP:        10.0.1.57:1025  [01]   0.147s
+  UP:        10.0.1.59:1025  [01]   0.147s
+  UP:        10.0.1.57:5000  [01]   0.156s
+  UP:        10.0.1.59:5000  [01]   0.157s
+  UP:        10.0.1.53:111   [01]   0.182s
+bash-2.05a#
+
+While this does get the job done, it is difficult to interpret. Output is printed based on when the response was received, without any option for sorting the port numbers or even grouping all open ports on a target host together. A bunch of space is wasted near the beginning of each line and no summary of results is provided.
+
+Nmap's output is also far from perfect, though I do try pretty hard to make it readable, well-organized, and flexible. Given the number of ways Nmap is used by people and other software, no single format can please everyone. So Nmap offers several formats, including the interactive mode for humans to read directly and XML for easy parsing by software.
+
+In addition to offering different output formats, Nmap provides options for controlling the verbosity of output as well as debugging messages. Output types may be sent to standard output or to named files, which Nmap can append to or clobber. Output files may also be used to resume aborted scans. This chapter includes full details on these options and every output format.
+Command-line Flags
+
+As with almost all other Nmap capabilities, output behavior is controlled by command-line flags. These flags are grouped by category and described in the following sections.
+
+Controlling Output Type
+
+The most fundamental output control is designating the format(s) of output you would like. Nmap offers five types, as summarized in the following list and fully described in later sections.
+
+Output formats supported by Nmap
+
+Interactive output
+This is the output that Nmap sends to the standard output stream (stdout) by default. So it has no special command-line option. Interactive mode caters to human users reading the results directly and it is characterized by a table of interesting ports that is shown in dozens of examples throughout this book.
+
+Normal output (-oN)
+This is very similar to interactive output, and is sent to the file you choose. It does differ from interactive output in several ways, which derive from the expectation that this output will be analyzed after the scan completes rather than interactively. So interactive output includes messages (depending on verbosity level specified with -v) such as scan completion time estimates and open port alerts. Normal output omits those as unnecessary once the scan completes and the final interesting ports table is printed. This output type prints the nmap command-line used and execution time and date on its first line.
+
+XML output (-oX)
+XML offers a stable format that is easily parsed by software. Free XML parsers are available for all major computer languages, including C/C++, Perl, Python, and Java. In almost all cases that a non-trivial application interfaces with Nmap, XML is the preferred format. This chapter also discusses how XML results can be transformed into other formats, such as HTML reports and database tables.
+
+Grepable output (-oG)
+This simple format is easy to manipulate on the command line with simple Unix tools such as grep, awk, cut, and diff. Each host is listed on one line, with the tab, slash, and comma characters used to delimit output fields. While this can be handy for quickly grokking results, the XML format is preferred for more significant tasks as it is more stable and contains more information.
+
+sCRiPt KiDDi3 0utPU+ (-oS)
+This format is provided for the l33t haXXorZ!
+
+While interactive output is the default and has no associated command-line options, the other four format options use the same syntax. They take one argument, which is the filename that results should be stored in. Multiple formats may be specified, but each format may only be specified once. For example, you may wish to save normal output for your own review while saving XML of the same scan for programmatic analysis. You might do this with the options -oX myscan.xml -oN myscan.nmap. While this chapter uses the simple names like myscan.xml for brevity, more descriptive names are generally recommended. The names chosen are a matter of personal preference, though I use long ones that incorporate the scan date and a word or two describing the scan, placed in a directory named after the company I'm scanning. As a convenience, you may specify -oA <basename> to store scan results in normal, XML, and grepable formats at once. They are stored in <basename>.nmap, <basename>.xml, and <basename>.gnmap, respectively. As with most programs, you can prefix the filenames with a directory path, such as ~/nmaplogs/foocorp/ on Unix or c:\hacking\sco on Windows.
+
+While these options save results to files, Nmap still prints interactive output to stdout as usual. For example, the command nmap -oX myscan.xml target prints XML to myscan.xml and fills standard output with the same interactive results it would have printed if -oX wasn't specified at all. You can change this by passing a hyphen character as the argument to one of the format types. This causes Nmap to deactivate interactive output, and instead print results in the format you specified to the standard output stream. So the command nmap -oX - target will send only XML output to stdout. Serious errors may still be printed to the normal error stream, stderr.
+
+When you specify a filename to an output format flag such as -oN, that file is overwritten by default. If you prefer to keep the existing content of the file and append the new results, specify the --append-output option. All output filenames specified in that Nmap execution will then be appended to rather than clobbered. This doesn't work well for XML (-oX) scan data as the resultant file generally won't parse properly until you fix it up by hand.
+
+Unlike some Nmap arguments, the space between the logfile option flag (such as -oX) and the filename or hyphen is mandatory. If you omit the flags and give arguments such as -oG- or -oXscan.xml, a backwards compatibility feature of Nmap will cause the creation of normal format output files named G- and Xscan.xml respectively.
+
+All of these arguments support strftime-like conversions in the filename. %H, %M, %S, %m, %d, %y, and %Y are all exactly the same as in strftime. %T is the same as %H%M%S, %R is the same as %H%M, and %D is the same as %m%d%y. A % followed by any other character just yields that character (%% gives you a percent symbol). So -oX 'scan-%T-%D.xml' will use an XML file with a name in the form of scan-144840-121307.xml.
+
+Controlling Verbosity of Output
+
+After deciding which format(s) you wish results to be saved in, you can decide how detailed those results should be. The first -v option enables verbosity with a level of one. Specify -v twice for a slightly greater effect. Verbosity levels greater than two aren't useful. Most changes only affect interactive output, and some also affect normal and script kiddie output. The other output types are meant to be processed by machines, so Nmap can give substantial detail by default in those formats without fatiguing a human user. However, there are a few changes in other modes where output size can be reduced substantially by omitting some detail. For example, a comment line in the grepable output that provides a list of all ports scanned is only printed in verbose mode because it can be quite long. The following list describes the major changes you get with at least one -v option.
+
+Scan completion time estimates
+On scans that take more than a minute or two, you will see occasional updates like this in interactive output mode:
+
+SYN Stealth Scan Timing: About 30.01% done; ETC: 16:04 (0:01:09 remaining)
+
+New updates are given if the estimates change significantly. All port scanning techniques except for idle scan and FTP bounce scan support completion time estimation, and so do other phases like version detection, script scanning, and traceroute.
+
+Open ports reported when discovered
+When verbosity is enabled, open ports are printed in interactive mode as they are discovered. They are still reported in the final interesting ports table as well. This allows users to begin investigating open ports before Nmap even completes. Open port alerts look like this:
+
+Discovered open port 53/tcp on 64.13.134.52
+
+Additional warnings
+Nmap always prints warnings about obvious mistakes and critical problems. That standard is lowered when verbosity is enabled, allowing more warnings to be printed. There are dozens of these warnings, covering topics from targets experiencing excessive drops or extraordinarily long latency, to ports which respond to probes in unexpected ways. Rate limiting prevents these warnings from flooding the screen.
+
+Additional notes
+Nmap prints many extra informational notes when in verbose mode. For example, it prints out the time when each port scan is started along with the number of hosts and ports scanned. It later prints out a concluding line disclosing how long the scan took and briefly summarizing the results.
+
+Extra OS detection information
+With verbosity, results of the TCP ISN and IP ID sequence number predictability tests are shown. These are done as a byproduct of OS detection. With verbosity greater than one, the actual OS detection fingerprint is shown in more cases.
+
+Down hosts are printed in ping scan
+During a ping scan with verbosity enabled, down hosts will be printed, rather than just up ones.
+
+Birthday wishes
+Nmap wishes itself a happy birthday when run in verbose mode on September 1.
+
+The changes that are usually only useful until Nmap finishes and prints its report are only sent to interactive output mode. If you send normal output to a file with -oN, that file won't contain open port alerts or completion time estimates, though they are still printed to stdout. The assumption is that you will review the file when Nmap is done and don't want a lot of extra cruft, while you might watch Nmap's execution progress on standard output and care about runtime progress. If you really want everything printed to stdout sent to a file, use the output stream redirection provided by your shell (e.g. nmap -v scanme.nmap.org > scanoutput.nmap).
+
+The dozens of small changes contingent on verbosity (mostly extra messages) are too numerous to cover here. They are also always subject to change. An effective way to see them all is to unpack the latest Nmap tarball and grep for them with a command such as grep -A1 o.verbose *.cc. Representative excerpts from the output are shown in Example 13.2.
+
+Example 13.2. Grepping for verbosity conditionals
+
+output.cc:    if (o.verbose)
+output.cc-      log_write(LOG_PLAIN, "Uptime guess: %.3f days (since %s)\n",
+--
+nmap.cc:  if (o.verbose)
+nmap.cc-    output_ports_to_machine_parseable_output(&ports, o.TCPScan(),
+                                o.UDPScan(), o.SCTPScan(), o.ipprotscan);
+--
+portlist.cc:  if ((state == PORT_OPEN && o.verbose) || (o.debugging > 1)) {
+portlist.cc-    log_write(LOG_STDOUT, "Discovered %s port %hu/%s%s\n",
+--
+scan_engine.cc:    if (o.verbose && hss->sdn.delayms != olddelay)
+scan_engine.cc-      log_write(LOG_PLAIN, "Increasing send delay for %s..."
+
+The following two examples put all of this together. Example 13.3 shows the output of a normal scan without the -v option.
+
+Example 13.3. Interactive output without verbosity enabled
+
+# nmap -T4 -A scanme.nmap.org
+
+Starting Nmap ( http://nmap.org )
+Nmap scan report for scanme.nmap.org (64.13.134.52)
+Host is up (0.045s latency).
+Not shown: 993 filtered ports
+PORT      STATE  SERVICE VERSION
+22/tcp    open   ssh     OpenSSH 4.3 (protocol 2.0)
+| ssh-hostkey: 1024 60:ac:4d:51:b1:cd:85:09:12:16:92:76:1d:5d:27:6e (DSA)
+|_2048 2c:22:75:60:4b:c3:3b:18:a2:97:2c:96:7e:28:dc:dd (RSA)
+25/tcp    closed smtp
+53/tcp    open   domain
+70/tcp    closed gopher
+80/tcp    open   http    Apache httpd 2.2.3 ((CentOS))
+|_html-title: Go ahead and ScanMe!
+| http-methods: Potentially risky methods: TRACE
+|_See http://nmap.org/nsedoc/scripts/http-methods.html
+113/tcp   closed auth
+31337/tcp closed Elite
+Device type: general purpose
+Running: Linux 2.6.X
+OS details: Linux 2.6.13 - 2.6.31, Linux 2.6.18
+Network Distance: 13 hops
+
+TRACEROUTE (using port 25/tcp)
+HOP RTT      ADDRESS
+[Cut first 10 hops for brevity]
+11  44.63 ms layer42.car2.sanjose2.level3.net (4.59.4.78)
+12  44.33 ms xe6-2.core1.svk.layer42.net (69.36.239.221)
+13  44.59 ms scanme.nmap.org (64.13.134.52)
+
+OS and Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 22.06 seconds
+
+Example 13.4 is the output of the same scan with verbosity enabled. Features such as the extra OS identification data, completion time estimates, open port alerts, and extra informational messages are easily identified in the latter output. This extra info is often helpful during interactive scanning, so I always specify -v when scanning a single machine unless I have a good reason not to.
+
+Example 13.4. Interactive output with verbosity enabled
+
+# nmap -v -T4 -A scanme.nmap.org
+
+Starting Nmap ( http://nmap.org )
+NSE: Loaded 49 scripts for scanning.
+Initiating Ping Scan at 15:08
+Scanning scanme.nmap.org (64.13.134.52) [4 ports]
+Completed Ping Scan at 15:08, 0.05s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 15:08
+Completed Parallel DNS resolution of 1 host. at 15:08, 0.00s elapsed
+Initiating SYN Stealth Scan at 15:08
+Scanning scanme.nmap.org (64.13.134.52) [1000 ports]
+Discovered open port 22/tcp on 64.13.134.52
+Discovered open port 80/tcp on 64.13.134.52
+Discovered open port 53/tcp on 64.13.134.52
+Completed SYN Stealth Scan at 15:08, 4.77s elapsed (1000 total ports)
+Initiating Service scan at 15:08
+Scanning 3 services on scanme.nmap.org (64.13.134.52)
+Completed Service scan at 15:08, 11.13s elapsed (3 services on 1 host)
+Initiating OS detection (try #1) against scanme.nmap.org (64.13.134.52)
+Initiating Traceroute at 15:08
+Completed Traceroute at 15:08, 0.06s elapsed
+Initiating Parallel DNS resolution of 13 hosts. at 15:08
+Completed Parallel DNS resolution of 13 hosts. at 15:08, 0.00s elapsed
+NSE: Script scanning 64.13.134.52.
+NSE: Starting runlevel 1 (of 1) scan.
+Initiating NSE at 15:08
+Completed NSE at 15:08, 4.11s elapsed
+Nmap scan report for scanme.nmap.org (64.13.134.52)
+Host is up (0.044s latency).
+Not shown: 993 filtered ports
+PORT      STATE  SERVICE VERSION
+22/tcp    open   ssh     OpenSSH 4.3 (protocol 2.0)
+| ssh-hostkey: 1024 60:ac:4d:51:b1:cd:85:09:12:16:92:76:1d:5d:27:6e (DSA)
+|_2048 2c:22:75:60:4b:c3:3b:18:a2:97:2c:96:7e:28:dc:dd (RSA)
+25/tcp    closed smtp
+53/tcp    open   domain
+70/tcp    closed gopher
+80/tcp    open   http    Apache httpd 2.2.3 ((CentOS))
+| http-methods: GET HEAD POST OPTIONS TRACE
+| Potentially risky methods: TRACE
+|_See http://nmap.org/nsedoc/scripts/http-methods.html
+|_html-title: Go ahead and ScanMe!
+113/tcp   closed auth
+31337/tcp closed Elite
+Device type: general purpose
+Running: Linux 2.6.X
+OS details: Linux 2.6.13 - 2.6.31, Linux 2.6.18
+Uptime guess: 23.640 days (since Thu Jun 24 23:46:34 2010)
+Network Distance: 13 hops
+TCP Sequence Prediction: Difficulty=206 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+[Cut first 10 hops for brevity]
+11  44.09 ms layer42.car2.sanjose2.level3.net (4.59.4.78)
+12  43.98 ms xe6-2.core1.svk.layer42.net (69.36.239.221)
+13  44.73 ms scanme.nmap.org (64.13.134.52)
+
+Read data files from: .
+OS and Service detection performed. Please report any incorrect results at http://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 22.28 seconds
+           Raw packets sent: 2040 (91.266KB) | Rcvd: 40 (2.278KB)
+
+Enabling Debugging Output
+
+When even verbose mode doesn't provide sufficient data for you, debugging is available to flood you with much more! As with the verbosity option (-v), debugging is enabled with a command-line flag (-d) and the debug level can be increased by specifying it multiple times. Alternatively, you can set a debug level by giving an argument to -d. For example, -d9 sets level nine. That is the highest effective level and will produce thousands of lines unless you run a very simple scan with very few ports and targets.
+
+Debugging output is useful when a bug is suspected in Nmap, or if you are simply confused as to what Nmap is doing and why. As this feature is mostly intended for developers, debug lines aren't always self-explanatory. If you don't understand a line, your only recourses are to ignore it, look it up in the source code, or request help from the development list (nmap-dev). Some lines are self explanatory, but messages become more obscure as the debug level is increased. Example 13.5 shows a few different debugging lines that resulted from a -d5 scan of Scanme.
+
+Example 13.5. Some representative debugging lines
+
+Timeout vals: srtt: 27495 rttvar: 27495 to: 137475 delta -2753
+              ==> srtt: 27150 rttvar: 21309 to: 112386
+RCVD (15.3330s) TCP 64.13.134.52:25 > 132.239.1.115:50122 RA ttl=52
+                id=0 iplen=40 seq=0 win=0 ack=4222318673
+**TIMING STATS** (15.3350s): IP, probes active/freshportsleft/retry_stack/
+                                        outstanding/retranwait/onbench,
+                                 cwnd/ccthresh/delay, timeout/srtt/rttvar/
+   Groupstats (1/1 incomplete): 83/*/*/*/*/* 82.80/75/* 100000/25254/4606
+   64.13.134.52: 83/60836/0/777/316/4295 82.80/75/0 100000/26200/4223
+Current sending rates: 711.88 packets / s, 31322.57 bytes / s.
+Overall sending rates: 618.24 packets / s, 27202.62 bytes / s.
+Discovered filtered port 10752/tcp on 64.13.134.52
+Packet capture filter (device eth0): dst host 132.239.1.115 and
+                                     (icmp or ((tcp or udp) and
+                                     (src host 64.13.134.52)))
+SCRIPT ENGINE: TCP 132.239.1.115:59045 > 64.13.134.52:53 | CLOSE
+
+No full example is given here because debug logs are so long. A scan against Scanme used 40 lines of text without verbosity (Example 13.3, “Interactive output without verbosity enabled”), and 40 with it (Example 13.4, “Interactive output with verbosity enabled”). The same scan with -d instead of -v took 136 lines. With -d2 it ballooned to 1,324 lines, and -d5 output 6,391 lines! The debug option implicitly enables verbosity, so there is no need to specify them both.
+
+Determining the best output level for a certain debug task is a matter of trial and error. I try a low level first to understand what is going on, then increase it as necessary. As I learn more, I may be able to better isolate the problem or question. I then try to simplify the command in order to offset some increased verbiage of the higher debug level.
+
+Just as grep can be useful to identify the changes and levels associated with verbosity, it also helps with investigating debug output. I recommend running this command from the nmap-<VERSION> directory in the Nmap source tarball:
+
+grep -A1 o.debugging *.cc
+
+Handling Error and Warning Messages
+
+Warnings and errors printed by Nmap usually go only to the screen (interactive output), leaving any normal-format output files (usually specified with -oN) uncluttered. When you do want to see those messages in the normal output file you specified, use the --log-errors option. It is useful when you aren't watching the interactive output or when you want to record errors while debugging a problem. The error and warning messages will still appear in interactive mode too. This won't work for most errors related to bad command-line arguments because Nmap may not have initialized its output files yet. In addition, some Nmap error and warning messages use a different system which does not yet support this option.
+
+An alternative to --log-errors is redirecting interactive output (including the standard error stream) to a file. Most Unix shells make this approach easy. For example, tcsh uses the format nmap <options> >& alloutput.nmap. Bash uses a slightly different syntax: nmap <options> &> alloutput.nmap. The Windows cmd.exe syntax for doing this is so convoluted that --log-errors is recommended instead. For example, you can run nmap --log-errors -oN alloutput.nmap <options>.
+
+Enabling Packet Tracing
+
+The --packet-trace option causes Nmap to print a summary of every packet it sends and receives. This can be extremely useful for debugging or understanding Nmap's behavior, as examples throughout this book demonstrate. Example 13.6 shows a simple ping scan of Scanme with packet tracing enabled.
+
+Example 13.6. Using --packet-trace to detail a ping scan of Scanme
+
+# nmap --packet-trace -n -sn scanme.nmap.org
+
+Starting Nmap 5.35DC18 ( http://nmap.org ) at 2010-07-18 15:23 MDT
+SENT (0.0130s) ICMP 132.239.1.115 > 64.13.134.52 Echo request (type=8/code=0) ttl=53 id=43882 iplen=28
+SENT (0.0130s) TCP 132.239.1.115:39273 > 64.13.134.52:443 S ttl=44 id=18217 iplen=44  seq=215684135 win=1024 <mss 1460>
+SENT (0.0130s) TCP 132.239.1.115:39273 > 64.13.134.52:80 A ttl=52 id=37510 iplen=40  seq=0 win=1024
+SENT (0.0130s) ICMP 132.239.1.115 > 64.13.134.52 Timestamp request (type=13/code=0) ttl=52 id=54744 iplen=40
+RCVD (0.0570s) TCP 64.13.134.52:80 > 132.239.1.115:39273 R ttl=56 id=0 iplen=40  seq=215684135 win=0
+Nmap scan report for scanme.nmap.org (64.13.134.52)
+Host is up (0.044s latency).
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds
+
+Here you can see the default four-probe host discovery combination from the section called “Default Combination”. This output shows three five extra lines caused by packet tracing (each have been wrapped for readability). Each line contains several fields. The first is whether a packet is sent or received by Nmap, as abbreviated to SENT and RCVD. The next field is a time counter, providing the elapsed time since Nmap started. The time is in seconds, and in this case Nmap only required a tiny fraction of one. The next field is the protocol: TCP, UDP, or ICMP. Next comes the source and destination IP addresses, separated with a directional arrow. For TCP or UDP packets, each IP is followed by a colon and the source or destination port number.
+
+The remainder of each line is protocol specific. As you can see, ICMP provides a human-readable type if available (Echo request in this case) followed by the ICMP type and code values. The ICMP packet logs end with the IP TTL, ID, and packet length field. TCP packets use a slightly different format after the destination IP and port number. First comes a list of characters representing the set TCP flags. The flag characters are SAFRPUEC, which stand for SYN, ACK, FIN, RST, PSH, URG, ECE, and CWR, respectively. The latter two flags are part of TCP explicit congestion notification, described in RFC 3168.
+
+Because packet tracing can lead to thousands of output lines, it helps to limit scan intensity to the minimum that still serves your purpose. A scan of a single port on a single machine won't bury you in data, while the output of a --packet-trace scan of a whole network can be overwhelming. Packet tracing is automatically enabled when the debug level (-d) is at least three.
+
+Sometimes --packet-trace provides specialized data that Nmap never shows otherwise, like TTLs. Example 13.6, “Using --packet-trace to detail a ping scan of Scanme” shows ICMP and TCP ping packets sent to the target host, the target responding to the TCP ACK packet. It is possible that the target host replied to other probes as well—Nmap stops listening once it receives one response to a ping scan since that is all it takes to determine that a host is online.
+
+Resuming Aborted Scans
+
+Some extensive Nmap runs take a very long time—on the order of days. Such scans don't always run to completion. Restrictions may prevent Nmap from being run during working hours, the network could go down, the machine Nmap is running on might suffer a planned or unplanned reboot, or Nmap itself could crash. The administrator running Nmap could cancel it for any other reason as well, by pressing ctrl-C. Restarting the whole scan from the beginning may be undesirable. Fortunately, if normal (-oN) or grepable (-oG) logs were kept, the user can ask Nmap to resume scanning with the target it was working on when execution ceased. Specify the --resume option and pass the normal/grepable output file as its argument. No other arguments are permitted, as Nmap parses the output file to use the same ones specified previously. Simply call Nmap as nmap --resume <logfilename>. Nmap will append new results to the data files specified in the previous execution.
+
+This feature does have some limitations. Resumption does not support the XML output format because combining the two runs into one valid XML file would be difficult. This feature only skips hosts for which all scanning was completed. If a scan was in progress against a certain target when Nmap was stopped, the --resume will restart scanning of that host from the beginning.
+Interactive Output
+
+Interactive output is what Nmap prints to the stdout stream, which usually appears on the terminal window you executed Nmap from. In other circumstances, you might have redirected stdout to a file or another application such as Nessus or an Nmap GUI may be reading the results. If a larger application is interpreting the results rather than printing Nmap output directly to the user, then using the XML output discussed in the section called “XML Output (-oX)” would be more appropriate.
+
+This format has but one goal: to present results that will be valuable to a human reading over them. No effort is made to make these easily machine parsable or to maintain a stable format between Nmap versions. Better formats exist for these things. The toughest challenge is deciding which information is valuable enough to print. Omitting data that a user wants is a shame, though flooding the user with pages of mostly irrelevant output can be even worse. The verbosity, debugging, and packet tracing flags are available to shift this balance based on individual users' preferences.
+
+This output format needs no extensive description here, as most Nmap examples in this book already show it. To understand Nmap's interactive output for a certain feature, see the section of this book dedicated to that feature. Typical examples of interactive output are given in Example 13.3, “Interactive output without verbosity enabled” and Example 13.4, “Interactive output with verbosity enabled”.
+Normal Output (-oN)
+
+Normal output is printed to a file when the -oN option is specified with a filename argument. It is similar to interactive output, except that notes which lose relevance once a scan completes are removed. It is assumed that the file will be read after Nmap completes, so estimated completion times and new open port alerts are redundant to the actual completion time and the ordered port table. Since output may be saved a long while and reviewed among many other logs, Nmap prints the execution time, command-line arguments, and Nmap version number on the first line. A similar line at the end of a scan divulges final timing and a host count. Those two lines begin with a pound character to identify them as comments. If your application must parse normal output rather than XML/grepable formats, ensure that it ignores comments that it doesn't recognize rather than treating them as an error and aborting. Example 13.7 is a typical example of normal output. Note that -oN - was used to prevent interactive output and send normal output straight to stdout.
+
+Example 13.7. A typical example of normal output
+
+$crIpT kIddI3 0uTPut (-oS)
+
+Script kiddie output is like interactive output, except that it is post-processed to better suit the 'l33t HaXXorZ! They previously looked down on Nmap due to its consistent capitalization and spelling. It is best understood by example, as given in Example 13.8.
+
+Example 13.8. A typical example of $crIpt KiDDi3 0utPut
+
+# nmap -T4 -A -oS - scanme.nmap.org
+
+
+Some humor-impaired people take this option far too seriously, and scold me for catering to script kiddies. It is simply a joke making fun of the script kiddies—they don't actually use this mode (I hope).
+
+XML Output (-oX)
+
+XML, the extensible markup language, has its share of critics as well as plenty of zealous proponents. I was long in the former group, and only grudgingly incorporated XML into Nmap after volunteers performed most of the work. Since then, I have learned to appreciate the power and flexibility that XML offers, and even wrote this book in the DocBook XML format. I strongly recommend that programmers interact with Nmap through the XML interface rather than trying to parse the normal, interactive, or grepable output. The XML format includes more information than the others and is extensible enough that new features can be added without breaking existing programs that use it. It can be parsed by standard XML parsers, which are available for all popular programming languages, usually for free. Editors, validators, transformation systems, and many other applications already know how to handle the format. Normal and interactive output, on the other hand, are custom to Nmap and subject to regular changes as I strive for a clearer presentation to end users. Grepable output is also Nmap-specific and tougher to extend than XML. It is considered deprecated, and many Nmap features such as MAC address detection are not presented in this output format.
+
+An example of Nmap XML output is shown in Example 13.9. Whitespace has been adjusted for readability. In this case, XML was sent to stdout thanks to the -oX - construct. Some programs executing Nmap opt to read the output that way, while others specify that output be sent to a filename and then they read that file after Nmap completes.
+
+Example 13.9. An example of Nmap XML output
+
+Another advantage of XML is that its verbose nature makes it easier to read and understand than other formats. Readers familiar with Nmap in general can likely understand most of the XML output in Example 13.9, “An example of Nmap XML output” without further documentation. The grepable output format, on the other hand, is tough to decipher without its own reference guide.
+
+There are a few aspects of the example XML output which may not be self-explanatory. For example, look at the two port elements in Example 13.10
+
+Example 13.10. Nmap XML port elements
+
+
+The port protocol, ID (port number), state, and service name are the same as would be shown in the interactive output port table. The service product, version, and extrainfo attributes come from version detection and are combined together into one field of the interactive output port table. The method and conf attributes aren't present in any other output types. The method can be table, meaning the service name was simply looked up in nmap-services based on the port number and protocol, or it can be probed, meaning that it was determined through the version detection system. The conf attribute measures the confidence Nmap has that the service name is correct. The values range from one (least confident) to ten. Nmap only has a confidence level of 3 for ports determined by table lookup, while it is highly confident (level 10) that port 22 of Example 13.10, “Nmap XML port elements” is OpenSSH, because Nmap connected to the port and found an SSH server identifying as OpenSSH.
+
+One other aspect that some users find confusing is that the attributes /nmaprun/@start and /nmaprun/runstats/finished/@time hold timestamps given in Unix time, the number of seconds since January 1, 1970. This is often easier for programs to handle. For the convenience of human readers, versions 3.78 and newer include the equivalent calendar time written out in the attributes /nmaprun/@startstr and /nmaprun/runstats/finished/@endstr.
+
+The original command line (argv array) is stored in the attribute /nmaprun/@args. Arguments are separated by whitespace. Arguments that originally contained whitespace are enclosed in double quotes (which appear as &quot; in the XML). Individual characters can also be escaped with backslashes within quoted strings.
+
+Nmap includes a document type definition (DTD) which allows XML parsers to validate Nmap XML output. While it is primarily intended for programmatic use, it can also help humans interpret Nmap XML output. The DTD defines the legal elements of the format, and often enumerates the attributes and values they can take on. It is reproduced in Appendix A, Nmap XML Output DTD.
+
+Using XML Output
+
+The Nmap XML format can be used in many powerful ways, though few users actually take any advantage of it. I believe this is due to inexperience of many users with XML, combined with a lack of practical, solution-oriented documentation on using the Nmap XML format. This chapter provides several practical examples, including the section called “Manipulating XML Output with Perl”, the section called “Output to a Database”, and the section called “Creating HTML Reports”.
+
+A key advantage of XML is that you do not need to write your own parser as you do for specialized Nmap output types such as grepable and interactive output. Any general XML parser should do.
+
+Nmap XML output can of course be viewed in any text editor or XML editor. Some spreadsheet programs, including Microsoft Excel, are able to import Nmap XML data directly for viewing. These general-purpose XML processors share the limitation that they treat Nmap XML generically, just like any other XML file. They don't understand the relative importance of elements, nor how to organize the data for a more useful presentation. The use of specialized XML processors that make sense of Nmap XML output is the subject of the following sections.
+
+Manipulating XML Output with Perl
+
+Generic XML parsers are available for all popular programming languages, often for free. Examples are the libxml C library and the Apache Xerces parser for Java and C++ (with Perl and COM bindings). While these parsers are sufficient for handling Nmap XML output, developers have created custom modules for several languages which can make the task of interoperating with Nmap XML even easier.
+
+The language with the best custom Nmap XML support is Perl. Max Schubert (affectionately known as Perldork) has created a module named Nmap::Scanner while Anthony Persaud created Nmap::Parser. These two modules have many similarities: they can execute Nmap themselves or read from an output file, are well documented, come with numerous example scripts, are part of the Comprehensive Perl Archive Network (CPAN), and are popular with users. They each offer both a callback based parser for interpreting data as Nmap runs as well as an all-at-once parser for obtaining a fully parsed document once Nmap finishes executing. Their APIs are a bit different—Nmap::Scanner relies on type-safe classes while Nmap::Parser relies on lighter-weight native Perl arrays. I recommend looking at each to decide which best meets your needs and preferences.
+
+Example 13.11 is a simple demonstration of Nmap::Parser. It comes from the module's documentation (which contains many other examples as well). It performs a quick scan, then prints overall scan statistics as well as information on each available target host. Notice how readable it is compared to scripts using other Nmap output formats that are dominated by parsing logic and regular expressions. Even people with poor Perl skills could use this as a starting point to create simple programs to automate their Nmap scanning needs.
+
+Example 13.11. Nmap::Parser sample code
+
+
+#frees memory--helpful when dealing with memory intensive scripts
+$np->clean();
+
+For comparison, Example 13.12 is a sample Perl script using Nmap::Scanner, copied from its documentation. This one uses an event-driven callback approach, registering the functions scan_started and port_found to print real-time alerts when a host is found up and when each open port is discovered on the host.
+
+Example 13.12. Nmap::Scanner sample code
+
+Common Platform Enumeration (CPE)
+
+Common Platform Enumeration (CPE) is a standardized way to name software applications, operating systems, and hardware platforms. Nmap includes CPE output for service and OS detection.
+
+Structure of a CPE Name
+
+A CPE name is a URL that encodes seven ordered fields:
+
+cpe:/<part>:<vendor>:<product>:<version>:<update>:<edition>:<language>
+
+Some of the fields may be left blank, and empty fields may be left off the end of the URL. The main division of CPE names is in the <part> field; this can take on only three values:
+
+a for applications,
+h for hardware platforms, or
+o for operating systems.
+By looking at the beginning of the URL you can easily see that cpe:/a:microsoft:sql_server:6.5 names an application, cpe:/h:asus:rt-n16 names a kind of hardware, and cpe:/o:freebsd:freebsd:3.5.1 names an operating system.
+
+Nmap can output all three kinds of CPE names: OS detection can print h and o; and service detection can potentially output all three. The CPE names are mixed in with normal OS and service output, for example:
+
+Example 13.13. Normal output with CPE highlighted
+
+Running: Linux 2.6.X
+OS CPE: cpe:/o:linux:linux_kernel:2.6.39
+OS details: Linux 2.6.39
+Network Distance: 10 hops
+Service Info: OS: Linux; CPE: cpe:/o:linux:kernel
+
+CPE names for applications (with part a) are not shown in normal output, but they are present in XML. CPE is represented as a cpe element that can be a child of service or osclass.
+Output to a Database
+
+A common desire is to output Nmap results to a database for easier queries and tracking. 
+This allows users from an individual penetration tester to an international enterprise to store all of their scan results and easily compare them. 
+The enterprise might run large scans daily and schedule queries to mail administrators of newly open ports or available machines. 
+The penetration tester might learn of a new vulnerability and search all of his old scan results for the affected application so that he can warn the relevant clients. Researchers may scan millions of IP addresses and keep the results in a database for easy real-time queries.
+
+While these goals are laudable, Nmap offers no direct database output functionality. 
+Not only are there too many different database types for me to support them all, but users' needs vary so dramatically that no single database schema is suitable. 
+The needs of the enterprise, pen-tester, and researcher all call for different table structures.
+
+For projects large enough to require a database, I recommend deciding on an optimal DB schema first, then writing a simple program or script to import Nmap XML data appropriately. Such scripts often take only minutes, thanks to the wide availability of XML parsers and database access modules. Perl often makes a good choice, as it offers a powerful database abstraction layer and also custom Nmap XML support. the section called “Manipulating XML Output with Perl” shows how easily Perl scripts can make use of Nmap XML data.
+
+Another option is to use a custom Nmap database support patch. 
+One example is nmap-sql, which adds MySQL logging functionality into Nmap itself. 
+The downsides are that it currently only supports the MySQL database and it must be frequently ported to new Nmap versions. 
+An XML-based approach, on the other hand, is less likely to break when new Nmap versions are released.
+
+Another option is PBNJ, a suite of tools for monitoring changes to a network over time. 
+It stores scan data such as online hosts and open ports to a database (SQLite, MySQL or Postgres). 
+It offers a flexible querying and alerting system for accessing that data or displaying changes.
+
+Creating HTML Reports
+
+Nmap does not have an option for saving scan results in HTML, however it is possible to convert XML output to HTML automatically. 
+An Nmap XML output file usually contains a reference to an XSL stylesheet called nmap.xsl that describes how the transformation takes place.
+
+The XML processing instruction that says where the stylesheet can be found will look something like
+
+<?xml-stylesheet href="/usr/share/nmap/nmap.xsl" type="text/xsl"?>
+The exact location may be different depending on the platform and how Nmap was configured.
+
+Such a stylesheet reference will work fine when viewing scan results on the same machine that initiated the scan, but it will not work if the XML file is transferred to another machine where the nmap.xsl file is in a different place or absent entirely. 
+To make the XML styling portable, give the --webxml option to Nmap. 
+This will change the processing instruction to read
+
+<?xml-stylesheet href="http://nmap.org/svn/docs/nmap.xsl" type="text/xsl"?>
+The resultant XML output file will render as HTML on any web-connected machine. Using the network location in this fashion is often more useful, but the local copy of nmap.xsl is used by default for privacy reasons.
+
+To use a different stylesheet, use the --stylesheet <file> option. 
+Note that --webxml is an alias for --stylesheet http://nmap.org/svn/docs/nmap.xsl. 
+To omit the stylesheet entirely, use the option --no-stylesheet.
+
+Saving a Permanent HTML Report
+
+Here are commands that turn an Nmap XML output file into an HTML file using common XSLT processors. 
+Sample output viewed in a web browser is shown in Figure 13.1, “HTML from XML output in a web browser”.
+
+xsltproc
+xsltproc <nmap-output.xml> -o <nmap-output.html>
+
+Saxon
+Saxon 9: java -jar saxon9.jar -s:<nmap-output.xml> -o:<nmap-output.html>
+
+Previous Saxon releases: java -jar saxon.jar -a <nmap-output.xml> -o <nmap-output.html>
+
+Xalan
+Using Xalan C++: Xalan -a <nmap-output.xml> -o <nmap-output.html>
+
+Using Xalan Java: java -jar xalan.jar -IN <nmap-output.xml> -OUT <nmap-output.html>
+
+Figure 13.1. HTML from XML output in a web browser
+
+HTML from XML output in a web browser
+
+These programs automatically know where to load the stylesheet thanks to the embedded stylesheet reference. 
+As a historical note, the stylesheet was originally intended to render the XML output as HTML by simply opening the XML file in a web browser. 
+For a while it worked that way. 
+But web browsers are implementing more and more severe same-origin restrictions that prevent XML files from loading except from narrowly limited locations. 
+For example, Gecko, the rendering engine used by Mozilla, requires that the stylesheet be located in the same directory as or in a subdirectory of the XML file.
+
+Grepable Output (-oG)
+
+This output format is covered last because it is deprecated. 
+The XML output format is far more powerful, and is nearly as convenient for experienced users. 
+XML is a standard for which dozens of excellent parsers are available, while grepable output is my own simple hack.
+XML is extensible to support new Nmap features as they are released, while I often must omit those features from grepable output for lack of a place to put them.
+
+Nevertheless, grepable output is still quite popular. 
+It is a simple format that lists each host on one line and can be trivially searched and parsed with standard Unix tools such as grep, awk, cut, sed, diff, and Perl. 
+Even I usually use it for one-off tests done at the command line. 
+Finding all the hosts with the SSH port open or that are running Solaris takes only a simple grep to identify the hosts, piped to an awk or cut command to print the desired fields. 
+One grepable output aficionado is Lee “MadHat” Heath, who contributed to this section.
+
+Example 13.14 shows a typical example of grepable output. 
+Normally each host takes only one line, but I split this entry into seven lines to fit on the page. 
+There are also three lines starting with a hash prompt (not counting the Nmap command line). 
+Those are comments describing when Nmap started, the command line options used, and completion time and statistics. 
+One of the comment lines enumerates the port numbers that were scanned. 
+I shortened it to avoid wasting dozens of lines. 
+That particular comment is only printed in verbose (-v) mode. 
+Increasing the verbosity level beyond one -v will not further change the grepable output. 
+The times and dates have been replaced with [time] to reduce line length.
+
+Example 13.14. A typical example of grepable output
+
+The command-line here requested that grepable output be sent to standard output with the - argument to -oG. 
+Aggressive timing (-T4) as well as OS and version detection (-A) were requested. The comment lines are self-explanatory, leaving the meat of grepable output in the Host line. 
+Had I scanned more hosts, each of the available ones would have its own Host line.
+
+Grepable Output Fields
+
+The host line is split into fields, each of which consist of a field name followed by a colon and space, then the field content. 
+The fields are separated by tab characters (ASCII number nine, '\t'). 
+Example 13.14, “A typical example of grepable output” shows six fields: Host, Status, Ports, Ignored State, OS, Seq Index, and IP ID Seq. 
+A Protocols section is included in IP protocol (-sO) scans. 
+The exact fields given depend on Nmap options used. For example, OS detection triggers the OS, Seq Index, and IP ID Seq fields. 
+Because they are tab-delimited, you might split up the fields with a Perl line such as:
+
+@fields = split("\t", $host_line);
+In the case of Example 13.14, “A typical example of grepable output”, the array @fields would contain six members. $fields[0] would contain “Host: 64.13.134.52 (scanme.nmap.org)”, and $fields[1] would contain the long Ports field. Scripts that parse grepable output should ignore fields they don't recognize, as new fields may be added to support Nmap enhancements.
+
+The eight possible fields are described in the following sections.
+
+Host field
+
+Example: Host: 64.13.134.52 (scanme.nmap.org)
+
+The Host field always comes first and is included no matter what Nmap options are chosen.
+The contents are the IP address (an IPv6 address if -6 was specified), a space, and then the reverse DNS name in parentheses. 
+If no reverse name is available, the parentheses will be empty.
+
+Status field
+
+Example: Status: Up
+
+The Status field indicates the whether the target host is Up, Down, or Unknown. 
+List scan (-sL) always categorizes targets as Unknown because it does not perform any tests. 
+Ping scan lists a host as Up if it responds to at least one ping probe, and Down if no responses are received. 
+It used to also report Smurf if ping probes sent to the target resulted in one or more responses from other hosts, but that is no longer done. 
+Example 13.15 demonstrates a ping scan of five random hosts, while Example 13.16 demonstrates a list scan of five hosts.
+
+Example 13.15. Ping scan grepable output
+
+
+Example 13.16. List scan grepable output
+
+Ports field
+
+Example: Ports: 111/open/tcp//rpcbind (rpcbind V2)/(rpcbind:100000*2-2)/2 (rpc #100000)/, 113/closed/tcp//auth///
+
+The Ports field is by far the most complex, as can be seen in Example 13.14, “A typical example of grepable output”. 
+It includes entries for every interesting port (the ones which would be included in the port table in normal Nmap output). 
+The port entries are separated with a comma and a space character. 
+Each port entry consists of seven subfields, separated by a forward slash (/). 
+The subfields are: port number, state, protocol, owner, service, SunRPC info, and version info. 
+Some subfields may be empty, particularly for basic port scans without OS or version detection. 
+The consecutive slashes in Example 13.14, “A typical example of grepable output” reveal empty subfields. 
+In Perl, you might split them up as so:
+
+($port, $state, $protocol, $owner, $service, $rpc_info, $version) = 
+        split('/', $ports);
+Alternatively, you could grab the information from the command line using commands such as these:
+
+cut -d/ -f<fieldnumbers>
+awk -F/ '{print $<fieldnumber>}'
+Certain subfields can contain a slash in other output modes. 
+For example, an SSL-enabled web server would show up as ssl/http and the version info might contain strings such as mod_ssl/2.8.12.
+Since a slash is the subfield delimiter, this would screw up parsing. To avoid this problem, slashes are changed into the pipe character (|) when they would appear anywhere in the Port field.
+
+Parsers should be written to allow more than seven slash-delimited subfields and to simply ignore the extras because future Nmap enhancements may call for new ones. 
+The following list describes each of the seven currently defined Port subfields.
+
+Port number
+This is simply the numeric TCP or UDP port number.
+
+State
+The same port state which would appear in the normal output port table is shown here.
+
+Protocol
+This is tcp, udp, or sctp.
+
+Owner
+This used to specify the username that the remote server is running under based on results from querying an identd (auth) server of the target host. The ident scan (-I) is no longer available with Nmap, so this field is always empty. Ident data can still be obtained using the auth-owners NSE script, though results are not placed in this field.
+
+Service
+The service name, as obtained from an nmap-services lookup, or (more reliably) through version detection (-sV) if it was requested and succeeded. With version detection enabled, compound entries such as ssl|http and entries with a trailing question mark may be seen. The meaning is the same as for normal output, as discussed in Chapter 7, Service and Application Version Detection.
+
+SunRPC info
+If version detection (-sV) was requested and the port was found to use the SunRPC protocol, the RPC program number and accepted version numbers are included here. A typical example is (rpcbind:100000*2-2). The data is always returned inside parentheses. It starts with the program name, then a colon and the program number, then an asterisk followed by the low and high supported version numbers separated by a hyphen. So in this example, rpcbind (program number 100000) is listening on the port for rpcbind version 2 requests.
+
+Version info
+If version detection is requested and succeeds, the results are provided here in the same format used in interactive output.
+For SunRPC ports, the RPC data is printed here too.
+The format for RPC results in this column is <low version number>-<high version number> (rpc #<rpc program number>). 
+When only one version number is supported, it is printed by itself rather than as a range. 
+A port which shows (rpcbind:100000*2-2) in the SunRPC info subfield would show 2 (rpc #100000) in the version info subfield.
+
+Protocols field
+
+Example: Protocols: 1/open/icmp/, 2/open|filtered/igmp/
+
+The IP protocol scan (-sO) has a Protocols field rather than Ports. 
+Its contents are quite similar to the Ports field, but it has only three subfields rather than seven. 
+They are delimited with slashes, just as with the Ports field. 
+Any slashes that would appear in a subfield are changed into pipes (|), also as done in the Ports field.
+The subfields are protocol number, state, and protocol name. 
+These correspond to the three fields shown in interactive output for a protocol scan. 
+An example of IP protocol scan grepable output is shown in Example 13.17. 
+The Host line, which would normally be all one line, is here wrapped for readability.
+
+Example 13.17. Grepable output for IP protocol scan
+
+
+Ignored State field
+
+Example: Ignored State: filtered (1658)
+
+To save space, Nmap may omit ports in one non-open state from the list in the Ports field. 
+Nmap does this in interactive output too. 
+Regular Nmap users are familiar with the lines such as Not shown: 993 closed ports. 
+For grepable mode, that state is given in the Ignored State field. 
+Following the state name is a space, then in parentheses is the number of ports found in that state.
+
+OS field
+
+Example: OS: Linux 2.4.0 - 2.5.20
+
+Any perfect OS matches are listed here. 
+If there are multiple matches, they are separated by a pipe character as shown in Example 13.14, “A typical example of grepable output”.
+Only the free-text descriptions are provided. 
+Grepable mode does not provide the vendor, OS family, and device type classification shown in other output modes.
+
+Seq Index field
+
+Example: Seq Index: 3004446
+
+This number is an estimate of the difficulty of performing TCP initial sequence number prediction attacks against the remote host. 
+These are also known as blind spoofing attacks, and they allow an attacker to forge a full TCP connection to a remote host as if it was coming from some other IP address. 
+This can always help an attacker hide his or her tracks, and it can lead to privilege escalation against services such as rlogin that commonly grant extra privileges to trusted IP addresses. 
+The Seq Index value is only available when OS detection (-O) is requested and succeeds in probing for this. 
+It is reported in interactive output when verbosity (-v) is requested. 
+More details on the computation and meaning of this value are provided in Chapter 8, Remote OS Detection.
+
+IP ID Seq field
+
+Example: IP ID Seq: All zeros
+
+This simply describes the remote host's IP ID generation algorithm. 
+It is only available when OS detection (-O) is requested and succeeds in probing for it. 
+Interactive mode reports this as well, and it is discussed in Chapter 8, Remote OS Detection.
+
+Parsing Grepable Output on the Command Line
+
+Grepable output really shines when you want to gather information quickly without the overhead of writing a script to parse XML output. 
+Example 13.18 shows a typical example of this. 
+The goal is to find all hosts on a class C sized network with port 80 open. 
+Nmap is told to scan just that port of each host (skipping the ping stage) and to output a grepable report to stdout. 
+The results are piped to a trivial awk command which finds lines containing /open/ and outputs fields two and three for each matching line. 
+Those fields are the IP address and hostname (or empty parentheses if the hostname is unavailable).
+
+Example 13.18. Parsing grepable output on the command line
