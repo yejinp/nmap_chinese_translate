@@ -608,8 +608,9 @@ Nmap 包含一个路由跟踪优化实现，通过 --traceroute 选项开启
 It can find the network routes to many hosts in parallel, using the best available probe packets as determined by Nmap's previous discovery phases. 
 它能够并行发现到达很多主机的网络路由，利用可提供的最好的探测包
 Traceroute usually involves another round of reverse-DNS resolution for the intermediate hosts. 
+路由跟踪常常涉及到中间主机另外一轮的反向路由解析。
 More information is found in the section called “Host Discovery”.
-跟踪路由
+在“主机发现”一节可以找到更多信息。
 Script scanning. Most Nmap Scripting Engine (NSE) scripts run during this main script scanning phase, rather than the prescan and postscan phases. 
 NSE is powered by the Lua programming language and a standard library designed for network information gathering. 
 Scripts running during this phase generally run once for each target host and port number that they interact with. 
