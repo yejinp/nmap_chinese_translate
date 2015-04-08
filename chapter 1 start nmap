@@ -248,8 +248,12 @@ This server almost certainly should not be running an externally-accessible name
 A firewall should only run the bare essentials to minimize the risk of a disastrous compromise. 
 防火墙只运行基本的东西来最小化攻击的风险。
 Besides, this server is not authoritative for any domains—the real nameservers are on the production network. 
+另外，这个服务器实名服务器。
 An administrator probably only meant for clients within the firewall to contact this nameserver, but did not bother locking it down to only the internal interface. 
-Felix will later try to gather important information from this unnecessary server using zone transfer requests and intrusive queries. He may attempt cache poisoning as well. 
+Felix will later try to gather important information from this unnecessary server using zone transfer requests and intrusive queries. 
+后来，Felix尝试从这个非必须服务器获取重要信息，用域传输请求和攻击查询。
+He may attempt cache poisoning as well. 
+他可能会尝试缓存投毒。
 By spoofing the IP of windowsupdate.microsoft.com or another important download server, Felix may be able to trick unsuspecting internal client users into running a trojan-horse program that provides him with full network access behind the firewall.
 通过欺骗windowsupdate.microsoft.com或者另外一个重要的下载服务器的IP地址，Felix
 The next two open ports are 110 (POP3) and 143 (IMAP).
@@ -273,6 +277,7 @@ The final open port is a Squid proxy.
 This is another service that may have been intended for internal client use and should not be accessible from the outside (and particularly not on the firewall). 
 这是另外一个服务，内部客户原来，不能从外部访问。
 Felix's initially positive opinion of the AO security administrators drops further. 
+Felix对AO安全管理员的乐观想法一落千丈了。
 Felix will test whether he can abuse this proxy to connect to other sites on the Internet. 
 Felix将测试他是否能够利用代理来连接到网络上的其他站点。
 Spammers and malicious hackers often use proxies in this way to hide their tracks. 
@@ -284,7 +289,7 @@ This common attack is how Adrian Lamo broke into the New York Times internal net
 Lamo was caught after he called reporters to brag about his exploits against the NY Times and other companies in detail.
 Lamo在他呼叫报告者来  NY Times和其他公司时被捕了。
 The following lines disclose that this is a Linux box, which is valuable information when attempting exploitation. 
-
+随后的几行显示，这是一天Linux盒子，尝试利用的时候非常有价值。
 The low three-day uptime was detected during OS fingerprinting by sending several probes for the TCP timestamp option value and extrapolating the line back to zero.
 
 Felix then examines the Nmap output for another machine, as shown in Example 1.3.
