@@ -327,7 +327,8 @@ In previous releases of Nmap, -sn was known as -sP.
 This option skips the Nmap discovery stage altogether.
 Normally, Nmap uses this stage to determine active machines for heavier scanning. 
 By default, Nmap only performs heavy probing such as port scans, version detection, or OS detection against hosts that are found to be up.
-Disabling host discovery with -Pn causes Nmap to attempt the requested scanning functions against every target IP address specified. So if a class B target address space (/16) is specified on the command line, all 65,536 IP addresses are scanned. 
+Disabling host discovery with -Pn causes Nmap to attempt the requested scanning functions against every target IP address specified. 
+So if a class B target address space (/16) is specified on the command line, all 65,536 IP addresses are scanned. 
 Proper host discovery is skipped as with the list scan, but instead of stopping and printing the target list, Nmap continues to perform requested functions as if each target IP is active. 
 To skip ping scan and port scan, while still allowing NSE to run, use the two options -Pn -sn together.
 
@@ -652,7 +653,8 @@ Ideas for speeding your UDP scans up include scanning more hosts in parallel, do
 -sY (SCTP INIT scan)
 SCTP is a relatively new alternative to the TCP and UDP protocols, combining most characteristics of TCP and UDP, and also adding new features like multi-homing and multi-streaming.
 It is mostly being used for SS7/SIGTRAN related services but has the potential to be used for other applications as well. SCTP INIT scan is the SCTP equivalent of a TCP SYN scan.
-It can be performed quickly, scanning thousands of ports per second on a fast network not hampered by restrictive firewalls. Like SYN scan, INIT scan is relatively unobtrusive and stealthy, since it never completes SCTP associations.
+It can be performed quickly, scanning thousands of ports per second on a fast network not hampered by restrictive firewalls. 
+Like SYN scan, INIT scan is relatively unobtrusive and stealthy, since it never completes SCTP associations.
 It also allows clear, reliable differentiation between the open, closed, and filtered states.
 
 This technique is often referred to as half-open scanning, because you don't open a full SCTP association. 
@@ -1857,7 +1859,8 @@ Legal Notices
 Nmap Copyright and Licensing
 
 The Nmap Security Scanner is (C) 1996–2014 Insecure.Com LLC. Nmap is also a registered trademark of Insecure.Com LLC. 
-This program is free software; you may redistribute and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; Version 2 (“GPL”), BUT ONLY WITH ALL OF THE CLARIFICATIONS AND EXCEPTIONS DESCRIBED HEREIN. This guarantees your right to use, modify, and redistribute this software under certain conditions. 
+This program is free software; you may redistribute and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; Version 2 (“GPL”), BUT ONLY WITH ALL OF THE CLARIFICATIONS AND EXCEPTIONS DESCRIBED HEREIN. 
+This guarantees your right to use, modify, and redistribute this software under certain conditions. 
 If you wish to embed Nmap technology into proprietary software, we sell alternative licenses (contact <sales@nmap.com>). Dozens of software vendors already license Nmap technology such as host discovery, port scanning, OS detection, version detection, and the Nmap Scripting Engine.
 
 Note that the GPL places important restrictions on “derivative works”, yet it does not provide a detailed definition of that term. 
