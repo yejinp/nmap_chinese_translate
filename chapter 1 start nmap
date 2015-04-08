@@ -291,23 +291,27 @@ Lamo在他呼叫报告者来  NY Times和其他公司时被捕了。
 The following lines disclose that this is a Linux box, which is valuable information when attempting exploitation. 
 随后的几行显示，这是一天Linux盒子，尝试利用的时候非常有价值。
 The low three-day uptime was detected during OS fingerprinting by sending several probes for the TCP timestamp option value and extrapolating the line back to zero.
-
+下面的运行3天是通过发送几个探针在OS指纹探测时，
 Felix then examines the Nmap output for another machine, as shown in Example 1.3.
 Felix然后检查了另外一台设备的Nmap输出，如示例 1.3所示。
 Example 1.3. Another interesting AO machine
 例子1.3 另外一个有趣的AO机器
 
 Felix smiles when he spies this Windows XP box on the Network. 
+当网络上这个 Windows XP盒子的时候，Felix笑笑，
 Thanks to a spate of MS RPC vulnerabilities, those machines are trivial to compromise if the OS patches aren't up-to-date. 
+由于一连串的 MS RPC 漏洞，如果操作系统补丁并不是最新的那些机器很容易妥协。
 The second line shows that the default state is closed, meaning the firewall does not have the same deny-by-default policy for this machine as for itself. 
 第二行显示，默认状态是关闭的，这就意味着，对于，防火墙没有相同的默认拒绝策略。
 Instead they tried to specifically block the Windows ports they consider dangerous on 135-139. 
+
 This filter is woefully inadequate, as MS exports MS RPC functionality on many other ports in Windows XP. 
 TCP ports 445 and 1025 are two examples from this scan. 
 TCP端口445和1025是本扫描的两个例子。
 While Nmap failed to recognize 16552, Felix has seen this pattern enough to know that it is probably the MS Messenger Service. 
 Nmap识别端口16552失败，Felix 认为，这可能是MS消息服务。
 If AO had been using deny-by-default filtering, port 16552 would not be accessible in the first place. 
+如果曾经使用默认拒绝筛选使用 AO 的端口 16552 便不能放在第一位。
 Looking through the results page, Felix sees several other Windows machines on this DHCP network. 
 通读结果，Felix看到DHCP网络上的几个其他windows机器。
 Felix cannot wait to try his favorite DCOM RPC exploit against them. 
@@ -317,7 +321,7 @@ It was written by HD Moore and is available at http://www.metasploit.com/tools/d
 If that fails, there are a couple newer MS RPC vulnerabilities he will try.
 如果失败的话，还有其他一些更新的MS RPC漏洞可以尝试。
 Felix continues poring over the results for vulnerabilities he can leverage to compromise the network. 
-Felix继续
+Felix继续钻研他可以利用的漏洞来危害网络。
 On the production network, he sees that gw.avataronline.com is a Cisco router that also acts as a rudimentary firewall for the systems. 
 在产品网络，他看到gw.avataronline.com 是一个思科路由器，
 They fall into the trap of only blocking privileged ports (those under 1024), which leaves a bunch of vulnerable SunRPC and other services accessible on that network. 
@@ -570,14 +574,21 @@ Host discovery is the subject of Chapter 3.
 Reverse-DNS resolution. 
 DNS反向解析
 Once Nmap has determined which hosts to scan, it looks up the reverse-DNS names of all hosts found online by the ping scan. 
+一旦Nmap那些主机
 Sometimes a host's name provides clues to its function, and names make reports more readable than providing only IP numbers. 
+有时候一个主机的名字跟他的功能有关，名字也会让报告比IP数字更可读。
 This step may be skipped with the -n (no resolution) option, or expanded to cover all target IPs (even down ones) with -R(resolve all). 
+这个阶段可能用选项-n（不解析）来跳过或者用选项-R（解析所有）涵盖所有的目标IP。
 Name resolution is covered in the section called “DNS Resolution”.
-反向DNS解析。
-Port scanning. 
+反向DNS解析在“DNS解析”一节描述。
+Port scanning.
+端口扫描。 
 This is Nmap's core operation. 
+这是Nmap的核心操作。
 Probes are sent, and the responses (or non-responses) to those probes are used to classify remote ports into states such as open, closed, or filtered. 
+探针发出后，针对探针的响应（没有响应）用来区分远程端口几种状态，比如开发、关闭或者被过滤。
 That brief description doesn't begin to encompass Nmap's many scan types, configurability of scans, and algorithms for improving speed and accuracy.
+简要描述
 
 An overview of port scanning is in Chapter 4.
 第四章是端口扫描的概貌 
@@ -616,41 +627,69 @@ Traceroute usually involves another round of reverse-DNS resolution for the inte
 路由跟踪常常涉及到中间主机另外一轮的反向路由解析。
 More information is found in the section called “Host Discovery”.
 在“主机发现”一节可以找到更多信息。
-Script scanning. Most Nmap Scripting Engine (NSE) scripts run during this main script scanning phase, rather than the prescan and postscan phases. 
+Script scanning. 
+脚本扫描
+Most Nmap Scripting Engine (NSE) scripts run during this main script scanning phase, rather than the prescan and postscan phases. 
+大部分Nmap脚本引擎（NSE）脚本在主脚本扫描阶段运行，而不是在扫描前和扫描后阶段。
 NSE is powered by the Lua programming language and a standard library designed for network information gathering. 
+NSE是lua编程语言和一个标准库，用于网络信息收集。
 Scripts running during this phase generally run once for each target host and port number that they interact with. 
+脚本在这个阶段运行，
 They commonly perform tasks such as detecting service vulnerabilities, malware discovery, collecting more information from databases and other network services, and advanced version detection. 
 NSE is not executed unless you request it with options such as --script or -sC.
-脚本扫描
-Output. Finally, Nmap collects all the information it has gathered and writes it to the screen or to a file. 
+脚本扫描只有在你用选项 --script 或者 -sC的时候指定。
+Output. 
+输出
+Finally, Nmap collects all the information it has gathered and writes it to the screen or to a file. 
+最后，Nmap所有已经收集的信息并输出到屏幕或者文件。
 Nmap can write output in several formats. 
+Nmap能写输出到几个格式。
 Its default, human-readable format (interactive format) is usually presented in this book. 
+默认，在本书中呈现的可读格式（交互格式）
 Nmap also offers an XML-based output format, among others. 
+在他们中，Nmap也通过一个基于XML的输出格式。
 The ins and outs of output are the subject of Chapter 13.
-输出。
+输出的前前后后是第 13 章的主题。
 As already discussed, Nmap offers many options for controlling which of these phases are run. 
+就行已经讨论的，Nmap提供了很多选项来控制那些运行阶段。
 For scans of large networks, each phase is repeated many times since Nmap deals with the hosts in smaller groups. 
+扫描大型网络，由于Nmap处理主机分小组每个阶段重复很多次。
 It scans each group completely and outputs those results, then moves on to the next batch of hosts.
+它扫描每组并输出它们的结果，然后
+它完全扫描每个组和输出这些结果，然后移动到下一批的主机。
 Script post-scanning. 
+扫描后脚本
 After Nmap has completed its scanning and normal output, scripts in this phase can process results and deliver final reports and statistics. 
+Nmap扫描完成后，这个阶段的脚本能处理结果和最后的报告和统计。
 See the section called “Script Types and Phases”. 
+查看“脚本类型和阶段”一节。
 Nmap does not yet include any scripts in this phase, so it only runs if the user includes and executes their own post-scanning scripts.
 扫描后脚本。
 
 Legal Issues
 法律问题
 When used properly, Nmap helps protect your network from invaders. 
+如果使用得当，Nmap帮助保护你的网络。
 But when used improperly, Nmap can (in rare cases) get you sued, fired, expelled, jailed, or banned by your ISP. 
+但当使用不当的时候，Nmap（很少案例）可能让你被诉讼、被解雇、被驱逐、被判坐牢或者被ISP禁止。
 Reduce your risk by reading this legal guide before launching Nmap.
+在运行Nmap前，通过阅读法律指南会减少你的风险。
 Is Unauthorized Port Scanning a Crime?
+没有授权的端口扫描是犯罪么？
 The legal ramifications of scanning networks with Nmap are complex and so controversial that third-party organizations have even printed T-shirts and bumper stickers promulgating opinions on the matter[6], as shown in Figure 1.3. 
+扫描网络的 Nmap 所导致的法律后果很复杂，所以有争议的是第三方组织甚至打印 t 恤衫，保险杠贴纸颁布意见 [6]，如图 1.3 所示。
 The topic also draws many passionate but often unproductive debates and flame wars. 
+主题还提请许多充满激情但常常徒劳无益的辩论和口水战。
 If you ever participate in such discussions, try to avoid the overused and ill-fitting analogies to knocking on someone's home door or testing whether his door and windows are locked.
+如果你曾经参与这种讨论，尽量避免过度使用和不合身的类比敲别人家的门或测试是否他的门和窗户被锁定。
 Figure 1.3. Strong opinions on port scanning legality and morality
-图1.3 
+
+图1.3 强烈的意见，对端口扫描的合法性和道德
 
 While I agree with the sentiment that port scanning should not be illegal, it is rarely wise to take legal advice from a T-shirt. 
+虽然我同意端口扫描不应该是非法的情绪，是很不明智，采取的法律意见，从一件 t 恤。
 Indeed, taking it from a software engineer and author is only slightly better. 
+事实上，考虑从一名软件工程师和作者只是稍微好一点的。
 Speak to a competent lawyer within your jurisdiction for a better understanding of how the law applies to your particular situation. 
 With that important disclaimer out of the way, I'll provide some general information that may prove helpful.
 The best way to avoid controversy when using Nmap is to always secure written authorization from the target network representatives before initiating any scanning. 
@@ -658,23 +697,42 @@ There is still a chance that your ISP will give you trouble if they notice it (o
 When you are performing a penetration test,this authorization should be in the Statement of Work. 
 When testing your own company, make certain that this activity clearly falls within your job description. 
 Security consultants should be familiar with the excellent Open Source Security Testing Methodology Manual (OSSTMM), which provides best practices for these situations.
+安全顾问应该对开源安全测试方法手册熟悉，这些手册提供最好的实践。
 While civil and (especially) criminal court cases are the nightmare scenario for Nmap users, these are very rare. 
+
 After all, no United States federal laws explicitly criminalize port scanning. 
+毕竟，没有美国联邦法律明确端口扫描犯罪。
 A much more frequent occurrence is that the target network will notice a scan and send a complaint to the network service provider where the scan initiated (your ISP). 
+一个更经常发生的就是，目标网络将注意到一个扫描并给网络服务提供商发送抱怨扫描从哪里（你的ISP）发起。
 Most network administrators do not seem to care or notice the many scans bouncing off their networks daily, but a few complain. 
+很多网络管理员并不关心和注意，他们的网络但少有抱怨。
+大多数网络管理员似乎不关心或注意到太多的扫描每日反弹其网络，但少有抱怨。
 The scan source ISP may track down the user corresponding to the reported IP address and time, then chide the user or even kick him off the service. 
+扫描源 ISP 可以追踪用户对应到报告的 IP 地址和时间，然后责备用户或甚至踢他关闭服务。
 Port scanning without authorization is sometimes against the provider's acceptable use policy (AUP). 
+没有授权的端口扫描有时
 For example, the AUP for the huge cable-modem ISP Comcast says:
+比如，AUP
 Network probing or port scanning tools are only permitted when used in conjunction with a residential home network, or if explicitly authorized by the destination host and/or network.
+网络探测或者端口扫描工具只有在允许，
 Unauthorized port scanning, for any reason, is strictly prohibited.
+没有授权的端口扫，不管任何原因都是严格禁止的。
 Even if an ISP does not explicitly ban unauthorized port scanning, they might claim that some “anti-hacking” provision applies. 
+尽管如果一个ISP没有明确禁止非授权扫描，他们可能会声明一些“反黑客”提供。
 Of course this does not make port scanning illegal. 
+当然这也没有说端口扫描就非法。
 Many perfectly legal and (in the United States) constitutionally protected activities are banned by ISPs. 
+很多好的法律和（在美国）保护
 For example, the AUP quoted above also prohibits users from transmitting, storing, or posting “any information or material which a reasonable person could deem to be objectionable, offensive, indecent, pornographic, ... embarrassing, distressing, vulgar, hateful, racially or ethnically offensive, or otherwise inappropriate, regardless of whether this material or its dissemination is unlawful”. 
+比如，
 In other words, some ISPs ban any behavior that could possibly offend or annoy someone[7]. 
+换句话说，有些ISP禁止任何冒犯其他人的行为。
 Indiscriminate scanning of other people's networks does have that potential. 
+不分青红皂白地扫描其他人的网络有这种潜力。
 If you decide to perform such controversial scanning anyway, never do it from work, school, or any other service provider that has substantial control over your well-being. 
+如果你考虑执行这种争议的扫描，永远不要从工作、学校或者其他服务提供商
 Use a commercial broadband or wireless provider instead. 
+改用商业宽带或无线供应商。
 Losing your DSL connection and having to change providers is a slight nuisance, but it is immeasurably preferable to being expelled or fired.
 While legal cases involving port scanning (without follow-up hacking attacks) are rare, they do happen. 
 One of the most notable cases involved a man named Scott Moulton who had an ongoing consulting contract to maintain the Cherokee County, Georgia emergency 911 system. 
@@ -884,6 +942,7 @@ Reducing the number of ports scanned reduces the risks to end hosts as well as n
 Many NAT/firewall devices keep a state entry for every port probe. 
 很多NAT/防火墙设备对每个端口探针都会保留一个状态入口。
 Most of them expire old entries when the table fills up, but occasional (pathetic) implementations crash instead. 
+大部分暴露的入口都会过期，
 Reducing the ports and hosts scanned reduces the number of state entries and thus might help those fragile and defective devices stay up.
 减少端口和主机扫描就减少了状态入口，因此会帮助那些
 
@@ -901,7 +960,9 @@ Fortunately the Nmap Project sells commercial redistribution licenses for compan
 这些问题在“注意法律”一节有详细描述。
 ________________________________________
 [6] These are from the now-defunct AmericanSushi.Com.
+他们来自现已解散的AmericanSushi.Com
 [7] The Comcast AUP was improved after this was first published. The latest version is available at http://www.comcast.net/terms/use/
+
 [8] An excellent paper on this topic by lawyer Ethan Preston is available at http://grove.ufl.edu/~techlaw/vol6/issue1/preston.html. 
 He has also written an excellent paper relating to the legal risks of publishing security information and exploits at http://www.mcandl.com/computer-security.html.
 
