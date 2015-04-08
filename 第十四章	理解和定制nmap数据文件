@@ -1,1 +1,376 @@
 
+Table of Contents
+
+Introduction
+Well Known Port List: nmap-services
+Version Scanning DB: nmap-service-probes
+SunRPC Numbers: nmap-rpc
+Nmap OS Detection DB: nmap-os-db
+UDP payloads: nmap-payloads
+MAC Address Vendor Prefixes: nmap-mac-prefixes
+IP Protocol Number List: nmap-protocols
+Files Related to Scripting
+Using Customized Data Files
+Introduction
+
+Nmap relies on seven data files for port scanning and other operations, all of which have names beginning with nmap-.
+One example is nmap-services, a registry of port names to their corresponding port number and protocol. 
+The others, which this chapter describes one by one, are nmap-service-probes (version detection probe database), nmap-rpc (SunRPC program name to number database for direct RPC scanning), nmap-os-db (OS detection database), nmap-payloads (protocol-specific payloads), nmap-mac-prefixes (ethernet MAC address prefix (OUI) to vendor lookup table), and nmap-protocols (list of IP protocols for protocol scan). 
+Additionally this chapter covers certain files related to scripting with the Nmap Scripting Engine. 
+The source distribution installs these files in /usr/local/share/nmap/ and the official Linux RPMs put them in /usr/share/nmap/. Other distributions may install them elsewhere.
+
+The latest versions of these files are kept at http://nmap.org/svn/, though it is strongly recommended that users upgrade to the most recent Nmap version rather than grabbing newer data files à la carte. 
+There are no guarantees that newer files will work with older versions of Nmap (though they almost always do), and the resulting Frankenstein versions of Nmap can confuse the operating system and service fingerprint submission process.
+
+Most users never change the data files, but it can be handy for advanced users who might want to add a version fingerprint or port assignment for a custom daemon running at their company. 
+This section provides a description of each file and how they are commonly changed. 
+The general mechanism for replacing Nmap data files with custom versions is then discussed.
+A couple of the files don't relate to port scanning directly, but they are all discussed here for convenience.
+
+Well Known Port List: nmap-services
+
+The nmap-services file is a registry of port names to their corresponding number and protocol. 
+Each entry has a number representing how likely that port is to be found open. Most lines have a comment as well.
+Nmap ignores the comments, but users sometimes grep for them in the file when Nmap reports an open service of a type that the user does not recognize. 
+Example 14.1 shows a typical excerpt from the file.
+Some padding whitespace has been added for readability.
+
+Example 14.1. Excerpt from nmap-services
+
+qotd         17/tcp    0.002346  # Quote of the Day
+qotd         17/udp    0.009209  # Quote of the Day
+msp          18/udp    0.000610  # Message Send Protocol
+chargen      19/tcp    0.002559  # ttytst source Character Generator
+chargen      19/udp    0.015865  # ttytst source Character Generator
+ftp-data     20/tcp    0.001079  # File Transfer [Default Data]
+ftp-data     20/udp    0.001878  # File Transfer [Default Data]
+ftp          21/tcp    0.197667  # File Transfer [Control]
+ftp          21/udp    0.004844  # File Transfer [Control]
+ssh          22/tcp    0.182286  # Secure Shell Login
+ssh          22/udp    0.003905  # Secure Shell Login
+telnet       23/tcp    0.221265
+telnet       23/udp    0.006211
+priv-mail    24/tcp    0.001154  # any private mail system
+priv-mail    24/udp    0.000329  # any private mail system
+smtp         25/tcp    0.131314  # Simple Mail Transfer
+smtp         25/udp    0.001285  # Simple Mail Transfer
+
+This file was originally based off the IANA assigned ports list at http://www.iana.org/assignments/port-numbers, though many other ports have been added over the years. 
+The IANA does not track trojans, worms and the like, yet discovering them is important for many Nmap users.
+
+The grammar of this file is pretty simple. There are three whitespace-separated columns.
+The first is the service name or abbreviation, as seen in the SERVICE column of Nmap output. 
+The second column gives the port number and protocol, separated by a slash. That syntax is seen in the PORT column of Nmap output. 
+The third column is the “port frequency”, a measure of how often the port was found open during research scans of the Internet. If omitted, the frequency is zero. 
+Nmap disregards anything beyond the third column, but most lines continue with whitespace then and a pound (‘#’) character, followed by a comment. Lines may be blank or contain just a pound character followed by comments.
+
+Astute readers notice the similarity in structure between nmap-services and /etc/services (usually found at C:\windows\system32\drivers\etc\services on Windows). 
+This is no coincidence. The format was kept to allow systems administrators to copy in any custom entries from their own /etc/services, or even to substitute their own version of that file entirely. 
+The /etc/services format allows a third column providing alias names for a service. 
+This would conflict with the third column being used for the port frequency, so the contents of that column are ignored if they are not numeric.
+
+Example 14.1 shows that UDP ports are often registered for TCP-only services such as SSH and FTP. 
+This was inherited from the IANA, who tend to always register services for both protocols. 
+Having the extra entries doesn't hurt, because by default Nmap scans ports with the highest frequencies and low-frequency ports are simply skipped. 
+And, though it may be unexpected, the excerpt shows that sometimes the UDP counterparts of popular TCP ports are found open.
+
+Administrators sometimes change this file to reflect custom services running on their network. 
+For example, an online services company I once consulted for had dozens of different custom daemons running on high-numbered ports. 
+Doing this allows Nmap to display results for these ports using their proper names rather than unknown. 
+Remember that if you add entries without a port frequency figure, the frequency is taken to be zero, so the port will not be scanned by default. 
+Use an option like -p [1-65535] to ensure that all named ports are scanned.
+
+Similarly, a certain registered port may be frequently wrong for a certain organization. 
+nmap-services can only handle one service name per port number and protocol combination, yet sometimes several different types of applications end up using the same default port number. 
+In that case, I try to choose the most popular one for nmap-services. 
+Organizations which commonly use another service on such a port number may change the file accordingly.
+
+Services specific to a single organization should generally stay in their own nmap-services, but other port registrations can benefit everyone. 
+If you find that the default port for a major worm, trojan, file sharing application, or other service is missing from the latest nmap-services, please send it to me (<fyodor@nmap.org>) for inclusion in the next release. 
+This helps all users while preventing you from having to maintain and update your own custom version of nmap-services.
+
+Another common customization is to strip nmap-services down to only the most common, essential services for an organization. 
+Without a port specification, Nmap will not scan any ports not listed in the services file, so this is a way to limit the number of ports scanned without using a long argument to the -p option. 
+The stripped-down file should normally be placed in a custom location accessible with the --datadir or --servicedb option rather than where Nmap will use it by default.
+Advice for customizing these files, including ways to prevent Nmap upgrades from wiping out your modified versions can be found in the section called “Using Customized Data Files”.
+Version Scanning DB: nmap-service-probes
+
+This file contains the probes that the Nmap service/version detection system (-sV or -A options) uses during port interrogation to determine what program is listening on a port. 
+Example 14.2 offers a typical excerpt.
+
+Example 14.2. Excerpt from nmap-service-probes
+
+##############################NEXT PROBE##############################
+# DNS Server status request: http://www.rfc-editor.org/rfc/rfc1035.txt
+Probe UDP DNSStatusRequest q|\0\0\x10\0\0\0\0\0\0\0\0\0|
+ports 53,135
+match domain m|^\0\0\x90\x04\0\0\0\0\0\0\0\0|
+# This one below came from 2 tested Windows XP boxes
+match msrpc m|^\x04\x06\0\0\x10\0\0\0\0\0\0\0|
+[...]
+##############################NEXT PROBE##############################
+Probe UDP Help q|help\r\n\r\n|
+ports 7,13,37
+match chargen m|@ABCDEFGHIJKLMNOPQRSTUVWXYZ|
+match echo m|^help\r\n\r\n$|
+match time m|^[\xc0-\xc5]...$|
+
+The grammar of this file is fully described in Chapter 7, Service and Application Version Detection. 
+While nmap-service-probes is more complex than nmap-services, the benefits of improving it can also be greater. 
+Nmap can be taught to actually recognize a company's custom services, rather than simply guess based on nmap-services port registration.
+
+Additionally, some administrators have been using version detection for tasks well beyond its original intended purpose.
+A short probe can cause Nmap to print the title of web pages, recognize worm-infected machines, locate open proxies, and more.
+A practical example of this is provided in the section called “SOLUTION: Hack Version Detection to Suit Custom Needs, such as Open Proxy Detection”.
+SunRPC Numbers: nmap-rpc
+
+As with nmap-services, nmap-rpc simply maps numbers to names. 
+In this case, SunRPC program numbers are mapped to the program name which uses them. Example 14.3 offers a typical excerpt.
+
+Example 14.3. Excerpt from nmap-rpc
+
+rpcbind         100000  portmap sunrpc rpcbind
+rstatd          100001  rstat rup perfmeter rstat_svc
+rusersd         100002  rusers
+nfs             100003  nfsprog nfsd
+ypserv          100004  ypprog
+mountd          100005  mount showmount
+rpc.operd       100080  opermsg         # Sun Online-Backup
+# DMFE/DAWS (Defense Automated Warning System)
+#
+Gqsrv           200034  gqsrv
+Ppt             200035  ppt
+Pmt             200036  pmt
+
+Nmap only cares about the first two whitespace-separated columns—the program name and number. 
+It doesn't look at any aliases or comments that may appear beyond that.
+Blank lines and those starting with pound comments are permitted. 
+This format is the same as used by /etc/rpc on Unix, so administrators may use that file instead if they desire.
+
+nmap-rpc is only used by the RPC grinding feature of Nmap version descriptions. 
+That feature is covered in the section called “RPC Grinding”.
+
+Users rarely change nmap-rpc.
+When they do, it is usually to add a custom service or a public one that is missing from the latest nmap-rpc.
+In the latter case, please send a note to me at <fyodor@nmap.org> so that I can add it to the next version. 
+As with nmap-services, some administrators strip the file down, removing obscure RPC programs to save scan time. 
+The same warning applies: specify your stripped nmap-rpc with the --datadir option rather than installing it where it will be used implicitly.
+Nmap OS Detection DB: nmap-os-db
+
+The nmap-os-db data file contains hundreds of examples of how different operating systems respond to Nmap's specialized OS detection probes. 
+It is divided into blocks known as fingerprints, with each fingerprint containing an operating system's name, its general classification, and response data. 
+Example 14.4 is an excerpt from the file showing a couple of typical fingerprints.
+
+Example 14.4. Excerpt from nmap-os-db
+
+Fingerprint FreeBSD 7.0
+Class FreeBSD | FreeBSD | 7.X | general purpose
+SEQ(SP=100-10A%GCD=1-6%ISR=108-112%TI=I%II=I%SS=S%TS=21|22)
+OPS(O1=M5B4NW8NNT11%O2=M578NW8NNT11%O3=M280NW8NNT11%O4=M5B4NW8NNT11%O5=M218NW8NNT11%O6=M109NNT11)
+WIN(W1=FFFF%W2=FFFF%W3=FFFF%W4=FFFF%W5=FFFF%W6=FFFF)
+ECN(R=Y%DF=Y%T=3B-45%TG=40%W=FFFF%O=M5B4NW8%CC=N%Q=)
+T1(R=Y%DF=Y%T=3B-45%TG=40%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=Y%DF=Y%T=3B-45%TG=40%W=FFFF%S=O%A=S+%F=AS%O=M109NW8NNT11%RD=0%Q=)
+T4(R=Y%DF=Y%T=3B-45%TG=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T5(R=Y%DF=Y%T=3B-45%TG=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+T6(R=Y%DF=Y%T=3B-45%TG=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T7(R=Y%DF=Y%T=3B-45%TG=40%W=0%S=Z%A=S%F=AR%O=%RD=0%Q=)
+U1(DF=N%T=3B-45%TG=40%IPL=38%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+IE(DFI=S%T=3B-45%TG=40%CD=S)
+
+Fingerprint Linux 2.6.17 - 2.6.24
+Class Linux | Linux | 2.6.X | general purpose
+SEQ(SP=A5-D5%GCD=1-6%ISR=A7-D7%TI=Z%II=I%TS=U)
+OPS(O1=M400C%O2=M400C%O3=M400C%O4=M400C%O5=M400C%O6=M400C)
+WIN(W1=8018%W2=8018%W3=8018%W4=8018%W5=8018%W6=8018)
+ECN(R=Y%DF=Y%T=3B-45%TG=40%W=8018%O=M400C%CC=N%Q=)
+T1(R=Y%DF=Y%T=3B-45%TG=40%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=Y%DF=Y%T=3B-45%TG=40%W=8018%S=O%A=S+%F=AS%O=M400C%RD=0%Q=)
+T4(R=Y%DF=Y%T=3B-45%TG=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T5(R=Y%DF=Y%T=3B-45%TG=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+T6(R=Y%DF=Y%T=3B-45%TG=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)
+T7(R=Y%DF=Y%T=3B-45%TG=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)
+U1(DF=N%T=3B-45%TG=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)
+IE(DFI=N%T=3B-45%TG=40%CD=S)
+
+The nmap-os-db OS database is consulted when remote OS detection is requested with the -O option. 
+In short, Nmap sends special probes to a target system and compares the responses with the entries in the OS database. 
+If there is a match, the database entry likely describes the target system. 
+The process of OS detection is described fully in Chapter 8, Remote OS Detection. 
+See the section called “Decoding the Subject Fingerprint Format” for a detailed description of the reference fingerprint format.
+
+nmap-os-db is rarely changed by users. 
+Adding or modifying a fingerprint is a moderately complex process and there is usually no reason ever to remove one. 
+The best way to get an updated version of the OS database is to get the latest release of Nmap.
+
+The OS database does not (yet) have information on every networked operating system ever made.
+The database grows through the contributions of Nmap users. 
+If Nmap can't guess an OS but you know what it is, please submit the fingerprint, following the instructions in the section called “When Nmap Fails to Find a Match and Prints a Fingerprint”. 
+Occasionally fingerprints have errors or become out of date. 
+If you see this, consider submitting a correction as described in the section called “When Nmap Guesses Wrong”.
+Everyone benefits when the database is improved, and submitting your improvements keeps you from having to maintain your own fork of the file.
+UDP payloads: nmap-payloads
+
+The nmap-payloads file contains the protocol-specific payloads sent with some UDP probes. 
+UDP scanning is difficult because most services don't send a reply to an empty probe, making it impossible to distinguish open and filtered ports. 
+For some ports, Nmap knows a payload that is safe to send and tends to elicit a positive response.
+The payloads are stored in this file. Example 14.5 shows a sample payload entry.
+
+Example 14.5. Excerpt from nmap-payloads
+
+# Routing Information Protocol version 1. Special-case request for the entire
+# routing table (address family 0, address 0.0.0.0, metric 16). RFC 1058,
+# section 3.4.1.
+udp 520
+  "\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
+  "\x00\x00\x00\x00\x00\x00\x00\x10"
+
+Each entry begins with a protocol name (only udp is supported), followed by a comma-separated list of ports. 
+After that comes the payload data, as one or more C-style quoted strings that will be concatenated. 
+Comments preceding each entry typically say what the probe means and what kind of response is expected.
+MAC Address Vendor Prefixes: nmap-mac-prefixes
+
+Users rarely modify this file, which maps MAC address prefixes to vendor names. 
+Read on for the complete treatment.
+
+Ethernet devices, which have become the dominant network interface type, are each programmed with a unique 48-bit identifier known as a MAC address. 
+This address is placed in ethernet headers to identify which machine on a local network sent a packet, and which machine the packet is destined for.
+Humans usually represent it as a hex string, such as 00:60:1D:38:32:90.
+
+To assure that MAC addresses are unique in a world with thousands of vendors, the IEEE assigns an Organizationally Unique Identifier (OUI) to each company manufacturing ethernet devices. 
+The company must use its own OUI for the first three bytes of MAC addresses for equipment it produces. 
+For example, the OUI of 00:60:1D:38:32:90 is 00601D. 
+It can choose the remaining three bytes however it wishes, as long as they are unique. 
+A counter is the simple approach.
+Companies that assign all 16.8 million possible values can obtain more OUIs.
+nmap-mac-prefixes maps each assigned OUI to the name of the vendor that sells them. 
+Example 14.6 is a typical excerpt.
+
+Example 14.6. Excerpt from nmap-mac-prefixes
+
+006017 Tokimec
+006018 Stellar ONE
+006019 Roche Diagnostics
+00601A Keithley Instruments
+00601B Mesa Electronics
+00601C Telxon
+00601D Lucent Technologies
+00601E Softlab
+00601F Stallion Technologies
+006020 Pivotal Networking
+006021 DSC
+006022 Vicom Systems
+006023 Pericom Semiconductor
+006024 Gradient Technologies
+006025 Active Imaging PLC
+006026 Viking Modular Solutions
+
+The first value is the three-byte OUI as 6 hex digits. 
+It is followed by the company name.
+This file is created from the complete list at http://standards.ieee.org/regauth/oui/oui.txt by transforming it with a simple Perl script.
+The IEEE also offers an OUI FAQ at http://standards.ieee.org/faqs/OUI.html.
+
+Nmap can determine the MAC address of hosts on a local ethernet LAN by reading the headers off the wire. 
+It uses this table to look up and report the manufacturer name based on the OUI.
+This can be useful for roughly identifying the type of machine you are dealing with. 
+A device with a Cisco, Hewlett Packard, or Sun OUI probably identifies a router, printer, or SPARCstation, respectively.
+Example 14.6, “Excerpt from nmap-mac-prefixes” shows that the device at 00:60:1D:38:32:90 was made by Lucent. 
+It is in fact the Lucent Orinoco wireless card in my laptop.
+IP Protocol Number List: nmap-protocols
+
+This file maps the one-byte IP protocol number in the IP header into the corresponding protocol name. 
+Example 14.7 is a typical excerpt.
+
+Example 14.7. Excerpt from nmap-protocols
+
+hopopt           0     HOPOPT      # IPv6 Hop-by-Hop Option
+icmp             1     ICMP        # Internet Control Message
+igmp             2     IGMP        # Internet Group Management
+ggp              3     GGP         # Gateway-to-Gateway
+ip               4     IP          # IP in IP (encapsulation)
+st               5     ST          # Stream
+tcp              6     TCP         # Transmission Control
+cbt              7     CBT         # CBT
+egp              8     EGP         # Exterior Gateway Protocol
+[ ... ]
+chaos           16     CHAOS       # Chaos
+udp             17     UDP         # User Datagram
+
+The first two fields are the protocol name or abbreviation and the number in decimal format. 
+Nmap doesn't care about anything after the protocol number. 
+It is used for IP protocol scanning, as described at the section called “IP Protocol Scan (-sO)”. 
+Fewer than 140 protocols are defined and users almost never modify this file. 
+The raw data is made available by the IANA at http://www.iana.org/assignments/protocol-numbers.
+Files Related to Scripting
+
+The scripts used by the Nmap Scripting Engine may be considered another kind of data file. 
+Scripts are stored in a scripts subdirectory of one of the directories listed in the section called “Using Customized Data Files”. 
+The name of each script file ends in .nse. 
+For all the details on scripts see Chapter 9, Nmap Scripting Engine.
+
+All of the files in the script directory are executable scripts, except for one: script.db. 
+This file is a plain-text cache of which categories each script belongs to. 
+It should not be edited directly; use the --script-updatedb option instead.
+
+NSE's extension modules (see the section called “NSE Libraries”) are stored in the nselib subdirectory of the Nmap data directory, normally the same one scripts is in. 
+This is where modules like shortport and stdnse are kept, in files whose names end in .lua.
+Using Customized Data Files
+
+Any or all of the Nmap data files may be replaced with versions customized to the user's liking. 
+They can only be replaced in whole—you cannot specify changes that will be merged with the original files at runtime.
+When Nmap looks for each file, it searches by name in many directories and selects the first one found. 
+This is the analogous to the way your Unix shell finds programs you ask to execute by searching through the directories in your PATH one at a time in order. 
+The following list gives the Nmap directory search order. 
+It shows that an nmap-services found in the directory specified by --datadir will be used in preference to one found in ~/.nmap/ because the former is searched first.
+
+Nmap data file directory search order
+
+If the --datadir option was specified, check the directory given as its argument.
+
+If the NMAPDIR environmental variable is set, check that directory.
+
+If Nmap is not running on Windows, search in ~/.nmap of the user running Nmap. 
+It tries the real user ID's home directory, and then the effective UID's if they differ.
+
+Check the directory in which the Nmap binary resides. 
+On non-Windows platforms, additionally check the same directory with ../share/nmap appended.
+
+Check the compiled-in NMAPDATADIR directory. 
+That value is defined to c:\nmap on Windows, and <$prefix>/share/nmap on Unix. <$prefix> is /usr/local for the default source build and /usr for the Linux RPMs. 
+The <$prefix> can be changed by giving ./configure the --prefix option when compiling the source.
+
+Nmap does not check for files in the current working directory (.) for the same security reasons that . should not appear first on your shell execution PATH. 
+On a shared system, a malicious user could place bogus data files in a shared directory such as /tmp.
+Those files could be malformed, causing Nmap to complain and exit, or they could cause Nmap to skip important ports. 
+If Nmap tried ., other users who happened to run Nmap in that shared directory would get the bogus versions.
+This could also happen by accident if you inadvertently ran Nmap in a directory that happened to have a file named nmap-services (or one of the other ones). 
+Users who really want Nmap to try the current directory early may set the environment variable NMAPDIR to . at their own risk.
+
+This list shows the many choices users have when deciding how to replace a file with their own customized version. 
+The option I usually recommend is to place the customized files in a special directory named appropriately for the change. 
+For example, an nmap-services stripped to contain just the hundred most common ports could be placed in ~/nmap-fewports. 
+Then specify this directory with the --datadir option. 
+This ensures that the customized files are only used intentionally. 
+Since the Nmap output-to-file formats include the Nmap command-line used, you will know which files were used when reviewing the logs later.
+
+Another option is to simply edit the original in NMAPDATADIR.
+This is rarely recommended, as the edited file will likely be overwritten the next time Nmap is upgraded. 
+Additionally, this makes it hard to use the original files if you suspect that your replacements are causing a problem.
+This also makes it difficult to compare your version with the original to recall what you changed.
+
+A third option is to place the customized files in your Unix ~/.nmap directory. 
+Of course you should only insert files that you have changed.
+The others will still be retrieved from NMAPDATADIR as usual.
+This is very convenient, as Nmap will use the customized files implicitly whenever you run it.
+That can be a disadvantage as well. Users sometimes forget the files exist. 
+When they upgrade Nmap to a version with newer data files, the old copies in ~/.nmap will still be used, reducing the quality of results.
+
+Setting the NMAPDIR environment variable to the directory with files is another alternative. 
+This can be useful when testing a new version of Nmap. 
+Suppose you obtain Nmap version 5.21, notice the huge list of changes, and decide to test it out before replacing your current known-working version. 
+You might compile it in ~/src/nmap-5.21, but execute it there and Nmap tries to read the data files from /usr/local/share/nmap. 
+Those are the old versions, since Nmap 5.21 has not yet been installed.
+Simply set NMAPDIR to ~/src/nmap-5.21, test to your heart's content, and then perform the make install.
+A disadvantage to using NMAPDIR regularly is that the directory name is not recorded in Nmap output files like it is when --datadir is used instead.
