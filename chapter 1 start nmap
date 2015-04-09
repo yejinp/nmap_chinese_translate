@@ -761,21 +761,37 @@ Laws in other nations obviously differ as well.
 For example, A 17-year-old youth was convicted in Finland of attempted computer intrusion for simply port scanning a bank. 
 
 He was fined to cover the target's investigation expenses. 
+他被罚款的目标调查费用。
 The Moulton ruling might have differed if the VC3 machine had actually crashed and they were able to justify the $5,000 damage figure required by the act.
+莫尔顿裁决可能会有不同，VC3 机已经坠毁，实际上，他们都能够证明该法规定的 $5,000 损伤图。
 At the other extreme, an Israeli judge acquitted Avi Mizrahi in early 2004 for vulnerability scanning the Mossad secret service. 
+在另一种极端情况下，一位以色列法官于 2004 年初，漏洞扫描摩萨德特工无罪释放 Avi 米兹拉希。
 Judge Abraham Tennenbaum even commended Avi in his ruling:
+法官亚伯拉罕坦甚至赞扬 Avi 在他的裁决：
 In a way, Internet surfers who check the vulnerabilities of Web sites are acting in the public good. 
+在某种程度上，互联网冲浪者检查 Web 站点的漏洞以公众利益行事。
 If their intentions are not malicious and they do not cause any damage, they should even be praised.
+如果他们的意图不是恶意的不会引起任何损害，甚至应该予以表扬。
 In 2007 and 2008, broad new cybercrime laws took effect in Germany and England. These laws are meant to ban the distribution, use, and even possession of “hacking tools”. 
+在 2007 年和 2008 年广泛新网络犯罪的法律生效，在德国和英国。这些法律是为了禁止分配、 使用和持有"黑客工具"。
 For example, the UK amendment to the Computer Misuse Act makes it illegal to “supply or offer to supply [a program], believing that it is likely to be used to commit, or to assist in the commission of [a Computer Misuse Act violation]”. 
+例如，英国计算机滥用法 》 修正案 》 使违法的"供应或要约供应 [程序]，相信这可能用于犯下，或协助委员会 [计算机滥用法 》 违反]"。
 These laws have already led some security tool authors to close shop or move their projects to other countries. 
+这些法律已经导致一些安全工具作者关闭商店或将他们的项目移动到其他国家。
 The problem is that most security tools can be used by both ethical professionals (white-hats) to defend their networks and black-hats to attack. 
+问题是这两个道德高尚的专业 （白色帽子），可以使用大多数的安全工具来捍卫自己的网络和攻击的黑帽子。
 These dangerous laws are based on the tool author or user's intent, which is subjective and hard to divine. 
+这些危险的法律基于工具作者或用户的意图，是主观的难神圣的。
 Nmap was designed to help secure the Internet, but I'd hate to be arrested and forced to defend my intentions to a judge and jury, especially in a foreign country like Germany where I don't even speak the language. 
+Nmap 为了帮助确保互联网，但我不愿意去逮捕并被迫捍卫我的意图向一名法官和陪审团，尤其是在像德国地方甚至不通语言的外国国家。
 These laws are unlikely to affect tools as widespread and popular as Nmap, but they have had a chilling effect on smaller tools and those which are more commonly abused by computer criminals (such as exploitation frameworks).
+这些法律是不太可能影响工具作为普遍和流行的 Nmap，但他们有更小的工具和那些更常见，由于计算机罪犯 （如开发框架） 滥用寒蝉效应。
 Regardless of the legal status of port scanning, ISP accounts will continue to be terminated if many complaints are generated. 
+端口扫描的法律地位，无论 ISP 帐户将继续如果生成很多投诉被终止。
 The best way to avoid ISP abuse reports or civil/criminal charges is to avoid annoying the target network administrators in the first place. 
+避免 ISP 虐待的报告或民事/刑事指控的最好方法是避免恼人的目标网络管理员放在第一位。
 Here are some practical suggestions:
+这里有一些实用的建议：
 
 •	Ensure that you have permission to scan. 
 确保你有扫描许可
