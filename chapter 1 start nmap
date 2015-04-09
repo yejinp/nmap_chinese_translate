@@ -521,7 +521,7 @@ An excellent description is available at http://dedicated.pacbell.net/faq/FAQs_t
 [4] stdout is the “C” notation for representing the standard output mechanism for a system, such as to the Unix xterm or Windows command window in which Nmap was initiated.
 [5] A sexy leather-clad attacker from the previous team actually started the session. 
 It is unclear at what point she died and left the remaining tasks to Trinity.
-
+不清楚那个点她死了，把任务留给Trinity。
 The Phases of an Nmap Scan
 扫描的阶段
 
@@ -551,6 +551,7 @@ In this phase, Nmap researches the host specifiers provided by the user, which m
 You can even use (-iR) to ask Nmap to choose your targets for you! 
 你甚至可以使用（-iR）
 Nmap resolves these specifiers into a list of IPv4 or IPv6 addresses for scanning. 
+
 This phase cannot be skipped since it is essential for further scanning, but you can simplify the processing by passing just IP addresses so Nmap doesn't have to do forward resolution. 
 这个阶段不能跳过，由于是深入扫描的基础，但你可以通过只传递IP地址简化处理，所以Nmap不会转发解析。
 If you pass the -sL -n options (list scan with no reverse-DNS resolution), Nmap will print out the targets and perform no further scanning. 
@@ -574,7 +575,7 @@ Host discovery is the subject of Chapter 3.
 Reverse-DNS resolution. 
 DNS反向解析
 Once Nmap has determined which hosts to scan, it looks up the reverse-DNS names of all hosts found online by the ping scan. 
-一旦Nmap那些主机
+一旦Nmap确定扫描那些主机，跳过Ping扫描，他会跳过ping扫描在线查找所有主机的反向DNS名字。
 Sometimes a host's name provides clues to its function, and names make reports more readable than providing only IP numbers. 
 有时候一个主机的名字跟他的功能有关，名字也会让报告比IP数字更可读。
 This step may be skipped with the -n (no resolution) option, or expanded to cover all target IPs (even down ones) with -R(resolve all). 
@@ -780,55 +781,93 @@ Here are some practical suggestions:
 确保你有扫描许可
 
 Probably at least 90% of network scanning is non-controversial. You are rarely badgered for scanning your own machine or the networks you administer. 
+大概至少 90%的网络扫描是无争议。很少为你吵着要扫描您自己的计算机或您管理的网络。
 The controversy comes when scanning other networks. 
+这场争论时，扫描其他网络。
 There are many reasons (good and bad) for doing this sort of network exploration. 
+有很多原因 （好的和坏的） 做这种网络探索。
 Perhaps you are scanning the other systems in your dorm or department to look for publicly shared files (FTP, SMB, WWW, etc.). 
+你也许在你的宿舍扫描其他系统或部门公开寻找共享文件 （FTP、 SMB、 WWW 等）。
 Or maybe you are just trying to find the IP address of a certain printer. 
+或者也许你只试图查找特定打印机的 IP 地址。
 You might have scanned your favorite web site to see if they are offering any other services, or because you were curious what OS they run. 
+你可能会扫描您喜爱的 web 站点，看看是否他们提供任何其他服务，或因为你是何种操作系统好奇它们运行。
 Perhaps you are just trying to test connectivity, or maybe you wanted to do a quick security sanity check before handing off your credit card details to that e-commerce company. 
+或许你只试图测试连接，或者也许你想要做一个快速安全检查之前交给那家电子商务公司的您的信用卡详细信息。
 You might be conducting Internet research. Or are you performing initial reconnaissance in preparation for a break-in attempt? 
+您可能会进行互联网的研究。或者你正在执行初始侦察为磨合尝试做准备吗？
 The remote administrators rarely know your true intentions, and do sometimes get suspicious. 
+远程管理员很少知道你真实的意图，和有时起疑。
 The best approach is to get permission first. 
+最好的办法是先得到许可。
 I have seen a few people with non-administrative roles land in hot water after deciding to “prove” network insecurity by launching an intrusive scan of the entire company or campus. 
+决定网络不安全发射侵入扫描整个公司或校园"证明"后，我见过与非管理角色土地在热水中的少数人。
 Administrators tend to be more cooperative when asked in advance than when woken up at 3:00 AM by an IDS alarm claiming they are under massive attack. 
+管理员倾向于更多的合作，当被问及提前比时被吵醒了在 3:0 上午 IDS 报警声称他们正在发动大规模进攻。
 So whenever possible, obtain written authorization before scanning a network. 
+因此只要有可能，获得扫描网络之前的书面的授权。
 Adrian Lamo would probably have avoided jail if he had asked the New York Times to test their security rather than telling reporters about the flaws afterward. 
+阿德里安浪可能本来可以避免监狱如果他问纽约时报后来测试他们的安全，而不是关于缺陷的告诉记者。
 Unfortunately they might have said no. Be prepared for this answer.
+不幸的是他们可能会说不。准备这答案。
 
 •	Target your scan as tightly as possible. 
 扫描你的目标越严越好。
 
 Any machine connected to the Internet is scanned regularly enough that most administrators ignore such Internet background noise. 
+连接到 Internet 的任何机器足够定期扫描大多数管理员忽略这种互联网背景噪音。
 But scanning enough networks or executing very noisy/intrusive scans increases the probability of generating complaints. 
+但扫描足够的网络或执行非常嘈杂/侵入扫描增加产生投诉的可能性。
 So if you are only looking for web servers, specify -p80 rather than scanning all 65,536 TCP ports on each machine. 
+所以，如果你只寻找 web 服务器指定-p80，而不是扫描所有 65536 个 TCP 端口，每台机器上的。
 If you are only trying to find available hosts, do an Nmap ping scan rather than full port scan. Do not scan a CIDR /16 (65K hosts) when a /24 netblock suffices. 
+如果你只想帮忙找到可用主机，做 Nmap ping 扫描，而不是全端口扫描。不扫描 CIDR 16 （65 K 主机） 时 24 网块就足够了。
 The random scan mode now takes an argument specifying the number of hosts, rather than running forever. 
+随机扫描模式现在采用参数指定的主机，数目，而不是永远运行。
 So consider -iR 1000 rather than -iR 10000 if the former is sufficient. Use the default timing (or even -T polite) rather than -T insane. 
+如果前者是充足的所以考虑-iR 1000，而不是-iR 10000。使用默认时间 （或甚至 T 礼貌） 而不是-T 疯了。
 Avoid noisy and relatively intrusive scans such as version detection (-sV) or NSE (--script). 
+避免嘈杂和相对侵入扫描版本检测等 (-sV） 或 NSE （— — 脚本）。
 Similarly, a SYN scan (-sS) is quieter than a connect scan (-sT) while providing the same information and often being faster.
+同样，一个 SYN 扫描 (-sS） 比连接扫描更安静 (-sT) 同时提供相同的信息，并经常被更快。
 
 •	As noted previously, do not do anything controversial from your work or school connections. 
 如前所述，不要用你的工作或者学校连接来做争议的时。
 
 Even though your intentions may be good, you have too much to lose if someone in power (e.g. boss, dean) decides you are a malicious cracker. 
-Do you really want to explain your actions to someone who may not even know what port scanning means? Spend $40 a month for a shell, cell data, or residential broadband account. 
+虽然你的初衷可能是好的，如果那个人很有权利的人认为你是一个恶意的黑客，你也失去很多东西。
+Do you really want to explain your actions to someone who may not even know what port scanning means?
+你的确想给那些甚至不知道扫描为何意的人解释你的动作么？ 
+Spend $40 a month for a shell, cell data, or residential broadband account. 
+每个月花费$40来，为花壳、 单元数据或住宅宽带帐户每月40美元。
 Not only are the repercussions less severe if you offend someone from such an account, but target network administrators are less likely to even bother complaining to mass-market providers. 
+不仅是反响那么严重，如果你得罪某人从这样一个账户，也不太可能甚至都懒得向大众提供商抱怨目标网络管理员。
 Also read the relevant AUP and choose a provider accordingly. 
+阅读有关 AUP，并据此选择一个供应商。
 If your provider (like Comcast discussed above) bans any unauthorized port scanning and posting of“offensive” material, do not be surprised if you are kicked off for this activity. 
+如果您的提供商 （如上文所讨论的康卡斯特） 禁止任何未经授权的端口扫描和上传"进攻性"的材料，不要感到惊讶，如果你们都踢掉了这一活动。
 In general, the more you pay to a service provider the more accommodating they are. 
+一般情况下，越多你支付给服务提供商更多容纳他们。
 A T1 provider is highly unlikely to yank your connection without notice because someone reported being port scanned. 
+T1 提供程序是极不可能因为有人报告正在端口扫描拽您的连接，恕不另行通知。
 A dialup or residential DSL/cable provider very well might.
+拨号或住宅 DSL/电缆提供商很可能。
 This can happen even when the scan was forged by someone else.
-
+这可能发生，即使扫描由其他人伪造。
 •	Nmap offers many options for stealthy scans, including source-IP spoofing, decoy scanning, and the more recent idle scan technique. 
+• Nmap 提供许多选项为隐蔽扫描，包括源 IP 欺骗、 诱骗扫描，和更近的空闲扫描技术。
 These are discussed in the IDS evasion chapter. 
+这些都是在 IDS 逃税章讨论。
 But remember that there is always a trade-off. 
+但请记住始终是一种权衡。
 You are harder to find if you launch scans from an open WAP far from your house, with 17 decoys, while doing subsequent probes through a chain of nine open proxies. 
+你很难找到是否您启动扫描从打开 WAP 远离你的房子，17 的诱饵，同时做后续探针通过一连串的九个开放代理。
 But if anyone does track you down, they will be mighty suspicious of your intentions.
+但如果有人会追杀你，他们会非常怀疑你的意图。
 •	Always have a legitimate reason for performing scans. 
 进行扫描的时候总是会有各种原因
 An offended administrator might write to you first (or your ISP might forward his complaint to you) expecting some sort of justification for the activity.
-
+冒犯的管理员可能会第一次给你写信 （或您的 ISP 可能会转发给你的他的申诉） 期待某种活动的理由。
 In the Scott Moulton case discussed above, VC3 first emailed Scott to ask what was going on. 
 上面讨论的Scott Moulton 案例中，VC#首先给Scott发送邮箱询问究竟在干啥。
 If they had been satisfied with his answer, matters might have stopped there rather than escalating into civil and criminal litigation. 
