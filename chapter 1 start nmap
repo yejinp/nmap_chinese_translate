@@ -993,6 +993,7 @@ Laws differ dramatically between jurisdictions, and cases hinge on their particu
 Even when facts are nearly identical, different judges and prosecutors do not always interpret them the same way. 
 甚至当事实基本相同时，不同的法官和观察员并不总是用相同的方法打断他们。
 I can only urge caution and reiterate the suggestions above.
+我只能敦促谨慎，并重申上述建议。
 For testing purposes, you have permission to scan the host scanme.nmap.org. 
 为了测试目标，你一个有扫描主机scanme.nmap.org的许可
 You may have noticed it used in several examples already.
@@ -1063,8 +1064,9 @@ Older Linux boxes had an identd daemon that would block services temporarily if 
 This could happen in a port scan, as well as during legitimate high-load situations. 
 这会产生一个端口扫描，在合法的高负载的情况下。
 Slower timing might help here. 
-计时会有所帮助，
+较慢的时间可能会在这里帮助。
 These slow timing modes should only be used as a last resort because they can slow scans by an order of magnitude or more.
+这些缓慢的计时模式应该仅用于作为最后的手段因为他们可以慢扫描的一个数量级以上。
 •	Limit the number of ports and machines scanned to the fewest that are required. 
 让扫描的端口和主机尽量减到需要的个数。
 Every machine scanned has a minuscule chance of crashing, and so cutting the number of machines down improves your odds. 
@@ -1094,9 +1096,11 @@ ________________________________________
 [6] These are from the now-defunct AmericanSushi.Com.
 他们来自现已解散的AmericanSushi.Com
 [7] The Comcast AUP was improved after this was first published. The latest version is available at http://www.comcast.net/terms/use/
-
+[7] 康卡斯特 AUP 改进后这首次出版。最新版本是 http://www.comcast.net/terms/use/ 公开发售
 [8] An excellent paper on this topic by lawyer Ethan Preston is available at http://grove.ufl.edu/~techlaw/vol6/issue1/preston.html. 
+[8] 关于这一主题由律师伊桑 · 普雷斯顿的优秀论文是 http://grove.ufl.edu/~techlaw/vol6/issue1/preston.html 公开发售。
 He has also written an excellent paper relating to the legal risks of publishing security information and exploits at http://www.mcandl.com/computer-security.html.
+他还写了篇优秀的论文涉及发布安全信息和在 http://www.mcandl.com/computer-security.html 的漏洞的法律风险。
 
 The History and Future of Nmap
 nmap的历史与将来
@@ -1378,6 +1382,7 @@ The Future of Nmap
 nmap的未来
 
 While it is easy to catalogue the history of Nmap, the future is uncertain. 
+虽然它很容易编目的 Nmap 历史，未来是不确定的。
 Nmap didn't start off with any grand development plan, and most of the milestones in the preceding timeline were not planned more than a year or two in advance. 
 Nmap没有从体面的开发计划开始，时间轴上大部分的里程碑都不是提前1到2年计划的
 Instead of trying to predict the shape of the Internet and networking way out in the future, I closely study where it is now and decide what will be most useful for Nmap in the near term. 
@@ -1387,6 +1392,7 @@ So I have no idea where Nmap will be 10 years from now, though I expect it to be
 The Nmap community is large enough to guide Nmap wherever it needs to go. 
 Nmap 社区大到足以指导如何需要他的地方。
 Nmap has faced curve balls before, such as the sudden removal of raw packet support in Windows XP SP2, dramatic changes in network filtering practices and technology, and the slow emergence of IPv6. 
+Nmap 已面临曲线球之前，如在 Windows XP SP2 中，网络过滤做法和技术，急剧变化的原始数据包支持突然搬迁和出现了缓慢的 IPv6。
 
 Each of those required significant changes to Nmap, and we will have to do the same to embrace or at least cope with future networking changes.
 总结nmap历史当然容易，但未来就不确定了。nmap
