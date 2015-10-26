@@ -14,7 +14,7 @@ My goal was to consolidate the fragmented field of special-purpose port scanners
 Nmap then consisted of three files (barely 2,000 lines of code) and supported only the Linux operating system.
 后来Nmap包含3个文件（仅仅约2000行代码），并只支持Linux操作系统。
 It was written for my own purposes, and released in the hope that others would find it useful.
-编写并发表这个软件的目的是希望其他人会发现它很有用。
+编写这个软件为我所用，发表它是希望其他人会发现它很有用。
 
 From these humble beginnings, and through the power of open source development, Nmap grew into the world's most popular network security scanner, with millions of users worldwide.
 从这些简陋的初级阶段，通过开放代码开发的力量，Nmap一天天长大，成长为世界上最受欢迎的，拥有数以百万计用户的网络安全扫描器。
