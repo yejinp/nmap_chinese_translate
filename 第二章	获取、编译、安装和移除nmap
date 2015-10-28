@@ -92,16 +92,23 @@ This has never happened to Nmap, but one should always be careful.
 To verify the authenticity of an Nmap release, consult the PGP detached signatures or cryptographic hashes (including SHA1 and MD5) posted for the release in the Nmap signatures directory at http://nmap.org/dist/sigs/?C=M&O=D.
 
 The most secure verification mechanism is detached PGP signatures. 
+最安全的认证机制就是分离PGP签名。
 As the signing key is never stored on production servers, even someone who successfully compromises the web server couldn't forge and properly sign a trojan release. 
+由于签名密钥永远不存储在产品服务器上，即使有人成功破获了web服务器，也不能伪造和正确签名一个带有木马的发布版本。
 While numerous applications are able to verify PGP signatures, I recommend GNU Privacy Guard (GPG).
-
+由于有很多应用程序都能够验证PGP签名，因此我推荐GNU隐私卫士（GPG）。
 Nmap releases are signed with a special Nmap Project Signing Key, which can be obtained from the major keyservers or https://svn.nmap.org/nmap/docs/nmap_gpgkeys.txt. 
+Nmap的发布版本使用一种特殊的Nmap项目签名密钥进行签名，这个签名可以从主签名服务器或者https://svn.nmap.org/nmap/docs/nmap_gpgkeys.txt上获得。
 My key is included in that file too. 
+我的密钥也包含在这个文件中。
 The keys can be imported with the command gpg --import nmap_gpgkeys.txt. 
+密钥可以通过命令gpg --import nmap_gpgkeys.txt来导入。
 You only need to do this once, then you can verify all future Nmap releases from that machine. 
+你只需要执行它一遍，然后你就可以认证以后所有从这个机器上发布的Nmap版本。
 Before trusting the keys, verify that the fingerprints match the values shown in Example 2.2.
-
+在信任密钥，需要认证它的职位是否与其例子2.2中显示的值匹配。
 Example 2.2. Verifying the Nmap and Fyodor PGP Key Fingerprints
+
 
 flog~> gpg --fingerprint nmap fyodor
 pub 1024D/33599B5F 2005-04-24
