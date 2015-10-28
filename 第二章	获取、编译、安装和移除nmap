@@ -33,7 +33,9 @@ felix~>
 
 
 If Nmap does not exist on the system (or if your PATH is incorrectly set), an error message such as nmap: Command not found is reported. 
+如果系统上没有Nmap(或者你的PATH设置不对)，会报告如下的错误信息: nmap: Command not found
 As the example above shows, Nmap responds to the command by printing its version number (here 4.76).
+就像在上面的例子所示，Nmap通过打印其版本号来对命令做出相应。
 
 Even if your system already has a copy of Nmap, you should consider upgrading to the latest version available from http://nmap.org/download.html. 
 Newer versions often run faster, fix important bugs, and feature updated operating system and service version detection databases. 
