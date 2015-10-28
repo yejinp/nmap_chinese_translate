@@ -108,7 +108,7 @@ You only need to do this once, then you can verify all future Nmap releases from
 Before trusting the keys, verify that the fingerprints match the values shown in Example 2.2.
 在信任密钥，需要认证它的职位是否与其例子2.2中显示的值匹配。
 Example 2.2. Verifying the Nmap and Fyodor PGP Key Fingerprints
-
+例子2.2 验证Nmap和Fyodor PGP密钥指纹
 
 flog~> gpg --fingerprint nmap fyodor
 pub 1024D/33599B5F 2005-04-24
@@ -123,7 +123,9 @@ sub 2048g/A50A6A94 2005-04-24
 
 
 For every Nmap package download file (e.g. nmap-4.76.tar.bz2 and nmap-4.76-win32.zip), there is a corresponding file in the sigs directory with .asc appended to the name (e.g. nmap-4.76.tar.bz2.asc). 
+由于每一个Nmap下载包文件（nmap-4.76.tar.bz2 和 nmap-4.76-win32.zip等）在都有相应的以后缀名为
 This is the detached signature file.
+这个文件就是分离的签名文件。
 
 With the proper PGP key in your keyring and the detached signature file downloaded, verifying an Nmap release takes a single GPG command, as shown in Example 2.3. 
 That example assumes that the verified file can be found in the same directory by simply removing “.asc” from the signature filename. 
