@@ -42,12 +42,16 @@ Even if your system already has a copy of Nmap, you should consider upgrading to
 Newer versions often run faster, fix important bugs, and feature updated operating system and service version detection databases. 
 更新的版本常常运行得更快，修复重要bug，并且功能更新的操作系统和服务版本探测数据库。
 A list of changes since the version already on your system can be found at http://nmap.org/changelog.html.
+改动列表
 Command-line and Graphical Interfaces
+命令行和图形界面
 
 Nmap has traditionally been a command-line tool run from a Unix shell or (more recently) Windows command prompt. 
+传统上，Nmap是一个命令行工具，运行在Unix shell或者（最近的）Windows命令提示窗口。
 This allows experts to quickly execute a command that does exactly what they want without having to maneuver through a bunch of configuration panels and scattered option fields. 
+这允许专家可以快速执行一个命令，这个命令与他们
 This also makes Nmap easier to script and enables easy sharing of useful commands among the user community.
-
+这也使得Nmap更容易编写脚本和在用户社区里面分享有用的命令。
 One downside of the command-line approach is that it can be intimidating for new and infrequent users. 
 Nmap offers more than a hundred command-line options, although many are obscure features or debugging controls that most users can ignore. 
 Many graphical frontends have been created for those users who prefer a GUI interface. 
