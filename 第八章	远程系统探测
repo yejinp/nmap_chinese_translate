@@ -30,7 +30,8 @@ Taking this from the perspective of a systems administrator rather than a pen-te
 Scan your whole network with OS detection to find machines which need patching before the bad guys do.
 Tailoring exploits
 
-Even after you discover a vulnerability in a target system, OS detection can be helpful in exploiting it. Buffer overflows, format-string exploits, and many other vulnerabilities often require custom-tailored shellcode with offsets and assembly payloads generated to match the target OS and hardware architecture. 
+Even after you discover a vulnerability in a target system, OS detection can be helpful in exploiting it. 
+Buffer overflows, format-string exploits, and many other vulnerabilities often require custom-tailored shellcode with offsets and assembly payloads generated to match the target OS and hardware architecture. 
 In some cases, you only get one try because the service crashes if you get the shellcode wrong. 
 Use OS detection first or you may end up sending Linux shellcode to a FreeBSD server.
 Network inventory and support
@@ -120,7 +121,8 @@ OS details
     While the Device type and Running lines are from predefined enumerated lists that are easy to parse by a computer, the OS details line contains free-form data which is useful to a human reading the report.
     This can include more exact version numbers, device models, and architectures specific to a given fingerprint. 
     In this example, the only matching fingerprint was Linux 2.6.20-1 (Fedora Core 5). 
-    When there are multiple exact matches, they are comma-separated. If there aren't any perfect matches, but some close guesses, the field is renamed Aggressive OS guesses and fingerprints are shown followed by a percentage in parentheses which specifies how close each match was.
+    When there are multiple exact matches, they are comma-separated. 
+    If there aren't any perfect matches, but some close guesses, the field is renamed Aggressive OS guesses and fingerprints are shown followed by a percentage in parentheses which specifies how close each match was.
 Uptime guess
 
     As part of OS detection, Nmap receives several SYN/ACK TCP packets in a row and checks the headers for a timestamp option. 
@@ -1616,7 +1618,9 @@ Please follow these instructions:
 Have a recent version of Nmap
 
     Run nmap -V to determine which version of Nmap you have.
-    You don't need to be running the absolute latest version of Nmap (though that would be ideal), but make sure your version is 4.20 or higher because we only need second generation OS fingerprints, not the old style produced by previous versions. You can determine the latest available version of Nmap by visiting http://nmap.org/download.html. If you upgrade, you might find that the mis-identification has already been fixed.
+    You don't need to be running the absolute latest version of Nmap (though that would be ideal), but make sure your version is 4.20 or higher because we only need second generation OS fingerprints, not the old style produced by previous versions. 
+    You can determine the latest available version of Nmap by visiting http://nmap.org/download.html. 
+    If you upgrade, you might find that the mis-identification has already been fixed.
 Be absolutely certain you know what is running
 
     Invalid “corrections” can corrupt the OS DB. 
