@@ -60,9 +60,11 @@ The IANA does not track trojans, worms and the like, yet discovering them is imp
 
 The grammar of this file is pretty simple. There are three whitespace-separated columns.
 The first is the service name or abbreviation, as seen in the SERVICE column of Nmap output. 
-The second column gives the port number and protocol, separated by a slash. That syntax is seen in the PORT column of Nmap output. 
+The second column gives the port number and protocol, separated by a slash. 
+That syntax is seen in the PORT column of Nmap output. 
 The third column is the “port frequency”, a measure of how often the port was found open during research scans of the Internet. If omitted, the frequency is zero. 
-Nmap disregards anything beyond the third column, but most lines continue with whitespace then and a pound (‘#’) character, followed by a comment. Lines may be blank or contain just a pound character followed by comments.
+Nmap disregards anything beyond the third column, but most lines continue with whitespace then and a pound (‘#’) character, followed by a comment. 
+Lines may be blank or contain just a pound character followed by comments.
 
 Astute readers notice the similarity in structure between nmap-services and /etc/services (usually found at C:\windows\system32\drivers\etc\services on Windows). 
 This is no coincidence. The format was kept to allow systems administrators to copy in any custom entries from their own /etc/services, or even to substitute their own version of that file entirely. 
