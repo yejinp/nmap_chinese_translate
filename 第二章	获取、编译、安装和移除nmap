@@ -54,10 +54,15 @@ This also makes Nmap easier to script and enables easy sharing of useful command
 这也使得Nmap更容易编写脚本和在用户社区里面分享有用的命令。
 One downside of the command-line approach is that it can be intimidating for new and infrequent users. 
 Nmap offers more than a hundred command-line options, although many are obscure features or debugging controls that most users can ignore. 
+Nmap提供了超过一百个命令行选项，虽然其中有大部分用户可以忽略的很多模糊特性或者调试控制选项。
 Many graphical frontends have been created for those users who prefer a GUI interface. 
+为了那些更喜欢使用GUI界面的用户，创建了很多图形前端模块。
 Nmap has traditionally included a simple GUI for Unix named NmapFE, but that was replaced in 2007 by Zenmap, which we have been developing since 2005. 
+传统的Nmap包含一个为Unix用户的名为NmapFE的简单GUI，但它在2007年由我们从2005年就开始开发的Zenmap替代，
 Zenmap is far more powerful and effective than NmapFE, particularly in results viewing. 
+Zenmap比NmapFE要强大和高效得多，特别是在结果展示上面。
 Zenmap's tab-based interface lets you search and sort results, and also browse them in several ways (host details, raw Nmap output, and ports/hosts). 
+Zenmap的基于tab键接口可以让你对结果进行搜索和排序，同时使用几种不同的方式（主机细节、原始Nmap输出和端口/主机）浏览他们。
 It works on Linux, Windows, Mac OS X, and other platforms. 
 它在Linux、Windows、Mac OS X和其他平台上工作。
 Zenmap is covered in depth in Chapter 12, Zenmap GUI Users' Guide. 
@@ -316,9 +321,12 @@ Here are the options which are either specific to Nmap or particularly important
     If you are one of those people, use this option.
 
 Environment Variables
+环境变量
 
 The configure script is sensitive to several environment variables. 
+配置脚本对一些环境变量很敏感
 These are some of those variables and their effects.
+下面是一些变量和他们的作用
 
 CFLAGS, CXXFLAGS, LDFLAGS
 
@@ -333,18 +341,21 @@ LINGUAS
     To disable the installation of all translations, run configure with the --disable-nls option or set LINGUAS to the empty string.
 
 If You Encounter Compilation Problems
-
+如果你遇到编译问题
 In an ideal world, software would always compile perfectly (and quickly) on every system. 
+在理想世界，软件应该总数能够在每一个系统中完美的编译。
 Unfortunately, society has not yet reached that state of nirvana. 
+不幸的是，社会还没有达到这个涅盘的状态。
 Despite all our efforts to make Nmap portable, compilation issues occasionally arise. 
+尽管我们尽最大努力使得Nmap可移植，编译问题也时有发生。
 Here are some suggestions in case the source distribution compilation fails.
-
+为了防止源分发编译错误，这里有一些建议。
 Upgrade to the latest Nmap
-
+更新到最新的Nmap
     Check http://nmap.org/download.html to make sure you are using the latest version of Nmap. 
     The problem may have already been fixed.
 Read the error message carefully
-
+仔细阅读错误消息
     Scroll up in the output screen and examine the error messages given when commands fail. 
     It is often best to find the first error message, as that often causes a cascade of further errors. 
     Read the error message carefully, as it could indicate a system problem such as low disk space or a broken compiler. 
@@ -484,6 +495,7 @@ Complete!
 
 
 Debian Linux and Derivatives such as Ubuntu
+Debian Linux及其衍生版本，如Ubuntu
 
 LaMont Jones maintaining the Nmap deb packages, including keeping them reasonably up-to-date. 
 The proper upgrade/install command is apt-get install nmap. This works for Debian derivatives such as Ubuntu too. 
@@ -509,8 +521,9 @@ Steps for converting Nmap RPM files to Debian/Ubuntu deb format for installation
     Steps 2–5 can be repeated for the other Nmap RPMs such as Zenmap, Ncat, and Nping.
 
 Other Linux Distributions
-
+其他Linux 发布版
 There are far too many Linux distributions available to list here, but even many of the obscure ones include Nmap in their package tree. 
+
 If they don't, you can simply compile from source code as described in the section called “Linux/Unix Compilation and Installation from Source Code”. 
 
 
@@ -967,5 +980,6 @@ If you used a default source install of Nmap versions 4.50 or higher, the follow
 # ./bin/uninstall_zenmap
 
 You may have to adjust the above commands slightly if you specified --prefix or other install-path option when first installing Nmap. 
+如果你在首次安装Nmap时指定了--prefix或者其他安装路径选项，你可能需要稍微调整上面的命令。
 The files relating to zenmap, nmapfe, and xnmap do not exist if you did not install the Zenmap frontend.
-
+如果你没有安装Zenmap前端模块，与zenmap、nmapfe和xnmap相关的文件将不存在。
