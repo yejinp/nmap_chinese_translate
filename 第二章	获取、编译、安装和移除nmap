@@ -38,7 +38,9 @@ As the example above shows, Nmap responds to the command by printing its version
 就像在上面的例子所示，Nmap通过打印其版本号来对命令做出相应。
 
 Even if your system already has a copy of Nmap, you should consider upgrading to the latest version available from http://nmap.org/download.html. 
+即使你的系统上已经有了Nmap，你也应该考虑将其更新到http://nmap.org/download.html上的最新版本。
 Newer versions often run faster, fix important bugs, and feature updated operating system and service version detection databases. 
+更新的版本常常运行得更快，修复重要bug，并且功能更新的操作系统和服务版本探测数据库。
 A list of changes since the version already on your system can be found at http://nmap.org/changelog.html.
 Command-line and Graphical Interfaces
 
