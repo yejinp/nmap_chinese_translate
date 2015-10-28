@@ -87,8 +87,10 @@ Output
 
 There are two output modes: text and XML. Text output is the default, and can also be selected with the --text option. 
 Text output resembles a unified diff of Nmap's normal terminal output. 
-Each line is preceded by a character indicating whether and how it changed. - means that the line was in the first scan but not in the second; + means it was in the second but not the first. 
-A line that changed is represented by a - line followed by a + line. Lines that did not change are preceded by a blank space.
+Each line is preceded by a character indicating whether and how it changed. 
+- means that the line was in the first scan but not in the second; + means it was in the second but not the first. 
+A line that changed is represented by a - line followed by a + line. 
+Lines that did not change are preceded by a blank space.
 
 Example 16.1 is an example of text output. 
 Here, port 80 on the host photos-cache-snc1.facebook.com gained a service version (lighttpd 1.5.0). 
@@ -255,7 +257,8 @@ History
 Ndiff started as a project by Michael Pattrick during the 2008 Google Summer of Code. 
 Michael designed the program and led the discussion of its output formats. 
 He wrote versions of the program in Perl and C++, but the summer ended shortly after it was decided to rewrite the program in Python for the sake of Windows (and Zenmap) compatibility. 
-This Python version was written by David Fifield. James Levine released a Perl script named Ndiff with similar functionality in 2000. 
+This Python version was written by David Fifield. 
+James Levine released a Perl script named Ndiff with similar functionality in 2000. 
 
 
 Authors
