@@ -928,15 +928,24 @@ Now follow the instructions in the section called “Linux/Unix Compilation and 
 AmigaOS
 
 One of the wonders of open source development is that resources are often directed towards what people find exciting rather than having an exclusive focus on profits as most corporations do. 
+开放源代码开发的好奇点之一是，源代码常常与
 It is along those lines that the Amiga port came about. 
 Diego Casorran performed most of the work and sent in a clean patch which was integrated into the main Nmap distribution. 
 In general, AmigaOS users should be able to simply follow the source compilation instructions in the section called “Linux/Unix Compilation and Installation from Source Code”. 
+一般来说，Amiga操作系统用户应该能够跟随源编译使用说明，在 用源代码编译和安装一节中所述。
 You may encounter a few hurdles on some systems, but I presume that must be part of the fun for Amiga fanatics.
+在一些系统上，你可能会遇到一些障碍，但我们假设这也是Amiga狂热份子的乐趣之一。
 Other proprietary UNIX (HP-UX, IRIX, etc.)
+其他特性UNIX（HP-UX，IRIX等）
 
-Nmap has in the past supported many proprietary Unix flavors such as HP-UX and SGI IRIX. We depend heavily on the user community to maintain adequate support for these systems. 
+Nmap has in the past supported many proprietary Unix flavors such as HP-UX and SGI IRIX. 
+过去，Nmap还支持Unix的很多属性，比如HP-UX和SGI IRIX。
+We depend heavily on the user community to maintain adequate support for these systems. 
+我们很大程度上依赖于用户社区来为这些系统进行维持适当的支持。
 If you have trouble, try sending a report with full details to the nmap-dev mailing list, as described in the section called “Bugs”. 
+如果你有困难，尝试与完整的细节一起，给nmap-dev邮件列表发送报告，就像在 Bugs一节所描述那样。
 Also let us know if you develop a patch which improves support on your platform so we can incorporate it into Nmap.
+同样，如果你开发了一个补丁包，这个补丁包改进了在你所用平台的上的支持，请让我们知道，以便我们能够将其合并到NMap中。
 
 
 Removing Nmap
