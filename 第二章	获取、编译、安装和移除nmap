@@ -64,11 +64,16 @@ The rest of this book focuses on command-line Nmap invocations.
 Once you understand how the command-line options work and can interpret the output, using Zenmap or the other available Nmap GUIs is easy. 
 Nmap's options work the same way whether you choose them from radio buttons and menus or type them at a command-line.
 Downloading Nmap
+下载Nmap
 
 Nmap.Org is the official source for downloading Nmap source code and binaries for Nmap and Zenmap. 
+Nmap.Org是下载Nmap和Zenmap的Nmap源代码和二进制代码的官方来源。
 Source code is distributed in bzip2 and gzip compressed tar files, and binaries are available for Linux (RPM format), Windows (NSIS executable installer) and Mac OS X (.dmg disk image). 
+源代码使用bzip2和gzip压缩文件方式发布，同时也为Linux(RPM格式)、Windows（NSIS可执行安装包）和Mac OS X(.dmg格式磁盘镜像)提供二进制文件，
 Find all of this at http://nmap.org/download.html.
+在http://nmap.org/download.html上可以找到所有版本。
 Verifying the Integrity of Nmap Downloads
+检验Nmap下载文件的完整性
 
 It often pays to be paranoid about the integrity of files downloaded from the Internet. 
 Popular packages such as Sendmail (example), OpenSSH (example), tcpdump, Libpcap, BitchX, Fragrouter, and many others have been infected with malicious trojans. 
