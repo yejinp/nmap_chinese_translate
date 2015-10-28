@@ -1,8 +1,11 @@
 
 Introduction
+介绍
 
 Nmap can often be installed or upgraded with a single command, so don't let the length of this chapter scare you. 
+通常，通过一条命令就可以安装或者更新Nmap。因此，本章的长度不会吓到你。
 Most readers will use the table of contents to skip directly to sections that concern them. 
+大部分的读者会使用目录列表来直接跳到他所关心的章节。
 This chapter describes how to install Nmap on many platforms, including both source code compilation and binary installation methods. 
 Graphical and command-line versions of Nmap are described and contrasted. 
 Nmap removal instructions are also provided in case you change your mind.
