@@ -936,19 +936,30 @@ Ease of removal (and other maintenance) is a major advantage of most binary pack
 For example, when Nmap is installed using the RPM system common on Linux distributions, it can be removed by running the command rpm -e nmap zenmap as root. 
 比如，当在Linux发布版上使用RPM系统安装时，可以在root用户下通过命令rpm -e nmap zenmap来移除他们。
 Analogous options are offered by most other package managers—consult their documentation for further information.
-
+在大多数其他包管理也提供类似的选项，可以参考他们的文档以进一步了解。
 If you installed Nmap from the Windows installer, simply open the Control Panel, select “Add or Remove Programs” and select the “Remove” button for Nmap. 
+如果你是通过Windows安装包安装，只需打开管理面板，选择"添加和移除程序"并选择Nmap的“移除”按钮即可。
 You can also remove WinPcap unless you need it for other applications such as Wireshark.
+如果其他应用程序（如Wireshark）不需要WinPcap的话，也可以将其移除。
 
 If you installed Nmap from source code, removal is slightly more difficult. 
+如果你是通过源代码安装Nmap，移除它会稍微复杂些。
 If you still have the build directory available (where you initially ran make install), you can remove Nmap by running make uninstall. 
+如果你的安装目录（那个你最开始运行make install的地方）还可用，你可以通过运行make uninstall来移除它。
 If you no longer have that build directory, type nmap -V to obtain the Nmap version number. 
+如果你的安装目录已不可用，输入nmap -V来获得Nmap的版本号。
 Then download that source tarball for that version of Nmap from http://nmap.org/dist/ or http://nmap.org/dist-old/. 
+然后从http://nmap.org/dist/ or http://nmap.org/dist-old/下载这个版本的源代码压缩包。
 Uncompress the tarball and change into the newly created directory (nmap-<version>). 
+解压这个压缩包并将其移动到一个新建的目录（目录名nmap-版本号）中。
 Run ./configure, including any install-path options that you specified the first time (such as --prefix or --datadir). 
-Then run make uninstall. Alternatively, you can simply delete all the Nmap-related files. 
+运行 ./configure, 需要包含任何你首次指定的安装路径选项（比如--prefix 或者 --datadir）。
+Then run make uninstall.
+然后运行 make unistall. 
+Alternatively, you can simply delete all the Nmap-related files. 
+或者，你可以只删除所有的Nmap相关文件。
 If you used a default source install of Nmap versions 4.50 or higher, the following commands remove it.
-
+如果你使用默认源安装Nmap 4.50或者更高版本，使用下面命令来移除它：
 # cd /usr/local
 # rm -f bin/nmap bin/nmapfe bin/xnmap
 # rm -f man/man1/nmap.1 man/man1/zenmap.1
