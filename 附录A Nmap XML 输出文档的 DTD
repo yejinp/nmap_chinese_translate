@@ -1,7 +1,11 @@
 
 Purpose
 
-This document type definition (DTD) is used by XML parsers to validate Nmap XML output. The latest version is always available at https://svn.nmap.org/nmap/docs/nmap.dtd. While it is primarily intended for programmatic use, it is included here due to its value in helping humans interpret Nmap XML output. The DTD defines the legal elements of the format, and often enumerates the attributes and values they can take on. Using the DTD is discussed further in the section called “XML Output (-oX)”.
+This document type definition (DTD) is used by XML parsers to validate Nmap XML output. 
+The latest version is always available at https://svn.nmap.org/nmap/docs/nmap.dtd. 
+While it is primarily intended for programmatic use, it is included here due to its value in helping humans interpret Nmap XML output. 
+The DTD defines the legal elements of the format, and often enumerates the attributes and values they can take on. 
+Using the DTD is discussed further in the section called “XML Output (-oX)”.
 
 The Full DTD
 
