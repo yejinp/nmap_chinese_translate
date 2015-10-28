@@ -7,9 +7,13 @@ Nmap can often be installed or upgraded with a single command, so don't let the 
 Most readers will use the table of contents to skip directly to sections that concern them. 
 大部分的读者会使用目录列表来直接跳到他所关心的章节。
 This chapter describes how to install Nmap on many platforms, including both source code compilation and binary installation methods. 
+本章描述了在很多平台上如何安装Nmap，既包括通过源代码安装，还包括通过二进制安装包方法安装。
 Graphical and command-line versions of Nmap are described and contrasted. 
+Nmap的图形和命令行版本也有描述并进行比较。
 Nmap removal instructions are also provided in case you change your mind.
+为防止您改变主意，也提供了移除Nma的p命令。
 Testing Whether Nmap is Already Installed
+测试是否已经安装Nmap
 
 The first step toward obtaining Nmap is to check whether you already have it. 
 Many free operating system distributions (including most Linux and BSD systems) come with Nmap packages, although they may not be installed by default. 
