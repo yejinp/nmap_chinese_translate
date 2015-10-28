@@ -61,8 +61,11 @@ Zenmap's tab-based interface lets you search and sort results, and also browse t
 It works on Linux, Windows, Mac OS X, and other platforms. 
 Zenmap is covered in depth in Chapter 12, Zenmap GUI Users' Guide. 
 The rest of this book focuses on command-line Nmap invocations. 
+本书其他章节焦点在Nmap命令行调用。
 Once you understand how the command-line options work and can interpret the output, using Zenmap or the other available Nmap GUIs is easy. 
+一旦你理解了命令行选项如何工作并能够解释其输出，使用Zenmap或者其他可用Nmap GUI将会很简单。
 Nmap's options work the same way whether you choose them from radio buttons and menus or type them at a command-line.
+Nmap的选项与你选择单选按钮和菜单或者在命令行输入他们一样工作。
 Downloading Nmap
 下载Nmap
 
