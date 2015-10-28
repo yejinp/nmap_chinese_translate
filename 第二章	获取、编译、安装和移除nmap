@@ -380,12 +380,18 @@ Consider binary packages
     Linux Distributions
 
 Linux is the most popular platform for running Nmap. 
+Linux是运行Nmap最流行的平台。
 In one user survey, 86% said that Linux was at least one of the platforms on which they run Nmap. 
+在一个调查中，86%的受调查人员说，Linux是他们至少运行Nmap的平台之一。
 The first release of Nmap in 1997 only ran on Linux.
+于1997年发布的Nmap第一个版本只运行在Linux上。
 
 Linux users can choose between a source code install or using binary packages provided by their distribution or Insecure.Org. 
+Linux用户可以在源代码安装或者使用发布版的二进制安装包选择一个。
 The binary packages are generally quicker and easier to install, and are often slightly customized to use the distribution's standard directory paths and such. 
+通常，安装时使用二进制更快也更容易，并且常常有细微的定制化。
 These packages also allow for consistent management in terms of upgrading, removing, or surveying software on the system. 
+这些包也允许
 A downside is that packages created by the distributions are necessarily behind the Nmap.Org source releases. 
 Most Linux distributions keep their Nmap package relatively current, though a few are way out of date. 
 Choosing the source install allows for more flexibility in determining how Nmap is built and optimized for your system. 
