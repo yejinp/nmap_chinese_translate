@@ -59,7 +59,9 @@ Nmap has traditionally included a simple GUI for Unix named NmapFE, but that was
 Zenmap is far more powerful and effective than NmapFE, particularly in results viewing. 
 Zenmap's tab-based interface lets you search and sort results, and also browse them in several ways (host details, raw Nmap output, and ports/hosts). 
 It works on Linux, Windows, Mac OS X, and other platforms. 
+它在Linux、Windows、Mac OS X和其他平台上工作。
 Zenmap is covered in depth in Chapter 12, Zenmap GUI Users' Guide. 
+在第十二章中会深入描述Zenmap，Zenmap GUI用户手册
 The rest of this book focuses on command-line Nmap invocations. 
 本书其他章节焦点在Nmap命令行调用。
 Once you understand how the command-line options work and can interpret the output, using Zenmap or the other available Nmap GUIs is easy. 
@@ -919,14 +921,20 @@ Also let us know if you develop a patch which improves support on your platform 
 
 
 Removing Nmap
+移除Nmap
 
 If your purpose for removing Nmap is simply to upgrade to the latest version, you can usually use the upgrade option provided by most binary package managers. 
+如果你移除Nmap的目的真实将其更新到最新版本，通常你可以使用大部分二进制管理器提供的更新选择来完成。
 Similarly, installing the latest source code (as described in the section called “Linux/Unix Compilation and Installation from Source Code”) generally overwrites any previous from-source installations. 
+同样，安装最新的源代码（）
 Removing Nmap is a good idea if you are changing install methods (such as from source to RPM or vice versa) or if you are not using Nmap anymore and you care about the few megabytes of disk space it consumes.
-
+如果你要改变安装方法（比如从源安装到RPM安装，或者反过来）或者你在意其消耗的磁盘空间而且不再使用Nmap时，移除Nmap也是一个好的主意。
 How to remove Nmap depends on how you installed it initially (see previous sections). 
+如何移除Nmap依赖于最开始您如何安装它（参考前面章节）。
 Ease of removal (and other maintenance) is a major advantage of most binary packages. 
+能够很简单的移除（和其他维护特定）是二进制安装包的一个很大优势。
 For example, when Nmap is installed using the RPM system common on Linux distributions, it can be removed by running the command rpm -e nmap zenmap as root. 
+比如，当在Linux发布版上使用RPM系统安装时，可以在root用户下通过命令rpm -e nmap zenmap来移除他们。
 Analogous options are offered by most other package managers—consult their documentation for further information.
 
 If you installed Nmap from the Windows installer, simply open the Control Panel, select “Add or Remove Programs” and select the “Remove” button for Nmap. 
