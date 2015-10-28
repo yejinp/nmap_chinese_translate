@@ -16,12 +16,16 @@ Testing Whether Nmap is Already Installed
 测试是否已经安装Nmap
 
 The first step toward obtaining Nmap is to check whether you already have it. 
+获取Nmap的第一步就是检查是否已经拥有了它。
 Many free operating system distributions (including most Linux and BSD systems) come with Nmap packages, although they may not be installed by default. 
+在很多免费操作系统发布版上（包括大部分的Linux系统和BSD系统）都带有Nmap安装包，虽然可能默认没有安装。
 On Unix systems, open a terminal window and try executing the command nmap --version. 
+在Unix系统上，打开一个终端窗口并试着执行命令  nmap --version
 If Nmap exists and is in your PATH, you should see output similar to that in Example 2.1.
+如果Nmap已经存在并在你的PATH路径下，你应该可以看到类似于例子2.1的输出。
 
 Example 2.1. Checking for Nmap and determining its version number
-
+例子2.1 检查Nmap并确定其版本号
 felix~> nmap --version
 
 Nmap version 4.76 ( http://nmap.org )
