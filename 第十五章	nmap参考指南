@@ -1948,7 +1948,8 @@ Certain raw networking functions use the Libdnet networking library, which was w
 A modified version is distributed with Nmap. 
 Nmap can optionally link with the OpenSSL cryptography toolkit for SSL version detection support. 
 The Nmap Scripting Engine uses an embedded version of the Lua programming language. 
-The Liblinear linear classification library is used for our IPv6 OS detection machine learning techniques (see the section called “IPv6 matching”). All of the third-party software described in this paragraph is freely redistributable under BSD-style software licenses.
+The Liblinear linear classification library is used for our IPv6 OS detection machine learning techniques (see the section called “IPv6 matching”). 
+All of the third-party software described in this paragraph is freely redistributable under BSD-style software licenses.
 
 Binary packages for Windows and Mac OS X include support libraries necessary to run Zenmap and Ndiff with Python and PyGTK. 
 (Unix platforms commonly make these libraries easy to install, so they are not part of the packages.) 
