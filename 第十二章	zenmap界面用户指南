@@ -1,1 +1,989 @@
 
+Introduction
+
+Zenmap is the official graphical user interface (GUI) for the Nmap Security Scanner. 
+It is a multi-platform, free and open-source application designed to make Nmap easy for beginners to use while providing advanced features for experienced Nmap users. 
+Frequently used scans can be saved as profiles to make them easy to run repeatedly. 
+A command creator allows interactive creation of Nmap command lines. 
+Scan results can be saved and viewed later. 
+Saved scans can be compared with one another to see how they differ. 
+The results of recent scans are stored in a searchable database. 
+A typical Zenmap screen shot is shown in Figure 12.1. See the official Zenmap web page for more screen shots.
+
+Figure 12.1. Typical Zenmap screen shot
+
+Typical Zenmap screen shot
+
+This guide is meant to make Nmap and Zenmap easy to use together, even if you haven't used either before. 
+For the parts of this guide that deal specifically with Nmap (command-line options and such), refer to Chapter 15, Nmap Reference Guide.
+
+The Purpose of a Graphical Frontend for Nmap
+
+No frontend can replace good old command-line Nmap. 
+The nature of a frontend is that it depends on another tool to do its job. 
+Therefore the purpose of Zenmap is not to replace Nmap, but to make Nmap more useful. 
+Here are some of the advantages Zenmap offers over plain Nmap.
+
+Interactive and graphical results viewing
+In addition to showing Nmap's normal output, Zenmap can arrange its display to show all ports on a host or all hosts running a particular service. 
+It summarizes details about a single host or a complete scan in a convenient display. 
+Zenmap can even draw a topology map of discovered networks. 
+The results of several scans may be combined together and viewed at once.
+
+Comparison
+Zenmap has the ability to show the differences between two scans. 
+You can see what changed between the same scan run on different days, between scans of two different hosts, between scans of the same hosts with different options, or any other combination. 
+This allows administrators to easily track new hosts or services appearing on their networks, or existing ones going down.
+
+Convenience
+Zenmap keeps track of your scan results until you choose to throw them away. 
+That means you can run a scan, see the results, and then decide whether to save them to a file. 
+There is no need to think of a file name in advance.
+
+Repeatability
+Zenmap's command profiles make it easy to run the exact same scan more than once. 
+There's no need to set up a shell script to do a common scan.
+
+Discoverability
+Nmap has literally hundreds of options, which can be daunting for beginners. 
+Zenmap's interface is designed to always show the command that will be run, whether it comes from a profile or was built up by choosing options from a menu. 
+This helps beginners learn and understand what they are doing. 
+It also helps experts double-check exactly what will be run before they press “Scan”.
+
+Scanning
+
+Begin Zenmap by typing zenmap in a terminal or by clicking the Zenmap icon in the desktop environment. 
+The main window, as shown in Figure 12.2, is displayed.
+
+Figure 12.2. Zenmap's main window
+
+Zenmap's main window
+
+One of Zenmap's goals is to make security scanning easy for beginners and for experts. 
+Running a scan is as simple as typing the target in the “Target” field, selecting the “Intense scan” profile, and clicking the “Scan” button. This is shown in Figure 12.3.
+
+Figure 12.3. Target and profile selection
+
+Target and profile selection
+
+While a scan is running (and after it completes), the output of the Nmap command is shown on the screen.
+
+Any number of targets, separated by spaces, may be entered in the target field.
+All the target specifications supported by Nmap are also supported by Zenmap, so targets such as 192.168.0.0/24 and 10.0.0-5.* work. Zenmap remembers the targets scanned most recently. To re-scan a host, select the host from the combo box attached to the “Target” text field.
+
+Profiles
+
+The “Intense scan” is just one of several scan profiles that come with Zenmap. 
+Choose a profile by selecting it from the “Profile” combo box. 
+Profiles exist for several common scans. After selecting a profile the Nmap command line associated with it is displayed on the screen. Of course, it is possible to edit these profiles or create new ones. This is covered in the section called “The Profile Editor”.
+
+It is also possible to type in an Nmap command and have it executed without using a profile. 
+Just type in the command and press return or click “Scan”. 
+When you do this the “Profile” entry becomes blank to indicate that the scan is not using any profile—it comes directly from the command field.
+
+Scan Aggregation
+
+Zenmap has the ability to combine the results of many Nmap scans into one view, a feature known as scan aggregation. 
+When one scan is finished, you may start another in the same window. 
+When the second scan is finished, its results are merged with those from the first. 
+The collection of scans that make up an aggregated view is called a network inventory.
+
+An example of aggregation will make the concept clearer. 
+Let's run a quick scan against scanme.nmap.org.
+
+
+Now do the same against localhost:
+
+
+Now results for both scanme and localhost are shown. 
+This is something you could have done with one Nmap scan, giving both targets, although it's convenient not to have to think of all the targets in advance.
+Now suppose we want some more information about scanme, so we launch an intense scan on it.
+
+
+Now scanme has a little penguin icon showing that its operating system has been detected as Linux. 
+Additionally one of its services has been identified. 
+Now we're doing something you can't do with a single Nmap scan, because you can't single out a host for more intense scanning like we did. 
+The results for localhost are still present, though we won't know more about it than we did before unless we decide to do a more in-depth scan.
+
+It is not necessary to wait for one scan to finish before starting another. Several scans may run concurrently. 
+As each one finishes its results are added to the inventory. 
+Any number of scans may make up an inventory; the collection of scans is managed in the “Scans” scan results tab, as fully described in the section called “The “Scans” tab”.
+
+It is possible to have more than one inventory open at the same time. 
+Zenmap uses the convention that one window represents one network inventory. 
+To start a new inventory, select “New Window” from the “Scan” menu or use the ctrl+N keyboard shortcut.
+Starting a scan with the “Scan” button will append the scan to the inventory in the current window. 
+To put it in a different inventory open up a separate window and run the scan from there. 
+Loading scan results from a file or directory will start a new inventory, unless you use the “Open Scan in This Window” menu item. 
+For more on saving and loading network inventories and individual scans see the section called “Saving and Loading Scan Results”.
+
+To close a window choose “Close Window” from the “Scan” menu or press ctrl+W. 
+When all open windows are closed the application will terminate. 
+To close all open windows select “Quit” or press ctrl+Q.
+
+Interpreting Scan Results
+
+Nmap's output is displayed during and after a scan. This output will be familiar to Nmap users. 
+Except for Zenmap's color highlighting, this doesn't offer any visualization advantages over running Nmap in a terminal. 
+However, other parts of Zenmap's interface interpret and aggregate the terminal output in a way that makes scan results easier to understand and use.
+
+Scan Results Tabs
+
+Each scan window contains five tabs which each display different aspects of the scan results. 
+They are: “Nmap Output”, “Ports / Hosts”, “Topology”, “Host Details”, and “Scans”.
+Each of these are discussed in this section.
+
+The “Nmap Output” tab
+
+
+The “Nmap Output” tab is displayed by default when a scan is run. It shows the familiar Nmap terminal output. 
+The display highlights parts of the output according to their meaning; for example, open and closed ports are displayed in different colors. Custom highlights can be configured in zenmap.conf (see the section called “Description of zenmap.conf”).
+
+Recall that the results of more than one scan may be shown in a window (see the section called “Scan Aggregation”). 
+The drop-down combo box at the top of the tab allows you to select the scan to display.
+The “Details” button brings up a window showing miscellaneous information about the scan, such as timestamps, command-line options, and the Nmap version number used.
+
+The “Ports / Hosts” tab
+
+
+The “Ports / Hosts” tab's display differs depending on whether a host or a service is currently selected. 
+When a host is selected, it shows all the interesting ports on that host, along with version information when available.
+Host selection is further described in the section called “Sorting by Host”.
+
+
+When a service is selected, the “Ports / Hosts” tab shows all the hosts which have that port open or filtered. 
+This is a good way to quickly answer the question “What computers are running HTTP?” Service selection is further described in the section called “Sorting by Service”.
+
+The “Topology” tab
+
+
+The “Topology” tab is an interactive view of the connections between hosts in a network. 
+Hosts are arranged in concentric rings. Each ring represents an additional network hop from the center node. 
+Clicking on a node brings it to the center. 
+Because it shows a representation of the network paths between hosts, the “Topology” tab benefits from the use of the --traceroute option. 
+Topology view is discussed in more detail in the section called “Surfing the Network Topology”.
+
+The “Host Details” tab
+
+
+The “Host Details” tab breaks all the information about a single host into a hierarchical display. 
+Shown are the host's names and addresses, its state (up or down), and the number and status of scanned ports. 
+The host's uptime, operating system, OS icon (see Figure 12.5, “OS icons”), and other associated details are shown when available. 
+When no exact OS match is found, the closest matches are displayed. 
+There is also a collapsible text field for storing a comment about the host which will be saved when the scan is saved to a file (see the section called “Saving and Loading Scan Results”).
+
+Each host has an icon that provides a very rough “vulnerability” estimate, which is based solely on the number of open ports. 
+The icons and the numbers of open ports they correspond to are
+
+  0–2 open ports,
+  3–4 open ports,
+  5–6 open ports,
+  7–8 open ports, and
+  9 or more open ports.
+The “Scans” tab
+
+
+The “Scans” tab shows all the scans that are aggregated to make up the network inventory. 
+From this tab you can add scans (from a file or directory) and remove scans.
+
+While a scan is executing and not yet complete, its status is “Running”. 
+You may cancel a running scan by clicking the “Cancel Scan” button.
+
+Sorting by Host
+
+Figure 12.4. Host selection
+
+Host selection
+
+On the left side of Zenmap's main window is a column headed by two buttons labeled “Hosts” and “Services”. 
+Clicking the “Hosts” button will bring up a list of all hosts that were scanned, as in Figure 12.4. 
+Commonly this contains just a single host, but it can contain thousands in a large scan. 
+The host list can be sorted by OS or host name/IP address by clicking the headers at the top of the list. 
+Selecting a host will cause the “Ports / Hosts” tab to display the interesting ports on that host.
+
+Each host is labeled with its host name or IP address and has an icon indicating the operating system that was detected for that host. 
+The icon is meaningful only if OS detection (-O) was performed. Otherwise, the icon will be a default one indicating that the OS is unknown. 
+Figure 12.5 shows all possible icons. 
+Note that Nmap's OS detection cannot always provide the level of specificity implied by the icons; for example a Red Hat Linux host will often be displayed with the generic Linux icon.
+
+Figure 12.5. OS icons
+
+OS icons  FreeBSD	OS icons  Irix	OS icons  Linux
+OS icons  Mac OS	OS icons  OpenBSD	OS icons  Red Hat Linux
+OS icons  Solaris or OpenSolaris	OS icons  Ubuntu Linux	OS icons  Windows
+OS icons  Other (no specific icon)	OS icons  OS detection not performed	 
+
+Sorting by Service
+
+Figure 12.6. Service selection
+
+Service selection
+
+Above the same list that contains all the scanned hosts is a button labeled “Services”. 
+Clicking that will change the list into a list of all ports that are open, filtered, or open|filtered on any of the targets, as shown in Figure 12.6. (Ports that were not listed explicitly in Nmap output are not included.) 
+The ports are identified by service name (http, ftp, etc.). 
+The list can be sorted by clicking the header of the list.
+
+Selecting a host will cause the “Ports / Hosts” tab to display all the hosts that have that service open or filtered.
+
+Saving and Loading Scan Results
+
+To save an individual scan to a file, choose “Save Scan” from the “Scan” menu (or use the keyboard shortcut ctrl+S). 
+If there is more than one scan into the inventory you will be asked which one you want to save.
+On the save dialog, you have the choice of saving in “Nmap XML format” (.xml extension) or “Nmap text format” (.nmap extension). 
+The XML format is the only format that can be opened again by Zenmap; if you save in text format you will not be able to open the file again.
+Nmap output formats are covered in the section called “XML Output (-oX)”.
+
+You can save every scan in an inventory with “Save All Scans to Directory” under the “Scan” menu (ctrl+alt+S). 
+When saving an inventory for the first time, you will commonly create a new directory using the “Create Folder” button in the save dialog. 
+In subsequent saves you can continue saving to the same directory. 
+To reduce the chance of overwriting unrelated scan files, the save-to-directory function will refuse to continue if the chosen directory contains a file that doesn't belong to the inventory. 
+If you are sure you want to save to that directory, delete any offending files and then save again.
+
+Saved results are loaded by choosing “Open Scan” from the “Scan” menu, or by typing the ctrl+O keyboard shortcut. 
+In the file selector, the “Open” button opens a single scan, while the “Open Directory” button opens every file in the chosen directory (perhaps created using “Save All Scans to Directory”).
+
+“Open Scan” opens loaded scans in a new window, thereby creating a new inventory. 
+To merge loaded scans into the current inventory instead, use “Open Scan in This Window”.
+
+The Recent Scans Database
+
+Scan results that are not saved to a file are automatically stored in a database. 
+Scan results that are loaded from a file, and are then modified (such as by the addition of a host comment) but not re-saved, are also stored in the database.
+The database is stored in a file called zenmap.db and its location is platform-dependent (see the section called “Files Used by Zenmap”). 
+By default, scans are kept in the database for 60 days and then removed. 
+This time interval can be changed by modifying the value of the save_time variable in the [search] section of zenmap.conf (see the section called “Description of zenmap.conf”).
+
+Zenmap's search interface, because it searches the contents of the recent scans database by default, doubles as a database viewer.
+On opening the search window every scan in the database is shown. 
+The list of scans may then be filtered by a search string. See the section called “Searching Saved Results”.
+
+Surfing the Network Topology
+
+
+An Overview of the “Topology” Tab
+
+Zenmap's “Topology” tab provides an interactive, animated visualization of the connections between hosts on a network.
+Hosts are shown as nodes on a graph that extends radially from the center. 
+Click and drag to pan the display, and use the controls provided to zoom in and out. 
+Click on a host and it becomes the new center. 
+The graph rearranges itself in a smooth animation to reflect the new view of the network.
+Run a new scan and every new host and network path will be added to the topology automatically.
+
+The topology view is most useful when combined with Nmap's --traceroute option, because that's the option that discovers the network path to a host.
+You can view a network inventory that doesn't have traceroute information in the topology, but network paths will not be visible. 
+Remember, though, that you can add traceroute information to a network inventory just by running another scan thanks to Zenmap's scan aggregation.
+
+Initially the topology is shown from the point of view of localhost, with you at the center. 
+Click on a host to move it to the center and see what the network looks like from its point of view.
+
+The topology view is an adaptation of the RadialNet program by João Paulo S. Medeiros.
+
+Legend
+
+The topology view uses many symbols and color conventions. This section explains what they mean.
+
+
+
+
+
+Each regular host in the network is represented by a little circle. 
+The color and size of the circle is determined by the number of open ports on the host. 
+The more open ports, the larger the circle. 
+A white circle represents an intermediate host in a network path that was not port scanned. 
+If a host has fewer than three open ports, it will be green; between three and six open ports, yellow; more than six open ports, red.
+
+
+
+
+If a host is a router, switch, or wireless access point, it is drawn with a square rather than a circle.
+
+	
+Network distance is shown as concentric gray rings. 
+Each additional ring signifies one more network hop from the center host.
+
+	
+Connections between hosts are shown with colored lines. 
+Primary traceroute connections are shown with blue lines. 
+Alternate paths (paths between two hosts where a different path already exists) are drawn in orange. 
+Which path is primary and which paths are alternates is arbitrary and controlled by the order in which paths were recorded. 
+The thickness of a line is proportional to its round-trip time; hosts with a higher RTT have a thicker line. 
+Hosts with no traceroute information are clustered around localhost, connected with a dashed black line.
+
+	
+If there is no RTT for a hop (a missing traceroute entry), the connection is shown with a blue dashed line and the unknown host that makes the connection is shown with a blue outline.
+
+Some special-purpose hosts may carry one or more icons describing what type of host they are:
+
+	A router.
+	A switch.
+	A wireless access point.
+	A firewall.
+	A host with some ports filtered.
+Controls
+
+The controls appear in a column when the “Controls” button is clicked. The controls are divided into sections.
+
+Action controls
+
+
+The controls in the “Action” section control what happens when you click on a host. 
+The buttons in this section are, from left to right, “Change focus”, “Show information”, “Group children”, and “Fill region”. 
+When the mode is “Change focus”, clicking on a host rearranges the display to put the selected host at the center. 
+When the mode is “Show information”, clicking on a host brings up a window with information about it.
+
+When the mode is “Group children”, clicking a host collapses into it all of its children—those nodes that are farther from the center.
+When a host is grouped it appears thus: . Clicking on a grouped node ungroups it again. 
+This diagram shows the process of grouping.
+
+Figure 12.7. Grouping a host's children
+
+Grouping a host's children
+
+When the mode is “Fill region”, clicking a host highlights the region of the display occupied by the host and its children.
+The highlighted hosts are exactly the same as those that would be grouped in “Group children” mode. 
+You can choose different colors to highlight different regions. 
+This diagram shows an example of several regions highlighted in different colors.
+
+Figure 12.8. Highlighting regions of the topology
+
+Highlighting regions of the topology
+
+Interpolation controls
+
+
+The controls in the “Interpolation” section control how quickly the animation proceeds when part of the graph changes.
+
+Layout controls
+
+
+There are two options for the automatic layout of nodes. 
+Symmetric mode gives each subtree of a host an equal-sized slice of the graph. 
+It shows the network hierarchy well but hosts far from the center can be squeezed close together. 
+Weighted mode gives hosts with more children a larger piece of the graph.
+
+View controls
+
+
+The checkboxes in the “View” section enable and disable parts of the display. 
+For example, disable “hostname” to show only an IP address for each host, or disable “address” to use no labels at all. 
+The “latency” option enables and disables the display of the round-trip times to each host, as determined by Nmap's --traceroute option. 
+If “slow in/out” is checked, the animation will not be linear, but will go faster in the middle of the animation and slower at the beginning and end.
+
+The compass-like widget pans the screen in eight directions. 
+Click the center to return to the center host. 
+The ring around the outside controls the rotation of the entire graph.
+
+“Zoom” and “Ring gap” both control the overall size of the graph. “Zoom” changes the size of everything—hosts, labels, connecting lines. 
+“Ring gap” just increases the spacing between the concentric rings, keeping everything else the same size. 
+“Lower ring gap” gives a minimum spacing for the rings, useful mainly when fisheye is enabled.
+
+Fisheye controls
+
+
+The fisheye controls give more space to a selected ring, compressing all the others. 
+The slider controls which ring gets the most attention. 
+The “interest factor” is how many times greater the ring spacing is for the chosen ring than it would be with no fisheye. 
+The “spread factor” ranges from −1 to 1. 
+It controls how many adjacent rings are expanded around the selected ring, with higher numbers meaning more spread.
+
+Keyboard Shortcuts
+
+The topology display recognizes these keyboard shortcuts:
+
+Key	Function
+c	Return the display to the center host.
+a	Show or hide host addresses.
+h	Show or hide hostnames.
+i	Show or hide host icons.
+l	Show or hide latency.
+r	Show or hide the rings.
+The Hosts Viewer
+
+
+The host viewer is an alternative way to get details about hosts. 
+Activate the viewer by clicking the “Hosts Viewer” button. All the hosts in the inventory are presented in a list. 
+Select any host to get details about it.
+The Profile Editor
+
+It is common with Nmap to want to run the same scan repeatedly. 
+For example, a system administrator may run a scan of an entire network once a month to keep track of things.
+Zenmap's mechanism for facilitating this is called profiles.
+
+Figure 12.9. Choosing a profile
+
+Choosing a profile
+
+Each window contains a combo box labeled “Profile”. 
+Opening it shows what profiles are available. 
+Selecting a profile will cause the “Command” field to display the command line that will be executed. 
+The profiles that come with Zenmap are sufficient for many scanning purposes, but sooner or later you will want to create your own.
+
+Editing a Command
+
+The profile editor can be used as a handy interactive Nmap command editor. 
+Select “New Profile or Command” from under the “Profile” menu or use the ctrl+P keyboard shortcut. 
+The profile editor will appear, displaying whatever command was shown in the main window.
+
+Figure 12.10. The profile editor
+
+The profile editor
+
+The text entry at the top shows the command being edited. You can type directly in this field if you know the options you want to use.
+The controls in the middle let you choose options by checking boxes or selecting from menus.
+There is a two-way relationship between the command string and the controls: when you change one of the controls it causes an immediate change in the command string, and when you edit the command string the controls update themselves to match. 
+Hover the mouse pointer over an option to see a description of what it does and what kind of input it expects.
+
+To run the new command line, click the “Scan” button. 
+This will copy the command to the main window, dismiss the profile editor, and start running the scan. 
+To make further changes to the command, just select “New Profile or Command” again, remembering that it will use whatever command is shown on the screen.
+
+Script selection
+
+The “Scripting” tab deserves special mention because of its many options. 
+The scrolling list on the left shows all the scripts that are installed in script.db. 
+Scripts can be selected or deselected individually by clicking the checkbox next to the script name. 
+When a script is highlighted, its description and arguments are displayed. The arguments are editable.
+Hover the mouse pointer over an argument to see help for it. 
+Figure 12.11, “The “Scripting” profile editor tab” shows a sample script selection session.
+
+Figure 12.11. The “Scripting” profile editor tab
+
+The “Scripting” profile editor tab
+
+To select scripts by categories or Boolean operators, as described in the section called “Script Selection”, edit the argument to the --script option in the command entry at the top. 
+The scrolling list of selected scripts will update itself after a short delay.
+
+Creating a New Profile
+
+The procedure for creating a new profile is almost the same as for editing a command. 
+Select “New Profile or Command” from the “Profile” menu and edit the command as you wish. 
+Then, instead of clicking “Scan”, go to the “Profile” tab and give a name to the profile. Then click “Save Changes” to save the new profile.
+
+A profile may or may not include scan targets. 
+If you often run the same scan against the same set of targets, you will find it convenient to list the targets within the profile. 
+If you plan to run the same scan against different targets, leave the “Targets” field blank, and fill in the targets later, when you run the scan.
+
+Editing or Deleting a Profile
+
+To edit a profile, select the profile you want to edit, then choose “Edit Selected Profile” from the “Profile” menu or use the ctrl+E keyboard shortcut. 
+The profile editor will open, this time with the name and description filled from the profile selected. Click “Save Changes” to save any changes or “Cancel” to leave without saving.
+
+When you open the profile editor using “Edit Selected Profile”, an additional “Delete” button will be present at the bottom.
+Zenmap will present a warning before deleting the profile.
+
+Host Filtering
+
+The list of hosts can be filtered by a filter string. 
+When the filter is active, only the hosts matching the filter string will be shown. 
+The other hosts are still present in the inventory, but hidden. Using a filter string, you can quickly narrow down a large scan to just the hosts you are interested in. 
+Figure 12.12 shows the host filter in action, finding the two hosts out of nine that match apache.
+
+Figure 12.12. Host filter
+
+Host filter
+
+The host filter is activated by clicking the “Filter Hosts” button, selecting “Filter Hosts” from the “Tools” menu, or pressing ctrl+L. 
+This will raise the filter bar at the bottom of the screen. 
+Hosts are filtered live as you type. 
+To disable the filter, click “Filter Hosts” or press ctrl+L again to hide the filter bar.
+
+This simplest form of host filtering is basic keyword matching. 
+Enter one or more strings such as apache, linux, or telnet, and it will match hosts that have the string anywhere in their information—as a hostname or IP address, port name or number, OS match, or service version string. 
+If more than one word is in the filter string, all the words must match for a host to be shown.
+
+For more specific results, the host filter also supports matching only specific data fields in each host. 
+The syntax supported is a subset of the search criteria discussed in detail in the section called “Searching Saved Results”. 
+The criteria allowed in the host filter are
+
+keyword matching;
+port states: open:, closed:, filtered:, open|filtered:, closed|filtered:, and unfiltered:;
+os: (operating system);
+service: (service version); and
+inroute: (host in route).
+Here are some examples of host filter strings.
+
+apache
+This keyword search matches hosts that have been found to be running the Apache web server, but will also match any other host with “apache” in it, for example one named apache.example.com.
+
+service:apache
+This is like the previous string, but it will only match “apache” in a service version.
+
+os:linux ssh
+Shows Linux hosts that are running SSH.
+
+open:445
+Shows all hosts with port 445 open.
+
+
+Searching Saved Results
+
+Zenmap allows you to search saved scan results files and the database of recent scans. 
+To begin searching, select “Search Scan Results” from the “Tools” menu or use the ctrl+F keyboard shortcut. 
+The search dialog appears as shown in Figure 12.13.
+
+Figure 12.13. The search dialog
+
+The search dialog
+
+The search interface initially shows all the scans in the recent scans database (for which see the section called “The Recent Scans Database”). 
+The reason all the scans are shown is simple—no restrictions have yet been placed on the search, so every possible result is returned.
+
+Searches may be given in terms of several search criteria, however the simplest search is just a keyword search. 
+Just type a word like scanme in the “Search” field to find all scans that have that word as part of their output, whether as a host name, operating system name, profile, or anything else. 
+An example of this is shown in Figure 12.14.
+
+Figure 12.14. Keyword search
+
+Keyword search
+
+Searches happen live, as you type. When you have found the scan you want click the “Open” button or double-click on the scan name.
+
+More complicated searches can be built up using the “Expressions” interface. 
+Click the “Expressions” button and graphical representation of the current search will appear. 
+Modify the search by selecting from the combo boxes displayed. Click “+” to add a criterion and “−” to remove one. 
+Click the “Expressions” button again to hide the criteria (they are still present in the search string). 
+Editing of the search text is disabled while the expressions are shown. 
+An example of a more complicated search is shown in Figure 12.15.
+
+Figure 12.15. Expressions search
+
+Expressions search
+
+Searches are and-based, meaning that all the criteria must be true for a scan to match and appear in the results list. 
+Most searches are case-insensitive. (The only case-sensitive criterion is option:.) 
+By default only the scans in the recent scans database are searched. 
+To recursively search files in a directory, use the “Include Directory” expression.
+
+You will have noticed that whenever you choose a search expression a text representation of it appears in the search entry. 
+The string in the “Search” field is what really controls the search; the “Expressions” interface is just a convenient way to set it. 
+When you have learned what search strings correspond to what expressions, you may skip the expressions interface and just type in a search string directly.
+
+The following is a list of all the textual search criteria recognized by the search interface. 
+Most criteria have a short form: d:-5 is the same as date:-5 and op:80 is the same as open:80. 
+The short form of each criterion is given in the list below.
+
+<keyword>
+An unadorned word matches anything in a scan.
+For example, apache will match all Apache servers and linux will match all Linux hosts. 
+There is a chance of false positives when using the keyword search, like if a host happens to be named apache or linux.
+
+Port states
+Every possible port state is also a search criterion. They are
+
+open:<ports> (op: for short)
+closed:<ports> (cp: for short)
+filtered:<ports> (fp: for short)
+unfiltered:<ports> (ufp: for short)
+open|filtered:<ports> (ofp: for short)
+closed|filtered:<ports> (cfp: for short)
+Use open:80 to match scans that have a host with port 80 open. 
+The <ports> argument may also be a comma-separated list.
+
+Additionally the scanned:<ports> (sp: for short) criterion matches scans in which the given ports were scanned, whatever their final state.
+
+date:<YYYY-MM-DD> or date:-<n> (d: for short)
+Matches scans that occurred on the given date in <YYYY-MM-DD> format. Or use date:-<n> to match scans that occurred any on the day <n> days ago. Use date:-1 to find scans performed yesterday.
+
+When using the <YYYY-MM-DD> format, the date may be followed by one or more ~, each of which widens the range of dates matched by one day on both sides. date:2007-12-23 matches scans that occurred between 00:00 and 24:00 on December 23, 2007. date:2007-12-23~ matches scans that took place between 00:00 on December 22 and 24:00 on December 24. 
+This “fuzzy” date matching is useful when you can't remember exactly when you ran a scan.
+
+after:<YYYY-MM-DD> or after:-<n> (a: for short)
+Matches scans that occurred on or after the given date in <YYYY-MM-DD> format. 
+Or use after:-<n> to match scans that occurred within the last <n> days. For example, after:-7 matches scans that happened in the last week.
+
+before:<YYYY-MM-DD> or before:-<n> (b: for short)
+Matches scans that occurred on or before the given date in <YYYY-MM-DD> format. 
+Or use before:-<n> to match scans that occurred any time before <n> days ago.
+
+target:<name> (t: for short)
+Matches scans of any hosts with the given name. 
+The name may be either the name specified in the scan or the reverse-DNS name of any host.
+
+option:<option> (o: for short)
+Matches scans that used the given command-line option. 
+Omit any leading - or --: option:A matches scans that used the -A option.
+
+This criterion matches only literally. option:O will not match scans that used -A, even though -A implies -O. 
+Similarly option:sU will not match scans that used -sSU. Option matching is case-sensitive.
+
+os:<string>
+Matches scans of hosts with the given string in any part of their OS description. os:windows will return scans of Microsoft Windows hosts broadly.
+
+service:<string> (s: for short)
+Matches scans of hosts with the given string in any part of the service description of any of their ports. service:ssh will return scans of hosts running any type of SSH.
+
+profile:<name> (pr: for short)
+Matches scans that used the named profile, for example profile:"intense scan".
+
+inroute:<host> (ir: for short)
+Matches scans where the given host appears as an intermediate router in --traceroute output.
+
+dir:<directory>
+dir: is not really a search criterion. 
+Rather it is the way to search a directory in the filesystem in addition to those in the recent scans database.
+Directories are searched recursively for files ending with certain extensions, xml only by default. 
+To match more file names modify the file_extension variable of the [search] section of zenmap.conf according to the instructions in the section called “Sections of zenmap.conf”.
+
+Comparing Results
+
+It is a common desire to run the same scan twice at different times, or run two slightly different scans at the same time, and see how they differ. 
+Zenmap provides an interface for comparing scan results, shown in Figure 12.16. 
+Open the comparison tool by selecting “Compare Results” from the “Tools” menu or by using the ctrl+D (think “diff”) keyboard shortcut. 
+Zenmap supports comparing two scan results at a time.
+
+Figure 12.16. Comparison tool
+
+Comparison tool
+
+The first step in performing a comparison is selecting two scans to compare, which are called the “A scan” and the “B scan”. 
+The combo boxes allow you to choose from open scans. 
+Or click the “Open” buttons to get scan results from a file.
+To compare results from the recent scans database, you must first open those scans using the search interface (see the section called “Searching Saved Results”).
+
+The order of the two scans matters. 
+Comparison is always done “from” the A scan “to” the B scan, regardless of the times recorded in the files. 
+Once the two results have been chosen the comparison begins immediately. 
+Figure 12.17 shows a comparison between two scans of several Internet hosts, run a few days apart.
+
+Figure 12.17. Comparison output
+
+Comparison output
+
+The diff output resembles Nmap's output. 
+Each line is preceded by ‘ ’, ‘-’, or ‘+’, indicating that some piece of information was unchanged, removed, or added respectively. Color coding also indicates differences; red for deletion and green for addition.
+
+The engine underlying Zenmap's comparison function is Ndiff, a non-graphical tool distributed with Nmap.
+Ndiff runs on any platform that Zenmap runs on. 
+If you have installed the ndiff executable somewhere other than its default location, you may have to modify the nmap_command_path variable in the [paths] section of zenmap.conf to point to it.
+
+Zenmap in Your Language
+
+Zenmap has been translated into a few languages other than English. 
+Figure 12.18 shows what Zenmap looks like in German. This section shows how to use Zenmap's translations.
+
+Figure 12.18. Zenmap in German
+
+Zenmap in German
+
+On Unix-like systems, you select your preferred language by setting the LANG environment variable. 
+Even on other operating systems with different language selection facilities, setting LANG is the most foolproof way to get translations when other methods don't work. 
+Your Unix-like operating system may set LANG as a side effect of its language configuration. If it does not, add a line like the following to your .login or .profile, replacing de with your locale name:
+
+export LANG=de
+A locale name is a language code optionally followed by a country code and sometimes other information. 
+Language codes are from ISO 639 and country codes are from ISO 3166. 
+Here “de” means German; another example is “pt_BR” for Brazilian Portuguese. To disable localization entirely and use the default English text, set LANG=C.
+
+To set LANG on Windows XP, follow these steps. 
+Open the Control Panel and choose the “System” item. 
+Click the “Advanced” tab and then the “Environment Variables” button. 
+A new display will open up; under “User variables” click “New”. 
+In the form that appears enter “LANG” for the variable name and your locale name for the value. 
+The process is illustrated in Figure 12.19.
+
+Figure 12.19. Setting the LANG environment variable on Windows XP
+
+Setting the LANG environment variable on Windows XP
+
+On Mac OS X, setting LANG in a shell startup file as described above has an effect only when Zenmap is started from a terminal. 
+The graphical Finder interface keeps its environment variables in a separate file, .MacOSX/environment.plist. 
+To create it, open the TextEdit application and enter the following, replacing de with your locale name:
+
+{ LANG=de; }
+Then from the “Format” menu choose “Make Plain Text”. Open the “Save” dialog, select your home directory and click “New Folder”. 
+Create a folder called .MacOSX and click past the warning that appears. 
+Save the file with the name environment.plist, and insist on the extension .plist in the next warning that appears. 
+Finally, log out and back in to make the change take effect. 
+A portion of this process is shown in Figure 12.20.
+
+Figure 12.20. Setting the LANG environment variable on Mac OS X
+
+Setting the LANG environment variable on Mac OS X
+
+Creating a new translation
+
+Creating a new translation for Zenmap, or updating an existing one, is not hard technically, though of course it requires some know-how and knowledge of at least one language other than English. 
+Zenmap's translations are handled by the GNU gettext system, which is documented fully at http://www.gnu.org/software/gettext/manual/. 
+This section is a summary of the manual translation process. 
+There also exist specialized translation editing programs that do these steps automatically.
+
+Let's say you are going to make a translation into Spanish, which has the language code “es”. 
+Within the Zenmap source tree there is a plain-text file share/zenmap/locale/zenmap.pot containing all the translatable strings in the application. 
+You create a new portable object (.po) file by running msginit -l es.po -i zenmap.pot. 
+The new es.po file contains all the application's English strings followed by blank strings where you fill in the appropriate translations.
+
+To test the portable object file you must turn it into a machine object (.mo) file. 
+Create the directory es/LC_MESSAGES and then run msgfmt es.po -o es/LC_MESSAGES/zenmap.mo. 
+With this file in place Zenmap will use your translation when LANG is set properly. 
+To update the portable object file when zenmap.pot changes, run msgmerge -U es.po zenmap.pot. 
+This will add new strings and mark any obsolete strings so they can be removed.
+
+When you start a new translation, announce your intention to the nmap-dev mailing list. 
+The mailing list is also a good place to get translation advice. Then when you are finished, send in the .po file.
+
+Files Used by Zenmap
+
+Zenmap uses a number of configuration and control files, and of course requires Nmap to be installed. 
+Where the files are stored depends on the platform and how Zenmap was configured. 
+The configuration files are divided into two categories: system files and per-user files.
+
+The nmap Executable
+
+Zenmap depends on the nmap command-line executable being installed. 
+The program is first searched for in all of the directories specified in the PATH environment variable.
+
+On some platforms the nmap command isn't commonly installed in any of the directories in PATH. 
+As a convenience for those platforms, the following additional directories will be searched if the command is not found in the PATH:
+
+On Mac OS X, the directory /usr/local/bin is searched.
+
+On Windows, the directory containing the Zenmap executable is searched.
+
+To use an absolute path to the executable, or if the executable is installed under a name other than nmap, modify the nmap_command_path variable in the [paths] section of zenmap.conf. 
+For example, if you have installed nmap in /opt/bin, use
+
+[paths]
+nmap_command_path = /opt/bin/nmap
+Or if you have a custom-compiled version of Nmap called nmap-custom, use
+
+[paths]
+nmap_command_path = nmap-custom
+See the section called “Description of zenmap.conf”.
+
+System Configuration Files
+
+These files affect the installation of Zenmap across an entire installation. 
+On Unix and Mac OS X, they are in <prefix>/share/zenmap, where <prefix> is the filesystem prefix Zenmap was compiled with. 
+The prefix is likely /usr or /usr/local, so Zenmap's file are probably in /usr/share/zenmap or /usr/local/share/zenmap. 
+On Windows, the location also depends on where Zenmap was installed. 
+They are probably in C:\Program Files\Nmap\share\zenmap. 
+The Zenmap system configuration directory contains the following:
+
+config/
+The files under config are copied to per-user configuration directories. 
+See the section called “Per-user Configuration Files”.
+
+docs/
+The files in the docs subdirectory are Zenmap's documentation files.
+
+locale/
+The files in the locale/ subdirectory contain translations of the text used by Zenmap into other languages.
+
+misc/profile_editor.xml
+This file defines what options are presented by the profile editor (see the section called “The Profile Editor”). 
+It can be edited with care to alter the profile editor system-wide.
+
+Per-user Configuration Files
+
+These files affect only one user of Zenmap. 
+Some of them are copied from the config subdirectory of the system files when Zenmap is run for the first time. 
+By default, per-user files are in <HOME>/.zenmap on Unix and Mac OS X, where <HOME> stands for the current user's home directory. 
+They are in C:\Users\<USER>\.zenmap on Windows Vista and Windows 7. 
+On previous versions of Windows they are in C:\Documents and Settings\<USER>\.zenmap. Here <USER> is the name of the current user. 
+Use the --confdir option to use a different directory.
+
+recent_scans.txt
+This contains a list of file names of recently saved scans. 
+These scans are shown under the “Scan” menu. 
+Scans must have been saved to a file to appear here. 
+See the section called “Saving and Loading Scan Results”. If this file doesn't exist it is created when Zenmap is run.
+
+scan_profile.usp
+This file contains descriptions of scan profiles, including the defaults and user-created profiles. 
+I recommend using the profile editor (see the section called “The Profile Editor”) to make changes to this file. 
+This file is copied from the system configuration directory the first time Zenmap is run.
+
+target_list.txt
+This file contains a list of recently scanned targets. 
+If it doesn't exist it is created when Zenmap is run.
+
+zenmap.conf
+This is Zenmap's main configuration file. 
+It holds the settings for a particular user's copy of Zenmap and is discussed in more detail in the section called “Description of zenmap.conf”.
+
+zenmap.db
+This is the database of recent scans, as described in the section called “The Recent Scans Database”. 
+It is created if it doesn't already exist.
+
+zenmap_version
+This file contains the version of Zenmap that was used to create this per-user configuration directory. 
+It may be helpful to compare the version number in this file with the file of the same name in the system configuration directory if you suspect a version conflict. 
+It is simply copied from the system configuration the first time Zenmap is run.
+
+Output Files
+
+Whenever a scan is run, Zenmap instructs Nmap to put XML output in a temporary file so that Zenmap can parse it. 
+Normally the XML output file is deleted when the scan is finished. 
+However, if the command line in Zenmap contains an -oX or -oA option, XML output is written to the named file instead, and that file isn't deleted when the scan completes. 
+In other words, -oX and -oA work the way you would expect. -oG, -oN, and -oS work too, even though Zenmap doesn't use the output files produced by those options.
+
+There is one important thing to note in Zenmap's handling of these filenames. 
+Percent characters (%) are escaped to keep them from being interpreted as strftime-like format specifiers (see the section called “Controlling Output Type”). 
+This is because Zenmap must know exactly what name Nmap will use for its output file. 
+If in Zenmap you type -oX scan-%T-%D.xml, the output file will be saved in the file scan-%T-%D.xml, not scan-144840-121307.xml or whatever it would have been based on the current time and date if you were executing Nmap directly.
+
+Description of zenmap.conf
+
+zenmap.conf is the user-specific configuration file for Zenmap. 
+It is a plain text file located in the per-user configuration directory (see the section called “Per-user Configuration Files”). 
+The syntax is that recognized by the Python ConfigParser class, which is similar to that of Windows INI files. 
+Sections are delimited by titles in square brackets. 
+Within sections are lines containing <name>=<value> or <name>: <value> pairs. 
+An excerpt from a zenmap.conf is shown.
+
+[output_highlight]
+enable_highlight = True
+
+[paths]
+nmap_command_path = nmap
+ndiff_command_path = ndiff
+
+[search]
+search_db = 1
+file_extension = xml
+store_results = 1
+directory = 
+save_time = 60;days
+Some of these settings can be controlled from within Zenmap without editing the configuration file directly.
+
+Sections of zenmap.conf
+
+Boolean values are normalized from True, true, or 1 to true or anything else to false.
+
+[paths]
+The [paths] section defines important paths used by Zenmap.
+
+nmap_command_path
+The path to the Nmap executable. 
+Whatever the first word is in a command line executed by Zenmap will be replaced by the value of this variable. 
+Its default value of nmap is appropriate for most systems. 
+See the section called “The nmap Executable” for examples.
+
+ndiff_command_path
+The path to the Ndiff scan comparison utility. 
+Zenmap uses Ndiff to do scan comparisons; see the section called “Comparing Results”.
+
+[search]
+The [search] section defines how the search tool (see the section called “Searching Saved Results”) behaves. 
+The names in this section correspond to the options in the “Search options” tab of the search dialog. 
+It has the following names defined.
+
+directory
+The directory to search for saved scan results files.
+
+file_extension
+A semicolon-separated list of file name extensions to search.
+
+search_db
+A Boolean controlling whether to search the recent scans database.
+
+store_results
+A Boolean controlling whether to store scan results in the recent scans database. 
+See the section called “The Recent Scans Database”.
+
+save_time
+How long to keep scan results in the recent scans database.
+Results older than this are deleted when Zenmap is closed. 
+The format is a number and a time interval separated by semicolons, for example 60;days or 1;years.
+
+[diff]
+The [diff] section defines how the comparison tool (see the section called “Comparing Results”) behaves. 
+It has the following names defined.
+
+diff_mode
+Controls whether comparisons are shown by default in graphical or text mode. 
+Must be either compare for graphical mode or text.
+
+colored_diff
+A Boolean that controls if comparisons use color.
+
+[diff_colors]
+The [diff_colors] section defines the colors used by the comparison tool. 
+It has the following names defined: unchanged, added, not_present, and modified, the meanings of which are defined in the section called “Comparing Results”. 
+The value of each of these is a list of three integers in the range 0–65535 representing red, green, and blue in the format [<red>, <green>, <blue>]. 
+For example, [65535, 0, 0] specifies red.
+
+[output_highlight]
+The [output_highlight] section contains a single Boolean variable enable_highlight, which enables output highlighting when True and disables it if False.
+
+[date_highlight], [hostname_highlight], [ip_highlight], [port_list_highlight], [open_port_highlight], [closed_port_highlight], [filtered_port_highlight], [details_highlight]
+These sections all define the nature of Nmap output highlighting, which is discussed in the section called “The “Nmap Output” tab”. 
+These are best edited from within Zenmap. Within each of these sections, the following names are defined.
+
+regex
+The regular expression that matches the relevant part of the output.
+
+bold
+A Boolean controlling whether to make this highlight bold.
+
+italic
+A Boolean controlling whether to make this highlight italic.
+
+underline
+A Boolean controlling whether to underline this highlight.
+
+text
+The color of the text in this highlight. 
+The syntax is a list of three integers in the range 0–65535 representing red, green, and blue in the format [<red>, <green>, <blue>]. 
+For example, [65535, 0, 0] for a red highlight.
+
+highlight
+The color of the background in this highlight. 
+The syntax is the same as for text.
+
+Command-line Options
+
+Being a graphical application, most of Zenmap's functionality is exposed through its graphical interface. 
+Zenmap's command-line options are given here for completeness and because they are sometimes useful. 
+In particular, it's good to know that the command zenmap <results file> starts Zenmap with the results in <results file> already open.
+
+Synopsis
+
+zenmap [ <options> ] [ <results file> ]
+
+Options Summary
+
+-f, --file <results file>
+Open the given results file for viewing. 
+The results file may be an Nmap XML output file (.xml, as produced by nmap -oX), or a file previously saved by Zenmap.
+
+-h, --help
+Show a help message and exit.
+
+--confdir <dir>
+Use <dir> as the per-user configuration directory.
+
+-n, --nmap <Nmap command line>
+Run the given Nmap command within the Zenmap interface. 
+After -n or --nmap, every remaining command line argument is read as the command line to execute. 
+This means that -n or --nmap must be given last, after any other options. 
+Note that the command line must include the nmap executable name: zenmap -n nmap -sS target.
+
+-p, --profile <profile>
+Start with the given profile selected. 
+The profile name is just a string: "Regular scan". 
+If combined with -t, begin a scan with the given profile against the specified target.
+
+-t, --target <target>
+Start with the given target.
+If combined with -p, begin a scan with the given profile against the specified target.
+
+-v, --verbose
+Increase verbosity (of Zenmap, not Nmap). 
+This option may be given multiple times for even more verbosity printed to the console window used to start Zenmap.
+
+Error Output
+
+If Zenmap happens to crash, it normally helps you send a bug report with a stack trace. 
+Set the environment variable ZENMAP_DEVELOPMENT (the value doesn't matter) to disable automatic crash reporting and have errors printed to the console. 
+Try the Bash shell command ZENMAP_DEVELOPMENT=1 zenmap -v -v -v to get a useful debugging output.
+
+On Windows, standard error is redirected to the file zenmap.exe.log in the same directory as zenmap.exe rather than being printed to the console.
+
+History
+
+Zenmap was originally derived from Umit, an Nmap GUI created during the Google-sponsored Nmap Summer of Code in 2005 and 2006. 
+The primary author of Umit was Adriano Monteiro Marques. 
+When Umit was modified and integrated into Nmap in 2007, it was renamed Zenmap.
+
