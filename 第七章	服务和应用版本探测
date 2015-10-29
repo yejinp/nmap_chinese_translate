@@ -75,8 +75,10 @@ For example, consider a Microsoft Exchange server hidden behind a port-forwardin
 The Nmap version scanning subsystem obtains all of this data by connecting to open ports and interrogating them for further information using probes that the specific services understand. 
 This allows Nmap to give a detailed assessment of what is really running, rather than just what port numbers are open. 
 Example 7.1 shows the actual output.
+例子7.1显示了实际输出结果。
 
 Example 7.1. Simple usage of version detection
+例子7.1 简单使用版本探测功能
 
 # nmap -sV -T4 -F insecure.org
 
@@ -933,23 +935,34 @@ Send us your correction
     Thanks for contributing to the Nmap community and helping to make version detection even better!
 
 Submit New Probes
-
+提交新的探针
 Suppose Nmap fails to detect a service. 
+假设Nmap探测服务失败
 If it received a response to any probes at all, it should provide a fingerprint that can be submitted as described above. 
+
 But what if there is no response and thus a fingerprint is not available? 
+但是，如果没有响应，导致没有指纹可用会如何呢？
 Create and submit your own probe! 
+创建并提交你自己的探针！
 These are very welcome. The following steps describe the process.
-
+这些探针很受欢迎，下面的步骤描述了这个过程。
 Steps for creating a new version detection probe
-
+创建一个版本探测探针的步骤。
     Download the latest version of Nmap from http://nmap.org and try again. 
+    从http://nmap.org下载最近版本的Nmap并再次尝试一次。
     You would feel a bit silly spending time developing a new probe just to find out that it has already been added. 
+    你应该会感觉到有点傻当你发现已经添加了探针时再自己开发一个新的探针。
     Make sure no fingerprint is available, as it is better to recognize services using existing probes if possible than to create too many new ones. 
+    确保没有指纹可用，这更好的
     If the service does not respond to any of the existing probes, there is no other choice.
+    如果服务不对已有探针做出响应，那就没有别的选择了。
 
     Decide on a good probe string for recognizing the service. 
+    
     An ideal probe should elicit a response from as many instances of the service as possible, and ideally the responses should be unique enough to differentiate between them. 
+    一个理想的探针应该能够得出尽可能多的服务实例，并且理想的响应应该足以与其他的区分开来。
     This step is easiest if you understand the protocol very well, so consider reading the relevant RFCs and product documentation. 
+    如果你理解协议那样的话步骤最就简单了，因此考虑到阅读相关的RFC和产品文档。
     One simple approach is to simply start a client for the given service and watch what initial handshaking is done by sniffing the network with Wireshark or tcpdump, or connecting to a listening Ncat.
 
     Once you have decided on the proper string, add the appropriate new Probe line to Nmap (see the section called “Technique Described” and the section called “nmap-service-probes File Format”). 
