@@ -35,14 +35,18 @@ This makes a guess based on the nmap-services table even less accurate.
 这使得基于nmap服务表来猜测就变得相对不够精确。
 Anyone who has done much scanning knows that you also often find services listening on unregistered ports—these are a complete mystery without version detection. 
 A final problem is that filtered UDP ports often look the same to a simple port scanner as open ports. 
+最后一个问题就是过滤后的UDP端口常常与一个简单的端口扫描器的开放端口扫描结果相同。
 But if they respond to the service-specific probes sent by Nmap version detection, you know for sure that they are open (and often exactly what is running).
 
 Service scans sometimes reveal information about a target beyond the service type and version number. 
+服务扫描有时候会揭露关于目标除服务类型和版本号之外的东西。
 Miscellaneous information discovered about a service is collected in the “info” field. 
+
 This is displayed in the VERSION column inside parentheses following the product name and version number. 
 This field can include SSH protocol numbers, Apache modules, and much more.
-
+这个域可包含SSH协议号、Apache模块和更多信息。
 Some services also report their configured hostnames, which differ from machines' reverse DNS hostnames surprisingly often. 
+一些服务同样会报告他们配置的主机名，这个主机名与机器的反向DNS名字惊讶的不同。
 The hostname field is reported on a Service Info line following the port table. 
 It sounds like a minor information leak, but can have consequences. 
 One year at the CanSecWest security conference, I was huddled up in my room with my laptop. 
@@ -55,12 +59,18 @@ I had the front desk ring his hotel room, and boy was he surprised when I asked 
 Two more fields that version detection can discover are operating system and device type. 
 These are also reported on the Service Info line. 
 We use two techniques here. 
+这里，我们用到了两种技术。
 One is application exclusivity. 
+一个就是应用程序独占性。
 If we identify a service as Microsoft Exchange, we know the operating system is Windows since Exchange doesn't run on anything else. 
+如果我们识别一个服务，微软的 Exchange，我们知道，由于Exchange不会运行在任何其他的系统上面，因此操作系统是Windows。
 The other technique is to persuade more portable applications to divulge the platform information. 
+另外一个技术就是说服更多的可移植应用程序暴露他们的平台信息。
 Many servers (especially web servers) require very little coaxing. 
+很多服务器（特别是web服务器）需要很少的哄骗。
 This type of OS detection is intended to complement Nmap's OS detection system (-O) and can sometimes report differing results. 
 For example, consider a Microsoft Exchange server hidden behind a port-forwarding Unix firewall.
+比如，考虑到一个微软的Exchange服务器可能隐藏在一个带有端口转发功能的UNix 防火墙后面。
 
 The Nmap version scanning subsystem obtains all of this data by connecting to open ports and interrogating them for further information using probes that the specific services understand. 
 This allows Nmap to give a detailed assessment of what is really running, rather than just what port numbers are open. 
