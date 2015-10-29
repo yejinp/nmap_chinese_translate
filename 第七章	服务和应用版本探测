@@ -16,7 +16,7 @@ Maybe they think hiding a vulnerable service on some obscure port prevents “ev
 Even more common lately is that people choose ports based not on the service they want to run, but on what gets through the firewall. 
 When ISPs blocked port 80 after major Microsoft IIS worms CodeRed and Nimda, hordes of users responded by moving their personal web servers to another port. 
 When companies block Telnet access due to its horrific security risks, I have seen users simply run telnetd on the Secure Shell (SSH) port instead.
-
+当公司由于可怕的安全风险而阻断Telnet接入的时候，我发现，用户只是简单地将telnetd运行在Secure Shell (SSH)端口上。
 Even if Nmap is right, and the hypothetical server above is running SMTP, HTTP, and DNS servers, that is not a lot of information. 
 即使Nmap正确，上面假设的服务器也的确运行SMTP、HTTP和DNS服务器，信息也不是很多。
 When doing vulnerability assessments (or even simple network inventories) of your companies or clients, you really want to know which mail and DNS servers and versions are running. 
