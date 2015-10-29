@@ -1,9 +1,13 @@
 
 Introduction
+介绍
 
 While Nmap does many things, its most fundamental feature is port scanning. 
+Nmap可以做很多事情，其最基本特性是端口扫描。
 Point Nmap at a remote machine, and it might tell you that ports 25/tcp, 80/tcp, and 53/udp are open. 
+通过指定一个远程机器，它可能会告诉你端口25/tcp、80/tcp和53/udp是开着的。
 Using its nmap-services database of more than 2,200 well-known services, Nmap would report that those ports probably correspond to a mail server (SMTP), web server (HTTP), and name server (DNS) respectively. 
+使用包含超过2,200个知名服务的nmap服务数据库，Nmap可能会报告那些端口可能分别对应于一个邮件服务器（SMTP）,web服务器（HTTP）和名字服务器（DNS）。
 This lookup is usually accurate—the vast majority of daemons listening on TCP port 25 are, in fact, mail servers. 
 However, you should not bet your security on this! 
 People can and do run services on strange ports. 
