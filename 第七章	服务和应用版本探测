@@ -18,14 +18,21 @@ When ISPs blocked port 80 after major Microsoft IIS worms CodeRed and Nimda, hor
 When companies block Telnet access due to its horrific security risks, I have seen users simply run telnetd on the Secure Shell (SSH) port instead.
 
 Even if Nmap is right, and the hypothetical server above is running SMTP, HTTP, and DNS servers, that is not a lot of information. 
+即使Nmap正确，上面假设的服务器也的确运行SMTP、HTTP和DNS服务器，信息也不是很多。
 When doing vulnerability assessments (or even simple network inventories) of your companies or clients, you really want to know which mail and DNS servers and versions are running. 
+当为您的公司或者客户进行脆弱性评估时，你的确想要知道正在运行的邮件和DNS服务器的版本。
 Having an accurate version number helps dramatically in determining which exploits a server is vulnerable to. 
+拥有精确的版本号可以大大帮助确定服务器的漏洞所在。
 Do keep in mind that security fixes are often back-ported to earlier versions of software, so you cannot rely solely on the version number to prove a service is vulnerable. 
+记住，修复安全问题常常与早期的软件版本后面的端口有关，因此，你不能只依赖版本号就证明存在服务漏洞。
 False negatives are rarer, but can happen when silly administrators spoof the version number of a vulnerable service to make it appear patched.
 
 Another good reason for determining the service types and version numbers is that many services share the same port number. 
+另外一个确定服务类型和版本号的理由就是，很多服务共享同一个端口号。
 For example, port 258/tcp is used by both the Checkpoint Firewall-1 GUI management interface and the yak Windows chat client. 
+比如，端口258/tcp常常同时被用于 防火墙管理界面和窗口聊天客户端。
 This makes a guess based on the nmap-services table even less accurate. 
+这使得基于nmap服务表来猜测就变得相对不够精确。
 Anyone who has done much scanning knows that you also often find services listening on unregistered ports—these are a complete mystery without version detection. 
 A final problem is that filtered UDP ports often look the same to a simple port scanner as open ports. 
 But if they respond to the service-specific probes sent by Nmap version detection, you know for sure that they are open (and often exactly what is running).
