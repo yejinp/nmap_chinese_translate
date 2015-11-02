@@ -71,6 +71,7 @@ For those wanting more detail, the following three diagrams show exactly what ha
 The actors in each are:
 
  the attacker,  the zombie, and  the target.
+ 攻击者   僵尸用户和目标
 
 Figure 5.1. Idle scan of an open port
 Step 1: The attacker sends a SYN/ACK to the zombie. 
