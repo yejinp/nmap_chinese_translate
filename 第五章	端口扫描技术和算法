@@ -28,7 +28,7 @@ Intrusion detection system (IDS) reports will finger the innocent zombie as the 
 Besides being extraordinarily stealthy, this scan type permits discovery of IP-based trust relationships between machines.
 
 While idle scanning is more complex than any of the techniques discussed so far, you don't need to be a TCP/IP expert to understand it. 
-由于空闲扫描比当前讨论的任何技术都要复杂，因此不需要你成为TCP/IP专家来理解他们。
+虽然空闲扫描比当前讨论的任何技术都要复杂，但不需要你成为TCP/IP专家来理解他们。
 It can be put together from these basic facts:
 它们可以归纳为：
     One way to determine whether a TCP port is open is to send a SYN (session establishment) packet to the port. 
@@ -40,8 +40,9 @@ It can be put together from these basic facts:
 
     Every IP packet on the Internet has a fragment identification number (IP ID). 
     Since many operating systems simply increment this number for each packet they send, probing for the IPID can tell an attacker how many packets have been sent since the last probe.
-
+    由于很多操作系统对于每一个其发送的数据包只对这个数字加1，对IPID的探测就会告诉攻击者自从上次探测后发送过多少个数据包。
 By combining these traits, it is possible to scan a target network while forging your identity so that it looks like an innocent zombie machine did the scanning.
+通过组合这些特性，通过伪造你的ID来达到像一个无辜僵尸机器在扫描一个目标网络变为可能。
 Idle Scan Step by Step
 
 Fundamentally, an idle scan consists of three steps that are repeated for each port:
