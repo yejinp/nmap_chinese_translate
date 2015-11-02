@@ -1,20 +1,26 @@
 
 
 A Few Blank Sections
+略去部分章节。
 
 Sorry, but this section or chapter of the Nmap book (Nmap Network Scanning) is not currently available in the free online edition—only in the printed book version (more book information or buy on Amazon).
+抱歉，Nmap书（Nmap网络扫描）的本章节的在线版本暂时还不可用，
 Idle Scan Implementation Algorithms
+
 Round Trip Time Estimation
 IP Protocol Scan (-sO)
+IP协议扫描
 Disambiguating Open from Filtered UDP Ports
+
 Adaptive Retransmission
 
 TCP Idle Scan (-sI)
 [Note]	Note
 
 Volunteers have translated this section into Spanish and Portuguese (Brazil)
-
+志愿者已经将本节翻译成西班牙语和葡萄牙语（巴西）。
 In 1998, security researcher Antirez (who also wrote the hping2 tool used in parts of this book) posted to the Bugtraq mailing list an ingenious new port scanning technique. 
+1998年，安全研究者Antirez（他也写过本身中用到的hping2工具）
 Idle scan, as it has become known, allows for completely blind port scanning. 
 Attackers can actually scan a target without sending a single packet to the target from their own IP address! 
 Instead, a clever side-channel attack allows for the scan to be bounced off a dumb “zombie host”. 
@@ -22,8 +28,9 @@ Intrusion detection system (IDS) reports will finger the innocent zombie as the 
 Besides being extraordinarily stealthy, this scan type permits discovery of IP-based trust relationships between machines.
 
 While idle scanning is more complex than any of the techniques discussed so far, you don't need to be a TCP/IP expert to understand it. 
+由于空闲扫描比当前讨论的任何技术都要复杂，因此不需要你成为TCP/IP专家来理解他们。
 It can be put together from these basic facts:
-
+它们可以归纳为：
     One way to determine whether a TCP port is open is to send a SYN (session establishment) packet to the port. 
     The target machine will respond with a SYN/ACK (session request acknowledgment) packet if the port is open, and RST (reset) if the port is closed. 
     This is the basis of the previously discussed SYN scan.
@@ -38,7 +45,7 @@ By combining these traits, it is possible to scan a target network while forging
 Idle Scan Step by Step
 
 Fundamentally, an idle scan consists of three steps that are repeated for each port:
-
+一个空闲扫描对每个端口三个步骤。
     Probe the zombie's IP ID and record it.
 
     Forge a SYN packet from the zombie and send it to the desired port on the target. 
@@ -48,6 +55,7 @@ Fundamentally, an idle scan consists of three steps that are repeated for each p
     The target port state is then determined by comparing this new IP ID with the one recorded in step 1.
 
 After this process, the zombie's IP ID should have increased by either one or two. 
+在这个过程之后，
 An increase of one indicates that the zombie hasn't sent out any packets, except for its reply to the attacker's probe. 
 This lack of sent packets means that the port is not open (the target must have sent the zombie either a RST packet, which was ignored, or nothing at all). 
 An increase of two indicates that the zombie sent out a packet between the two probes. 
@@ -375,8 +383,9 @@ PORT    STATE           SERVICE
 Nmap finished: 1 IP address (1 host up) scanned in 5.949 seconds
 
 For complete details on the Nmap idle scan implementation, read idle_scan.cc from the Nmap source code distribution.
-
+获取完整的Nmap空闲扫描实现细节，请阅读Nmap源代码发布版的idle_scan.cc文件。
 While port scanning is a clever abuse of predictable IP ID sequences, they can be exploited for many other purposes as well. 
+端口扫描
 Examples are peppered throughout this book, particularly in Chapter 10, Detecting and Subverting Firewalls and Intrusion Detection Systems.
 
 
