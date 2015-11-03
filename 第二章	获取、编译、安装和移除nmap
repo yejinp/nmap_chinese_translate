@@ -210,23 +210,25 @@ For example, Nmap uses the OpenSSL cryptography libraries for version detection 
 On the other hand, binary packages are generally quicker and easier to install, and allow for consistent management (installation, removal, upgrading, etc.) of all packaged software on the system.
 
 Source installation is usually a painless process—the build system is designed to auto-detect as much as possible. 
+源代码安装过程的麻烦很少---由于创建系统会尽可能多的自动检测。
 Here are the steps required for a default install:
-
+下面是默认安装的一些必须步骤：
     Download the latest version of Nmap in .tar.bz2 (bzip2 compression) or .tgz (gzip compression) format from http://nmap.org/download.html.
-
+    从http://nmap.org/download.html下载Nmap的.tar.bz2（bzip2压缩）或者.tgz(gzip压缩)格式的最新版本。
     Decompress the downloaded tarball with a command such as:
-
+    用如下的命令解压下载的压缩包：
     bzip2 -cd nmap-<VERSION>.tar.bz2 | tar xvf -
-
+    
     With GNU tar, the simpler command tar xvjf nmap-<VERSION>.tar.bz2 does the trick. 
+    如果用GNU tar命令，更简单的命令是 tar xvjf nmap-<版本>.tar.bz2 就可以了。
     If you downloaded the .tgz version, replace bzip2 with gzip in the decompression command.
-
+    如果你下载的是.tgz版本，用gzip替换解压命令中的bzip2。
     Change into the newly created directory: cd nmap-<VERSION>
-
+    进入到新创建的目录: cd nmap-<版本>
     Configure the build system: ./configure
-
+    配置创建系统： ./configure
     If the configuration succeeds, an ASCII art dragon appears to congratulate you on successful configuration and warn you to be careful, as shown in Example 2.7.
-
+    如果配置成功，一个ASCII艺术龙来恭喜你成功配置并警告你消息，就像例子2.7所示。
     Example 2.7. Successful configuration screen
 
     flog~/nmap> ./configure
@@ -251,13 +253,14 @@ Here are the steps required for a default install:
                                                            /                  \
                  NMAP IS A POWERFUL TOOL -- USE CAREFULLY AND RESPONSIBLY
     Configuration complete.  Type make (or gmake on some *BSD machines) to compile.
-
+    配置完毕后，输入make(或者在其他*BSD机器上的gmake)来进行编译。
 
     Build Nmap (and the Zenmap GUI if its requirements are met): make
-
+    创建Nmap(如果满足需求的话，和Zenmap GUI): make
     Note that GNU Make is required. On BSD-derived Unix systems, this is often installed as gmake. 
+    注意，必须要有GNU Make。 在来源于BSD的Unix的系统上，它常常安装为gmake。
     So if make returns a bunch of errors such as “Makefile, line 1: Need an operator”, try running gmake instead.
-
+    因此，如果make 返回一些列错误，比如 “Makefile, line 1: Need an operator”, 试试运行gmake。
     Become a privileged user for system-wide install: su root
 
     This step may be skipped if you only have an unprivileged shell account on the system. 
