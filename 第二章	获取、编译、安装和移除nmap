@@ -269,13 +269,20 @@ Here are the steps required for a default install:
     Run it with no arguments for a quick help screen.
 
 As you can see above, a simple source compilation and install consists of little more than running ./configure;make;make install as root. 
+正如你从上可知，简单的源代码编译和安装包含很少的命令，不超过用root身份运行  ./configure;make;make install
 However, there are a number of options available to configure that affect the way Nmap is built.
+然而，有很多选项可用于影响建立Nmap的方法。
 Configure Directives
+配置目录
 
 Most of the Unix build options are controlled by the configure script, as used in step number four above. 
+大部分的Unix创建选项由配置脚本控制，就像上面的步骤4中一样。
 There are dozens of command-line parameters and environmental variables which affect the way Nmap is built. 
+有很多命令行参数和环境变量可以影响创建Nmap的方式。
 Run ./configure --help for a huge list with brief descriptions. 
+运行 ./configure --help来获取带有简述的清单。
 These are not applicable to building Nmap on Windows. 
+这些方法在Windows上不合适用于创建Nmap。
 Here are the options which are either specific to Nmap or particularly important:
 
 --prefix=<directoryname>
@@ -413,8 +420,10 @@ I build two packages: The nmap package contains just the command-line executable
 The zenmap package requires that the nmap package be installed first.
 
 Installing via RPM is quite easy—it even downloads the package for you when given the proper URLs. 
+通过RPM安装就更简单--它
 The following example downloads and installs Nmap 4.68, including the frontend. 
 Of course you should use the latest version at the download site above instead. 
+当然，你应该使用下载站点上最新的版本替换上面的。
 Any existing RPM-installed versions are upgraded. 
 Example 2.8 demonstrates this installation process.
 
@@ -456,8 +465,9 @@ Preparing...                ########################################### [100%]
 
 
 It is not necessary to rebuild Zenmap in this fashion because the Zenmap RPM is architecture-independent (“noarch”). 
-For that reason there are no Zenmap source RPMs.
 
+For that reason there are no Zenmap source RPMs.
+由于这个原因，所以没有Zenmap源代码RPM包。
 Removing RPM packages is as easy as rpm -e nmap zenmap.
 Updating Red Hat, Fedora, Mandrake, and Yellow Dog Linux with Yum
 
