@@ -889,10 +889,14 @@ Also let us know if you develop a patch which improves Solaris support so we can
 IBM AIX
 
 Nmap can be installed from source on IBM AIX by following the instructions in the section called “Linux/Unix Compilation and Installation from Source Code”. 
+可在IBM AIX上通过源码来安装Nmap，遵循 “Linux/Unix上从源代码编译和安装Nmap” 一节的指令。
 You need only pay attention to a few details.
+你只需要注意很少一些细节。
 
 You must use the gcc compiler, not xlc. 
+你必须使用gcc编译器，而不是xlc。
 Nmap's configure script will automatically find gcc if it is somewhere in the PATH environment variable.
+如果gcc在PATH环境变量中，Nmap的配置脚本将自动找到它。
 
 Some editions of the default as assembler either crash or produce object files that can't be linked. 
 This is what's happening if you see compiler output like this:
@@ -907,6 +911,7 @@ ld: 0711-596 SEVERE ERROR: Object ../nsock/src/libnsock.a[nsock_core.o]
         but the storage class of the symbol is not C_EXT or C_HIDEXT.
 
 You can work around this problem by installing the as from GNU binutils. 
+通过安装GNU的二进制工具包中的as， 你可以绕过这个问题。
 (But not ld; you want to continue using the default ld.) These instructions were tested on AIX 7.1 with binutils-2.22 from http://ftp.gnu.org/gnu/binutils.
 
 $ bzip2 -dc binutils-2.22.tar.bz2 | tar -xvf -
@@ -918,20 +923,27 @@ $ su
 # gmake install
 
 This will install as in /usr/local/bin. 
+这会把as安装在/usr/local/bin中。
 The custom CFLAGS omit -g, which would otherwise cause one of the as errors you are trying to work around. 
+这个定制的CFLAGS略去了-g，这个-g会引起你试图绕过的错误之一。
 You must make sure that /usr/local/bin appears before /usr/bin in PATH while building and configuring Nmap.
-
+在建立和配置Nmap时，你必须确保PATH中的/usr/local/bin在/usr/bin前面。
 $ export PATH="/usr/local/bin:$PATH"
 
 In some cases GCC is configured to use an absolute path to the assembler. 
+在一些案例中，GCC被配置为编译器的一个绝对路径。
 In this case you will have to temporarily move the default assembler out of the way. 
+在本例中你必须将默认编译器移除。
 You can test whether this is the case by passing the -print-prog-name=as option to gcc:
+你可以用如下命令测试本例是否给gcc传递了选项-print-prog-name=as：
 
 $ gcc -print-prog-name=as
 /usr/bin/as
 
 If you see the output /usr/bin/as, then you must disable the system as with a command like mv /usr/bin/as /usr/bin/as.backup. 
+如果你看到的输出为/usr/bin/as， 那你就必须用类似 mv /usr/bin/as /usr/bin/as.backup的命令来应用系统的as功能。
 If you see the output as, then no other changes should be required.
+如果你看到输出结果为as，那就不需要做其他的改动了。
 
 Now follow the instructions in the section called “Linux/Unix Compilation and Installation from Source Code”.
 AmigaOS
