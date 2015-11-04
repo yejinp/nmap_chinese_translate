@@ -88,7 +88,9 @@ Verifying the Integrity of Nmap Downloads
 It often pays to be paranoid about the integrity of files downloaded from the Internet. 
 Popular packages such as Sendmail (example), OpenSSH (example), tcpdump, Libpcap, BitchX, Fragrouter, and many others have been infected with malicious trojans. 
 Software distributions sites at the Free Software Foundation, Debian, and SourceForge have also been successfully compromised. 
+软件分发站点
 This has never happened to Nmap, but one should always be careful. 
+这不会发生在Nmap上，但也应该小心了。
 To verify the authenticity of an Nmap release, consult the PGP detached signatures or cryptographic hashes (including SHA1 and MD5) posted for the release in the Nmap signatures directory at http://nmap.org/dist/sigs/?C=M&O=D.
 
 The most secure verification mechanism is detached PGP signatures. 
@@ -121,9 +123,8 @@ pub 1024D/6B9355D0 2005-04-24
 uid                Nmap Project Signing Key (http://insecure.org/)
 sub 2048g/A50A6A94 2005-04-24
 
-
 For every Nmap package download file (e.g. nmap-4.76.tar.bz2 and nmap-4.76-win32.zip), there is a corresponding file in the sigs directory with .asc appended to the name (e.g. nmap-4.76.tar.bz2.asc). 
-由于每一个Nmap下载包文件（nmap-4.76.tar.bz2 和 nmap-4.76-win32.zip等）在都有相应的以后缀名为
+由于每一个Nmap下载包文件（nmap-4.76.tar.bz2 和 nmap-4.76-win32.zip等）在都有相应的以后缀名为.asc的
 This is the detached signature file.
 这个文件就是分离的签名文件。
 
@@ -131,20 +132,21 @@ With the proper PGP key in your keyring and the detached signature file download
 That example assumes that the verified file can be found in the same directory by simply removing “.asc” from the signature filename. 
 When that isn't the case, simply pass the target filename as the final argument to GPG. 
 If the file has been tampered with, the results will look like Example 2.4.
+如果文件被篡改过，那结果看起来就像例子2.4。
 
 Example 2.3. Verifying PGP key fingerprints (Successful)
+例子2.3 验证PGP密钥指纹（成功）
 
 flog> gpg --verify nmap-4.76.tar.bz2.asc 
 gpg: Signature made Fri 12 Sep 2008 02:03:59 AM PDT using DSA key ID 6B9355D0
 gpg: Good signature from "Nmap Project Signing Key (http://www.insecure.org/)"
 
-
 Example 2.4. Detecting a bogus file
+例子2.4 检测冒牌文件
 
 flog> gpg --verify nmap-4.76.tar.bz2.asc nmap-4.76-hacked.tar.bz2
 gpg: Signature made Fri 12 Sep 2008 02:03:59 AM PDT using DSA key ID 6B9355D0
 gpg: BAD signature from "Nmap Project Signing Key (http://www.insecure.org/)"
-
 
 While PGP signatures are the recommended validation technique, SHA2, SHA1, and MD5 (among other) hashes are made available for more casual validation. 
 An attacker who can manipulate your Internet traffic in real time (and is extremely skilled) or who compromises Nmap.Org and replaces both the distribution file and digest file, could defeat this test. 
