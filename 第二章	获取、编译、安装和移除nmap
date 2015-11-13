@@ -738,11 +738,16 @@ On my Windows XP box, which installs Nmap in c:\Program Files\Nmap, I do the fol
     Apple Mac OS X
 
 Nmap has supported Mac OS X since 2001, and our support has only improved over time. 
+自从2001年，Nmap就开始支持Mac OS，并随着时间的推移已经有了很大的改进。
 While Mac users can compile Nmap themselves, we also offer an executable installer. 
+虽然Mac用户能够自己编译Nmap，我们也提供了可执行安装程序。
 Nmap is also available through systems such as MacPorts and Fink which package Unix software for Mac OS X.
+
 Executable Installer
+可执行安装程序
 
 The easiest way to install Nmap and Zenmap on Mac OS X is to use our installer. 
+在Mac OS上最简单的安装Nmap和Zenmap方法就是使用我们的安装程序。
 The Mac OS X section of the Nmap download page provides a file named nmap-<version>.dmg, where <version> is the version number of the most recent release. 
 The .dmg file is known as a “disk image”. Installation instructions follow:
 
@@ -877,10 +882,14 @@ FreeBSD Binary Package and Source Ports Instructions
 
 The FreeBSD project has a whole chapter in their Handbook describing the package and port installation processes. 
 A brief summary of the process follows.
+
 Installation of the binary package
+二进制安装包安装
 
 The easiest way to install the binary Nmap package is to run pkg_add -r nmap. 
+最简单的安装二进制Nmap包方法就是运行 pkg_add -r nmap
 You can then run the same command with the zenmap argument if you want the X-Window front-end. 
+然后你可以运行相同的命令，如果你想要X-Window 终端。
 If you wish to obtain the package manually instead, retrieve it from http://freshports.org/security/nmap and http://freshports.org/security/zenmap or the CDROM and run pkg_add <packagename.tgz>.
 Installation using the source ports tree
 
@@ -914,6 +923,7 @@ Nmap's configure script will automatically find gcc if it is somewhere in the PA
 如果gcc在PATH环境变量中，Nmap的配置脚本将自动找到它。
 
 Some editions of the default as assembler either crash or produce object files that can't be linked. 
+
 This is what's happening if you see compiler output like this:
 
 g++: internal compiler error: Segmentation fault (program as)
@@ -961,6 +971,7 @@ If you see the output as, then no other changes should be required.
 如果你看到输出结果为as，那就不需要做其他的改动了。
 
 Now follow the instructions in the section called “Linux/Unix Compilation and Installation from Source Code”.
+根据“Linux/Unix上从源代码编译和安装”一节的命令。
 AmigaOS
 
 One of the wonders of open source development is that resources are often directed towards what people find exciting rather than having an exclusive focus on profits as most corporations do. 
